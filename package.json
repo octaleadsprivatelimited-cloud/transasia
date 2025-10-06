@@ -1,0 +1,20 @@
+{
+  "name": "cybersecure-platform",
+  "version": "1.0.0",
+  "description": "Advanced Cybersecurity Platform - Next-Gen Threat Protection",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "cd client && npm start",
+    "server": "cd server && npm run dev",
+    "build": "cd client && npm run build",
+    "install-all": "npm install && cd client && npm install && cd ../server && npm install",
+    "start": "cd server && npm start"
+  },
+  "keywords": ["cybersecurity", "threat-protection", "security-platform", "risk-management"],
+  "author": "CyberSecure Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
