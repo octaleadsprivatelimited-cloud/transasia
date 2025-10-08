@@ -312,15 +312,27 @@ const CyberSecurityProducts = () => {
       icon: <FaSearch />,
       title: 'HunterCat',
       gradient: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
-      description: 'Advanced threat hunting and detection platform powered by AI. HunterCat continuously monitors your infrastructure, identifies anomalies, and proactively hunts for sophisticated threats before they impact your business.',
+      description: 'Huntercat: Your Powerful Web Application Vulnerability Management Solution. Say goodbye to complex vulnerability management! Huntercat, designed by TransAsia Soft Tech Pvt. Ltd, is a comprehensive solution that simplifies and streamlines the entire web application vulnerability management lifecycle.',
+      subtitle: 'Huntercat offers a powerful feature set designed to empower your security team and reduce your overall risk profile.',
       features: [
-        'AI-Powered Threat Detection',
-        'Real-time Anomaly Identification',
-        'Automated Threat Hunting',
-        'Behavioral Analysis & Pattern Recognition'
+        'Effortless Asset Discovery',
+        'In-depth Vulnerability Scanning and Assessment',
+        'Unified Attack Surface Management',
+        'Enhanced Security Observability',
+        'Streamlined Vulnerability Reporting and Remediation',
+        'Compliance Made Easy',
+        'Security Audits Simplified',
+        'Industry-Specific Security Solutions'
       ],
-      highlight: 'Reduce detection time by 90% with intelligent automation and machine learning algorithms',
-      cta: 'Start hunting threats today with HunterCat!'
+      benefits: [
+        'Reduced Risk',
+        'Improved Efficiency',
+        'Cost Savings',
+        'Enhanced Compliance',
+        'Peace of Mind'
+      ],
+      highlight: 'Comprehensive web application vulnerability management with automated scanning and remediation',
+      cta: 'Sign up today and be among the first to revolutionize your Compliance approach!'
     },
     {
       id: 'sunshine',
@@ -518,7 +530,64 @@ const CyberSecurityProducts = () => {
                       </>
                     )}
 
-                    {product.id !== 'transgrc' && (
+                    {product.id === 'huntercat' && (
+                      <>
+                        {product.subtitle && (
+                          <p style={{ fontSize: '1.15rem', color: 'var(--text-primary)', lineHeight: '1.8', marginBottom: '30px', fontWeight: '600' }}>
+                            {product.subtitle}
+                          </p>
+                        )}
+
+                        <h4 style={{ fontSize: '1.4rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '20px' }}>
+                          How Huntercat solves your real-world problems:
+                        </h4>
+                        <FeaturesList>
+                          {product.features.map((feature, idx) => (
+                            <FeatureItem
+                              key={idx}
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: idx * 0.08 }}
+                            >
+                              <FeatureNumber>{idx + 1}</FeatureNumber>
+                              <FeatureText>{feature}</FeatureText>
+                            </FeatureItem>
+                          ))}
+                        </FeaturesList>
+
+                        <h4 style={{ fontSize: '1.4rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '20px', marginTop: '40px' }}>
+                          How Huntercat Benefits Your Organization:
+                        </h4>
+                        <FeaturesList>
+                          {product.benefits.map((benefit, idx) => (
+                            <FeatureItem
+                              key={idx}
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: idx * 0.08 }}
+                            >
+                              <FeatureNumber>{idx + 1}</FeatureNumber>
+                              <FeatureText>{benefit}</FeatureText>
+                            </FeatureItem>
+                          ))}
+                        </FeaturesList>
+
+                        <Highlight>
+                          {product.highlight}
+                        </Highlight>
+
+                        <div style={{ textAlign: 'center' }}>
+                          <CTAButton
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <FaRocket /> {product.cta}
+                          </CTAButton>
+                        </div>
+                      </>
+                    )}
+
+                    {product.id !== 'transgrc' && product.id !== 'huntercat' && (
                       <>
                         <FeaturesList>
                           {product.features.map((feature, idx) => (
