@@ -481,6 +481,7 @@ const Header = () => {
 
           <NavMenu className={isMenuOpen ? 'active' : ''}>
           <NavLink to="/" onClick={closeMenu}>Home</NavLink>
+          <NavLink to="/insurtech" onClick={closeMenu}>Insurtech</NavLink>
           <NavLink to="/products" onClick={closeMenu}>Products</NavLink>
 
           <Dropdown>
@@ -491,7 +492,6 @@ const Header = () => {
             <DropdownContent className="dropdown-content" $open={activeMenu === 'services'}>
               <DropdownGrid>
                 <DropdownItem to="/services" onClick={closeMenu}>Cybersecurity Services</DropdownItem>
-                <DropdownItem to="/insurtech" onClick={closeMenu}>Insurtech Solutions</DropdownItem>
                 <DropdownItem to="/consulting" onClick={closeMenu}>Consulting Services</DropdownItem>
               </DropdownGrid>
             </DropdownContent>
