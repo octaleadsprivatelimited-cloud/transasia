@@ -8,6 +8,7 @@ import {
   FaLinkedin, 
   FaYoutube, 
   FaGithub,
+  FaInstagram,
   FaArrowRight,
   FaRocket
 } from 'react-icons/fa';
@@ -421,20 +422,14 @@ const Footer = () => {
               threat protection and intelligent risk management for modern enterprises.
             </BrandDescription>
             <SocialLinks>
-              <SocialLink href="#" aria-label="Facebook">
-                <FaFacebook />
+              <SocialLink href="https://www.instagram.com/transasia/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <FaInstagram />
               </SocialLink>
-              <SocialLink href="#" aria-label="Twitter">
-                <FaTwitter />
-              </SocialLink>
-              <SocialLink href="#" aria-label="LinkedIn">
+              <SocialLink href="https://www.linkedin.com/company/transasia-softtech/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <FaLinkedin />
               </SocialLink>
-              <SocialLink href="#" aria-label="YouTube">
-                <FaYoutube />
-              </SocialLink>
-              <SocialLink href="#" aria-label="GitHub">
-                <FaGithub />
+              <SocialLink href="https://www.facebook.com/p/TransAsia-SoftTech-100069516170641/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <FaFacebook />
               </SocialLink>
             </SocialLinks>
           </BrandSection>
