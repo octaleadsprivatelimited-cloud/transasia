@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  FaShieldAlt, FaChevronDown, FaCheckCircle, FaRocket, FaLeaf, FaSearch, FaSun, FaBolt, FaNetworkWired
+  FaChevronDown, FaCheckCircle, FaRocket, FaLeaf, FaSearch, FaSun, FaBolt, FaNetworkWired
 } from 'react-icons/fa';
 
 const rotate = keyframes`
