@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Solutions from './components/Solutions';
+import Countries from './components/Countries';
 import Testimonials from './components/Testimonials';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
@@ -51,6 +52,7 @@ const App = () => {
           <>
             <Hero />
             <Solutions />
+            <Countries />
             <Testimonials />
             <CTA />
           </>
