@@ -1,35 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { 
-  FaRocket, 
-  FaShieldAlt, 
-  FaBrain,
+  FaRocket,
+  FaArrowRight,
   FaCheck,
-  FaPlay,
-  FaPhone
+  FaShieldAlt,
+  FaChartLine,
+  FaGlobe
 } from 'react-icons/fa';
+
+const float = keyframes`
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+`;
+
+const rotate = keyframes`
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+`;
 
 const CTAContainer = styled.section`
   padding: 120px 0;
-  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  background: #ffffff;
   position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-      radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 30% 70%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
-    pointer-events: none;
-  }
 
   @media (max-width: 768px) {
     padding: 80px 0;
@@ -37,41 +32,44 @@ const CTAContainer = styled.section`
 `;
 
 const Container = styled.div`
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 40px;
   position: relative;
-  z-index: 2;
+  z-index: 1;
 
   @media (max-width: 768px) {
-    padding: 0 15px;
+    padding: 0 20px;
   }
 `;
 
-const CTAContent = styled(motion.div)`
-  text-align: center;
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-  border: 1px solid rgba(59, 130, 246, 0.3);
-  box-shadow: 0 20px 60px rgba(59, 130, 246, 0.4);
-  border-radius: 32px;
-  padding: 80px 60px;
+const CTABox = styled(motion.div)`
+  background: linear-gradient(135deg, #0a0e27 0%, #1e3a8a 50%, #3b82f6 100%);
+  border-radius: 40px;
+  padding: 80px;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 30px 100px rgba(59, 130, 246, 0.3);
 
   &::before {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-    animation: rotate 20s linear infinite;
+    inset: -200%;
+    background: conic-gradient(
+      from 0deg,
+      transparent,
+      rgba(59, 130, 246, 0.3),
+      transparent 30%
+    );
+    animation: ${rotate} 6s linear infinite;
   }
 
-  @keyframes rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background: linear-gradient(135deg, #0a0e27 0%, #1e3a8a 50%, #3b82f6 100%);
+    border-radius: 37px;
   }
 
   @media (max-width: 768px) {
@@ -79,296 +77,153 @@ const CTAContent = styled(motion.div)`
   }
 `;
 
-const Badge = styled(motion.div)`
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(0, 255, 136, 0.1);
-  border: 1px solid rgba(0, 255, 136, 0.3);
-  padding: 8px 16px;
-  border-radius: 50px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--primary-color);
-  margin-bottom: 30px;
+const CTAContent = styled.div`
   position: relative;
-  z-index: 3;
+  z-index: 1;
+  text-align: center;
 `;
 
-const Title = styled(motion.h2)`
-  font-size: clamp(36px, 6vw, 56px);
+const CTATitle = styled.h2`
+  font-size: 4rem;
   font-weight: 900;
-  line-height: 1.1;
+  color: white;
   margin-bottom: 24px;
-  color: #ffffff;
-  letter-spacing: -1px;
-  position: relative;
-  z-index: 3;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  letter-spacing: -2px;
+  line-height: 1.1;
 
   @media (max-width: 768px) {
-    margin-bottom: 20px;
+    font-size: 2.5rem;
   }
 `;
 
-const Subtitle = styled(motion.p)`
-  font-size: 20px;
+const CTASubtitle = styled.p`
+  font-size: 1.4rem;
   color: rgba(255, 255, 255, 0.9);
-  line-height: 1.6;
-  margin-bottom: 40px;
-  max-width: 600px;
+  margin-bottom: 50px;
+  line-height: 1.7;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
-  position: relative;
-  z-index: 3;
 
   @media (max-width: 768px) {
-    font-size: 18px;
-    margin-bottom: 30px;
+    font-size: 1.15rem;
   }
 `;
 
-const ButtonGroup = styled(motion.div)`
+const ButtonGroup = styled.div`
   display: flex;
   gap: 20px;
   justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
   margin-bottom: 60px;
-  position: relative;
-  z-index: 3;
 
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 15px;
+    align-items: center;
   }
 `;
 
-const PrimaryButton = styled(Link)`
+const PrimaryButton = styled.button`
+  padding: 24px 60px;
   background: white;
   color: #1e3a8a;
-  padding: 20px 45px;
-  border-radius: 14px;
-  text-decoration: none;
+  border: none;
+  border-radius: 16px;
+  font-size: 1.2rem;
   font-weight: 800;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-  display: flex;
+  cursor: pointer;
+  display: inline-flex;
   align-items: center;
   gap: 12px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.2), transparent);
-    transition: left 0.5s;
-  }
+  transition: all 0.3s ease;
+  box-shadow: 0 15px 50px rgba(255, 255, 255, 0.2);
 
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-    background: #f8fafc;
-
-    &::before {
-      left: 100%;
-    }
+    transform: translateY(-4px);
+    box-shadow: 0 20px 70px rgba(255, 255, 255, 0.3);
   }
 
   @media (max-width: 768px) {
-    padding: 16px 35px;
-    font-size: 1rem;
     width: 100%;
     justify-content: center;
+    padding: 20px 50px;
   }
 `;
 
-const SecondaryButton = styled(Link)`
+const SecondaryButton = styled.button`
+  padding: 24px 60px;
   background: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.3);
   color: white;
-  padding: 18px 40px;
-  border-radius: 14px;
-  text-decoration: none;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  font-size: 1.2rem;
   font-weight: 700;
-  font-size: 1.1rem;
+  cursor: pointer;
   transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 10px;
   backdrop-filter: blur(10px);
 
   &:hover {
     background: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 50px rgba(255, 255, 255, 0.15);
   }
 
   @media (max-width: 768px) {
-    padding: 16px 35px;
-    font-size: 1rem;
     width: 100%;
-    justify-content: center;
+    padding: 20px 50px;
   }
 `;
 
-const TertiaryButton = styled(Link)`
-  background: transparent;
-  border: 2px solid var(--secondary-color);
-  color: var(--secondary-color);
-  padding: 16px 32px;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  &:hover {
-    background: var(--secondary-color);
-    color: #ffffff;
-    transform: translateY(-3px);
-  }
-
-  @media (max-width: 768px) {
-    padding: 14px 28px;
-    font-size: 14px;
-    width: 100%;
-    justify-content: center;
-  }
-`;
-
-const FeaturesList = styled(motion.div)`
+const Features = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-  margin-top: 60px;
-  position: relative;
-  z-index: 3;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 900px;
+  margin: 0 auto;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 20px;
-    margin-top: 40px;
+    gap: 24px;
   }
 `;
 
 const FeatureItem = styled.div`
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 16px;
   padding: 20px;
-  background: rgba(0, 255, 136, 0.05);
-  border: 1px solid rgba(0, 255, 136, 0.1);
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
 
   &:hover {
-    background: rgba(0, 255, 136, 0.1);
-    transform: translateY(-2px);
-  }
-
-  @media (max-width: 768px) {
-    padding: 15px;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(59, 130, 246, 0.5);
+    transform: translateX(5px);
   }
 `;
 
 const FeatureIcon = styled.div`
-  width: 40px;
-  height: 40px;
-  background: var(--gradient-primary);
-  border-radius: 8px;
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
-  color: #000000;
+  color: white;
+  font-size: 1.3rem;
   flex-shrink: 0;
-
-  @media (max-width: 768px) {
-    width: 35px;
-    height: 35px;
-    font-size: 14px;
-  }
 `;
 
 const FeatureText = styled.div`
-  color: var(--text-primary);
-  font-weight: 500;
-  font-size: 16px;
-
-  @media (max-width: 768px) {
-    font-size: 14px;
-  }
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: white;
+  text-align: left;
 `;
-
-const TrustIndicators = styled(motion.div)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
-  margin-top: 40px;
-  padding-top: 40px;
-  border-top: 1px solid rgba(0, 255, 136, 0.1);
-  position: relative;
-  z-index: 3;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 30px;
-    padding-top: 30px;
-  }
-`;
-
-const TrustItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--text-secondary);
-  font-size: 14px;
-
-  @media (max-width: 768px) {
-    font-size: 12px;
-  }
-`;
-
-const TrustIcon = styled.div`
-  color: var(--primary-color);
-  font-size: 16px;
-
-  @media (max-width: 768px) {
-    font-size: 14px;
-  }
-`;
-
-const features = [
-  {
-    icon: <FaCheck />,
-    text: "30-day free trial"
-  },
-  {
-    icon: <FaCheck />,
-    text: "No setup fees"
-  },
-  {
-    icon: <FaCheck />,
-    text: "24/7 expert support"
-  },
-  {
-    icon: <FaCheck />,
-    text: "Cancel anytime"
-  }
-];
 
 const CTA = () => {
   const [ref, inView] = useInView({
@@ -379,96 +234,47 @@ const CTA = () => {
   return (
     <CTAContainer ref={ref}>
       <Container>
-        <CTAContent
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+        <CTABox
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <Badge
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <FaRocket />
-            Ready to Get Started?
-          </Badge>
+          <CTAContent>
+            <CTATitle>
+              Start Protecting Your
+              <br />
+              Organization Today
+            </CTATitle>
+            
+            <CTASubtitle>
+              Join 500+ enterprises worldwide who trust Trans Asia Tech for their cybersecurity needs
+            </CTASubtitle>
 
-          <Title
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            Transform Your Security
-            <br />
-            Posture Today
-          </Title>
+            <ButtonGroup>
+              <PrimaryButton>
+                Get Started Free <FaArrowRight />
+              </PrimaryButton>
+              <SecondaryButton>
+                Schedule Demo
+              </SecondaryButton>
+            </ButtonGroup>
 
-          <Subtitle
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            Join hundreds of enterprises already protecting their digital assets 
-            with our AI-powered cybersecurity platform. Start your free trial today.
-          </Subtitle>
-
-          <ButtonGroup
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.8 }}
-          >
-            <PrimaryButton to="/signup">
-              <FaRocket />
-              Start Free Trial
-            </PrimaryButton>
-            <SecondaryButton to="/demo">
-              <FaPlay />
-              Watch Demo
-            </SecondaryButton>
-            <TertiaryButton to="/contact">
-              <FaPhone />
-              Talk to Sales
-            </TertiaryButton>
-          </ButtonGroup>
-
-          <FeaturesList
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 1.0 }}
-          >
-            {features.map((feature, index) => (
-              <FeatureItem key={index}>
-                <FeatureIcon>{feature.icon}</FeatureIcon>
-                <FeatureText>{feature.text}</FeatureText>
+            <Features>
+              <FeatureItem>
+                <FeatureIcon><FaCheck /></FeatureIcon>
+                <FeatureText>No credit card required</FeatureText>
               </FeatureItem>
-            ))}
-          </FeaturesList>
-
-          <TrustIndicators
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 1.2 }}
-          >
-            <TrustItem>
-              <TrustIcon>
-                <FaShieldAlt />
-              </TrustIcon>
-              SOC 2 Type II Certified
-            </TrustItem>
-            <TrustItem>
-              <TrustIcon>
-                <FaBrain />
-              </TrustIcon>
-              GDPR Compliant
-            </TrustItem>
-            <TrustItem>
-              <TrustIcon>
-                <FaCheck />
-              </TrustIcon>
-              99.9% Uptime SLA
-            </TrustItem>
-          </TrustIndicators>
-        </CTAContent>
+              <FeatureItem>
+                <FeatureIcon><FaCheck /></FeatureIcon>
+                <FeatureText>14-day free trial</FeatureText>
+              </FeatureItem>
+              <FeatureItem>
+                <FeatureIcon><FaCheck /></FeatureIcon>
+                <FeatureText>Cancel anytime</FeatureText>
+              </FeatureItem>
+            </Features>
+          </CTAContent>
+        </CTABox>
       </Container>
     </CTAContainer>
   );

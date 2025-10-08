@@ -1,19 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import styled, { keyframes } from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { 
-  FaQuoteLeft, 
-  FaStar, 
-  FaChevronLeft, 
-  FaChevronRight,
-  FaBuilding
+  FaQuoteLeft,
+  FaStar,
+  FaChevronLeft,
+  FaChevronRight
 } from 'react-icons/fa';
+
+const float = keyframes`
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+`;
 
 const TestimonialsContainer = styled.section`
   padding: 120px 0;
-  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+  background: linear-gradient(135deg, #0a0e27 0%, #1a237e 50%, #0d47a1 100%);
   position: relative;
+  overflow: hidden;
 
   &::before {
     content: '';
@@ -23,9 +28,8 @@ const TestimonialsContainer = styled.section`
     right: 0;
     bottom: 0;
     background: 
-      radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 30% 70%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
-    pointer-events: none;
+      radial-gradient(circle at 20% 80%, rgba(33, 150, 243, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(100, 181, 246, 0.15) 0%, transparent 50%);
   }
 
   @media (max-width: 768px) {
@@ -36,94 +40,56 @@ const TestimonialsContainer = styled.section`
 const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 40px;
   position: relative;
-  z-index: 2;
+  z-index: 1;
 
   @media (max-width: 768px) {
-    padding: 0 15px;
+    padding: 0 20px;
   }
 `;
 
-const SectionHeader = styled(motion.div)`
+const SectionHeader = styled.div`
   text-align: center;
   margin-bottom: 80px;
-
-  @media (max-width: 768px) {
-    margin-bottom: 60px;
-  }
-`;
-
-const Badge = styled(motion.div)`
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(0, 102, 255, 0.1);
-  border: 1px solid rgba(0, 102, 255, 0.3);
-  padding: 8px 16px;
-  border-radius: 50px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--secondary-color);
-  margin-bottom: 20px;
 `;
 
 const Title = styled(motion.h2)`
-  font-size: clamp(36px, 6vw, 48px);
-  font-weight: 800;
-  line-height: 1.2;
-  margin-bottom: 20px;
-  background: linear-gradient(135deg, #ffffff 0%, #0066ff 100%);
+  font-size: 3.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ffffff 0%, #60a5fa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  margin-bottom: 20px;
+  letter-spacing: -2px;
+
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
 `;
 
 const Subtitle = styled(motion.p)`
-  font-size: 18px;
+  font-size: 1.2rem;
   color: rgba(255, 255, 255, 0.8);
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
-  line-height: 1.6;
 `;
 
-const TestimonialsWrapper = styled.div`
+const CarouselContainer = styled.div`
   position: relative;
-  margin-bottom: 60px;
-`;
-
-const TestimonialSlider = styled.div`
-  display: flex;
-  overflow: hidden;
-  border-radius: 20px;
+  max-width: 900px;
+  margin: 0 auto;
 `;
 
 const TestimonialCard = styled(motion.div)`
-  min-width: 100%;
-  background: rgba(30, 58, 138, 0.2);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(59, 130, 246, 0.2);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-  border-radius: 24px;
-  padding: 60px 50px;
-  text-align: center;
+  background: rgba(30, 58, 138, 0.3);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 32px;
+  padding: 60px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.4);
   position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-    transition: left 0.5s;
-  }
-
-  &:hover::before {
-    left: 100%;
-  }
 
   @media (max-width: 768px) {
     padding: 40px 30px;
@@ -131,296 +97,151 @@ const TestimonialCard = styled(motion.div)`
 `;
 
 const QuoteIcon = styled.div`
-  width: 60px;
-  height: 60px;
-  background: var(--gradient-secondary);
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.8rem;
+  color: white;
   margin: 0 auto 30px;
-  font-size: 24px;
-  color: #ffffff;
-
-  @media (max-width: 768px) {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
-    margin-bottom: 20px;
-  }
+  box-shadow: 0 15px 50px rgba(59, 130, 246, 0.5);
+  animation: ${float} 3s ease-in-out infinite;
 `;
 
-const TestimonialText = styled.blockquote`
-  font-size: 24px;
-  line-height: 1.6;
-  color: #ffffff;
-  margin-bottom: 30px;
+const TestimonialText = styled.p`
+  font-size: 1.5rem;
+  line-height: 1.8;
+  color: white;
+  text-align: center;
+  margin-bottom: 40px;
   font-style: italic;
+  font-weight: 400;
 
   @media (max-width: 768px) {
-    font-size: 18px;
-    margin-bottom: 20px;
+    font-size: 1.2rem;
   }
 `;
 
 const Rating = styled.div`
   display: flex;
   justify-content: center;
-  gap: 5px;
+  gap: 8px;
   margin-bottom: 30px;
-
-  @media (max-width: 768px) {
-    margin-bottom: 20px;
-  }
 `;
 
 const Star = styled.div`
-  color: #ffd700;
-  font-size: 20px;
-
-  @media (max-width: 768px) {
-    font-size: 16px;
-  }
+  color: #fbbf24;
+  font-size: 1.3rem;
 `;
 
-const AuthorInfo = styled.div`
+const AuthorSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 20px;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 10px;
-  }
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 `;
 
 const AuthorAvatar = styled.div`
-  width: 60px;
-  height: 60px;
-  background: var(--gradient-primary);
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
-  color: #000000;
+  font-size: 1.8rem;
   font-weight: 700;
-
-  @media (max-width: 768px) {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
-  }
+  color: white;
+  box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
 `;
 
-const AuthorDetails = styled.div`
+const AuthorInfo = styled.div`
   text-align: left;
-
-  @media (max-width: 768px) {
-    text-align: center;
-  }
 `;
 
 const AuthorName = styled.div`
-  font-size: 18px;
+  font-size: 1.2rem;
   font-weight: 700;
-  color: #ffffff;
+  color: white;
   margin-bottom: 4px;
-
-  @media (max-width: 768px) {
-    font-size: 16px;
-  }
 `;
 
 const AuthorTitle = styled.div`
-  font-size: 14px;
+  font-size: 1rem;
   color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 2px;
-
-  @media (max-width: 768px) {
-    font-size: 12px;
-  }
 `;
 
 const AuthorCompany = styled.div`
-  font-size: 14px;
+  font-size: 0.95rem;
   color: #60a5fa;
-  font-weight: 500;
-
-  @media (max-width: 768px) {
-    font-size: 12px;
-  }
+  font-weight: 600;
 `;
 
-const NavigationButtons = styled.div`
+const Navigation = styled.div`
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin-bottom: 60px;
+  margin-top: 50px;
 `;
 
 const NavButton = styled.button`
-  width: 50px;
-  height: 50px;
-  background: rgba(26, 26, 26, 0.5);
-  border: 1px solid rgba(0, 102, 255, 0.3);
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  color: var(--secondary-color);
-  font-size: 18px;
+  background: rgba(59, 130, 246, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  color: white;
+  font-size: 1.3rem;
   cursor: pointer;
-  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s ease;
 
   &:hover {
-    background: rgba(0, 102, 255, 0.1);
-    border-color: rgba(0, 102, 255, 0.5);
+    background: rgba(59, 130, 246, 0.4);
+    border-color: rgba(59, 130, 246, 0.6);
     transform: scale(1.1);
   }
 
   &:disabled {
     opacity: 0.3;
     cursor: not-allowed;
-    transform: none;
-  }
 
-  @media (max-width: 768px) {
-    width: 40px;
-    height: 40px;
-    font-size: 14px;
+    &:hover {
+      transform: none;
+    }
   }
 `;
 
 const Dots = styled.div`
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
+  margin-top: 30px;
 `;
 
 const Dot = styled.button`
   width: 12px;
   height: 12px;
   border-radius: 50%;
+  background: ${props => props.active ? '#3b82f6' : 'rgba(255, 255, 255, 0.3)'};
   border: none;
-  background: ${props => props.active ? 'var(--secondary-color)' : 'rgba(255, 255, 255, 0.3)'};
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: ${props => props.active ? '0 0 20px rgba(59, 130, 246, 0.6)' : 'none'};
 
   &:hover {
-    background: var(--secondary-color);
-    transform: scale(1.2);
+    background: ${props => props.active ? '#3b82f6' : 'rgba(255, 255, 255, 0.5)'};
+    transform: scale(1.3);
   }
 `;
-
-const LogosSection = styled(motion.div)`
-  background: rgba(26, 26, 26, 0.3);
-  border: 1px solid rgba(0, 102, 255, 0.1);
-  border-radius: 20px;
-  padding: 40px;
-  margin-top: 60px;
-
-  @media (max-width: 768px) {
-    padding: 30px 20px;
-    margin-top: 40px;
-  }
-`;
-
-const LogosTitle = styled.h3`
-  text-align: center;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  margin-bottom: 30px;
-`;
-
-const LogosGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 30px;
-  align-items: center;
-  justify-items: center;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-`;
-
-const LogoItem = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.6;
-  transition: all 0.3s ease;
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--text-secondary);
-
-  &:hover {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-
-  @media (max-width: 768px) {
-    font-size: 18px;
-  }
-`;
-
-const testimonials = [
-  {
-    text: "Trans Asia Tech has revolutionized our security posture. The AI-powered threat detection has prevented multiple sophisticated attacks that would have cost us millions.",
-    rating: 5,
-    author: {
-      name: "Sarah Johnson",
-      title: "CISO",
-      company: "TechCorp Global",
-      avatar: "SJ"
-    }
-  },
-  {
-    text: "The autonomous response capabilities have reduced our incident response time by 90%. Our security team can now focus on strategic initiatives rather than firefighting.",
-    rating: 5,
-    author: {
-      name: "Michael Chen",
-      title: "Head of Security",
-      company: "FinanceFirst Inc",
-      avatar: "MC"
-    }
-  },
-  {
-    text: "The risk quantification feature has been invaluable for our board presentations. We can now clearly demonstrate the ROI of our security investments.",
-    rating: 5,
-    author: {
-      name: "Emily Rodriguez",
-      title: "Risk Manager",
-      company: "Healthcare Solutions",
-      avatar: "ER"
-    }
-  },
-  {
-    text: "Trans Asia Tech's third-party risk management has streamlined our vendor assessment process. We can now monitor our entire supply chain in real-time.",
-    rating: 5,
-    author: {
-      name: "David Thompson",
-      title: "Compliance Director",
-      company: "Manufacturing Plus",
-      avatar: "DT"
-    }
-  }
-];
-
-const companyLogos = [
-  "TechCorp Global",
-  "FinanceFirst Inc",
-  "Healthcare Solutions",
-  "Manufacturing Plus",
-  "RetailMax",
-  "EnergyCorp",
-  "MediaGroup",
-  "EduTech"
-];
 
 const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -429,136 +250,124 @@ const Testimonials = () => {
     triggerOnce: true
   });
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => 
-        prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 5000);
+  const testimonials = [
+    {
+      text: "Trans Asia Tech has revolutionized our security posture. The AI-powered threat detection has prevented multiple sophisticated attacks that would have cost us millions.",
+      rating: 5,
+      author: {
+        name: "Sarah Johnson",
+        title: "CISO",
+        company: "TechCorp Global",
+        avatar: "SJ"
+      }
+    },
+    {
+      text: "The platform's intuitive interface and powerful analytics have transformed how we approach cybersecurity. We now have complete visibility across our infrastructure.",
+      rating: 5,
+      author: {
+        name: "Michael Chen",
+        title: "Security Director",
+        company: "FinanceFirst Bank",
+        avatar: "MC"
+      }
+    },
+    {
+      text: "Trans Asia Tech's third-party risk management has streamlined our vendor assessment process. We can now monitor our entire supply chain in real-time.",
+      rating: 5,
+      author: {
+        name: "David Thompson",
+        title: "Compliance Director",
+        company: "Manufacturing Plus",
+        avatar: "DT"
+      }
+    }
+  ];
 
-    return () => clearInterval(interval);
-  }, []);
-
-  const goToPrevious = () => {
-    setCurrentIndex(currentIndex === 0 ? testimonials.length - 1 : currentIndex - 1);
+  const nextTestimonial = () => {
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
   };
 
-  const goToNext = () => {
-    setCurrentIndex(currentIndex === testimonials.length - 1 ? 0 : currentIndex + 1);
-  };
-
-  const goToSlide = (index) => {
-    setCurrentIndex(index);
+  const prevTestimonial = () => {
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
   return (
     <TestimonialsContainer ref={ref}>
       <Container>
         <SectionHeader>
-          <Badge
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-          >
-            <FaQuoteLeft />
-            Customer Success
-          </Badge>
-
           <Title
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8 }}
           >
-            What Our Clients
-            <br />
-            Say
+            Trusted by Industry Leaders
           </Title>
-
           <Subtitle
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Don't just take our word for it. Hear from industry leaders who have 
-            transformed their security posture with Trans Asia Tech.
+            See what our clients say about protecting their digital assets
           </Subtitle>
         </SectionHeader>
 
-        <TestimonialsWrapper>
-          <NavigationButtons>
-            <NavButton onClick={goToPrevious}>
+        <CarouselContainer>
+          <AnimatePresence mode="wait">
+            <TestimonialCard
+              key={currentIndex}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.5 }}
+            >
+              <QuoteIcon>
+                <FaQuoteLeft />
+              </QuoteIcon>
+
+              <TestimonialText>
+                "{testimonials[currentIndex].text}"
+              </TestimonialText>
+
+              <Rating>
+                {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
+                  <Star key={i}>
+                    <FaStar />
+                  </Star>
+                ))}
+              </Rating>
+
+              <AuthorSection>
+                <AuthorAvatar>
+                  {testimonials[currentIndex].author.avatar}
+                </AuthorAvatar>
+                <AuthorInfo>
+                  <AuthorName>{testimonials[currentIndex].author.name}</AuthorName>
+                  <AuthorTitle>{testimonials[currentIndex].author.title}</AuthorTitle>
+                  <AuthorCompany>{testimonials[currentIndex].author.company}</AuthorCompany>
+                </AuthorInfo>
+              </AuthorSection>
+            </TestimonialCard>
+          </AnimatePresence>
+
+          <Navigation>
+            <NavButton onClick={prevTestimonial}>
               <FaChevronLeft />
             </NavButton>
-            <NavButton onClick={goToNext}>
+            <NavButton onClick={nextTestimonial}>
               <FaChevronRight />
             </NavButton>
-          </NavigationButtons>
-
-          <TestimonialSlider>
-            <AnimatePresence mode="wait">
-              <TestimonialCard
-                key={currentIndex}
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-                transition={{ duration: 0.5 }}
-              >
-                <QuoteIcon>
-                  <FaQuoteLeft />
-                </QuoteIcon>
-                
-                <TestimonialText>
-                  "{testimonials[currentIndex].text}"
-                </TestimonialText>
-
-                <Rating>
-                  {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                    <Star key={i}>
-                      <FaStar />
-                    </Star>
-                  ))}
-                </Rating>
-
-                <AuthorInfo>
-                  <AuthorAvatar>
-                    {testimonials[currentIndex].author.avatar}
-                  </AuthorAvatar>
-                  <AuthorDetails>
-                    <AuthorName>{testimonials[currentIndex].author.name}</AuthorName>
-                    <AuthorTitle>{testimonials[currentIndex].author.title}</AuthorTitle>
-                    <AuthorCompany>{testimonials[currentIndex].author.company}</AuthorCompany>
-                  </AuthorDetails>
-                </AuthorInfo>
-              </TestimonialCard>
-            </AnimatePresence>
-          </TestimonialSlider>
+          </Navigation>
 
           <Dots>
             {testimonials.map((_, index) => (
               <Dot
                 key={index}
-                active={index === currentIndex}
-                onClick={() => goToSlide(index)}
+                active={currentIndex === index}
+                onClick={() => setCurrentIndex(index)}
               />
             ))}
           </Dots>
-        </TestimonialsWrapper>
-
-        <LogosSection
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <LogosTitle>Trusted by Industry Leaders</LogosTitle>
-          <LogosGrid>
-            {companyLogos.map((logo, index) => (
-              <LogoItem key={index}>
-                <FaBuilding />
-                <span style={{ marginLeft: '8px' }}>{logo}</span>
-              </LogoItem>
-            ))}
-          </LogosGrid>
-        </LogosSection>
+        </CarouselContainer>
       </Container>
     </TestimonialsContainer>
   );
