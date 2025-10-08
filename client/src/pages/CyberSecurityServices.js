@@ -389,7 +389,24 @@ const CyberSecurityServices = () => {
       title: 'Infrastructure Security Assessment',
       gradient: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
       image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200',
-      description: 'Complete evaluation of your network infrastructure, servers, cloud environments, and security controls. We identify misconfigurations, vulnerabilities, and security gaps across your entire IT infrastructure.'
+      description: 'Infrastructure Security Assessment (ISA) is a comprehensive evaluation of an organization\'s IT infrastructure to identify vulnerabilities, security misconfigurations, and potential attack vectors. It plays a crucial role in safeguarding critical systems and data from cyber threats. This assessment draws upon methodologies from frameworks like NIST and penetration testing to provide a robust security posture.',
+      nistSection: {
+        title: 'Methodology',
+        description: 'Following a structured approach ensures a thorough and effective ISA. Align with NIST Special Publication 800-30 (Risk Management Framework for Information Systems) to identify high-risk assets and prioritize them for testing.',
+        phases: [
+          'Planning and Scoping',
+          'Information Gathering',
+          'Vulnerability Scanning and Assessment',
+          'Data Analysis and Reporting',
+          'Remediation and Follow-up'
+        ]
+      },
+      benefits: [
+        'Improved Security Posture',
+        'Regulatory Compliance',
+        'Proactive Risk Management',
+        'Enhanced Decision-making'
+      ]
     },
     {
       id: 'ot-iot',
@@ -397,7 +414,65 @@ const CyberSecurityServices = () => {
       title: 'OT and IOT Cyber Assessments',
       gradient: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
       image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200',
-      description: 'Specialized security assessments for Operational Technology (OT) and Internet of Things (IoT) environments. We evaluate industrial control systems, SCADA networks, and connected devices to ensure operational safety and security.'
+      description: 'OT and IoT cyber assessments are crucial for understanding and mitigating the risks associated with these interconnected systems.',
+      definitions: [
+        {
+          term: 'OT (Operational Technology)',
+          definition: 'Systems that control and monitor physical processes in industrial environments. Think factories, manufacturing plants, power grids, water treatment plants.'
+        },
+        {
+          term: 'IoT (Internet of Things)',
+          definition: 'A vast network of interconnected devices with embedded sensors, software, and network connectivity. Examples include smart homes, wearables, and industrial machinery.'
+        }
+      ],
+      whyNeeded: [
+        'Increased Connectivity: Both OT and IoT systems are increasingly connected to the internet, expanding their attack surface',
+        'Critical Infrastructure: Disruptions to OT systems can have severe consequences, from power outages to safety hazards',
+        'Data Security: IoT devices often collect sensitive data, making them targets for data breaches',
+        'Compliance: Regulations like NIST and NERC CIP mandate cybersecurity assessments for critical infrastructure'
+      ],
+      keyAreas: [
+        {
+          title: 'Asset Discovery',
+          points: [
+            'Identify all devices and systems within the OT/IoT environment',
+            'Understand their criticality and interdependencies'
+          ]
+        },
+        {
+          title: 'Vulnerability Assessment',
+          points: [
+            'Identify and prioritize known vulnerabilities in devices, software, and firmware',
+            'Utilize vulnerability scanning tools and penetration testing techniques'
+          ]
+        },
+        {
+          title: 'Threat Modeling',
+          points: [
+            'Analyze potential threats and attack vectors',
+            'Consider insider threats, external attacks, and physical security risks'
+          ]
+        },
+        {
+          title: 'Risk Assessment',
+          points: [
+            'Evaluate the likelihood and impact of potential security incidents',
+            'Prioritize risks based on their severity and potential consequences'
+          ]
+        },
+        {
+          title: 'Security Controls Evaluation',
+          points: [
+            'Assess the effectiveness of existing security controls, such as firewalls, intrusion detection systems, and access controls'
+          ]
+        },
+        {
+          title: 'Compliance Review',
+          points: [
+            'Ensure compliance with relevant industry standards and regulations'
+          ]
+        }
+      ]
     },
     {
       id: 'anti-ransomware',
@@ -631,7 +706,120 @@ const CyberSecurityServices = () => {
                       </>
                     )}
 
-                    {service.id !== 'red-team' && service.id !== 'app-security' && (
+                    {service.id === 'infrastructure' && (
+                      <>
+                        <SubSection>
+                          <SubSectionTitle>{service.nistSection.title}</SubSectionTitle>
+                          <SubSectionDescription>{service.nistSection.description}</SubSectionDescription>
+                          <PointsList>
+                            {service.nistSection.phases.map((phase, idx) => (
+                              <PointItem
+                                key={idx}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.08 }}
+                              >
+                                <PointNumber>{idx + 1}</PointNumber>
+                                <PointText>{phase}</PointText>
+                              </PointItem>
+                            ))}
+                          </PointsList>
+                        </SubSection>
+
+                        <SubSection>
+                          <SubSectionTitle>Benefits of ISA:</SubSectionTitle>
+                          <PointsList>
+                            {service.benefits.map((benefit, idx) => (
+                              <PointItem
+                                key={idx}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.1 }}
+                              >
+                                <PointNumber>{idx + 1}</PointNumber>
+                                <PointText>{benefit}</PointText>
+                              </PointItem>
+                            ))}
+                          </PointsList>
+                        </SubSection>
+
+                        <div style={{ textAlign: 'center', marginTop: '40px' }}>
+                          <CTAButton
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <FaRocket /> Request Infrastructure Security Assessment
+                          </CTAButton>
+                        </div>
+                      </>
+                    )}
+
+                    {service.id === 'ot-iot' && (
+                      <>
+                        <SubSection>
+                          <SubSectionTitle>What are OT and IoT?</SubSectionTitle>
+                          {service.definitions.map((def, idx) => (
+                            <div key={idx} style={{ marginBottom: '20px' }}>
+                              <h5 style={{ fontSize: '1.15rem', fontWeight: '700', color: 'var(--primary-color)', marginBottom: '8px' }}>
+                                • {def.term}:
+                              </h5>
+                              <p style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', lineHeight: '1.7', paddingLeft: '20px' }}>
+                                {def.definition}
+                              </p>
+                            </div>
+                          ))}
+                        </SubSection>
+
+                        <SubSection>
+                          <SubSectionTitle>Why are Cyber Assessments Needed?</SubSectionTitle>
+                          <PointsList>
+                            {service.whyNeeded.map((reason, idx) => (
+                              <PointItem
+                                key={idx}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.08 }}
+                              >
+                                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary-color)', flexShrink: 0 }} />
+                                <PointText>{reason}</PointText>
+                              </PointItem>
+                            ))}
+                          </PointsList>
+                        </SubSection>
+
+                        <SubSection>
+                          <SubSectionTitle>Key Areas of an OT/IoT Cyber Assessment:</SubSectionTitle>
+                          {service.keyAreas.map((area, idx) => (
+                            <div key={idx} style={{ marginBottom: '30px' }}>
+                              <h5 style={{ fontSize: '1.2rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '16px' }}>
+                                {idx + 1}. {area.title}:
+                              </h5>
+                              <div style={{ display: 'grid', gap: '12px', paddingLeft: '20px' }}>
+                                {area.points.map((point, pointIdx) => (
+                                  <div key={pointIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                                    <span style={{ color: 'var(--primary-color)', fontSize: '1.2rem', marginTop: '2px' }}>•</span>
+                                    <span style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', lineHeight: '1.7', flex: 1 }}>
+                                      {point}
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </SubSection>
+
+                        <div style={{ textAlign: 'center', marginTop: '40px' }}>
+                          <CTAButton
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <FaRocket /> Request OT/IoT Security Assessment
+                          </CTAButton>
+                        </div>
+                      </>
+                    )}
+
+                    {service.id !== 'red-team' && service.id !== 'app-security' && service.id !== 'infrastructure' && service.id !== 'ot-iot' && (
                       <div style={{ textAlign: 'center', marginTop: '30px' }}>
                         <CTAButton
                           whileHover={{ scale: 1.05 }}
