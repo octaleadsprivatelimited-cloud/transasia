@@ -573,7 +573,33 @@ const CyberSecurityServices = () => {
       title: 'Cyber Security Training',
       gradient: 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)',
       image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1200',
-      description: 'Comprehensive security awareness and technical training programs. We offer customized training for employees, security teams, and executives covering topics from basic security hygiene to advanced threat detection and incident response.'
+      description: 'In today\'s digital age, cyber threats are constantly evolving. Equipping your employees with the knowledge and skills to combat these threats is no longer optional, it\'s essential. TransAsia Soft Tech offers comprehensive customized Cybersecurity Training Programs designed to address the unique needs of your organization.',
+      whyCustomized: {
+        title: 'Why Choose Customized Training?',
+        reasons: [
+          'Targeted Learning',
+          'Improved Engagement',
+          'Enhanced Security Posture'
+        ]
+      },
+      trainingApproach: {
+        title: 'Our Customized Training Approach',
+        steps: [
+          'Needs Assessment',
+          'Content Development',
+          'Delivery Options'
+        ]
+      },
+      benefits: [
+        'Reduced Risk of Cyberattacks',
+        'Improved Data Security',
+        'Enhanced Compliance',
+        'Increased Employee Productivity'
+      ],
+      cta: {
+        title: 'Invest in your Secure Digital Future',
+        description: 'Don\'t wait for a cyberattack to expose your vulnerabilities. TransAsia Soft Tech Pvt Ltd can help you build a strong CyberSecurity culture with our customized training programs. Contact us today for a free consultation and learn how we can empower your workforce to stay safe online.'
+      }
     }
   ];
 
@@ -1206,7 +1232,177 @@ const CyberSecurityServices = () => {
                       </>
                     )}
 
-                    {service.id !== 'red-team' && service.id !== 'app-security' && service.id !== 'infrastructure' && service.id !== 'ot-iot' && service.id !== 'anti-ransomware' && service.id !== 'data-breach' && service.id !== 'cyber-forensic' && (
+                    {service.id === 'training' && (
+                      <>
+                        <SubSection>
+                          <SubSectionTitle>{service.whyCustomized.title}</SubSectionTitle>
+                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '25px', marginTop: '30px' }}>
+                            {service.whyCustomized.reasons.map((reason, idx) => (
+                              <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: idx * 0.12 }}
+                                style={{
+                                  padding: '35px 30px',
+                                  background: 'linear-gradient(135deg, rgba(20, 184, 166, 0.1) 0%, rgba(13, 148, 136, 0.1) 100%)',
+                                  borderRadius: '20px',
+                                  border: '2px solid rgba(20, 184, 166, 0.2)',
+                                  textAlign: 'center',
+                                  transition: 'all 0.3s ease'
+                                }}
+                                whileHover={{
+                                  y: -8,
+                                  borderColor: 'rgba(20, 184, 166, 0.4)',
+                                  boxShadow: '0 12px 40px rgba(20, 184, 166, 0.2)'
+                                }}
+                              >
+                                <div style={{
+                                  width: '70px',
+                                  height: '70px',
+                                  margin: '0 auto 20px',
+                                  borderRadius: '50%',
+                                  background: 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  color: 'white',
+                                  fontWeight: '700',
+                                  fontSize: '1.8rem',
+                                  boxShadow: '0 6px 20px rgba(20, 184, 166, 0.4)'
+                                }}>
+                                  {idx + 1}
+                                </div>
+                                <h5 style={{ fontSize: '1.25rem', color: 'var(--text-primary)', fontWeight: '700', margin: 0 }}>
+                                  {reason}
+                                </h5>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </SubSection>
+
+                        <SubSection>
+                          <SubSectionTitle>{service.trainingApproach.title}</SubSectionTitle>
+                          <div style={{ display: 'grid', gap: '20px', marginTop: '30px' }}>
+                            {service.trainingApproach.steps.map((step, idx) => (
+                              <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, x: -30 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.1 }}
+                                style={{
+                                  padding: '30px 35px',
+                                  background: 'white',
+                                  borderRadius: '16px',
+                                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  gap: '25px',
+                                  border: '1px solid rgba(20, 184, 166, 0.1)',
+                                  transition: 'all 0.3s ease'
+                                }}
+                                whileHover={{
+                                  x: 10,
+                                  boxShadow: '0 8px 30px rgba(20, 184, 166, 0.15)'
+                                }}
+                              >
+                                <div style={{
+                                  minWidth: '55px',
+                                  height: '55px',
+                                  borderRadius: '14px',
+                                  background: 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  color: 'white',
+                                  fontWeight: '700',
+                                  fontSize: '1.4rem',
+                                  boxShadow: '0 4px 15px rgba(20, 184, 166, 0.3)'
+                                }}>
+                                  {idx + 1}
+                                </div>
+                                <span style={{ fontSize: '1.3rem', color: 'var(--text-primary)', fontWeight: '700' }}>
+                                  {step}
+                                </span>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </SubSection>
+
+                        <SubSection>
+                          <SubSectionTitle>Benefits of Our Customized Training</SubSectionTitle>
+                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '25px', marginTop: '30px' }}>
+                            {service.benefits.map((benefit, idx) => (
+                              <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: idx * 0.12 }}
+                                style={{
+                                  padding: '30px 25px',
+                                  background: 'linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%)',
+                                  borderRadius: '16px',
+                                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+                                  textAlign: 'center',
+                                  border: '2px solid rgba(20, 184, 166, 0.15)',
+                                  transition: 'all 0.3s ease'
+                                }}
+                                whileHover={{
+                                  y: -8,
+                                  boxShadow: '0 12px 40px rgba(20, 184, 166, 0.2)',
+                                  borderColor: 'rgba(20, 184, 166, 0.3)'
+                                }}
+                              >
+                                <div style={{
+                                  width: '50px',
+                                  height: '50px',
+                                  margin: '0 auto 15px',
+                                  borderRadius: '12px',
+                                  background: 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  color: 'white',
+                                  fontWeight: '700',
+                                  fontSize: '1.3rem',
+                                  boxShadow: '0 4px 15px rgba(20, 184, 166, 0.3)'
+                                }}>
+                                  ✓
+                                </div>
+                                <p style={{ fontSize: '1.1rem', color: 'var(--text-primary)', fontWeight: '600', margin: 0, lineHeight: '1.5' }}>
+                                  {benefit}
+                                </p>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </SubSection>
+
+                        <div style={{
+                          marginTop: '50px',
+                          padding: '40px',
+                          background: 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)',
+                          borderRadius: '24px',
+                          boxShadow: '0 10px 40px rgba(20, 184, 166, 0.3)',
+                          textAlign: 'center'
+                        }}>
+                          <h3 style={{ fontSize: '2rem', color: 'white', fontWeight: '700', marginBottom: '20px' }}>
+                            {service.cta.title}
+                          </h3>
+                          <p style={{ fontSize: '1.15rem', color: 'rgba(255, 255, 255, 0.95)', lineHeight: '1.8', marginBottom: '30px', maxWidth: '900px', margin: '0 auto 30px' }}>
+                            {service.cta.description}
+                          </p>
+                          <CTAButton
+                            style={{ background: 'white', color: '#14b8a6' }}
+                            whileHover={{ scale: 1.08, boxShadow: '0 8px 30px rgba(255, 255, 255, 0.3)' }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <FaRocket /> Get Free Consultation
+                          </CTAButton>
+                        </div>
+                      </>
+                    )}
+
+                    {service.id !== 'red-team' && service.id !== 'app-security' && service.id !== 'infrastructure' && service.id !== 'ot-iot' && service.id !== 'anti-ransomware' && service.id !== 'data-breach' && service.id !== 'cyber-forensic' && service.id !== 'training' && (
                       <div style={{ textAlign: 'center', marginTop: '30px' }}>
                         <CTAButton
                           whileHover={{ scale: 1.05 }}
