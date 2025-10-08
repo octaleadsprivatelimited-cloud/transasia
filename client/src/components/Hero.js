@@ -25,7 +25,7 @@ const slideInRight = keyframes`
 `;
 
 const HeroContainer = styled.section`
-  min-height: 95vh;
+  min-height: 65vh;
   background: linear-gradient(-45deg, #0a0e27, #1a1f3a, #1e3a8a, #2563eb);
   background-size: 400% 400%;
   animation: ${gradientMove} 15s ease infinite;
@@ -33,7 +33,12 @@ const HeroContainer = styled.section`
   overflow: hidden;
   display: flex;
   align-items: center;
-  padding: 100px 0 40px;
+  padding: 140px 0 60px;
+
+  @media (max-width: 768px) {
+    min-height: 70vh;
+    padding: 120px 0 40px;
+  }
 `;
 
 const Particles = styled.div`
@@ -116,13 +121,14 @@ const Badge = styled(motion.div)`
 `;
 
 const Title = styled(motion.h1)`
-  font-size: 6rem;
-  font-weight: 900;
-  line-height: 1.1;
-  margin-bottom: 30px;
+  font-size: 4.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 28px;
   color: #ffffff;
-  letter-spacing: -4px;
-  text-shadow: 0 4px 40px rgba(59, 130, 246, 0.5);
+  letter-spacing: -1.5px;
+  text-shadow: 0 2px 30px rgba(59, 130, 246, 0.4);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   .gradient-text {
     background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
@@ -130,37 +136,40 @@ const Title = styled(motion.h1)`
     -webkit-text-fill-color: transparent;
     background-clip: text;
     display: inline-block;
+    font-weight: 800;
   }
 
   @media (max-width: 1024px) {
-    font-size: 4.5rem;
+    font-size: 3.5rem;
   }
 
   @media (max-width: 768px) {
-    font-size: 3rem;
-    letter-spacing: -2px;
+    font-size: 2.5rem;
+    letter-spacing: -1px;
   }
 `;
 
 const Subtitle = styled(motion.p)`
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: rgba(255, 255, 255, 0.85);
-  line-height: 1.8;
-  margin-bottom: 50px;
-  max-width: 700px;
+  line-height: 1.7;
+  margin-bottom: 45px;
+  max-width: 650px;
   margin-left: auto;
   margin-right: auto;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 400;
 
   @media (max-width: 768px) {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 `;
 
 const ButtonGroup = styled(motion.div)`
   display: flex;
-  gap: 24px;
+  gap: 20px;
   justify-content: center;
-  margin-bottom: 80px;
+  margin-bottom: 60px;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -170,21 +179,22 @@ const ButtonGroup = styled(motion.div)`
 `;
 
 const PrimaryButton = styled(motion.button)`
-  padding: 24px 50px;
+  padding: 18px 40px;
   background: white;
   color: #1e3a8a;
   border: none;
-  border-radius: 16px;
-  font-size: 1.15rem;
-  font-weight: 800;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 20px 60px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 40px rgba(255, 255, 255, 0.2);
   position: relative;
   overflow: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   &::before {
     content: '';
@@ -196,8 +206,8 @@ const PrimaryButton = styled(motion.button)`
   }
 
   &:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 25px 80px rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 50px rgba(255, 255, 255, 0.25);
 
     &::before {
       opacity: 1;
@@ -209,36 +219,39 @@ const PrimaryButton = styled(motion.button)`
     z-index: 1;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
   }
 
   @media (max-width: 768px) {
     width: 100%;
     justify-content: center;
+    padding: 16px 36px;
   }
 `;
 
 const SecondaryButton = styled(motion.button)`
-  padding: 24px 50px;
+  padding: 18px 40px;
   background: rgba(255, 255, 255, 0.1);
   color: white;
   border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 16px;
-  font-size: 1.15rem;
-  font-weight: 700;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   &:hover {
     background: rgba(255, 255, 255, 0.15);
     border-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-4px);
-    box-shadow: 0 20px 60px rgba(255, 255, 255, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 50px rgba(255, 255, 255, 0.15);
   }
 
   @media (max-width: 768px) {
     width: 100%;
+    padding: 16px 36px;
   }
 `;
 
@@ -317,10 +330,11 @@ const FeatureIcon = styled.div`
 `;
 
 const FeatureTitle = styled.h3`
-  font-size: 1.2rem;
-  font-weight: 700;
+  font-size: 1.15rem;
+  font-weight: 600;
   color: white;
   margin-bottom: 10px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 `;
 
 const FeatureText = styled.p`
@@ -328,31 +342,34 @@ const FeatureText = styled.p`
   color: rgba(255, 255, 255, 0.75);
   line-height: 1.6;
   margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 `;
 
 const TrustBadges = styled(motion.div)`
-  margin-top: 70px;
+  margin-top: 50px;
   display: flex;
   justify-content: center;
-  gap: 50px;
+  gap: 40px;
   flex-wrap: wrap;
 
   @media (max-width: 768px) {
-    gap: 30px;
+    gap: 24px;
+    margin-top: 40px;
   }
 `;
 
 const TrustItem = styled.div`
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   color: rgba(255, 255, 255, 0.8);
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   svg {
     color: #10b981;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 `;
 
