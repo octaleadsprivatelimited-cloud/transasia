@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Helmet } from 'react-helmet-async';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
-  FaUserShield, FaChevronDown, FaRocket, FaLaptopCode, FaServer, FaRobot, FaLock, FaDatabase, FaSearch, FaGraduationCap
+  FaUserShield, FaRocket, FaLaptopCode, FaServer, FaRobot, FaLock, FaDatabase, FaSearch, FaGraduationCap, FaArrowRight, FaCheckCircle
 } from 'react-icons/fa';
 
 const rotate = keyframes`
@@ -11,21 +11,26 @@ const rotate = keyframes`
   to { transform: rotate(360deg); }
 `;
 
+const float = keyframes`
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+`;
+
 const PageContainer = styled.div`
   min-height: 100vh;
   padding-top: 80px;
-  background: #ffffff;
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
   overflow-x: hidden;
 `;
 
 const HeroSection = styled.section`
   position: relative;
-  min-height: 70vh;
+  min-height: 60vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #0a1128 0%, #1e3a8a 50%, #1e40af 100%);
+  justify-content: center;
+  padding: 100px 40px 80px;
   overflow: hidden;
-  padding: 120px 40px 80px;
 
   &::before {
     content: '';
@@ -35,15 +40,14 @@ const HeroSection = styled.section`
     top: -50%;
     left: -50%;
     background: 
-      radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 80% 50%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
-    animation: ${rotate} 30s linear infinite;
+      radial-gradient(circle at 30% 40%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 70% 60%, rgba(168, 85, 247, 0.1) 0%, transparent 50%);
+    animation: ${rotate} 40s linear infinite;
   }
 `;
 
 const HeroContent = styled.div`
   max-width: 1200px;
-  margin: 0 auto;
   text-align: center;
   position: relative;
   z-index: 1;
@@ -51,307 +55,434 @@ const HeroContent = styled.div`
 
 const HeroTitle = styled(motion.h1)`
   font-size: 4rem;
-  font-weight: 700;
-  color: white;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffffff 0%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 24px;
   line-height: 1.2;
-  letter-spacing: -1px;
-
-  span {
-    display: block;
-    font-weight: 300;
-    font-size: 3.5rem;
-    background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-top: 8px;
-  }
 
   @media (max-width: 768px) {
     font-size: 2.5rem;
-    
-    span {
-      font-size: 2.2rem;
-    }
   }
 `;
 
 const HeroSubtitle = styled(motion.p)`
-  font-size: 1.3rem;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.4rem;
+  color: rgba(255, 255, 255, 0.8);
   max-width: 800px;
-  margin: 0 auto;
-  line-height: 1.7;
-`;
-
-const ServicesSection = styled.section`
-  padding: 120px 40px;
-  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-`;
-
-const SectionTitle = styled(motion.h2)`
-  font-size: 3rem;
-  font-weight: 800;
-  text-align: center;
-  color: var(--text-primary);
-  margin-bottom: 20px;
-  letter-spacing: -1px;
+  margin: 0 auto 40px;
+  line-height: 1.8;
 
   @media (max-width: 768px) {
-    font-size: 2rem;
+    font-size: 1.1rem;
   }
 `;
 
-const SectionSubtitle = styled(motion.p)`
-  font-size: 1.2rem;
-  color: var(--text-secondary);
-  text-align: center;
-  max-width: 700px;
-  margin: 0 auto 80px;
-  line-height: 1.7;
+const ServicesGrid = styled.section`
+  max-width: 1400px;
+  margin: -60px auto 0;
+  padding: 0 40px 100px;
+  position: relative;
+  z-index: 2;
+
+  @media (max-width: 768px) {
+    padding: 0 20px 60px;
+    margin-top: -40px;
+  }
 `;
 
-const ServicesContainer = styled.div`
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 40px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
 `;
 
 const ServiceCard = styled(motion.div)`
-  background: white;
+  position: relative;
+  height: 500px;
   border-radius: 24px;
   overflow: hidden;
-  border: 2px solid ${props => props.$isOpen ? 'var(--primary-color)' : 'rgba(0, 0, 0, 0.05)'};
-  box-shadow: ${props => props.$isOpen ? '0 20px 60px rgba(30, 64, 175, 0.15)' : '0 4px 20px rgba(0, 0, 0, 0.06)'};
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-
-  &:hover {
-    box-shadow: 0 12px 40px rgba(30, 64, 175, 0.12);
-  }
-`;
-
-const ServiceHeader = styled.div`
-  padding: 0;
   cursor: pointer;
-  display: grid;
-  grid-template-columns: ${props => props.$isOpen ? '1fr' : '400px 1fr'};
-  align-items: center;
-  transition: all 0.4s ease;
+  background: linear-gradient(135deg, ${props => props.gradient});
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 
-  @media (max-width: 968px) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const ServiceImage = styled.div`
-  width: 100%;
-  height: ${props => props.$isOpen ? '300px' : '200px'};
-  background-image: url(${props => props.$image});
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  transition: all 0.4s ease;
-
-  &::after {
+  &::before {
     content: '';
     position: absolute;
-    inset: 0;
-    background: ${props => props.$isOpen 
-      ? 'linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.7) 100%)' 
-      : 'linear-gradient(135deg, rgba(30, 64, 175, 0.8) 0%, rgba(59, 130, 246, 0.6) 100%)'};
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url(${props => props.image}) center/cover no-repeat;
+    opacity: 0.15;
+    transition: all 0.5s ease;
   }
 
-  @media (max-width: 968px) {
-    height: ${props => props.$isOpen ? '250px' : '180px'};
+  &:hover::before {
+    opacity: 0.25;
+    transform: scale(1.1);
   }
 `;
 
-const ServiceHeaderContent = styled.div`
-  padding: 32px 40px;
+const CardContent = styled.div`
+  position: relative;
+  height: 100%;
+  padding: 40px;
   display: flex;
-  align-items: center;
-  gap: 24px;
-  position: ${props => props.$isOpen ? 'absolute' : 'relative'};
-  bottom: ${props => props.$isOpen ? '0' : 'auto'};
-  left: ${props => props.$isOpen ? '0' : 'auto'};
-  right: ${props => props.$isOpen ? '0' : 'auto'};
+  flex-direction: column;
+  justify-content: space-between;
   z-index: 1;
-
-  @media (max-width: 968px) {
-    padding: 24px 20px;
-    gap: 16px;
-    position: ${props => props.$isOpen ? 'absolute' : 'relative'};
-  }
 `;
 
-const ServiceIcon = styled.div`
-  width: 60px;
-  height: 60px;
-  border-radius: 16px;
-  background: ${props => props.$isOpen ? 'rgba(255, 255, 255, 0.2)' : props.$gradient};
+const CardHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+const CardIcon = styled.div`
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.8rem;
+  font-size: 2.5rem;
   color: white;
-  flex-shrink: 0;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-
-  @media (max-width: 768px) {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
-  }
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  animation: ${float} 3s ease-in-out infinite;
 `;
 
-const ServiceTitle = styled.h3`
+const CardTitle = styled.h3`
   font-size: 1.8rem;
   font-weight: 700;
-  color: ${props => props.$isOpen ? 'white' : 'var(--text-primary)'};
-  flex: 1;
-  transition: color 0.3s ease;
-
-  @media (max-width: 768px) {
-    font-size: 1.3rem;
-  }
+  color: white;
+  margin: 0;
+  line-height: 1.3;
 `;
 
-const ServiceChevron = styled(motion.div)`
-  font-size: 1.5rem;
-  color: ${props => props.$isOpen ? 'white' : 'var(--primary-color)'};
-  transition: color 0.3s ease;
-`;
-
-const ServiceContent = styled(motion.div)`
-  padding: 40px;
-  overflow: hidden;
-
-  @media (max-width: 768px) {
-    padding: 24px 20px;
-  }
-`;
-
-const ServiceDescription = styled.p`
-  font-size: 1.15rem;
-  color: var(--text-secondary);
-  line-height: 1.8;
-  margin-bottom: 30px;
-`;
-
-const SubSection = styled.div`
-  margin: 40px 0;
-`;
-
-const SubSectionTitle = styled.h4`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 16px;
-`;
-
-const SubSectionDescription = styled.p`
-  font-size: 1.05rem;
-  color: var(--text-secondary);
+const CardDescription = styled.p`
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.7;
-  margin-bottom: 24px;
+  margin: 20px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `;
 
-const PointsList = styled.div`
-  display: grid;
-  gap: 16px;
-  margin-bottom: 30px;
-`;
-
-const PointItem = styled(motion.div)`
+const CardFooter = styled.div`
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 20px;
-  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
-  border-radius: 16px;
-  border-left: 4px solid var(--primary-color);
+  justify-content: space-between;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 `;
 
-const PointNumber = styled.div`
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+const LearnMoreButton = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
   color: white;
+  transition: all 0.3s ease;
+
+  svg {
+    transition: transform 0.3s ease;
+  }
+
+  ${ServiceCard}:hover & svg {
+    transform: translateX(5px);
+  }
+`;
+
+const FeatureTag = styled.span`
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+`;
+
+const ModalOverlay = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
+  padding: 20px;
+  overflow-y: auto;
+`;
+
+const ModalContent = styled(motion.div)`
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border-radius: 32px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 25px 100px rgba(0, 0, 0, 0.5);
+
+  /* Custom scrollbar */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  }
+`;
+
+const ModalHeader = styled.div`
+  padding: 50px;
+  background: linear-gradient(135deg, ${props => props.gradient});
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url(${props => props.image}) center/cover no-repeat;
+    opacity: 0.1;
+  }
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+  }
+`;
+
+const ModalIconTitle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+`;
+
+const ModalIcon = styled.div`
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: white;
+`;
+
+const ModalTitle = styled.h2`
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  line-height: 1.2;
+
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+  }
+`;
+
+const ModalBody = styled.div`
+  padding: 50px;
+
+  @media (max-width: 768px) {
+    padding: 30px;
+  }
+`;
+
+const Section = styled.div`
+  margin-bottom: 40px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;
+
+const SectionTitle = styled.h3`
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  &::before {
+    content: '';
+    width: 4px;
+    height: 30px;
+    background: linear-gradient(180deg, #3b82f6 0%, #8b5cf6 100%);
+    border-radius: 4px;
+  }
+`;
+
+const SectionText = styled.p`
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.8;
+  margin-bottom: 20px;
+`;
+
+const ListItem = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(5px);
+  }
+`;
+
+const ListIcon = styled.div`
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
   font-weight: 700;
   flex-shrink: 0;
 `;
 
-const PointText = styled.p`
+const ListText = styled.span`
   font-size: 1.05rem;
-  color: var(--text-primary);
-  line-height: 1.7;
-  flex: 1;
-  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
 `;
 
-const CTAButton = styled(motion.button)`
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+const CTASection = styled.div`
+  margin-top: 50px;
+  padding: 40px;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  border-radius: 20px;
+  text-align: center;
+`;
+
+const CTATitle = styled.h4`
+  font-size: 1.8rem;
+  font-weight: 700;
   color: white;
-  border: none;
+  margin-bottom: 15px;
+`;
+
+const CTAText = styled.p`
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 30px;
+  line-height: 1.7;
+`;
+
+const CTAButton = styled.button`
   padding: 16px 40px;
+  background: white;
+  color: #3b82f6;
+  border: none;
   border-radius: 12px;
   font-size: 1.1rem;
   font-weight: 700;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 32px rgba(59, 130, 246, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
   }
 `;
 
 const CyberSecurityServices = () => {
-  const [openService, setOpenService] = useState(null);
+  const [selectedService, setSelectedService] = useState(null);
 
   const services = [
     {
       id: 'red-team',
       icon: <FaUserShield />,
       title: 'Red Team Assessment',
-      gradient: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+      gradient: '#dc2626 0%, #991b1b 100%',
       image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200',
-      description: 'Red teaming is a security assessment methodology where a team acts like an adversary, attempting to bypass your defenses and achieve specific objectives. Unlike penetration testing that focuses on vulnerabilities, red teaming mimics the tactics, techniques, and procedures (TTPs) of real-world attackers. This approach provides a more holistic view of your security posture, identifying not just exploitable vulnerabilities but also weaknesses in detection, response, and recovery capabilities.',
-      mitreSection: {
-        title: 'Why Use MITRE ATT&CK for Red Teaming?',
-        description: 'The MITRE ATT&CK framework is a comprehensive knowledge base of adversary TTPs. By leveraging this framework, red teaming exercises can be:',
-        points: [
-          'More Targeted',
-          'Data-Driven',
-          'Measurable'
-        ]
-      },
+      tag: 'Advanced',
+      shortDesc: 'Simulate real-world cyber attacks to test your security defenses and identify vulnerabilities before malicious actors do.',
+      description: 'Red teaming is a security assessment methodology where a team acts like an adversary, attempting to bypass your defenses and achieve specific objectives. This approach provides a holistic view of your security posture.',
       methodology: {
-        title: 'Red Teaming Methodology with MITRE ATT&CK Framework',
-        description: 'A red team assessment using MITRE ATT&CK typically follows these stages:',
-        stages: [
+        title: 'MITRE ATT&CK Methodology',
+        items: [
           'Planning and Scoping',
           'Reconnaissance and Initial Compromise',
           'Lateral Movement',
           'Installation of Tools and C2 Communication',
-          'Actions on Objectives',
-          'Reporting and Debriefing'
+          'Actions on Objectives'
         ]
       },
       benefits: [
-        'Get a Attack View',
+        'Get a Real Attacker View',
         'Improved Security Posture',
         'Enhanced Threat Detection',
         'Proactive Risk Management'
@@ -361,13 +492,14 @@ const CyberSecurityServices = () => {
       id: 'app-security',
       icon: <FaLaptopCode />,
       title: 'Application Security Assessment',
-      gradient: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
-      image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200',
-      description: 'Application Security Assessment (ASA) is a systematic process of identifying, evaluating, and documenting vulnerabilities in software applications. It plays a crucial role in protecting applications from cyberattacks and data breaches. This document outlines the ASA process using the Open Web Application Security Project (OWASP) Testing Guide methodology.',
-      owaspSection: {
+      gradient: '#7c3aed 0%, #5b21b6 100%',
+      image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200',
+      tag: 'Essential',
+      shortDesc: 'Comprehensive security testing of your applications using OWASP 2023 methodology to identify and fix vulnerabilities.',
+      description: 'An Application Security Assessment (ASA) is a systematic process of identifying, evaluating, and documenting vulnerabilities in software applications using OWASP Testing Guide methodology.',
+      methodology: {
         title: 'OWASP 2023 Methodology',
-        description: 'Phases of an OWASP-based ASA:',
-        phases: [
+        items: [
           'Preparation',
           'Information Gathering',
           'Threat Modeling',
@@ -387,13 +519,14 @@ const CyberSecurityServices = () => {
       id: 'infrastructure',
       icon: <FaServer />,
       title: 'Infrastructure Security Assessment',
-      gradient: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+      gradient: '#2563eb 0%, #1e40af 100%',
       image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200',
-      description: 'Infrastructure Security Assessment (ISA) is a comprehensive evaluation of an organization\'s IT infrastructure to identify vulnerabilities, security misconfigurations, and potential attack vectors. It plays a crucial role in safeguarding critical systems and data from cyber threats. This assessment draws upon methodologies from frameworks like NIST and penetration testing to provide a robust security posture.',
-      nistSection: {
-        title: 'Methodology',
-        description: 'Following a structured approach ensures a thorough and effective ISA. Align with NIST Special Publication 800-30 (Risk Management Framework for Information Systems) to identify high-risk assets and prioritize them for testing.',
-        phases: [
+      tag: 'Critical',
+      shortDesc: 'Comprehensive evaluation of your IT infrastructure using NIST framework to identify security gaps and misconfigurations.',
+      description: 'Infrastructure Security Assessment (ISA) is a comprehensive evaluation to identify vulnerabilities, security misconfigurations, and potential attack vectors using NIST Special Publication 800-30.',
+      methodology: {
+        title: 'NIST Framework Methodology',
+        items: [
           'Planning and Scoping',
           'Information Gathering',
           'Vulnerability Scanning and Assessment',
@@ -411,148 +544,93 @@ const CyberSecurityServices = () => {
     {
       id: 'ot-iot',
       icon: <FaRobot />,
-      title: 'OT and IOT Cyber Assessments',
-      gradient: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+      title: 'OT and IoT Cyber Assessments',
+      gradient: '#059669 0%, #047857 100%',
       image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200',
-      description: 'OT and IoT cyber assessments are crucial for understanding and mitigating the risks associated with these interconnected systems.',
-      definitions: [
-        {
-          term: 'OT (Operational Technology)',
-          definition: 'Systems that control and monitor physical processes in industrial environments. Think factories, manufacturing plants, power grids, water treatment plants.'
-        },
-        {
-          term: 'IoT (Internet of Things)',
-          definition: 'A vast network of interconnected devices with embedded sensors, software, and network connectivity. Examples include smart homes, wearables, and industrial machinery.'
-        }
-      ],
-      whyNeeded: [
-        'Increased Connectivity: Both OT and IoT systems are increasingly connected to the internet, expanding their attack surface',
-        'Critical Infrastructure: Disruptions to OT systems can have severe consequences, from power outages to safety hazards',
-        'Data Security: IoT devices often collect sensitive data, making them targets for data breaches',
-        'Compliance: Regulations like NIST and NERC CIP mandate cybersecurity assessments for critical infrastructure'
-      ],
-      keyAreas: [
-        {
-          title: 'Asset Discovery',
-          points: [
-            'Identify all devices and systems within the OT/IoT environment',
-            'Understand their criticality and interdependencies'
-          ]
-        },
-        {
-          title: 'Vulnerability Assessment',
-          points: [
-            'Identify and prioritize known vulnerabilities in devices, software, and firmware',
-            'Utilize vulnerability scanning tools and penetration testing techniques'
-          ]
-        },
-        {
-          title: 'Threat Modeling',
-          points: [
-            'Analyze potential threats and attack vectors',
-            'Consider insider threats, external attacks, and physical security risks'
-          ]
-        },
-        {
-          title: 'Risk Assessment',
-          points: [
-            'Evaluate the likelihood and impact of potential security incidents',
-            'Prioritize risks based on their severity and potential consequences'
-          ]
-        },
-        {
-          title: 'Security Controls Evaluation',
-          points: [
-            'Assess the effectiveness of existing security controls, such as firewalls, intrusion detection systems, and access controls'
-          ]
-        },
-        {
-          title: 'Compliance Review',
-          points: [
-            'Ensure compliance with relevant industry standards and regulations'
-          ]
-        }
+      tag: 'Specialized',
+      shortDesc: 'Specialized security assessments for Operational Technology and IoT environments to ensure operational safety.',
+      description: 'OT and IoT cyber assessments are crucial for understanding and mitigating the risks associated with these interconnected systems in industrial environments.',
+      methodology: {
+        title: 'Assessment Key Areas',
+        items: [
+          'Asset Discovery',
+          'Vulnerability Assessment',
+          'Threat Modeling',
+          'Risk Assessment',
+          'Security Controls Evaluation',
+          'Compliance Review'
+        ]
+      },
+      benefits: [
+        'Critical Infrastructure Protection',
+        'Operational Safety',
+        'Compliance with NIST and NERC CIP',
+        'Reduced Attack Surface'
       ]
     },
     {
       id: 'anti-ransomware',
       icon: <FaLock />,
-      title: 'Anti Ransomware Readiness Assessment',
-      gradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+      title: 'Anti-Ransomware Readiness',
+      gradient: '#d97706 0%, #b45309 100%',
       image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200',
-      description: 'Ransomware Attacks pose a significant threat to organizations, disrupting operations and causing financial losses. To effectively combat this threat, a standard Vulnerability Assessment and Penetration Testing (VAPT) might not be sufficient. This is where an Anti-Ransomware Readiness Assessment (ARRA) comes in.',
-      arraMethodology: {
-        title: 'ARRA Methodology based on MITRE ATT&CK',
-        description: 'An ARRA leverages the MITRE ATT&CK framework, a comprehensive knowledge base of attacker tactics, techniques, and procedures (TTPs). This allows for a targeted assessment that simulates real-world ransomware attacks.',
-        phases: [
+      tag: 'High Priority',
+      shortDesc: 'Comprehensive ransomware preparedness assessment using MITRE ATT&CK to test your defenses and response capabilities.',
+      description: 'Anti-Ransomware Readiness Assessment (ARRA) leverages MITRE ATT&CK framework to simulate real-world ransomware attacks and test your organization\'s preparedness.',
+      methodology: {
+        title: 'ARRA Methodology',
+        items: [
           'Preparation',
           'Emulation',
           'Detection and Response',
           'Reporting and Remediation Suggestions'
         ]
       },
-      comparison: {
-        title: 'Comparison with Standard VAPT',
-        description: 'While a standard VAPT identifies vulnerabilities in systems and applications, it often doesn\'t specifically target ransomware attack vectors.',
-        table: [
-          { feature: 'Focus', vapt: 'Broad range of vulnerabilities', arra: 'Targeted on ransomware attack methods' },
-          { feature: 'Methodology', vapt: 'Vulnerability Scanning, Penetration testing', arra: 'Emulation of attacker TTPs based on MITRE ATT&CK' },
-          { feature: 'Output', vapt: 'List of vulnerabilities', arra: 'Report with prioritized recommendations for mitigating ransomware risk' }
-        ]
-      },
-      limitations: {
-        title: 'Why Standard VAPT Isn\'t Enough',
-        description: 'Standard VAPT has limitations when it comes to ransomware preparedness:',
-        points: [
-          'Scope Limited Activity',
-          'Focus on Detection, not Prevention',
-          'Doesn\'t Test Response Capabilities'
-        ]
-      },
-      conclusion: 'An ARRA, by focusing on emulating real-world attacker behaviors, provides a more comprehensive assessment of an organization\'s preparedness against ransomware attack. It goes beyond identifying vulnerabilities to test the organization\'s entire security posture, including people, processes, and technology.'
+      benefits: [
+        'Targeted Ransomware Focus',
+        'Real-world Attack Simulation',
+        'Test People, Processes & Technology',
+        'Prioritized Recommendations'
+      ]
     },
     {
       id: 'data-breach',
       icon: <FaDatabase />,
       title: 'Deep Dark Web Data Breach Assessment',
-      gradient: 'linear-gradient(135deg, #ec4899 0%, #db2777 100%)',
+      gradient: '#db2777 0%, #be185d 100%',
       image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200',
-      description: 'The Deep and Dark Web are hidden corners of the internet not indexed by traditional search engines. These spaces can harbor criminal activity, including the sale of stolen data from data breaches. Organizations that have experienced a data breach can leverage deep dark web monitoring to assess the scope of the breach and potential impact. This assessment can then be mapped to the MITRE ATT&CK framework to understand the tactics and techniques attackers might use with the stolen data.',
-      monitoring: {
-        title: 'Deep Dark Web Monitoring for Data Breach Assessment',
-        description: 'Data breaches often involve the sale of stolen credentials, personally identifiable information (PII), and other sensitive data on the deep and dark web. By monitoring these hidden marketplaces and forums, organizations can:',
-        benefits: [
-          'Identify leaks of their data',
-          'Gauge the severity of the breach',
-          'Track attacker activity'
+      tag: 'Intelligence',
+      shortDesc: 'Monitor deep and dark web for stolen data and map findings to MITRE ATT&CK for proactive threat intelligence.',
+      description: 'Deep Dark Web monitoring to identify stolen data from breaches and map findings to MITRE ATT&CK framework for understanding attacker tactics.',
+      methodology: {
+        title: 'Monitoring & Mapping Process',
+        items: [
+          'Identify Data Leaks',
+          'Gauge Breach Severity',
+          'Track Attacker Activity',
+          'Map TTPs to Stolen Data',
+          'Develop Mitigation Strategies'
         ]
       },
-      mitreMapping: {
-        title: 'Mapping Deep Dark Web Findings to MITRE ATT&CK',
-        description: 'The MITRE ATT&CK framework is a globally recognized knowledge base for adversary tactics, techniques, and procedures (TTPs). By mapping deep dark web findings to the MITRE ATT&CK framework, organizations can gain a deeper understanding of how attackers might exploit the stolen data.',
-        process: [
-          'Identify attacker goals',
-          'Map TTPs to stolen data',
-          'Develop mitigation strategies'
-        ]
-      },
-      mappingBenefits: [
-        'Improved threat intelligence',
-        'Proactive defense',
-        'Targeted incident response'
+      benefits: [
+        'Improved Threat Intelligence',
+        'Proactive Defense',
+        'Targeted Incident Response',
+        'Early Warning System'
       ]
     },
     {
       id: 'cyber-forensic',
       icon: <FaSearch />,
       title: 'Cyber Forensic Assessment',
-      gradient: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
+      gradient: '#0891b2 0%, #0e7490 100%',
       image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200',
-      description: 'A Cyber forensic assessment is a systematic investigation conducted to identify, collect, analyze, and preserve digital evidence in the aftermath of a cyber security incident. This process is crucial for legal proceedings, determining the root cause of the incident, and implementing effective mitigation strategies. The National Institute of Standards and Technology (NIST) CyberSecurity Framework provides a methodology that can be effectively applied to cyber forensic assessments.',
-      nistMethodology: {
-        title: 'Methodology based on NIST Framework',
-        description: 'The NIST Cybersecurity Framework outlines five core functions:',
-        coreFunctions: [
+      tag: 'Investigation',
+      shortDesc: 'Systematic investigation to identify, collect, analyze, and preserve digital evidence using NIST framework.',
+      description: 'Cyber forensic assessment is a systematic investigation to identify, collect, analyze, and preserve digital evidence using NIST CyberSecurity Framework.',
+      methodology: {
+        title: 'NIST Framework Functions',
+        items: [
           'Identify',
           'Protect',
           'Detect',
@@ -571,23 +649,19 @@ const CyberSecurityServices = () => {
       id: 'training',
       icon: <FaGraduationCap />,
       title: 'Cyber Security Training',
-      gradient: 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)',
+      gradient: '#0d9488 0%, #0f766e 100%',
       image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1200',
-      description: 'In today\'s digital age, cyber threats are constantly evolving. Equipping your employees with the knowledge and skills to combat these threats is no longer optional, it\'s essential. TransAsia Soft Tech offers comprehensive customized Cybersecurity Training Programs designed to address the unique needs of your organization.',
-      whyCustomized: {
-        title: 'Why Choose Customized Training?',
-        reasons: [
-          'Targeted Learning',
-          'Improved Engagement',
-          'Enhanced Security Posture'
-        ]
-      },
-      trainingApproach: {
-        title: 'Our Customized Training Approach',
-        steps: [
+      tag: 'Essential',
+      shortDesc: 'Customized cybersecurity training programs designed to empower your workforce and build a strong security culture.',
+      description: 'Comprehensive customized Cybersecurity Training Programs designed to address the unique needs of your organization and empower employees with knowledge to combat evolving threats.',
+      methodology: {
+        title: 'Training Approach',
+        items: [
           'Needs Assessment',
           'Content Development',
-          'Delivery Options'
+          'Delivery Options (Online/Offline)',
+          'Hands-on Exercises',
+          'Assessment and Certification'
         ]
       },
       benefits: [
@@ -595,23 +669,25 @@ const CyberSecurityServices = () => {
         'Improved Data Security',
         'Enhanced Compliance',
         'Increased Employee Productivity'
-      ],
-      cta: {
-        title: 'Invest in your Secure Digital Future',
-        description: 'Don\'t wait for a cyberattack to expose your vulnerabilities. TransAsia Soft Tech Pvt Ltd can help you build a strong CyberSecurity culture with our customized training programs. Contact us today for a free consultation and learn how we can empower your workforce to stay safe online.'
-      }
+      ]
     }
   ];
 
-  const toggleService = (id) => {
-    setOpenService(openService === id ? null : id);
+  const openModal = (service) => {
+    setSelectedService(service);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setSelectedService(null);
+    document.body.style.overflow = 'auto';
   };
 
   return (
     <PageContainer>
       <Helmet>
-        <title>Cybersecurity Services | TransAsia</title>
-        <meta name="description" content="Professional cybersecurity assessment and training services" />
+        <title>Cybersecurity Services - TransAsia Soft Tech</title>
+        <meta name="description" content="Comprehensive cybersecurity assessment and training services including Red Team, Application Security, Infrastructure Security, and more." />
       </Helmet>
 
       <HeroSection>
@@ -619,817 +695,117 @@ const CyberSecurityServices = () => {
           <HeroTitle
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
           >
             Cybersecurity Services
-            <span>Expert Assessment & Training</span>
           </HeroTitle>
           <HeroSubtitle
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Comprehensive security services to assess, protect, and train your organization against evolving cyber threats
+            Comprehensive security assessments and training programs designed to protect your organization from evolving cyber threats
           </HeroSubtitle>
         </HeroContent>
       </HeroSection>
 
-      <ServicesSection>
-        <SectionTitle
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          Our Services
-        </SectionTitle>
-        <SectionSubtitle
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-        >
-          Professional security assessments and training tailored to your needs
-        </SectionSubtitle>
-
-        <ServicesContainer>
+      <ServicesGrid>
+        <GridContainer>
           {services.map((service, index) => (
             <ServiceCard
               key={service.id}
-              $isOpen={openService === service.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.08 }}
+              gradient={service.gradient}
+              image={service.image}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              whileHover={{ 
+                y: -10, 
+                boxShadow: '0 30px 80px rgba(0, 0, 0, 0.4)'
+              }}
+              onClick={() => openModal(service)}
             >
-              <ServiceHeader
-                $isOpen={openService === service.id}
-                onClick={() => toggleService(service.id)}
-              >
-                <ServiceImage 
-                  $image={service.image} 
-                  $isOpen={openService === service.id}
-                />
-                <ServiceHeaderContent $isOpen={openService === service.id}>
-                  <ServiceIcon $gradient={service.gradient} $isOpen={openService === service.id}>
-                    {service.icon}
-                  </ServiceIcon>
-                  <ServiceTitle $isOpen={openService === service.id}>
-                    {service.title}
-                  </ServiceTitle>
-                  <ServiceChevron
-                    $isOpen={openService === service.id}
-                    animate={{ rotate: openService === service.id ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <FaChevronDown />
-                  </ServiceChevron>
-                </ServiceHeaderContent>
-              </ServiceHeader>
-
-              <AnimatePresence>
-                {openService === service.id && (
-                  <ServiceContent
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                  >
-                    <ServiceDescription>{service.description}</ServiceDescription>
-
-                    {service.id === 'red-team' && (
-                      <>
-                        <SubSection>
-                          <SubSectionTitle>{service.mitreSection.title}</SubSectionTitle>
-                          <SubSectionDescription>{service.mitreSection.description}</SubSectionDescription>
-                          <PointsList>
-                            {service.mitreSection.points.map((point, idx) => (
-                              <PointItem
-                                key={idx}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.1 }}
-                              >
-                                <PointNumber>{idx + 1}</PointNumber>
-                                <PointText>{point}</PointText>
-                              </PointItem>
-                            ))}
-                          </PointsList>
-                        </SubSection>
-
-                        <SubSection>
-                          <SubSectionTitle>{service.methodology.title}</SubSectionTitle>
-                          <SubSectionDescription>{service.methodology.description}</SubSectionDescription>
-                          <PointsList>
-                            {service.methodology.stages.map((stage, idx) => (
-                              <PointItem
-                                key={idx}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.08 }}
-                              >
-                                <PointNumber>{idx + 1}</PointNumber>
-                                <PointText>{stage}</PointText>
-                              </PointItem>
-                            ))}
-                          </PointsList>
-                        </SubSection>
-
-                        <SubSection>
-                          <SubSectionTitle>Benefits of Red Teaming with MITRE ATT&CK</SubSectionTitle>
-                          <PointsList>
-                            {service.benefits.map((benefit, idx) => (
-                              <PointItem
-                                key={idx}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.1 }}
-                              >
-                                <PointNumber>{idx + 1}</PointNumber>
-                                <PointText>{benefit}</PointText>
-                              </PointItem>
-                            ))}
-                          </PointsList>
-                        </SubSection>
-                      </>
-                    )}
-
-                    {service.id === 'app-security' && (
-                      <>
-                        <SubSection>
-                          <SubSectionTitle>{service.owaspSection.title}</SubSectionTitle>
-                          <SubSectionDescription>{service.owaspSection.description}</SubSectionDescription>
-                          <PointsList>
-                            {service.owaspSection.phases.map((phase, idx) => (
-                              <PointItem
-                                key={idx}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.08 }}
-                              >
-                                <PointNumber>{idx + 1}</PointNumber>
-                                <PointText>{phase}</PointText>
-                              </PointItem>
-                            ))}
-                          </PointsList>
-                        </SubSection>
-
-                        <SubSection>
-                          <SubSectionTitle>Benefits of using OWASP 2023 Methodology:</SubSectionTitle>
-                          <PointsList>
-                            {service.benefits.map((benefit, idx) => (
-                              <PointItem
-                                key={idx}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.1 }}
-                              >
-                                <PointNumber>{idx + 1}</PointNumber>
-                                <PointText>{benefit}</PointText>
-                              </PointItem>
-                            ))}
-                          </PointsList>
-                        </SubSection>
-
-                        <div style={{ textAlign: 'center', marginTop: '40px' }}>
-                          <CTAButton
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <FaRocket /> Request Application Security Assessment
-                          </CTAButton>
-                        </div>
-                      </>
-                    )}
-
-                    {service.id === 'infrastructure' && (
-                      <>
-                        <SubSection>
-                          <SubSectionTitle>{service.nistSection.title}</SubSectionTitle>
-                          <SubSectionDescription>{service.nistSection.description}</SubSectionDescription>
-                          <PointsList>
-                            {service.nistSection.phases.map((phase, idx) => (
-                              <PointItem
-                                key={idx}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.08 }}
-                              >
-                                <PointNumber>{idx + 1}</PointNumber>
-                                <PointText>{phase}</PointText>
-                              </PointItem>
-                            ))}
-                          </PointsList>
-                        </SubSection>
-
-                        <SubSection>
-                          <SubSectionTitle>Benefits of ISA:</SubSectionTitle>
-                          <PointsList>
-                            {service.benefits.map((benefit, idx) => (
-                              <PointItem
-                                key={idx}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.1 }}
-                              >
-                                <PointNumber>{idx + 1}</PointNumber>
-                                <PointText>{benefit}</PointText>
-                              </PointItem>
-                            ))}
-                          </PointsList>
-                        </SubSection>
-
-                        <div style={{ textAlign: 'center', marginTop: '40px' }}>
-                          <CTAButton
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <FaRocket /> Request Infrastructure Security Assessment
-                          </CTAButton>
-                        </div>
-                      </>
-                    )}
-
-                    {service.id === 'ot-iot' && (
-                      <>
-                        <SubSection>
-                          <SubSectionTitle>What are OT and IoT?</SubSectionTitle>
-                          {service.definitions.map((def, idx) => (
-                            <div key={idx} style={{ marginBottom: '20px' }}>
-                              <h5 style={{ fontSize: '1.15rem', fontWeight: '700', color: 'var(--primary-color)', marginBottom: '8px' }}>
-                                • {def.term}:
-                              </h5>
-                              <p style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', lineHeight: '1.7', paddingLeft: '20px' }}>
-                                {def.definition}
-                              </p>
-                            </div>
-                          ))}
-                        </SubSection>
-
-                        <SubSection>
-                          <SubSectionTitle>Why are Cyber Assessments Needed?</SubSectionTitle>
-                          <PointsList>
-                            {service.whyNeeded.map((reason, idx) => (
-                              <PointItem
-                                key={idx}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.08 }}
-                              >
-                                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary-color)', flexShrink: 0 }} />
-                                <PointText>{reason}</PointText>
-                              </PointItem>
-                            ))}
-                          </PointsList>
-                        </SubSection>
-
-                        <SubSection>
-                          <SubSectionTitle>Key Areas of an OT/IoT Cyber Assessment:</SubSectionTitle>
-                          {service.keyAreas.map((area, idx) => (
-                            <div key={idx} style={{ marginBottom: '30px' }}>
-                              <h5 style={{ fontSize: '1.2rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '16px' }}>
-                                {idx + 1}. {area.title}:
-                              </h5>
-                              <div style={{ display: 'grid', gap: '12px', paddingLeft: '20px' }}>
-                                {area.points.map((point, pointIdx) => (
-                                  <div key={pointIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
-                                    <span style={{ color: 'var(--primary-color)', fontSize: '1.2rem', marginTop: '2px' }}>•</span>
-                                    <span style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', lineHeight: '1.7', flex: 1 }}>
-                                      {point}
-                                    </span>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          ))}
-                        </SubSection>
-
-                        <div style={{ textAlign: 'center', marginTop: '40px' }}>
-                          <CTAButton
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <FaRocket /> Request OT/IoT Security Assessment
-                          </CTAButton>
-                        </div>
-                      </>
-                    )}
-
-                    {service.id === 'anti-ransomware' && (
-                      <>
-                        <SubSection>
-                          <SubSectionTitle>{service.arraMethodology.title}</SubSectionTitle>
-                          <SubSectionDescription>{service.arraMethodology.description}</SubSectionDescription>
-                          <PointsList>
-                            {service.arraMethodology.phases.map((phase, idx) => (
-                              <PointItem
-                                key={idx}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.08 }}
-                              >
-                                <PointNumber>{idx + 1}</PointNumber>
-                                <PointText>{phase}</PointText>
-                              </PointItem>
-                            ))}
-                          </PointsList>
-                        </SubSection>
-
-                        <SubSection>
-                          <SubSectionTitle>{service.comparison.title}</SubSectionTitle>
-                          <SubSectionDescription>{service.comparison.description}</SubSectionDescription>
-                          <div style={{ overflowX: 'auto', marginTop: '30px' }}>
-                            <table style={{
-                              width: '100%',
-                              borderCollapse: 'collapse',
-                              background: 'rgba(255, 255, 255, 0.05)',
-                              borderRadius: '12px',
-                              overflow: 'hidden',
-                              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)'
-                            }}>
-                              <thead>
-                                <tr style={{ background: 'linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%)' }}>
-                                  <th style={{ padding: '18px 20px', textAlign: 'left', color: 'white', fontWeight: '700', fontSize: '1.1rem' }}>Feature</th>
-                                  <th style={{ padding: '18px 20px', textAlign: 'left', color: 'white', fontWeight: '700', fontSize: '1.1rem' }}>Standard VAPT</th>
-                                  <th style={{ padding: '18px 20px', textAlign: 'left', color: 'white', fontWeight: '700', fontSize: '1.1rem' }}>ARRA</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {service.comparison.table.map((row, idx) => (
-                                  <tr key={idx} style={{
-                                    background: idx % 2 === 0 ? 'rgba(255, 255, 255, 0.6)' : 'rgba(255, 255, 255, 0.3)',
-                                    borderBottom: idx < service.comparison.table.length - 1 ? '1px solid rgba(0, 0, 0, 0.05)' : 'none'
-                                  }}>
-                                    <td style={{ padding: '18px 20px', fontWeight: '700', color: 'var(--primary-color)', fontSize: '1.05rem' }}>{row.feature}</td>
-                                    <td style={{ padding: '18px 20px', color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: '1.6' }}>{row.vapt}</td>
-                                    <td style={{ padding: '18px 20px', color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: '1.6', fontWeight: '600' }}>{row.arra}</td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-                          </div>
-                        </SubSection>
-
-                        <SubSection>
-                          <SubSectionTitle>{service.limitations.title}</SubSectionTitle>
-                          <SubSectionDescription>{service.limitations.description}</SubSectionDescription>
-                          <PointsList>
-                            {service.limitations.points.map((point, idx) => (
-                              <PointItem
-                                key={idx}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.1 }}
-                              >
-                                <PointNumber>{idx + 1}</PointNumber>
-                                <PointText>{point}</PointText>
-                              </PointItem>
-                            ))}
-                          </PointsList>
-                        </SubSection>
-
-                        <div style={{
-                          marginTop: '40px',
-                          padding: '25px',
-                          background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.1) 100%)',
-                          borderRadius: '16px',
-                          borderLeft: '4px solid var(--primary-color)'
-                        }}>
-                          <p style={{ fontSize: '1.1rem', color: 'var(--text-primary)', lineHeight: '1.8', margin: 0 }}>
-                            {service.conclusion}
-                          </p>
-                        </div>
-
-                        <div style={{ textAlign: 'center', marginTop: '40px' }}>
-                          <CTAButton
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <FaRocket /> Request Anti-Ransomware Assessment
-                          </CTAButton>
-                        </div>
-                      </>
-                    )}
-
-                    {service.id === 'data-breach' && (
-                      <>
-                        <SubSection>
-                          <SubSectionTitle>{service.monitoring.title}</SubSectionTitle>
-                          <SubSectionDescription>{service.monitoring.description}</SubSectionDescription>
-                          <PointsList>
-                            {service.monitoring.benefits.map((benefit, idx) => (
-                              <PointItem
-                                key={idx}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.1 }}
-                              >
-                                <PointNumber>{idx + 1}</PointNumber>
-                                <PointText>{benefit}</PointText>
-                              </PointItem>
-                            ))}
-                          </PointsList>
-                        </SubSection>
-
-                        <SubSection>
-                          <SubSectionTitle>{service.mitreMapping.title}</SubSectionTitle>
-                          <SubSectionDescription>{service.mitreMapping.description}</SubSectionDescription>
-                          <div style={{ marginTop: '30px' }}>
-                            <h5 style={{ fontSize: '1.15rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '20px' }}>
-                              Here's how this mapping works:
-                            </h5>
-                            <PointsList>
-                              {service.mitreMapping.process.map((step, idx) => (
-                                <PointItem
-                                  key={idx}
-                                  initial={{ opacity: 0, x: -20 }}
-                                  animate={{ opacity: 1, x: 0 }}
-                                  transition={{ delay: idx * 0.1 }}
-                                >
-                                  <PointNumber>{idx + 1}</PointNumber>
-                                  <PointText>{step}</PointText>
-                                </PointItem>
-                              ))}
-                            </PointsList>
-                          </div>
-                        </SubSection>
-
-                        <SubSection>
-                          <SubSectionTitle>Benefits of Mapping Deep Dark Web Data to MITRE ATT&CK</SubSectionTitle>
-                          <div style={{ display: 'grid', gap: '20px', marginTop: '30px' }}>
-                            {service.mappingBenefits.map((benefit, idx) => (
-                              <motion.div
-                                key={idx}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: idx * 0.15 }}
-                                style={{
-                                  padding: '20px 25px',
-                                  background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(219, 39, 119, 0.1) 100%)',
-                                  borderRadius: '12px',
-                                  borderLeft: '4px solid var(--primary-color)',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  gap: '15px'
-                                }}
-                              >
-                                <div style={{
-                                  width: '36px',
-                                  height: '36px',
-                                  borderRadius: '8px',
-                                  background: 'linear-gradient(135deg, #ec4899 0%, #db2777 100%)',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  color: 'white',
-                                  fontWeight: '700',
-                                  fontSize: '1.1rem',
-                                  flexShrink: 0
-                                }}>
-                                  {idx + 1}
-                                </div>
-                                <span style={{ fontSize: '1.1rem', color: 'var(--text-primary)', fontWeight: '600' }}>
-                                  {benefit}
-                                </span>
-                              </motion.div>
-                            ))}
-                          </div>
-                        </SubSection>
-
-                        <div style={{ textAlign: 'center', marginTop: '40px' }}>
-                          <CTAButton
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <FaRocket /> Request Dark Web Monitoring
-                          </CTAButton>
-                        </div>
-                      </>
-                    )}
-
-                    {service.id === 'cyber-forensic' && (
-                      <>
-                        <SubSection>
-                          <SubSectionTitle>{service.nistMethodology.title}</SubSectionTitle>
-                          <SubSectionDescription>{service.nistMethodology.description}</SubSectionDescription>
-                          <div style={{ display: 'grid', gap: '20px', marginTop: '30px' }}>
-                            {service.nistMethodology.coreFunctions.map((func, idx) => (
-                              <motion.div
-                                key={idx}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: idx * 0.1 }}
-                                style={{
-                                  padding: '25px 30px',
-                                  background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(8, 145, 178, 0.08) 100%)',
-                                  borderRadius: '16px',
-                                  border: '2px solid rgba(6, 182, 212, 0.2)',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  gap: '20px',
-                                  transition: 'all 0.3s ease',
-                                  cursor: 'default'
-                                }}
-                                whileHover={{
-                                  scale: 1.02,
-                                  borderColor: 'rgba(6, 182, 212, 0.4)',
-                                  boxShadow: '0 8px 30px rgba(6, 182, 212, 0.15)'
-                                }}
-                              >
-                                <div style={{
-                                  width: '50px',
-                                  height: '50px',
-                                  borderRadius: '12px',
-                                  background: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  color: 'white',
-                                  fontWeight: '700',
-                                  fontSize: '1.3rem',
-                                  flexShrink: 0,
-                                  boxShadow: '0 4px 15px rgba(6, 182, 212, 0.3)'
-                                }}>
-                                  {idx + 1}
-                                </div>
-                                <span style={{ 
-                                  fontSize: '1.25rem', 
-                                  color: 'var(--text-primary)', 
-                                  fontWeight: '700',
-                                  letterSpacing: '0.5px'
-                                }}>
-                                  {func}
-                                </span>
-                              </motion.div>
-                            ))}
-                          </div>
-                        </SubSection>
-
-                        <SubSection>
-                          <SubSectionTitle>Benefits of using Cyber Forensic Assessment Methodology:</SubSectionTitle>
-                          <div style={{ 
-                            display: 'grid', 
-                            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                            gap: '25px', 
-                            marginTop: '30px' 
-                          }}>
-                            {service.benefits.map((benefit, idx) => (
-                              <motion.div
-                                key={idx}
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: idx * 0.15 }}
-                                style={{
-                                  padding: '30px',
-                                  background: 'white',
-                                  borderRadius: '16px',
-                                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
-                                  textAlign: 'center',
-                                  border: '1px solid rgba(6, 182, 212, 0.1)',
-                                  transition: 'all 0.3s ease'
-                                }}
-                                whileHover={{
-                                  y: -5,
-                                  boxShadow: '0 8px 30px rgba(6, 182, 212, 0.15)'
-                                }}
-                              >
-                                <div style={{
-                                  width: '60px',
-                                  height: '60px',
-                                  margin: '0 auto 20px',
-                                  borderRadius: '50%',
-                                  background: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  color: 'white',
-                                  fontWeight: '700',
-                                  fontSize: '1.5rem',
-                                  boxShadow: '0 4px 15px rgba(6, 182, 212, 0.3)'
-                                }}>
-                                  {idx + 1}
-                                </div>
-                                <h5 style={{ 
-                                  fontSize: '1.2rem', 
-                                  color: 'var(--text-primary)', 
-                                  fontWeight: '700',
-                                  margin: 0
-                                }}>
-                                  {benefit}
-                                </h5>
-                              </motion.div>
-                            ))}
-                          </div>
-                        </SubSection>
-
-                        <div style={{ textAlign: 'center', marginTop: '40px' }}>
-                          <CTAButton
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <FaRocket /> Request Forensic Assessment
-                          </CTAButton>
-                        </div>
-                      </>
-                    )}
-
-                    {service.id === 'training' && (
-                      <>
-                        <SubSection>
-                          <SubSectionTitle>{service.whyCustomized.title}</SubSectionTitle>
-                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '25px', marginTop: '30px' }}>
-                            {service.whyCustomized.reasons.map((reason, idx) => (
-                              <motion.div
-                                key={idx}
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: idx * 0.12 }}
-                                style={{
-                                  padding: '35px 30px',
-                                  background: 'linear-gradient(135deg, rgba(20, 184, 166, 0.1) 0%, rgba(13, 148, 136, 0.1) 100%)',
-                                  borderRadius: '20px',
-                                  border: '2px solid rgba(20, 184, 166, 0.2)',
-                                  textAlign: 'center',
-                                  transition: 'all 0.3s ease'
-                                }}
-                                whileHover={{
-                                  y: -8,
-                                  borderColor: 'rgba(20, 184, 166, 0.4)',
-                                  boxShadow: '0 12px 40px rgba(20, 184, 166, 0.2)'
-                                }}
-                              >
-                                <div style={{
-                                  width: '70px',
-                                  height: '70px',
-                                  margin: '0 auto 20px',
-                                  borderRadius: '50%',
-                                  background: 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  color: 'white',
-                                  fontWeight: '700',
-                                  fontSize: '1.8rem',
-                                  boxShadow: '0 6px 20px rgba(20, 184, 166, 0.4)'
-                                }}>
-                                  {idx + 1}
-                                </div>
-                                <h5 style={{ fontSize: '1.25rem', color: 'var(--text-primary)', fontWeight: '700', margin: 0 }}>
-                                  {reason}
-                                </h5>
-                              </motion.div>
-                            ))}
-                          </div>
-                        </SubSection>
-
-                        <SubSection>
-                          <SubSectionTitle>{service.trainingApproach.title}</SubSectionTitle>
-                          <div style={{ display: 'grid', gap: '20px', marginTop: '30px' }}>
-                            {service.trainingApproach.steps.map((step, idx) => (
-                              <motion.div
-                                key={idx}
-                                initial={{ opacity: 0, x: -30 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.1 }}
-                                style={{
-                                  padding: '30px 35px',
-                                  background: 'white',
-                                  borderRadius: '16px',
-                                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  gap: '25px',
-                                  border: '1px solid rgba(20, 184, 166, 0.1)',
-                                  transition: 'all 0.3s ease'
-                                }}
-                                whileHover={{
-                                  x: 10,
-                                  boxShadow: '0 8px 30px rgba(20, 184, 166, 0.15)'
-                                }}
-                              >
-                                <div style={{
-                                  minWidth: '55px',
-                                  height: '55px',
-                                  borderRadius: '14px',
-                                  background: 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  color: 'white',
-                                  fontWeight: '700',
-                                  fontSize: '1.4rem',
-                                  boxShadow: '0 4px 15px rgba(20, 184, 166, 0.3)'
-                                }}>
-                                  {idx + 1}
-                                </div>
-                                <span style={{ fontSize: '1.3rem', color: 'var(--text-primary)', fontWeight: '700' }}>
-                                  {step}
-                                </span>
-                              </motion.div>
-                            ))}
-                          </div>
-                        </SubSection>
-
-                        <SubSection>
-                          <SubSectionTitle>Benefits of Our Customized Training</SubSectionTitle>
-                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '25px', marginTop: '30px' }}>
-                            {service.benefits.map((benefit, idx) => (
-                              <motion.div
-                                key={idx}
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: idx * 0.12 }}
-                                style={{
-                                  padding: '30px 25px',
-                                  background: 'linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%)',
-                                  borderRadius: '16px',
-                                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
-                                  textAlign: 'center',
-                                  border: '2px solid rgba(20, 184, 166, 0.15)',
-                                  transition: 'all 0.3s ease'
-                                }}
-                                whileHover={{
-                                  y: -8,
-                                  boxShadow: '0 12px 40px rgba(20, 184, 166, 0.2)',
-                                  borderColor: 'rgba(20, 184, 166, 0.3)'
-                                }}
-                              >
-                                <div style={{
-                                  width: '50px',
-                                  height: '50px',
-                                  margin: '0 auto 15px',
-                                  borderRadius: '12px',
-                                  background: 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  color: 'white',
-                                  fontWeight: '700',
-                                  fontSize: '1.3rem',
-                                  boxShadow: '0 4px 15px rgba(20, 184, 166, 0.3)'
-                                }}>
-                                  ✓
-                                </div>
-                                <p style={{ fontSize: '1.1rem', color: 'var(--text-primary)', fontWeight: '600', margin: 0, lineHeight: '1.5' }}>
-                                  {benefit}
-                                </p>
-                              </motion.div>
-                            ))}
-                          </div>
-                        </SubSection>
-
-                        <div style={{
-                          marginTop: '50px',
-                          padding: '40px',
-                          background: 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)',
-                          borderRadius: '24px',
-                          boxShadow: '0 10px 40px rgba(20, 184, 166, 0.3)',
-                          textAlign: 'center'
-                        }}>
-                          <h3 style={{ fontSize: '2rem', color: 'white', fontWeight: '700', marginBottom: '20px' }}>
-                            {service.cta.title}
-                          </h3>
-                          <p style={{ fontSize: '1.15rem', color: 'rgba(255, 255, 255, 0.95)', lineHeight: '1.8', marginBottom: '30px', maxWidth: '900px', margin: '0 auto 30px' }}>
-                            {service.cta.description}
-                          </p>
-                          <CTAButton
-                            style={{ background: 'white', color: '#14b8a6' }}
-                            whileHover={{ scale: 1.08, boxShadow: '0 8px 30px rgba(255, 255, 255, 0.3)' }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <FaRocket /> Get Free Consultation
-                          </CTAButton>
-                        </div>
-                      </>
-                    )}
-
-                    {service.id !== 'red-team' && service.id !== 'app-security' && service.id !== 'infrastructure' && service.id !== 'ot-iot' && service.id !== 'anti-ransomware' && service.id !== 'data-breach' && service.id !== 'cyber-forensic' && service.id !== 'training' && (
-                      <div style={{ textAlign: 'center', marginTop: '30px' }}>
-                        <CTAButton
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          <FaRocket /> Learn More
-                        </CTAButton>
-                      </div>
-                    )}
-
-                    {service.id === 'red-team' && (
-                      <div style={{ textAlign: 'center', marginTop: '40px' }}>
-                        <CTAButton
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          <FaRocket /> Request Red Team Assessment
-                        </CTAButton>
-                      </div>
-                    )}
-                  </ServiceContent>
-                )}
-              </AnimatePresence>
+              <CardContent>
+                <CardHeader>
+                  <CardIcon>{service.icon}</CardIcon>
+                  <div>
+                    <CardTitle>{service.title}</CardTitle>
+                    <CardDescription>{service.shortDesc}</CardDescription>
+                  </div>
+                </CardHeader>
+                <CardFooter>
+                  <FeatureTag>{service.tag}</FeatureTag>
+                  <LearnMoreButton>
+                    Learn More <FaArrowRight />
+                  </LearnMoreButton>
+                </CardFooter>
+              </CardContent>
             </ServiceCard>
           ))}
-        </ServicesContainer>
-      </ServicesSection>
+        </GridContainer>
+      </ServicesGrid>
+
+      {selectedService && (
+        <ModalOverlay
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={closeModal}
+        >
+          <ModalContent
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            transition={{ type: 'spring', duration: 0.5 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <CloseButton onClick={closeModal}>×</CloseButton>
+            
+            <ModalHeader gradient={selectedService.gradient} image={selectedService.image}>
+              <ModalIconTitle>
+                <ModalIcon>{selectedService.icon}</ModalIcon>
+                <ModalTitle>{selectedService.title}</ModalTitle>
+              </ModalIconTitle>
+            </ModalHeader>
+
+            <ModalBody>
+              <Section>
+                <SectionText>{selectedService.description}</SectionText>
+              </Section>
+
+              <Section>
+                <SectionTitle>{selectedService.methodology.title}</SectionTitle>
+                {selectedService.methodology.items.map((item, idx) => (
+                  <ListItem key={idx}>
+                    <ListIcon>{idx + 1}</ListIcon>
+                    <ListText>{item}</ListText>
+                  </ListItem>
+                ))}
+              </Section>
+
+              <Section>
+                <SectionTitle>Benefits</SectionTitle>
+                {selectedService.benefits.map((benefit, idx) => (
+                  <ListItem key={idx}>
+                    <ListIcon><FaCheckCircle size={16} /></ListIcon>
+                    <ListText>{benefit}</ListText>
+                  </ListItem>
+                ))}
+              </Section>
+
+              <CTASection>
+                <CTATitle>Ready to Get Started?</CTATitle>
+                <CTAText>
+                  Contact us today for a free consultation and learn how we can help secure your organization.
+                </CTAText>
+                <CTAButton>
+                  <FaRocket /> Request Assessment
+                </CTAButton>
+              </CTASection>
+            </ModalBody>
+          </ModalContent>
+        </ModalOverlay>
+      )}
     </PageContainer>
   );
 };
