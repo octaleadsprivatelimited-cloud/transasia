@@ -480,7 +480,36 @@ const CyberSecurityServices = () => {
       title: 'Anti Ransomware Readiness Assessment',
       gradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
       image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200',
-      description: 'Comprehensive evaluation of your organization\'s ransomware preparedness. We assess backup strategies, incident response plans, security controls, and recovery capabilities to ensure you\'re ready to defend against and recover from ransomware attacks.'
+      description: 'Ransomware Attacks pose a significant threat to organizations, disrupting operations and causing financial losses. To effectively combat this threat, a standard Vulnerability Assessment and Penetration Testing (VAPT) might not be sufficient. This is where an Anti-Ransomware Readiness Assessment (ARRA) comes in.',
+      arraMethodology: {
+        title: 'ARRA Methodology based on MITRE ATT&CK',
+        description: 'An ARRA leverages the MITRE ATT&CK framework, a comprehensive knowledge base of attacker tactics, techniques, and procedures (TTPs). This allows for a targeted assessment that simulates real-world ransomware attacks.',
+        phases: [
+          'Preparation',
+          'Emulation',
+          'Detection and Response',
+          'Reporting and Remediation Suggestions'
+        ]
+      },
+      comparison: {
+        title: 'Comparison with Standard VAPT',
+        description: 'While a standard VAPT identifies vulnerabilities in systems and applications, it often doesn\'t specifically target ransomware attack vectors.',
+        table: [
+          { feature: 'Focus', vapt: 'Broad range of vulnerabilities', arra: 'Targeted on ransomware attack methods' },
+          { feature: 'Methodology', vapt: 'Vulnerability Scanning, Penetration testing', arra: 'Emulation of attacker TTPs based on MITRE ATT&CK' },
+          { feature: 'Output', vapt: 'List of vulnerabilities', arra: 'Report with prioritized recommendations for mitigating ransomware risk' }
+        ]
+      },
+      limitations: {
+        title: 'Why Standard VAPT Isn\'t Enough',
+        description: 'Standard VAPT has limitations when it comes to ransomware preparedness:',
+        points: [
+          'Scope Limited Activity',
+          'Focus on Detection, not Prevention',
+          'Doesn\'t Test Response Capabilities'
+        ]
+      },
+      conclusion: 'An ARRA, by focusing on emulating real-world attacker behaviors, provides a more comprehensive assessment of an organization\'s preparedness against ransomware attack. It goes beyond identifying vulnerabilities to test the organization\'s entire security posture, including people, processes, and technology.'
     },
     {
       id: 'data-breach',
@@ -819,7 +848,103 @@ const CyberSecurityServices = () => {
                       </>
                     )}
 
-                    {service.id !== 'red-team' && service.id !== 'app-security' && service.id !== 'infrastructure' && service.id !== 'ot-iot' && (
+                    {service.id === 'anti-ransomware' && (
+                      <>
+                        <SubSection>
+                          <SubSectionTitle>{service.arraMethodology.title}</SubSectionTitle>
+                          <SubSectionDescription>{service.arraMethodology.description}</SubSectionDescription>
+                          <PointsList>
+                            {service.arraMethodology.phases.map((phase, idx) => (
+                              <PointItem
+                                key={idx}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.08 }}
+                              >
+                                <PointNumber>{idx + 1}</PointNumber>
+                                <PointText>{phase}</PointText>
+                              </PointItem>
+                            ))}
+                          </PointsList>
+                        </SubSection>
+
+                        <SubSection>
+                          <SubSectionTitle>{service.comparison.title}</SubSectionTitle>
+                          <SubSectionDescription>{service.comparison.description}</SubSectionDescription>
+                          <div style={{ overflowX: 'auto', marginTop: '30px' }}>
+                            <table style={{
+                              width: '100%',
+                              borderCollapse: 'collapse',
+                              background: 'rgba(255, 255, 255, 0.05)',
+                              borderRadius: '12px',
+                              overflow: 'hidden',
+                              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)'
+                            }}>
+                              <thead>
+                                <tr style={{ background: 'linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%)' }}>
+                                  <th style={{ padding: '18px 20px', textAlign: 'left', color: 'white', fontWeight: '700', fontSize: '1.1rem' }}>Feature</th>
+                                  <th style={{ padding: '18px 20px', textAlign: 'left', color: 'white', fontWeight: '700', fontSize: '1.1rem' }}>Standard VAPT</th>
+                                  <th style={{ padding: '18px 20px', textAlign: 'left', color: 'white', fontWeight: '700', fontSize: '1.1rem' }}>ARRA</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {service.comparison.table.map((row, idx) => (
+                                  <tr key={idx} style={{
+                                    background: idx % 2 === 0 ? 'rgba(255, 255, 255, 0.6)' : 'rgba(255, 255, 255, 0.3)',
+                                    borderBottom: idx < service.comparison.table.length - 1 ? '1px solid rgba(0, 0, 0, 0.05)' : 'none'
+                                  }}>
+                                    <td style={{ padding: '18px 20px', fontWeight: '700', color: 'var(--primary-color)', fontSize: '1.05rem' }}>{row.feature}</td>
+                                    <td style={{ padding: '18px 20px', color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: '1.6' }}>{row.vapt}</td>
+                                    <td style={{ padding: '18px 20px', color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: '1.6', fontWeight: '600' }}>{row.arra}</td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </SubSection>
+
+                        <SubSection>
+                          <SubSectionTitle>{service.limitations.title}</SubSectionTitle>
+                          <SubSectionDescription>{service.limitations.description}</SubSectionDescription>
+                          <PointsList>
+                            {service.limitations.points.map((point, idx) => (
+                              <PointItem
+                                key={idx}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.1 }}
+                              >
+                                <PointNumber>{idx + 1}</PointNumber>
+                                <PointText>{point}</PointText>
+                              </PointItem>
+                            ))}
+                          </PointsList>
+                        </SubSection>
+
+                        <div style={{
+                          marginTop: '40px',
+                          padding: '25px',
+                          background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.1) 100%)',
+                          borderRadius: '16px',
+                          borderLeft: '4px solid var(--primary-color)'
+                        }}>
+                          <p style={{ fontSize: '1.1rem', color: 'var(--text-primary)', lineHeight: '1.8', margin: 0 }}>
+                            {service.conclusion}
+                          </p>
+                        </div>
+
+                        <div style={{ textAlign: 'center', marginTop: '40px' }}>
+                          <CTAButton
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <FaRocket /> Request Anti-Ransomware Assessment
+                          </CTAButton>
+                        </div>
+                      </>
+                    )}
+
+                    {service.id !== 'red-team' && service.id !== 'app-security' && service.id !== 'infrastructure' && service.id !== 'ot-iot' && service.id !== 'anti-ransomware' && (
                       <div style={{ textAlign: 'center', marginTop: '30px' }}>
                         <CTAButton
                           whileHover={{ scale: 1.05 }}
