@@ -31,7 +31,34 @@ const NavContainer = styled.div`
   }
 `;
 
-// Logo removed by request
+const Logo = styled(Link)`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+
+  img {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+    
+    img {
+      height: 40px;
+    }
+  }
+`;
 
 const NavMenu = styled(motion.nav)`
   display: flex;
@@ -448,7 +475,9 @@ const Header = () => {
       }}
     >
         <NavContainer>
-          {/* Logo removed by request */}
+          <Logo to="/">
+            <img src="/insurtech/logo.png" alt="Trans Asia Tech Logo" />
+          </Logo>
 
           <NavMenu className={isMenuOpen ? 'active' : ''}>
           <NavLink to="/" onClick={closeMenu}>Home</NavLink>
