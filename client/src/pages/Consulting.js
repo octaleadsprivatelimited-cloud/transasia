@@ -1,24 +1,583 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { 
-  FaUsersCog, FaClipboardCheck, FaTools, FaProjectDiagram, FaUserShield,
-  FaCloud, FaDatabase, FaBug, FaUserTie, FaCheckCircle,
-  FaRocket, FaChartLine, FaLightbulb, FaCogs
+  FaLeaf, FaShieldAlt, FaChartLine, FaUserShield,
+  FaCheckCircle, FaRocket, FaLightbulb, FaHandshake, FaArrowRight, FaPlay, FaStar
 } from 'react-icons/fa';
-import LifecycleDiagram from '../components/LifecycleDiagram';
+
+const float = keyframes`
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+`;
+
+const rotate = keyframes`
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+`;
+
+const shimmer = keyframes`
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+`;
 
 const PageContainer = styled.div`
   min-height: 100vh;
   padding-top: 80px;
-  background: var(--bg-primary);
+  background: #ffffff;
+  overflow-x: hidden;
 `;
 
 const HeroSection = styled.section`
-  background: var(--gradient-hero);
-  padding: 120px 20px 80px;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #0a1128 0%, #1e3a8a 50%, #1e40af 100%);
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
+    animation: ${rotate} 30s linear infinite;
+  }
+`;
+
+const HeroBlob = styled.div`
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(30px);
+  animation: ${float} 6s ease-in-out infinite;
+  
+  &:nth-child(1) {
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+  
+  &:nth-child(2) {
+    bottom: 10%;
+    right: 10%;
+    animation-delay: 2s;
+  }
+`;
+
+const HeroContent = styled.div`
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+`;
+
+const HeroLeft = styled.div``;
+
+const HeroTag = styled(motion.div)`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 10px 24px;
+  border-radius: 50px;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+
+  svg {
+    color: #fbbf24;
+  }
+`;
+
+const HeroTitle = styled(motion.h1)`
+  font-size: 4rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.3;
+  margin-bottom: 24px;
+  letter-spacing: -1px;
+
+  span {
+    display: block;
+    font-weight: 300;
+    font-size: 3.5rem;
+    background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+    
+    span {
+      font-size: 2.2rem;
+    }
+  }
+`;
+
+const HeroDescription = styled(motion.p)`
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.8;
+  margin-bottom: 40px;
+`;
+
+const HeroButtons = styled(motion.div)`
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  @media (max-width: 968px) {
+    justify-content: center;
+  }
+`;
+
+const Button = styled(motion.button)`
+  padding: 18px 40px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  border: none;
+  transition: all 0.3s ease;
+
+  svg {
+    transition: transform 0.3s ease;
+  }
+
+  &:hover svg {
+    transform: translateX(5px);
+  }
+`;
+
+const PrimaryButton = styled(Button)`
+  background: white;
+  color: #667eea;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+  }
+`;
+
+const SecondaryButton = styled(Button)`
+  background: transparent;
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: white;
+  }
+`;
+
+const HeroRight = styled.div`
+  position: relative;
+`;
+
+const HeroCard = styled(motion.div)`
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(30px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+  max-width: 400px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+    animation: ${rotate} 15s linear infinite;
+  }
+
+  @media (max-width: 968px) {
+    max-width: 100%;
+  }
+`;
+
+const CardTitle = styled.h3`
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 18px;
   text-align: center;
+  position: relative;
+  z-index: 1;
+  letter-spacing: -0.3px;
+  
+  &::after {
+    content: '';
+    display: block;
+    width: 35px;
+    height: 3px;
+    background: linear-gradient(90deg, #60a5fa, #3b82f6);
+    margin: 10px auto 0;
+    border-radius: 2px;
+  }
+`;
+
+const StatGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+`;
+
+const StatItem = styled(motion.div)`
+  text-align: center;
+  padding: 14px 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  &:hover {
+    transform: translateY(-3px) scale(1.03);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    
+    &::before {
+      opacity: 1;
+    }
+  }
+`;
+
+const StatNumber = styled.div`
+  font-size: 1.8rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ffffff 0%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 4px;
+  line-height: 1;
+`;
+
+const StatLabel = styled.div`
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 600;
+`;
+
+const ServicesSection = styled.section`
+  padding: 120px 40px;
+  background: white;
+  position: relative;
+`;
+
+const SectionHeader = styled.div`
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 80px;
+`;
+
+const SectionBadge = styled(motion.span)`
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+`;
+
+const SectionTitle = styled(motion.h2)`
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #1a202c;
+  margin-bottom: 20px;
+  letter-spacing: -2px;
+
+  @media (max-width: 768px) {
+    font-size: 2.2rem;
+  }
+`;
+
+const SectionSubtitle = styled(motion.p)`
+  font-size: 1.2rem;
+  color: #64748b;
+  line-height: 1.8;
+`;
+
+const BentoGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const BentoCard = styled(motion.div)`
+  background: ${props => props.$gradient || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'};
+  border-radius: 32px;
+  padding: 50px;
+  position: relative;
+  overflow: hidden;
+  grid-column: ${props => props.$span || 'span 6'};
+  min-height: ${props => props.$height || '400px'};
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+
+  @media (max-width: 968px) {
+    grid-column: span 1;
+    min-height: 350px;
+    padding: 40px;
+  }
+`;
+
+const BentoIcon = styled.div`
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: white;
+  margin-bottom: 30px;
+`;
+
+const BentoTitle = styled.h3`
+  font-size: 2rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
+`;
+
+const BentoDescription = styled.p`
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.7;
+  margin-bottom: 30px;
+`;
+
+const BentoList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`;
+
+const BentoListItem = styled.li`
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  padding: 12px 0;
+  padding-left: 28px;
+  position: relative;
+  line-height: 1.6;
+
+  &::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+`;
+
+const ProcessSection = styled.section`
+  padding: 120px 40px;
+  background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+  position: relative;
+`;
+
+const ProcessTimeline = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+    transform: translateX(-50%);
+
+    @media (max-width: 968px) {
+      left: 30px;
+    }
+  }
+`;
+
+const TimelineItem = styled(motion.div)`
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 60px;
+  margin-bottom: 80px;
+  align-items: center;
+
+  &:nth-child(even) {
+    direction: rtl;
+    
+    > * {
+      direction: ltr;
+    }
+  }
+
+  @media (max-width: 968px) {
+    grid-template-columns: auto 1fr;
+    gap: 30px;
+    direction: ltr !important;
+
+    &:nth-child(even) {
+      direction: ltr;
+    }
+  }
+`;
+
+const TimelineContent = styled.div`
+  background: white;
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #667eea;
+    transform: scale(1.02);
+  }
+
+  @media (max-width: 968px) {
+    &:first-child {
+      display: none;
+    }
+  }
+`;
+
+const TimelineNumber = styled.div`
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 900;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+  position: relative;
+  z-index: 2;
+`;
+
+const TimelineTitle = styled.h4`
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 12px;
+`;
+
+const TimelineDescription = styled.p`
+  font-size: 1rem;
+  color: #64748b;
+  line-height: 1.7;
+`;
+
+const TestimonialsSection = styled.section`
+  padding: 120px 40px;
+  background: #1a202c;
   position: relative;
   overflow: hidden;
 
@@ -29,543 +588,480 @@ const HeroSection = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 50% 50%, rgba(30, 64, 175, 0.1) 0%, transparent 70%);
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
   }
 `;
 
-const HeroContent = styled.div`
+const TestimonialsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1400px;
+  margin: 60px auto 0;
+
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const TestimonialCard = styled(motion.div)`
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 40px;
+  position: relative;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-5px);
+  }
+`;
+
+const TestimonialQuote = styled.p`
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.8;
+  margin-bottom: 30px;
+  font-style: italic;
+`;
+
+const TestimonialAuthor = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+`;
+
+const AuthorAvatar = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+`;
+
+const AuthorInfo = styled.div``;
+
+const AuthorName = styled.div`
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 4px;
+`;
+
+const AuthorRole = styled.div`
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+`;
+
+const CTASection = styled.section`
+  padding: 120px 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    top: -25%;
+    left: -25%;
+    background: 
+      radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    animation: ${rotate} 20s linear infinite;
+  }
+`;
+
+const CTAContent = styled.div`
   max-width: 900px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
 `;
 
-const Pill = styled.span`
-  display: inline-block;
-  background: var(--gradient-primary);
+const CTATitle = styled(motion.h2)`
+  font-size: 4rem;
+  font-weight: 900;
   color: white;
-  padding: 8px 20px;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-`;
-
-const Title = styled.h1`
-  font-size: 3.5rem;
-  font-weight: 800;
-  color: var(--text-primary);
   margin-bottom: 24px;
-  line-height: 1.2;
+  letter-spacing: -2px;
 
   @media (max-width: 768px) {
     font-size: 2.5rem;
   }
 `;
 
-const Subtitle = styled.p`
+const CTADescription = styled(motion.p)`
   font-size: 1.3rem;
-  color: var(--text-secondary);
-  margin-bottom: 40px;
-  line-height: 1.6;
-
-  @media (max-width: 768px) {
-    font-size: 1.1rem;
-  }
-`;
-
-const Section = styled.section`
-  padding: 80px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-`;
-
-const SectionTitle = styled.h2`
-  font-size: 2.5rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 20px;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-`;
-
-const SectionSubtitle = styled.p`
-  font-size: 1.2rem;
-  color: var(--text-secondary);
-  text-align: center;
-  margin-bottom: 60px;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-`;
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  margin-bottom: 60px;
-`;
-
-const Card = styled(motion.div)`
-  background: white;
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(30, 64, 175, 0.1);
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-
-  &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 40px rgba(30, 64, 175, 0.2);
-    border-color: var(--primary-color);
-  }
-`;
-
-const CardIcon = styled.div`
-  width: 70px;
-  height: 70px;
-  border-radius: 16px;
-  background: var(--gradient-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  color: white;
-  margin-bottom: 24px;
-`;
-
-const CardTitle = styled.h3`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 16px;
-`;
-
-const CardText = styled.p`
-  font-size: 1rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 20px;
-`;
-
-const List = styled.ul`
-  list-style: none;
-  padding: 0;
-`;
-
-const ListItem = styled.li`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-
-  svg {
-    color: var(--primary-color);
-    flex-shrink: 0;
-  }
-`;
-
-const StatsSection = styled.div`
-  background: var(--gradient-secondary);
-  padding: 60px 40px;
-  border-radius: 24px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 40px;
-  text-align: center;
-  margin: 60px 0;
-`;
-
-const StatCard = styled.div`
-  color: white;
-`;
-
-const StatNumber = styled.div`
-  font-size: 3rem;
-  font-weight: 800;
-  margin-bottom: 10px;
-`;
-
-const StatLabel = styled.div`
-  font-size: 1.1rem;
-  opacity: 0.9;
-`;
-
-const ApproachGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-`;
-
-const ApproachCard = styled(motion.div)`
-  background: white;
-  padding: 40px 30px;
-  border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(30, 64, 175, 0.1);
-  text-align: center;
-  transition: all 0.3s ease;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px rgba(30, 64, 175, 0.2);
-  }
-`;
-
-const ApproachIcon = styled.div`
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background: var(--gradient-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  color: white;
-  margin: 0 auto 20px;
-`;
-
-const ApproachTitle = styled.h4`
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 12px;
-`;
-
-const ApproachDescription = styled.p`
-  font-size: 1rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-`;
-
-const CTASection = styled.section`
-  background: var(--gradient-hero);
-  padding: 100px 20px;
-  text-align: center;
-  margin-top: 80px;
-`;
-
-const CTAContent = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-`;
-
-const CTATitle = styled.h2`
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 20px;
-`;
-
-const CTADescription = styled.p`
-  font-size: 1.2rem;
-  color: var(--text-secondary);
-  margin-bottom: 40px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 50px;
+  line-height: 1.8;
 `;
 
 const CTAButton = styled(motion.button)`
-  background: var(--gradient-primary);
-  color: white;
+  background: white;
+  color: #667eea;
   border: none;
-  padding: 18px 48px;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  padding: 22px 60px;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(30, 64, 175, 0.3);
-  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
 
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(30, 64, 175, 0.4);
+  svg {
+    transition: transform 0.3s ease;
+  }
+
+  &:hover svg {
+    transform: translateX(5px);
   }
 `;
 
 const Consulting = () => {
   const services = [
     {
-      icon: <FaUsersCog />,
-      title: 'Strategy & Target Operating Model',
-      description: 'Current state assessments, capability roadmaps, org design, and executive reporting.',
-      features: [
-        'Maturity baselines mapped to frameworks (NIST/ISO)',
-        'Target operating model and staffing plans',
-        'Board and ELT-ready KPIs/KRIs',
-        'Strategic security roadmap development'
+      icon: <FaLeaf />,
+      title: 'ESG Consulting',
+      description: 'Comprehensive Environment, Social & Governance risk assessment and mitigation',
+      gradient: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+      span: 'span 6',
+      height: '500px',
+      items: [
+        'BRSR Assessment & Regulatory Compliance',
+        'Beyond BRSR Evaluation',
+        'Risk Ratings & Quantification',
+        'ESG Exposure Evaluation',
+        'Mitigation Strategy & Implementation'
       ]
     },
     {
-      icon: <FaClipboardCheck />,
-      title: 'GRC & Compliance',
-      description: 'Policy suites, risk registers, control catalogs, audits, and certification support.',
-      features: [
-        'ISO 27001, SOC 2, HIPAA, PCI, GDPR readiness',
-        'Risk, issue, and exception management',
-        'Control testing and continuous assurance',
-        'Compliance automation and reporting'
+      icon: <FaChartLine />,
+      title: 'Enterprise Risk',
+      description: 'Strategic risk identification and comprehensive assessment framework',
+      gradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+      span: 'span 6',
+      height: '500px',
+      items: [
+        'Senior Management Workshops',
+        'Historical Data Analysis',
+        'Risk Identification & Mapping',
+        'Consequence Analysis',
+        'Probability Assessment'
+      ]
+    },
+    {
+      icon: <FaHandshake />,
+      title: 'Cyber Insurance',
+      description: 'Policy alignment and coverage optimization for comprehensive protection',
+      gradient: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
+      span: 'span 7',
+      height: '450px',
+      items: [
+        'Forensic Investigation Coverage',
+        'Business Interruption Protection',
+        'Regulatory Fines & Penalties',
+        'Risk Consequence Analysis'
       ]
     },
     {
       icon: <FaUserShield />,
-      title: 'Zero Trust & Defense',
-      description: 'Identity, network, and data-centric architectures with pragmatic rollout plans.',
-      features: [
-        'Segmentation, PAM, EDR/XDR strategy',
-        'Threat modeling and attack surface reduction',
-        'Use-case driven detections and response',
-        'Identity and access management'
-      ]
-    },
-    {
-      icon: <FaTools />,
-      title: 'Incident Response & Resilience',
-      description: 'IR plans, tabletop exercises, purple teaming, and business continuity programs.',
-      features: [
-        'Runbooks and communications playbooks',
-        'Ransomware readiness and backups validation',
-        'BCP/DR strategy and testing',
-        '24/7 incident response support'
-      ]
-    },
-    {
-      icon: <FaCloud />,
-      title: 'Cloud & SaaS Security',
-      description: 'Landing zones, IaC guardrails, CSPM, CIEM, and multi-cloud policies.',
-      features: [
-        'Cloud security architecture design',
-        'Multi-cloud security strategy',
-        'Container and Kubernetes security',
-        'Cloud compliance and governance'
-      ]
-    },
-    {
-      icon: <FaDatabase />,
-      title: 'Data Protection & Privacy',
-      description: 'DLP, encryption, retention, and privacy-by-design with DPIAs and ROPAs.',
-      features: [
-        'Data classification and protection',
-        'Privacy impact assessments',
-        'GDPR and privacy compliance',
-        'Data lifecycle management'
+      title: 'Cyber Forensics',
+      description: 'Expert incident response and investigation services',
+      gradient: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+      span: 'span 5',
+      height: '450px',
+      items: [
+        'Attack Source Identification',
+        'Evidence Collection',
+        'Ransomware Negotiation',
+        'Security Posture Improvement'
       ]
     }
   ];
 
-  const consultingProcess = [
-    {
-      number: '1',
-      title: 'Discovery & Assessment',
-      description: 'Comprehensive analysis of current security posture, gaps, and business requirements'
-    },
-    {
-      number: '2',
-      title: 'Strategy Development',
-      description: 'Design target state architecture and create detailed roadmap with priorities'
-    },
-    {
-      number: '3',
-      title: 'Implementation Planning',
-      description: 'Develop detailed implementation plans with resource allocation and timelines'
-    },
-    {
-      number: '4',
-      title: 'Execution Support',
-      description: 'Guide implementation with hands-on support and change management'
-    },
-    {
-      number: '5',
-      title: 'Optimization & Handoff',
-      description: 'Measure outcomes, optimize processes, and transfer knowledge to internal teams'
-    }
+  const processSteps = [
+    { number: '01', title: 'Discovery & Analysis', description: 'Deep dive into your business, risks, objectives, and current security posture' },
+    { number: '02', title: 'Comprehensive Assessment', description: 'Thorough evaluation of vulnerabilities, threats, and compliance requirements' },
+    { number: '03', title: 'Strategic Planning', description: 'Develop customized solutions, roadmaps, and implementation strategies' },
+    { number: '04', title: 'Expert Implementation', description: 'Execute with precision, expertise, and continuous monitoring' },
+    { number: '05', title: 'Ongoing Support', description: 'Continuous improvement, updates, and 24/7 expert assistance' }
   ];
 
-  const approach = [
-    {
-      icon: <FaLightbulb />,
-      title: 'Business-Aligned',
-      description: 'Security strategies that enable business objectives and drive value'
-    },
-    {
-      icon: <FaChartLine />,
-      title: 'Outcome-Focused',
-      description: 'Measurable results with clear KPIs and success metrics'
-    },
-    {
-      icon: <FaCogs />,
-      title: 'Pragmatic Approach',
-      description: 'Practical solutions that balance security, usability, and cost'
-    },
-    {
-      icon: <FaRocket />,
-      title: 'Accelerated Delivery',
-      description: 'Rapid implementation with proven methodologies and best practices'
-    }
+  const testimonials = [
+    { quote: "TransAsia's ESG consulting transformed our sustainability reporting. Their expertise in BRSR compliance is unmatched.", author: 'Sarah Chen', role: 'CSO, Global Finance Corp', initial: 'S' },
+    { quote: "The cyber forensics team's rapid response saved us millions. Their ransomware negotiation skills are exceptional.", author: 'Michael Rodriguez', role: 'CISO, TechVentures Inc', initial: 'M' },
+    { quote: "Outstanding ERM framework implementation. They identified risks we never considered and provided actionable solutions.", author: 'Priya Sharma', role: 'CEO, Innovation Labs', initial: 'P' }
   ];
 
   return (
     <PageContainer>
       <Helmet>
         <title>Consulting Services | TransAsia</title>
-        <meta name="description" content="Expert cybersecurity consulting across strategy, GRC, privacy, cloud, and resilience" />
+        <meta name="description" content="Expert consulting in ESG, ERM, Cyber Insurance, and Cyber Forensics" />
       </Helmet>
 
       <HeroSection>
+        <HeroBlob />
+        <HeroBlob />
         <HeroContent>
-          <Pill>Consulting Services</Pill>
-          <Title>Cybersecurity Advisory & Transformation</Title>
-          <Subtitle>
-            Outcome-driven cybersecurity consulting that aligns security with business objectives.
-            We design target operating models, modernize controls, and accelerate compliance while
-            improving risk posture and resilience.
-          </Subtitle>
+          <HeroLeft>
+            <HeroTitle
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              Transform Risk Into
+              <span>Strategic Advantage</span>
+            </HeroTitle>
+            <HeroDescription
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              Expert consulting across ESG, Enterprise Risk Management, Cyber Insurance, 
+              and Incident Response. Protect your business and accelerate growth with proven strategies.
+            </HeroDescription>
+            <HeroButtons
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <PrimaryButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                Get Started <FaArrowRight />
+              </PrimaryButton>
+              <SecondaryButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <FaPlay /> Watch Demo
+              </SecondaryButton>
+            </HeroButtons>
+          </HeroLeft>
+          <HeroRight>
+            <HeroCard
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+            >
+              <CardTitle>Trusted by Industry Leaders</CardTitle>
+              <StatGrid>
+                <StatItem
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5, duration: 0.5 }}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                >
+                  <StatNumber>500+</StatNumber>
+                  <StatLabel>Clients</StatLabel>
+                </StatItem>
+                <StatItem
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6, duration: 0.5 }}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                >
+                  <StatNumber>98%</StatNumber>
+                  <StatLabel>Success Rate</StatLabel>
+                </StatItem>
+                <StatItem
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7, duration: 0.5 }}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                >
+                  <StatNumber>24/7</StatNumber>
+                  <StatLabel>Support</StatLabel>
+                </StatItem>
+                <StatItem
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8, duration: 0.5 }}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                >
+                  <StatNumber>15+</StatNumber>
+                  <StatLabel>Years</StatLabel>
+                </StatItem>
+              </StatGrid>
+            </HeroCard>
+          </HeroRight>
         </HeroContent>
       </HeroSection>
 
-      {/* Section 1: Core Services */}
-      <Section>
-        <SectionTitle>Comprehensive Consulting Services</SectionTitle>
-        <SectionSubtitle>
-          Expert guidance across all aspects of cybersecurity strategy and implementation
-        </SectionSubtitle>
-        <Grid>
+      <ServicesSection>
+        <SectionHeader>
+          <SectionBadge
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Our Services
+          </SectionBadge>
+          <SectionTitle
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            Comprehensive Solutions
+          </SectionTitle>
+          <SectionSubtitle
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            From ESG evaluation to cyber forensics, we provide end-to-end consulting services tailored to your needs
+          </SectionSubtitle>
+        </SectionHeader>
+
+        <BentoGrid>
           {services.map((service, index) => (
-            <Card
+            <BentoCard
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              $gradient={service.gradient}
+              $span={service.span}
+              $height={service.height}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
             >
-              <CardIcon>{service.icon}</CardIcon>
-              <CardTitle>{service.title}</CardTitle>
-              <CardText>{service.description}</CardText>
-              <List>
-                {service.features.map((feature, idx) => (
-                  <ListItem key={idx}>
-                    <FaCheckCircle />
-                    <span>{feature}</span>
-                  </ListItem>
+              <div>
+                <BentoIcon>{service.icon}</BentoIcon>
+                <BentoTitle>{service.title}</BentoTitle>
+                <BentoDescription>{service.description}</BentoDescription>
+              </div>
+              <BentoList>
+                {service.items.map((item, i) => (
+                  <BentoListItem key={i}>{item}</BentoListItem>
                 ))}
-              </List>
-            </Card>
+              </BentoList>
+            </BentoCard>
           ))}
-        </Grid>
-      </Section>
+        </BentoGrid>
+      </ServicesSection>
 
-      {/* Section 2: Consulting Process */}
-      <LifecycleDiagram
-        title="Our Consulting Process"
-        steps={consultingProcess}
-        type="horizontal"
-        background="var(--bg-secondary)"
-      />
+      <ProcessSection>
+        <SectionHeader>
+          <SectionBadge
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Our Process
+          </SectionBadge>
+          <SectionTitle
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            How We Work
+          </SectionTitle>
+        </SectionHeader>
 
-      {/* Section 3: Statistics */}
-      <Section>
-        <StatsSection>
-          <StatCard>
-            <StatNumber>200+</StatNumber>
-            <StatLabel>Consulting Engagements</StatLabel>
-          </StatCard>
-          <StatCard>
-            <StatNumber>95%</StatNumber>
-            <StatLabel>Client Satisfaction</StatLabel>
-          </StatCard>
-          <StatCard>
-            <StatNumber>50+</StatNumber>
-            <StatLabel>Certified Consultants</StatLabel>
-          </StatCard>
-          <StatCard>
-            <StatNumber>15+</StatNumber>
-            <StatLabel>Years Experience</StatLabel>
-          </StatCard>
-        </StatsSection>
-      </Section>
-
-      {/* Section 4: Our Approach */}
-      <Section>
-        <SectionTitle>Our Consulting Approach</SectionTitle>
-        <SectionSubtitle>
-          Proven methodologies that deliver measurable business value
-        </SectionSubtitle>
-        <ApproachGrid>
-          {approach.map((item, index) => (
-            <ApproachCard
+        <ProcessTimeline>
+          {processSteps.map((step, index) => (
+            <TimelineItem
               key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.1 }}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
             >
-              <ApproachIcon>{item.icon}</ApproachIcon>
-              <ApproachTitle>{item.title}</ApproachTitle>
-              <ApproachDescription>{item.description}</ApproachDescription>
-            </ApproachCard>
+              <TimelineContent>
+                <TimelineTitle>{step.title}</TimelineTitle>
+                <TimelineDescription>{step.description}</TimelineDescription>
+              </TimelineContent>
+              <TimelineNumber>{step.number}</TimelineNumber>
+              <TimelineContent>
+                <TimelineTitle>{step.title}</TimelineTitle>
+                <TimelineDescription>{step.description}</TimelineDescription>
+              </TimelineContent>
+            </TimelineItem>
           ))}
-        </ApproachGrid>
-      </Section>
+        </ProcessTimeline>
+      </ProcessSection>
 
-      {/* Section 5: Additional Services */}
-      <Section>
-        <SectionTitle>Specialized Consulting Services</SectionTitle>
-        <SectionSubtitle>
-          Deep expertise in specialized domains
-        </SectionSubtitle>
-        <Grid>
-          <Card
+      <TestimonialsSection>
+        <SectionHeader>
+          <SectionBadge
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            style={{ background: 'rgba(255, 255, 255, 0.2)' }}
           >
-            <CardIcon><FaProjectDiagram /></CardIcon>
-            <CardTitle>Secure SDLC</CardTitle>
-            <CardText>
-              Threat modeling, SAST/DAST, SBOM, and DevSecOps pipelines with policy gates.
-            </CardText>
-          </Card>
-          <Card
+            Testimonials
+          </SectionBadge>
+          <SectionTitle
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            style={{ color: 'white' }}
           >
-            <CardIcon><FaBug /></CardIcon>
-            <CardTitle>Offensive Security</CardTitle>
-            <CardText>
-              Red teaming, penetration testing, and adversary emulation aligned to real threats.
-            </CardText>
-          </Card>
-          <Card
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <CardIcon><FaUserTie /></CardIcon>
-            <CardTitle>vCISO & Advisory</CardTitle>
-            <CardText>
-              Fractional leadership, program governance, and stakeholder communications.
-            </CardText>
-          </Card>
-        </Grid>
-      </Section>
+            What Our Clients Say
+          </SectionTitle>
+        </SectionHeader>
 
-      {/* Section 6: CTA */}
+        <TestimonialsGrid>
+          {testimonials.map((testimonial, index) => (
+            <TestimonialCard
+              key={index}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <TestimonialQuote>"{testimonial.quote}"</TestimonialQuote>
+              <TestimonialAuthor>
+                <AuthorAvatar>{testimonial.initial}</AuthorAvatar>
+                <AuthorInfo>
+                  <AuthorName>{testimonial.author}</AuthorName>
+                  <AuthorRole>{testimonial.role}</AuthorRole>
+                </AuthorInfo>
+              </TestimonialAuthor>
+            </TestimonialCard>
+          ))}
+        </TestimonialsGrid>
+      </TestimonialsSection>
+
       <CTASection>
         <CTAContent>
-          <CTATitle>Transform Your Security Program</CTATitle>
-          <CTADescription>
-            Partner with our expert consultants to build a world-class security program
-            aligned with your business objectives.
+          <CTATitle
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Ready to Transform Your Business?
+          </CTATitle>
+          <CTADescription
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            Schedule a consultation with our experts and discover how we can help you achieve your goals
           </CTADescription>
           <CTAButton
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Schedule a Consultation
+            Schedule Consultation <FaArrowRight />
           </CTAButton>
         </CTAContent>
       </CTASection>

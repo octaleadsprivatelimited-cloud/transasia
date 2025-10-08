@@ -37,28 +37,44 @@ const NavMenu = styled(motion.nav)`
   display: flex;
   align-items: center;
   gap: 28px;
+  flex: 1;
+  justify-content: flex-start;
 
-  @media (max-width: 768px) {
+  @media (max-width: 968px) {
     position: fixed;
     top: 70px;
     left: 0;
     right: 0;
-    background: rgba(10, 10, 10, 0.98);
+    bottom: 0;
+    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
     backdrop-filter: blur(20px);
     flex-direction: column;
-    padding: 40px 20px;
-    gap: 30px;
-    border-bottom: 1px solid rgba(0, 255, 136, 0.1);
-    transform: translateY(-100%);
+    align-items: flex-start;
+    padding: 30px 20px;
+    gap: 20px;
+    transform: translateX(100%);
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
+    overflow-y: auto;
+    z-index: 999;
 
     &.active {
-      transform: translateY(0);
+      transform: translateX(0);
       opacity: 1;
       visibility: visible;
     }
+  }
+`;
+
+const NavActions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-left: auto;
+
+  @media (max-width: 968px) {
+    display: none;
   }
 `;
 
@@ -92,9 +108,15 @@ const NavLink = styled(Link)`
     width: 100%;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 968px) {
+    color: #ffffff;
     font-size: 18px;
-    padding: 10px 0;
+    padding: 12px 0;
+    width: 100%;
+
+    &:hover {
+      color: #60a5fa;
+    }
   }
 `;
 
@@ -155,17 +177,19 @@ const DropdownContent = styled(motion.div)`
     transition: opacity 0.6s ease;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 968px) {
     position: static;
-    background: ${props => props.$blue ? 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%)' : 'rgba(255, 255, 255, 0.98)'};
-    ${props => props.$blue ? css`backdrop-filter: blur(20px);` : css`backdrop-filter: blur(20px);`}
+    background: transparent;
+    backdrop-filter: none;
     border: none;
-    padding: 10px 0 0 20px;
+    padding: 0;
+    margin: 8px 0;
     min-width: auto;
     opacity: 1;
     visibility: visible;
     transform: none;
     pointer-events: auto;
+    box-shadow: none;
   }
 `;
 
@@ -253,6 +277,10 @@ const MegaCard = styled(motion(Link))`
   &:hover::after {
     opacity: 1;
   }
+
+  @media (max-width: 968px) {
+    min-height: 150px;
+  }
 `;
 
 const MegaImage = styled.div`
@@ -327,36 +355,50 @@ const DropdownItem = styled(Link)`
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 968px) {
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 0;
     font-size: 16px;
-    padding: 12px 16px;
+
+    &:hover {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+      transform: translateX(0);
+    }
+
+    &::before {
+      display: none;
+    }
   }
 `;
 
 const CTAButton = styled(Link)`
   background: var(--gradient-primary);
-  color: #000000;
-  padding: 12px 24px;
-  border-radius: 6px;
+  color: white;
+  padding: 12px 28px;
+  border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
   transition: all 0.3s ease;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
+    box-shadow: 0 8px 20px rgba(30, 64, 175, 0.4);
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
   }
 
-  @media (max-width: 768px) {
-    padding: 15px 30px;
-    font-size: 16px;
-    text-align: center;
-    margin-top: 20px;
+  @media (max-width: 968px) {
+    padding: 14px 24px;
+    font-size: 14px;
   }
 `;
+
 
 const MobileMenuButton = styled.button`
   display: none;
@@ -366,28 +408,10 @@ const MobileMenuButton = styled.button`
   font-size: 24px;
   cursor: pointer;
   padding: 10px;
+  z-index: 1002;
 
-  @media (max-width: 768px) {
+  @media (max-width: 968px) {
     display: block;
-  }
-`;
-
-const Backdrop = styled(motion.div)`
-  position: fixed;
-  top: 80px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(8px);
-  z-index: 1000;
-  opacity: ${props => props.$open ? 1 : 0};
-  visibility: ${props => props.$open ? 'visible' : 'hidden'};
-  pointer-events: ${props => props.$open ? 'auto' : 'none'};
-  transition: all 0.3s ease;
-
-  @media (max-width: 768px) {
-    display: none;
   }
 `;
 
@@ -415,16 +439,14 @@ const Header = () => {
   };
 
   return (
-    <>
-      <Backdrop $open={activeMenu !== ''} onClick={() => setActiveMenu('')} />
-      <HeaderContainer
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6 }}
-        style={{
-          background: isScrolled ? 'rgba(248, 250, 252, 0.98)' : 'rgba(248, 250, 252, 0.95)'
-        }}
-      >
+    <HeaderContainer
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6 }}
+      style={{
+        background: isScrolled ? 'rgba(248, 250, 252, 0.98)' : 'rgba(248, 250, 252, 0.95)'
+      }}
+    >
         <NavContainer>
           {/* Logo removed by request */}
 
@@ -639,18 +661,19 @@ const Header = () => {
               </DropdownGrid>
             </DropdownContent>
           </Dropdown>
-
-          <CTAButton to="/demo" onClick={closeMenu}>
-            Get Demo
-          </CTAButton>
         </NavMenu>
+
+        <NavActions>
+          <CTAButton to="/contact" onClick={closeMenu}>
+            Contact
+          </CTAButton>
+        </NavActions>
 
         <MobileMenuButton onClick={toggleMenu}>
           {isMenuOpen ? <FaTimes /> : <FaBars />}
         </MobileMenuButton>
       </NavContainer>
     </HeaderContainer>
-    </>
   );
 };
 
