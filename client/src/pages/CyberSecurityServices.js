@@ -548,7 +548,24 @@ const CyberSecurityServices = () => {
       title: 'Cyber Forensic Assessment',
       gradient: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
       image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200',
-      description: 'Expert digital forensics and incident investigation services. We collect, preserve, and analyze digital evidence to understand attack vectors, identify perpetrators, and support legal proceedings while ensuring chain of custody compliance.'
+      description: 'A Cyber forensic assessment is a systematic investigation conducted to identify, collect, analyze, and preserve digital evidence in the aftermath of a cyber security incident. This process is crucial for legal proceedings, determining the root cause of the incident, and implementing effective mitigation strategies. The National Institute of Standards and Technology (NIST) CyberSecurity Framework provides a methodology that can be effectively applied to cyber forensic assessments.',
+      nistMethodology: {
+        title: 'Methodology based on NIST Framework',
+        description: 'The NIST Cybersecurity Framework outlines five core functions:',
+        coreFunctions: [
+          'Identify',
+          'Protect',
+          'Detect',
+          'Respond',
+          'Recover'
+        ]
+      },
+      benefits: [
+        'Structured Approach',
+        'Focus on Threats',
+        'Flexibility',
+        'Community Resources'
+      ]
     },
     {
       id: 'training',
@@ -1063,7 +1080,133 @@ const CyberSecurityServices = () => {
                       </>
                     )}
 
-                    {service.id !== 'red-team' && service.id !== 'app-security' && service.id !== 'infrastructure' && service.id !== 'ot-iot' && service.id !== 'anti-ransomware' && service.id !== 'data-breach' && (
+                    {service.id === 'cyber-forensic' && (
+                      <>
+                        <SubSection>
+                          <SubSectionTitle>{service.nistMethodology.title}</SubSectionTitle>
+                          <SubSectionDescription>{service.nistMethodology.description}</SubSectionDescription>
+                          <div style={{ display: 'grid', gap: '20px', marginTop: '30px' }}>
+                            {service.nistMethodology.coreFunctions.map((func, idx) => (
+                              <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: idx * 0.1 }}
+                                style={{
+                                  padding: '25px 30px',
+                                  background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(8, 145, 178, 0.08) 100%)',
+                                  borderRadius: '16px',
+                                  border: '2px solid rgba(6, 182, 212, 0.2)',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  gap: '20px',
+                                  transition: 'all 0.3s ease',
+                                  cursor: 'default'
+                                }}
+                                whileHover={{
+                                  scale: 1.02,
+                                  borderColor: 'rgba(6, 182, 212, 0.4)',
+                                  boxShadow: '0 8px 30px rgba(6, 182, 212, 0.15)'
+                                }}
+                              >
+                                <div style={{
+                                  width: '50px',
+                                  height: '50px',
+                                  borderRadius: '12px',
+                                  background: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  color: 'white',
+                                  fontWeight: '700',
+                                  fontSize: '1.3rem',
+                                  flexShrink: 0,
+                                  boxShadow: '0 4px 15px rgba(6, 182, 212, 0.3)'
+                                }}>
+                                  {idx + 1}
+                                </div>
+                                <span style={{ 
+                                  fontSize: '1.25rem', 
+                                  color: 'var(--text-primary)', 
+                                  fontWeight: '700',
+                                  letterSpacing: '0.5px'
+                                }}>
+                                  {func}
+                                </span>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </SubSection>
+
+                        <SubSection>
+                          <SubSectionTitle>Benefits of using Cyber Forensic Assessment Methodology:</SubSectionTitle>
+                          <div style={{ 
+                            display: 'grid', 
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                            gap: '25px', 
+                            marginTop: '30px' 
+                          }}>
+                            {service.benefits.map((benefit, idx) => (
+                              <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: idx * 0.15 }}
+                                style={{
+                                  padding: '30px',
+                                  background: 'white',
+                                  borderRadius: '16px',
+                                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+                                  textAlign: 'center',
+                                  border: '1px solid rgba(6, 182, 212, 0.1)',
+                                  transition: 'all 0.3s ease'
+                                }}
+                                whileHover={{
+                                  y: -5,
+                                  boxShadow: '0 8px 30px rgba(6, 182, 212, 0.15)'
+                                }}
+                              >
+                                <div style={{
+                                  width: '60px',
+                                  height: '60px',
+                                  margin: '0 auto 20px',
+                                  borderRadius: '50%',
+                                  background: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  color: 'white',
+                                  fontWeight: '700',
+                                  fontSize: '1.5rem',
+                                  boxShadow: '0 4px 15px rgba(6, 182, 212, 0.3)'
+                                }}>
+                                  {idx + 1}
+                                </div>
+                                <h5 style={{ 
+                                  fontSize: '1.2rem', 
+                                  color: 'var(--text-primary)', 
+                                  fontWeight: '700',
+                                  margin: 0
+                                }}>
+                                  {benefit}
+                                </h5>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </SubSection>
+
+                        <div style={{ textAlign: 'center', marginTop: '40px' }}>
+                          <CTAButton
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <FaRocket /> Request Forensic Assessment
+                          </CTAButton>
+                        </div>
+                      </>
+                    )}
+
+                    {service.id !== 'red-team' && service.id !== 'app-security' && service.id !== 'infrastructure' && service.id !== 'ot-iot' && service.id !== 'anti-ransomware' && service.id !== 'data-breach' && service.id !== 'cyber-forensic' && (
                       <div style={{ textAlign: 'center', marginTop: '30px' }}>
                         <CTAButton
                           whileHover={{ scale: 1.05 }}
