@@ -514,10 +514,33 @@ const CyberSecurityServices = () => {
     {
       id: 'data-breach',
       icon: <FaDatabase />,
-      title: 'Data Breach Assessment',
+      title: 'Deep Dark Web Data Breach Assessment',
       gradient: 'linear-gradient(135deg, #ec4899 0%, #db2777 100%)',
       image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200',
-      description: 'Thorough investigation and analysis of data breach incidents. We identify the scope of compromise, assess impact, collect forensic evidence, and provide actionable recommendations to prevent future breaches and strengthen your data protection measures.'
+      description: 'The Deep and Dark Web are hidden corners of the internet not indexed by traditional search engines. These spaces can harbor criminal activity, including the sale of stolen data from data breaches. Organizations that have experienced a data breach can leverage deep dark web monitoring to assess the scope of the breach and potential impact. This assessment can then be mapped to the MITRE ATT&CK framework to understand the tactics and techniques attackers might use with the stolen data.',
+      monitoring: {
+        title: 'Deep Dark Web Monitoring for Data Breach Assessment',
+        description: 'Data breaches often involve the sale of stolen credentials, personally identifiable information (PII), and other sensitive data on the deep and dark web. By monitoring these hidden marketplaces and forums, organizations can:',
+        benefits: [
+          'Identify leaks of their data',
+          'Gauge the severity of the breach',
+          'Track attacker activity'
+        ]
+      },
+      mitreMapping: {
+        title: 'Mapping Deep Dark Web Findings to MITRE ATT&CK',
+        description: 'The MITRE ATT&CK framework is a globally recognized knowledge base for adversary tactics, techniques, and procedures (TTPs). By mapping deep dark web findings to the MITRE ATT&CK framework, organizations can gain a deeper understanding of how attackers might exploit the stolen data.',
+        process: [
+          'Identify attacker goals',
+          'Map TTPs to stolen data',
+          'Develop mitigation strategies'
+        ]
+      },
+      mappingBenefits: [
+        'Improved threat intelligence',
+        'Proactive defense',
+        'Targeted incident response'
+      ]
     },
     {
       id: 'cyber-forensic',
@@ -944,7 +967,103 @@ const CyberSecurityServices = () => {
                       </>
                     )}
 
-                    {service.id !== 'red-team' && service.id !== 'app-security' && service.id !== 'infrastructure' && service.id !== 'ot-iot' && service.id !== 'anti-ransomware' && (
+                    {service.id === 'data-breach' && (
+                      <>
+                        <SubSection>
+                          <SubSectionTitle>{service.monitoring.title}</SubSectionTitle>
+                          <SubSectionDescription>{service.monitoring.description}</SubSectionDescription>
+                          <PointsList>
+                            {service.monitoring.benefits.map((benefit, idx) => (
+                              <PointItem
+                                key={idx}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.1 }}
+                              >
+                                <PointNumber>{idx + 1}</PointNumber>
+                                <PointText>{benefit}</PointText>
+                              </PointItem>
+                            ))}
+                          </PointsList>
+                        </SubSection>
+
+                        <SubSection>
+                          <SubSectionTitle>{service.mitreMapping.title}</SubSectionTitle>
+                          <SubSectionDescription>{service.mitreMapping.description}</SubSectionDescription>
+                          <div style={{ marginTop: '30px' }}>
+                            <h5 style={{ fontSize: '1.15rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '20px' }}>
+                              Here's how this mapping works:
+                            </h5>
+                            <PointsList>
+                              {service.mitreMapping.process.map((step, idx) => (
+                                <PointItem
+                                  key={idx}
+                                  initial={{ opacity: 0, x: -20 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: idx * 0.1 }}
+                                >
+                                  <PointNumber>{idx + 1}</PointNumber>
+                                  <PointText>{step}</PointText>
+                                </PointItem>
+                              ))}
+                            </PointsList>
+                          </div>
+                        </SubSection>
+
+                        <SubSection>
+                          <SubSectionTitle>Benefits of Mapping Deep Dark Web Data to MITRE ATT&CK</SubSectionTitle>
+                          <div style={{ display: 'grid', gap: '20px', marginTop: '30px' }}>
+                            {service.mappingBenefits.map((benefit, idx) => (
+                              <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: idx * 0.15 }}
+                                style={{
+                                  padding: '20px 25px',
+                                  background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(219, 39, 119, 0.1) 100%)',
+                                  borderRadius: '12px',
+                                  borderLeft: '4px solid var(--primary-color)',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  gap: '15px'
+                                }}
+                              >
+                                <div style={{
+                                  width: '36px',
+                                  height: '36px',
+                                  borderRadius: '8px',
+                                  background: 'linear-gradient(135deg, #ec4899 0%, #db2777 100%)',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  color: 'white',
+                                  fontWeight: '700',
+                                  fontSize: '1.1rem',
+                                  flexShrink: 0
+                                }}>
+                                  {idx + 1}
+                                </div>
+                                <span style={{ fontSize: '1.1rem', color: 'var(--text-primary)', fontWeight: '600' }}>
+                                  {benefit}
+                                </span>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </SubSection>
+
+                        <div style={{ textAlign: 'center', marginTop: '40px' }}>
+                          <CTAButton
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <FaRocket /> Request Dark Web Monitoring
+                          </CTAButton>
+                        </div>
+                      </>
+                    )}
+
+                    {service.id !== 'red-team' && service.id !== 'app-security' && service.id !== 'infrastructure' && service.id !== 'ot-iot' && service.id !== 'anti-ransomware' && service.id !== 'data-breach' && (
                       <div style={{ textAlign: 'center', marginTop: '30px' }}>
                         <CTAButton
                           whileHover={{ scale: 1.05 }}
