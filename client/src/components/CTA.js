@@ -14,7 +14,7 @@ import {
 
 const CTAContainer = styled.section`
   padding: 120px 0;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
   position: relative;
   overflow: hidden;
 
@@ -25,18 +25,9 @@ const CTAContainer = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 70% 30%, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 30% 70%, rgba(0, 102, 255, 0.1) 0%, transparent 70%);
+    background: 
+      radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 30% 70%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
     pointer-events: none;
   }
 
@@ -59,10 +50,10 @@ const Container = styled.div`
 
 const CTAContent = styled(motion.div)`
   text-align: center;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 102, 255, 0.1);
-  box-shadow: 0 4px 20px rgba(0, 102, 255, 0.1);
-  border-radius: 24px;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  box-shadow: 0 20px 60px rgba(59, 130, 246, 0.4);
+  border-radius: 32px;
   padding: 80px 60px;
   position: relative;
   overflow: hidden;
@@ -74,7 +65,7 @@ const CTAContent = styled(motion.div)`
     left: -50%;
     width: 200%;
     height: 200%;
-    background: conic-gradient(from 0deg, transparent, rgba(0, 255, 136, 0.05), transparent);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
     animation: rotate 20s linear infinite;
   }
 
@@ -109,13 +100,11 @@ const Title = styled(motion.h2)`
   font-weight: 900;
   line-height: 1.1;
   margin-bottom: 24px;
-  background: linear-gradient(135deg, #1e293b 0%, #0066ff 50%, #00a8ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffffff;
   letter-spacing: -1px;
   position: relative;
   z-index: 3;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
 
   @media (max-width: 768px) {
     margin-bottom: 20px;
@@ -124,7 +113,7 @@ const Title = styled(motion.h2)`
 
 const Subtitle = styled(motion.p)`
   font-size: 20px;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.6;
   margin-bottom: 40px;
   max-width: 600px;
@@ -156,21 +145,20 @@ const ButtonGroup = styled(motion.div)`
 `;
 
 const PrimaryButton = styled(Link)`
-  background: var(--gradient-primary);
-  color: #000000;
-  padding: 18px 36px;
-  border-radius: 12px;
+  background: white;
+  color: #1e3a8a;
+  padding: 20px 45px;
+  border-radius: 14px;
   text-decoration: none;
-  font-weight: 700;
-  font-size: 16px;
+  font-weight: 800;
+  font-size: 1.1rem;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  gap: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  gap: 12px;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 
   &::before {
     content: '';
@@ -179,13 +167,14 @@ const PrimaryButton = styled(Link)`
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.2), transparent);
     transition: left 0.5s;
   }
 
   &:hover {
     transform: translateY(-3px);
-    box-shadow: 0 20px 60px rgba(0, 255, 136, 0.3);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    background: #f8fafc;
 
     &::before {
       left: 100%;
@@ -193,8 +182,8 @@ const PrimaryButton = styled(Link)`
   }
 
   @media (max-width: 768px) {
-    padding: 15px 30px;
-    font-size: 14px;
+    padding: 16px 35px;
+    font-size: 1rem;
     width: 100%;
     justify-content: center;
   }
@@ -202,27 +191,29 @@ const PrimaryButton = styled(Link)`
 
 const SecondaryButton = styled(Link)`
   background: transparent;
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
-  padding: 16px 32px;
-  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 18px 40px;
+  border-radius: 14px;
   text-decoration: none;
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: 700;
+  font-size: 1.1rem;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   gap: 10px;
+  backdrop-filter: blur(10px);
 
   &:hover {
-    background: var(--primary-color);
-    color: #000000;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
     transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
   }
 
   @media (max-width: 768px) {
-    padding: 14px 28px;
-    font-size: 14px;
+    padding: 16px 35px;
+    font-size: 1rem;
     width: 100%;
     justify-content: center;
   }

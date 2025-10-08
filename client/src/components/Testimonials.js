@@ -12,7 +12,7 @@ import {
 
 const TestimonialsContainer = styled.section`
   padding: 120px 0;
-  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
   position: relative;
 
   &::before {
@@ -22,7 +22,9 @@ const TestimonialsContainer = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 30% 20%, rgba(0, 102, 255, 0.05) 0%, transparent 70%);
+    background: 
+      radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 30% 70%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
     pointer-events: none;
   }
 
@@ -79,7 +81,7 @@ const Title = styled(motion.h2)`
 
 const Subtitle = styled(motion.p)`
   font-size: 18px;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.8);
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
@@ -98,10 +100,11 @@ const TestimonialSlider = styled.div`
 
 const TestimonialCard = styled(motion.div)`
   min-width: 100%;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 102, 255, 0.1);
-  box-shadow: 0 4px 20px rgba(0, 102, 255, 0.1);
-  border-radius: 20px;
+  background: rgba(30, 58, 138, 0.2);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  border-radius: 24px;
   padding: 60px 50px;
   text-align: center;
   position: relative;
@@ -114,7 +117,7 @@ const TestimonialCard = styled(motion.div)`
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 102, 255, 0.05), transparent);
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
     transition: left 0.5s;
   }
 
@@ -150,7 +153,7 @@ const QuoteIcon = styled.div`
 const TestimonialText = styled.blockquote`
   font-size: 24px;
   line-height: 1.6;
-  color: var(--text-primary);
+  color: #ffffff;
   margin-bottom: 30px;
   font-style: italic;
 
@@ -222,7 +225,7 @@ const AuthorDetails = styled.div`
 const AuthorName = styled.div`
   font-size: 18px;
   font-weight: 700;
-  color: var(--text-primary);
+  color: #ffffff;
   margin-bottom: 4px;
 
   @media (max-width: 768px) {
@@ -232,7 +235,7 @@ const AuthorName = styled.div`
 
 const AuthorTitle = styled.div`
   font-size: 14px;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.7);
   margin-bottom: 2px;
 
   @media (max-width: 768px) {
@@ -242,7 +245,7 @@ const AuthorTitle = styled.div`
 
 const AuthorCompany = styled.div`
   font-size: 14px;
-  color: var(--primary-color);
+  color: #60a5fa;
   font-weight: 500;
 
   @media (max-width: 768px) {
