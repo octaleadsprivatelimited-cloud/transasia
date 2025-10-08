@@ -15,13 +15,13 @@ const slideUp = keyframes`
 
 const HeroContainer = styled.section`
   position: relative;
-  height: 85vh;
-  background: #ffffff;
+  height: calc(100vh - 80px);
+  background: #000000;
   overflow: hidden;
   margin-top: 80px;
 
   @media (max-width: 768px) {
-    height: 70vh;
+    height: calc(100vh - 70px);
     margin-top: 70px;
   }
 `;
@@ -35,11 +35,14 @@ const SlideContainer = styled.div`
 const Slide = styled(motion.div)`
   position: absolute;
   inset: 0;
-  background-image: ${props => `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${props.bgImage})`};
+  background-image: ${props => `linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url(${props.bgImage})`};
   background-size: cover;
-  background-position: center;
+  background-position: center center;
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
+  width: 100%;
+  height: 100%;
 `;
 
 const SlideContent = styled.div`
