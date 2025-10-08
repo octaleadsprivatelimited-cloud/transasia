@@ -242,6 +242,62 @@ const ServiceDescription = styled.p`
   margin-bottom: 30px;
 `;
 
+const SubSection = styled.div`
+  margin: 40px 0;
+`;
+
+const SubSectionTitle = styled.h4`
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+`;
+
+const SubSectionDescription = styled.p`
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 24px;
+`;
+
+const PointsList = styled.div`
+  display: grid;
+  gap: 16px;
+  margin-bottom: 30px;
+`;
+
+const PointItem = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  border-radius: 16px;
+  border-left: 4px solid var(--primary-color);
+`;
+
+const PointNumber = styled.div`
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  flex-shrink: 0;
+`;
+
+const PointText = styled.p`
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  line-height: 1.7;
+  flex: 1;
+  font-weight: 500;
+`;
+
 const CTAButton = styled(motion.button)`
   background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   color: white;
@@ -272,7 +328,34 @@ const CyberSecurityServices = () => {
       title: 'Red Team Assessment',
       gradient: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
       image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200',
-      description: 'Comprehensive adversarial simulation testing that mimics real-world attack scenarios. Our Red Team experts employ advanced tactics, techniques, and procedures (TTPs) to identify vulnerabilities in your security posture before malicious actors can exploit them.'
+      description: 'Red teaming is a security assessment methodology where a team acts like an adversary, attempting to bypass your defenses and achieve specific objectives. Unlike penetration testing that focuses on vulnerabilities, red teaming mimics the tactics, techniques, and procedures (TTPs) of real-world attackers. This approach provides a more holistic view of your security posture, identifying not just exploitable vulnerabilities but also weaknesses in detection, response, and recovery capabilities.',
+      mitreSection: {
+        title: 'Why Use MITRE ATT&CK for Red Teaming?',
+        description: 'The MITRE ATT&CK framework is a comprehensive knowledge base of adversary TTPs. By leveraging this framework, red teaming exercises can be:',
+        points: [
+          'More Targeted',
+          'Data-Driven',
+          'Measurable'
+        ]
+      },
+      methodology: {
+        title: 'Red Teaming Methodology with MITRE ATT&CK Framework',
+        description: 'A red team assessment using MITRE ATT&CK typically follows these stages:',
+        stages: [
+          'Planning and Scoping',
+          'Reconnaissance and Initial Compromise',
+          'Lateral Movement',
+          'Installation of Tools and C2 Communication',
+          'Actions on Objectives',
+          'Reporting and Debriefing'
+        ]
+      },
+      benefits: [
+        'Get a Attack View',
+        'Improved Security Posture',
+        'Enhanced Threat Detection',
+        'Proactive Risk Management'
+      ]
     },
     {
       id: 'app-security',
@@ -280,7 +363,25 @@ const CyberSecurityServices = () => {
       title: 'Application Security Assessment',
       gradient: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
       image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200',
-      description: 'In-depth security evaluation of web, mobile, and desktop applications. We perform comprehensive code reviews, penetration testing, and vulnerability assessments to ensure your applications are secure from design to deployment.'
+      description: 'Application Security Assessment (ASA) is a systematic process of identifying, evaluating, and documenting vulnerabilities in software applications. It plays a crucial role in protecting applications from cyberattacks and data breaches. This document outlines the ASA process using the Open Web Application Security Project (OWASP) Testing Guide methodology.',
+      owaspSection: {
+        title: 'OWASP 2023 Methodology',
+        description: 'Phases of an OWASP-based ASA:',
+        phases: [
+          'Preparation',
+          'Information Gathering',
+          'Threat Modeling',
+          'Vulnerability Scanning',
+          'Manual Penetration Testing',
+          'Reporting'
+        ]
+      },
+      benefits: [
+        'Structured Approach',
+        'Focus on Threats',
+        'Flexibility',
+        'Community Resources'
+      ]
     },
     {
       id: 'infrastructure',
@@ -424,15 +525,133 @@ const CyberSecurityServices = () => {
                     transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
                   >
                     <ServiceDescription>{service.description}</ServiceDescription>
-                    
-                    <div style={{ textAlign: 'center', marginTop: '30px' }}>
-                      <CTAButton
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <FaRocket /> Learn More
-                      </CTAButton>
-                    </div>
+
+                    {service.id === 'red-team' && (
+                      <>
+                        <SubSection>
+                          <SubSectionTitle>{service.mitreSection.title}</SubSectionTitle>
+                          <SubSectionDescription>{service.mitreSection.description}</SubSectionDescription>
+                          <PointsList>
+                            {service.mitreSection.points.map((point, idx) => (
+                              <PointItem
+                                key={idx}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.1 }}
+                              >
+                                <PointNumber>{idx + 1}</PointNumber>
+                                <PointText>{point}</PointText>
+                              </PointItem>
+                            ))}
+                          </PointsList>
+                        </SubSection>
+
+                        <SubSection>
+                          <SubSectionTitle>{service.methodology.title}</SubSectionTitle>
+                          <SubSectionDescription>{service.methodology.description}</SubSectionDescription>
+                          <PointsList>
+                            {service.methodology.stages.map((stage, idx) => (
+                              <PointItem
+                                key={idx}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.08 }}
+                              >
+                                <PointNumber>{idx + 1}</PointNumber>
+                                <PointText>{stage}</PointText>
+                              </PointItem>
+                            ))}
+                          </PointsList>
+                        </SubSection>
+
+                        <SubSection>
+                          <SubSectionTitle>Benefits of Red Teaming with MITRE ATT&CK</SubSectionTitle>
+                          <PointsList>
+                            {service.benefits.map((benefit, idx) => (
+                              <PointItem
+                                key={idx}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.1 }}
+                              >
+                                <PointNumber>{idx + 1}</PointNumber>
+                                <PointText>{benefit}</PointText>
+                              </PointItem>
+                            ))}
+                          </PointsList>
+                        </SubSection>
+                      </>
+                    )}
+
+                    {service.id === 'app-security' && (
+                      <>
+                        <SubSection>
+                          <SubSectionTitle>{service.owaspSection.title}</SubSectionTitle>
+                          <SubSectionDescription>{service.owaspSection.description}</SubSectionDescription>
+                          <PointsList>
+                            {service.owaspSection.phases.map((phase, idx) => (
+                              <PointItem
+                                key={idx}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.08 }}
+                              >
+                                <PointNumber>{idx + 1}</PointNumber>
+                                <PointText>{phase}</PointText>
+                              </PointItem>
+                            ))}
+                          </PointsList>
+                        </SubSection>
+
+                        <SubSection>
+                          <SubSectionTitle>Benefits of using OWASP 2023 Methodology:</SubSectionTitle>
+                          <PointsList>
+                            {service.benefits.map((benefit, idx) => (
+                              <PointItem
+                                key={idx}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.1 }}
+                              >
+                                <PointNumber>{idx + 1}</PointNumber>
+                                <PointText>{benefit}</PointText>
+                              </PointItem>
+                            ))}
+                          </PointsList>
+                        </SubSection>
+
+                        <div style={{ textAlign: 'center', marginTop: '40px' }}>
+                          <CTAButton
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <FaRocket /> Request Application Security Assessment
+                          </CTAButton>
+                        </div>
+                      </>
+                    )}
+
+                    {service.id !== 'red-team' && service.id !== 'app-security' && (
+                      <div style={{ textAlign: 'center', marginTop: '30px' }}>
+                        <CTAButton
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <FaRocket /> Learn More
+                        </CTAButton>
+                      </div>
+                    )}
+
+                    {service.id === 'red-team' && (
+                      <div style={{ textAlign: 'center', marginTop: '40px' }}>
+                        <CTAButton
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <FaRocket /> Request Red Team Assessment
+                        </CTAButton>
+                      </div>
+                    )}
                   </ServiceContent>
                 )}
               </AnimatePresence>
