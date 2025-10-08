@@ -95,7 +95,6 @@ export default function AppleCardsCarousel({ items = [] }) {
   const bgX = useTransform(x, [0, -300, -600], [0, 30, 60]);
   const containerRef = useRef(null);
   const rowRef = useRef(null);
-  const [containerWidth, setContainerWidth] = useState(1200);
   const [maxScroll, setMaxScroll] = useState(0);
 
   useEffect(() => {

@@ -3,23 +3,12 @@ import styled, { keyframes } from 'styled-components';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { 
-  FaLeaf, FaShieldAlt, FaChartLine, FaUserShield,
-  FaCheckCircle, FaRocket, FaLightbulb, FaHandshake, FaArrowRight, FaPlay, FaStar
+  FaLeaf, FaChartLine, FaUserShield, FaHandshake, FaArrowRight, FaPlay
 } from 'react-icons/fa';
-
-const float = keyframes`
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-`;
 
 const rotate = keyframes`
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-`;
-
-const shimmer = keyframes`
-  0% { background-position: -1000px 0; }
-  100% { background-position: 1000px 0; }
 `;
 
 const PageContainer = styled.div`
@@ -92,27 +81,6 @@ const HeroContent = styled.div`
 `;
 
 const HeroLeft = styled.div``;
-
-const HeroTag = styled(motion.div)`
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 10px 24px;
-  border-radius: 50px;
-  color: white;
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 30px;
-
-  svg {
-    color: #fbbf24;
-  }
-`;
 
 const HeroTitle = styled(motion.h1)`
   font-size: 4rem;
