@@ -11,6 +11,23 @@ import Testimonials from './components/Testimonials';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
 import BackgroundAnimation from './components/BackgroundAnimation';
+import Insurtech from './pages/Insurtech';
+import Consulting from './pages/Consulting';
+import CyberProducts from './pages/CyberProducts';
+import CyberServices from './pages/CyberServices';
+import CyberSecurityProducts from './pages/CyberSecurityProducts';
+import CyberSecurityServices from './pages/CyberSecurityServices';
+import PressRelease from './pages/PressRelease';
+import Gallery from './pages/Gallery';
+import Careers from './pages/Careers';
+import About from './pages/About';
+import Team from './pages/Team';
+import Blog from './pages/Blog';
+import { BasicPage } from './pages';
+import { routes as dynamicRoutes } from './routes/config';
+
+// Suppress unused variable warnings - these are used in Routes
+/* eslint-disable no-unused-vars */
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -42,6 +59,21 @@ const App = () => {
             <CTA />
           </>
         } />
+        <Route path="/insurtech" element={<Insurtech />} />
+        <Route path="/consulting" element={<Consulting />} />
+        <Route path="/cybersecurity/products" element={<CyberProducts />} />
+        <Route path="/cybersecurity/services" element={<CyberServices />} />
+        <Route path="/products" element={<CyberSecurityProducts />} />
+        <Route path="/services" element={<CyberSecurityServices />} />
+        <Route path="/press" element={<PressRelease />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/careers" element={<Careers />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/team" element={<Team />} />
+        <Route path="/blog" element={<Blog />} />
+        {dynamicRoutes.map(r => (
+          <Route key={r.path} path={r.path} element={<BasicPage pill={r.pill} title={r.title} description={r.description} />} />
+        ))}
       </Routes>
       
       <Footer />

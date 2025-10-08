@@ -14,7 +14,7 @@ import {
 
 const CTAContainer = styled.section`
   padding: 120px 0;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   position: relative;
   overflow: hidden;
 
@@ -59,8 +59,9 @@ const Container = styled.div`
 
 const CTAContent = styled(motion.div)`
   text-align: center;
-  background: rgba(26, 26, 26, 0.5);
-  border: 1px solid rgba(0, 255, 136, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 102, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 102, 255, 0.1);
   border-radius: 24px;
   padding: 80px 60px;
   position: relative;
@@ -108,7 +109,7 @@ const Title = styled(motion.h2)`
   font-weight: 900;
   line-height: 1.1;
   margin-bottom: 24px;
-  background: linear-gradient(135deg, #ffffff 0%, #0066ff 50%, #00a8ff 100%);
+  background: linear-gradient(135deg, #1e293b 0%, #0066ff 50%, #00a8ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

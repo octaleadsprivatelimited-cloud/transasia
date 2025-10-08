@@ -7,7 +7,7 @@ const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 8000;
 
 // Security middleware
 app.use(helmet({
@@ -37,7 +37,7 @@ app.use(compression());
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
     ? ['https://cybersecure-platform.com', 'https://www.cybersecure-platform.com']
-    : ['http://localhost:3000'],
+    : ['http://localhost:3000', 'http://localhost:3007'],
   credentials: true
 }));
 app.use(morgan('combined'));

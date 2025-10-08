@@ -12,7 +12,7 @@ import {
 
 const TestimonialsContainer = styled.section`
   padding: 120px 0;
-  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
   position: relative;
 
   &::before {
@@ -98,8 +98,9 @@ const TestimonialSlider = styled.div`
 
 const TestimonialCard = styled(motion.div)`
   min-width: 100%;
-  background: rgba(26, 26, 26, 0.5);
+  background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(0, 102, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 102, 255, 0.1);
   border-radius: 20px;
   padding: 60px 50px;
   text-align: center;

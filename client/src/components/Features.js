@@ -16,7 +16,7 @@ import {
 
 const FeaturesContainer = styled.section`
   padding: 120px 0;
-  background: var(--bg-primary);
+  background: #ffffff;
   position: relative;
 
   @media (max-width: 768px) {
@@ -62,7 +62,7 @@ const Title = styled(motion.h2)`
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 20px;
-  background: linear-gradient(135deg, #ffffff 0%, #0066ff 100%);
+  background: linear-gradient(135deg, #1e293b 0%, #0066ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -90,8 +90,9 @@ const FeaturesGrid = styled.div`
 `;
 
 const FeatureCard = styled(motion.div)`
-  background: rgba(26, 26, 26, 0.5);
-  border: 1px solid rgba(0, 255, 136, 0.1);
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 102, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 102, 255, 0.1);
   border-radius: 16px;
   padding: 40px 30px;
   text-align: center;

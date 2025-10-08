@@ -3,24 +3,21 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { 
-  FaShieldAlt, 
   FaFacebook, 
   FaTwitter, 
   FaLinkedin, 
   FaYoutube, 
   FaGithub,
   FaArrowRight,
-  FaRocket,
-  FaBrain,
-  FaEye,
-  FaUsers
+  FaRocket
 } from 'react-icons/fa';
 
 const FooterContainer = styled.footer`
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-  border-top: 1px solid rgba(0, 255, 136, 0.1);
-  padding: 80px 0 40px;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  border-top: 1px solid rgba(0, 102, 255, 0.1);
+  padding: 48px 0 24px;
   position: relative;
+  color: #ffffff;
 
   &::before {
     content: '';
@@ -29,7 +26,7 @@ const FooterContainer = styled.footer`
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 50% 0%, rgba(0, 255, 136, 0.05) 0%, transparent 70%);
+    background: radial-gradient(circle at 50% 0%, rgba(10, 132, 255, 0.08) 0%, transparent 70%);
     pointer-events: none;
   }
 
@@ -53,8 +50,8 @@ const Container = styled.div`
 const FooterContent = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-  gap: 60px;
-  margin-bottom: 60px;
+  gap: 32px;
+  margin-bottom: 28px;
 
   @media (max-width: 968px) {
     grid-template-columns: 1fr 1fr;
@@ -74,35 +71,12 @@ const BrandSection = styled(motion.div)`
   }
 `;
 
-const Logo = styled(Link)`
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: var(--primary-color);
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: -1px;
-  margin-bottom: 24px;
-
-  svg {
-    margin-right: 12px;
-    font-size: 32px;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 24px;
-    
-    svg {
-      font-size: 28px;
-      margin-right: 10px;
-    }
-  }
-`;
+// Logo removed in footer by request
 
 const BrandDescription = styled.p`
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 30px;
+  color: #e5e7eb;
+  line-height: 1.5;
+  margin-bottom: 16px;
   max-width: 400px;
 
   @media (max-width: 768px) {
@@ -116,8 +90,8 @@ const SocialLinks = styled.div`
 `;
 
 const SocialLink = styled.a`
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  height: 36px;
   background: rgba(0, 255, 136, 0.1);
   border: 1px solid rgba(0, 255, 136, 0.2);
   border-radius: 12px;
@@ -125,7 +99,7 @@ const SocialLink = styled.a`
   align-items: center;
   justify-content: center;
   color: var(--primary-color);
-  font-size: 18px;
+  font-size: 16px;
   transition: all 0.3s ease;
   text-decoration: none;
 
@@ -171,7 +145,7 @@ const FooterSection = styled(motion.div)`
 const SectionTitle = styled.h3`
   font-size: 18px;
   font-weight: 700;
-  color: var(--text-primary);
+  color: #ffffff;
   margin-bottom: 24px;
   position: relative;
 
@@ -200,7 +174,7 @@ const LinkList = styled.ul`
 
 const LinkItem = styled.li`
   a {
-    color: var(--text-secondary);
+    color: #e5e7eb;
     text-decoration: none;
     font-size: 14px;
     transition: all 0.3s ease;
@@ -221,11 +195,12 @@ const LinkItem = styled.li`
 
 
 const NewsletterSection = styled(motion.div)`
-  background: rgba(26, 26, 26, 0.5);
-  border: 1px solid rgba(0, 255, 136, 0.1);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 102, 255, 0.2);
+  backdrop-filter: blur(10px);
   border-radius: 16px;
   padding: 40px;
-  margin-bottom: 60px;
+  margin-bottom: 28px;
   text-align: center;
 
   @media (max-width: 768px) {
@@ -259,7 +234,7 @@ const NewsletterSubtitle = styled.p`
 
 const NewsletterForm = styled.form`
   display: flex;
-  gap: 16px;
+  gap: 12px;
   max-width: 400px;
   margin: 0 auto;
 
@@ -372,39 +347,60 @@ const LegalLink = styled(Link)`
 
 const footerSections = [
   {
-    title: "Solutions",
+    title: "Products",
     links: [
-      { name: "Threat Protection", href: "/threat-protection", icon: <FaShieldAlt /> },
-      { name: "Risk Management", href: "/risk-management", icon: <FaBrain /> },
-      { name: "Continuous Monitoring", href: "/monitoring", icon: <FaEye /> },
-      { name: "Third-Party Risk", href: "/third-party", icon: <FaUsers /> }
+      { name: "Exposure Management", href: "/products/exposure-management" },
+      { name: "Risk Quantification", href: "/products/crq" },
+      { name: "AI Security Agents", href: "/products/ai-agents" },
+      { name: "Threat Protection", href: "/products/threat-protection" },
+      { name: "Third-Party Risk", href: "/products/tprm" }
     ]
   },
   {
-    title: "Platform",
+    title: "Solutions",
     links: [
-      { name: "Features", href: "/features" },
-      { name: "Integrations", href: "/integrations" },
-      { name: "API Documentation", href: "/api-docs" },
-      { name: "Security", href: "/security" }
+      { name: "Financial Services", href: "/solutions/financial-services" },
+      { name: "Healthcare", href: "/solutions/healthcare" },
+      { name: "Technology", href: "/solutions/technology" },
+      { name: "Retail", href: "/solutions/retail" },
+      { name: "Manufacturing", href: "/solutions/manufacturing" }
     ]
   },
   {
     title: "Resources",
     links: [
-      { name: "Blog", href: "/blog" },
-      { name: "Case Studies", href: "/case-studies" },
-      { name: "White Papers", href: "/whitepapers" },
-      { name: "Webinars", href: "/webinars" }
+      { name: "Blog", href: "/resources/blog" },
+      { name: "Case Studies", href: "/resources/case-studies" },
+      { name: "Whitepapers", href: "/resources/whitepapers" },
+      { name: "Webinars", href: "/resources/webinars" },
+      { name: "Documentation", href: "/resources/docs" }
     ]
   },
   {
     title: "Company",
     links: [
-      { name: "About Us", href: "/about" },
-      { name: "Careers", href: "/careers" },
-      { name: "Contact", href: "/contact" },
-      { name: "Partners", href: "/partners" }
+      { name: "About", href: "/company/about" },
+      { name: "Leadership", href: "/company/leadership" },
+      { name: "Careers", href: "/company/careers" },
+      { name: "Press", href: "/company/press" },
+      { name: "Contact", href: "/company/contact" }
+    ]
+  },
+  {
+    title: "Support",
+    links: [
+      { name: "Help Center", href: "/support/help-center" },
+      { name: "Status", href: "/support/status" },
+      { name: "Security", href: "/support/security" },
+      { name: "Trust Center", href: "/support/trust-center" }
+    ]
+  },
+  {
+    title: "Legal",
+    links: [
+      { name: "Privacy", href: "/support/legal/privacy" },
+      { name: "Terms", href: "/support/legal/terms" },
+      { name: "Cookies", href: "/support/legal/cookies" }
     ]
   }
 ];
@@ -420,10 +416,6 @@ const Footer = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <Logo to="/">
-              <FaShieldAlt />
-              CyberSecure
-            </Logo>
             <BrandDescription>
               Next-generation AI-powered cybersecurity platform that provides autonomous 
               threat protection and intelligent risk management for modern enterprises.

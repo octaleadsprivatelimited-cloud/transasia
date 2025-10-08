@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion';
-import { FaBars, FaTimes, FaShieldAlt, FaChevronDown } from 'react-icons/fa';
+import { FaBars, FaTimes, FaChevronDown } from 'react-icons/fa';
 
 const HeaderContainer = styled(motion.header)`
   position: fixed;
@@ -10,9 +10,9 @@ const HeaderContainer = styled(motion.header)`
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(10, 10, 10, 0.95);
+  background: rgba(248, 250, 252, 0.95);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+  border-bottom: 1px solid rgba(0, 102, 255, 0.1);
   transition: all 0.3s ease;
 `;
 
@@ -31,34 +31,12 @@ const NavContainer = styled.div`
   }
 `;
 
-const Logo = styled(Link)`
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: var(--primary-color);
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: -1px;
-
-  svg {
-    margin-right: 10px;
-    font-size: 28px;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 20px;
-    
-    svg {
-      font-size: 24px;
-      margin-right: 8px;
-    }
-  }
-`;
+// Logo removed by request
 
 const NavMenu = styled(motion.nav)`
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 28px;
 
   @media (max-width: 768px) {
     position: fixed;
@@ -122,39 +100,195 @@ const NavLink = styled(Link)`
 
 const Dropdown = styled.div`
   position: relative;
-
-  &:hover .dropdown-content {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
 `;
 
 const DropdownContent = styled(motion.div)`
-  position: absolute;
-  top: 100%;
+  position: fixed;
+  top: 80px;
   left: 0;
-  background: rgba(26, 26, 26, 0.95);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 255, 136, 0.1);
-  border-radius: 8px;
-  padding: 20px;
-  min-width: 250px;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
+  right: 0;
+  background: ${props => props.$blue ? 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%)' : 'rgba(255, 255, 255, 0.98)'};
+  ${props => props.$blue 
+    ? css`
+        backdrop-filter: blur(30px) saturate(180%);
+        box-shadow: 0 20px 60px rgba(30, 64, 175, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        &, * {
+          color: #ffffff !important;
+        }
+      `
+    : css`
+        backdrop-filter: blur(30px) saturate(180%);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05) inset;
+      `}
+  border-top: 1px solid ${props => props.$blue ? 'rgba(255, 255, 255, 0.2)' : 'rgba(30, 64, 175, 0.1)'};
+  border-radius: 0 0 24px 24px;
+  padding: 48px 0 60px;
+  min-width: 420px;
+  opacity: ${props => props.$open ? 1 : 0};
+  visibility: ${props => props.$open ? 'visible' : 'hidden'};
+  pointer-events: ${props => props.$open ? 'auto' : 'none'};
+  transform: translateY(${props => props.$open ? '0' : '-20px'}) scale(${props => props.$open ? '1' : '0.95'});
+  transform-origin: top center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1001;
+
+  /* Ensure readable contrast in blue mode */
+  ${props => props.$blue && css`
+    color: #ffffff;
+    a { color: #ffffff !important; }
+    h1, h2, h3, h4, h5, h6 { color: #ffffff !important; }
+    svg { color: #ffffff !important; }
+  `}
+
+  /* Modern overlay effect */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: ${props => props.$blue 
+      ? 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent)' 
+      : 'linear-gradient(90deg, transparent, rgba(30, 64, 175, 0.5), transparent)'};
+    opacity: ${props => props.$open ? 1 : 0};
+    transition: opacity 0.6s ease;
+  }
 
   @media (max-width: 768px) {
     position: static;
-    background: transparent;
+    background: ${props => props.$blue ? 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%)' : 'rgba(255, 255, 255, 0.98)'};
+    ${props => props.$blue ? css`backdrop-filter: blur(20px);` : css`backdrop-filter: blur(20px);`}
     border: none;
     padding: 10px 0 0 20px;
     min-width: auto;
     opacity: 1;
     visibility: visible;
     transform: none;
+    pointer-events: auto;
+  }
+`;
+
+const DropdownGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, minmax(180px, 1fr));
+  gap: 12px 24px;
+`;
+
+const MegaContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+`;
+
+const MegaHeader = styled.div`
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const MegaTitle = styled.h3`
+  margin: 0 0 12px 0;
+  color: var(--text-primary);
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.9) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+`;
+
+const MegaSubtitle = styled.p`
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 15px;
+  line-height: 1.6;
+  font-weight: 400;
+`;
+
+const MegaGrid = styled(motion.div)`
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr 1fr;
+  }
+`;
+
+const MegaCard = styled(motion(Link))`
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.95);
+  border: 2px solid rgba(255,255,255,0.2);
+  min-height: 200px;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(30, 64, 175, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+`;
+
+const MegaImage = styled.div`
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: saturate(1.1) contrast(1.05) brightness(0.95);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+  ${MegaCard}:hover & {
+    transform: scale(1.1);
+    filter: saturate(1.3) contrast(1.1) brightness(1);
+  }
+`;
+
+const MegaLabel = styled.div`
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  right: 16px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px) saturate(180%);
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 15px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+
+  ${MegaCard}:hover & {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
   }
 `;
 
@@ -162,22 +296,40 @@ const DropdownItem = styled(Link)`
   display: block;
   color: var(--text-secondary);
   text-decoration: none;
-  padding: 10px 0;
+  padding: 12px 16px;
   font-size: 14px;
-  transition: all 0.3s ease;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-weight: 500;
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 0;
+    background: var(--gradient-primary);
+    transition: height 0.3s ease;
+    border-radius: 0 2px 2px 0;
+  }
 
   &:hover {
     color: var(--primary-color);
-    padding-left: 10px;
-  }
-
-  &:last-child {
-    border-bottom: none;
+    transform: translateX(8px);
+    background: rgba(30, 64, 175, 0.05);
+    
+    &::before {
+      height: 60%;
+    }
   }
 
   @media (max-width: 768px) {
     font-size: 16px;
+    padding: 12px 16px;
   }
 `;
 
@@ -220,9 +372,29 @@ const MobileMenuButton = styled.button`
   }
 `;
 
+const Backdrop = styled(motion.div)`
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  opacity: ${props => props.$open ? 1 : 0};
+  visibility: ${props => props.$open ? 'visible' : 'hidden'};
+  pointer-events: ${props => props.$open ? 'auto' : 'none'};
+  transition: all 0.3s ease;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeMenu, setActiveMenu] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -239,51 +411,235 @@ const Header = () => {
 
   const closeMenu = () => {
     setIsMenuOpen(false);
+    setActiveMenu('');
   };
 
   return (
-    <HeaderContainer
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6 }}
-      style={{
-        background: isScrolled ? 'rgba(10, 10, 10, 0.98)' : 'rgba(10, 10, 10, 0.95)'
-      }}
-    >
-      <NavContainer>
-        <Logo to="/">
-          <FaShieldAlt />
-          CyberSecure
-        </Logo>
+    <>
+      <Backdrop $open={activeMenu !== ''} onClick={() => setActiveMenu('')} />
+      <HeaderContainer
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6 }}
+        style={{
+          background: isScrolled ? 'rgba(248, 250, 252, 0.98)' : 'rgba(248, 250, 252, 0.95)'
+        }}
+      >
+        <NavContainer>
+          {/* Logo removed by request */}
 
-        <NavMenu className={isMenuOpen ? 'active' : ''}>
+          <NavMenu className={isMenuOpen ? 'active' : ''}>
           <NavLink to="/" onClick={closeMenu}>Home</NavLink>
-          
+
           <Dropdown>
-            <NavLink to="/solutions" onClick={closeMenu}>
-              Solutions
+            <NavLink to="#" onClick={(e) => { e.preventDefault(); setActiveMenu(activeMenu === 'services' ? '' : 'services'); }}>
+              Services
               <FaChevronDown size={12} />
             </NavLink>
-            <DropdownContent className="dropdown-content">
-              <DropdownItem to="/threat-protection" onClick={closeMenu}>
-                Threat Protection
-              </DropdownItem>
-              <DropdownItem to="/risk-management" onClick={closeMenu}>
-                Risk Management
-              </DropdownItem>
-              <DropdownItem to="/compliance" onClick={closeMenu}>
-                Compliance
-              </DropdownItem>
-              <DropdownItem to="/incident-response" onClick={closeMenu}>
-                Incident Response
-              </DropdownItem>
+            <DropdownContent className="dropdown-content" $open={activeMenu === 'services'}>
+              <DropdownGrid>
+                <DropdownItem to="/products" onClick={closeMenu}>Cybersecurity Products</DropdownItem>
+                <DropdownItem to="/services" onClick={closeMenu}>Cybersecurity Services</DropdownItem>
+                <DropdownItem to="/insurtech" onClick={closeMenu}>Insurtech Solutions</DropdownItem>
+                <DropdownItem to="/consulting" onClick={closeMenu}>Consulting Services</DropdownItem>
+              </DropdownGrid>
             </DropdownContent>
           </Dropdown>
 
-          <NavLink to="/platform" onClick={closeMenu}>Platform</NavLink>
-          <NavLink to="/resources" onClick={closeMenu}>Resources</NavLink>
-          <NavLink to="/company" onClick={closeMenu}>Company</NavLink>
-          
+          <Dropdown>
+            <NavLink to="#" onClick={(e) => { e.preventDefault(); setActiveMenu(activeMenu === 'solutions' ? '' : 'solutions'); }}>
+              Solutions
+              <FaChevronDown size={12} />
+            </NavLink>
+            <DropdownContent className="dropdown-content" $open={activeMenu === 'solutions'} $blue initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+              <MegaContainer>
+                <MegaHeader>
+                  <div>
+                    <MegaTitle>Enterprise Security Solutions</MegaTitle>
+                    <MegaSubtitle>Explore by industry and use case. Rich visuals help you decide faster.</MegaSubtitle>
+                  </div>
+                  <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'12px'}}>
+                    <DropdownItem to="/solutions/ransomware" onClick={closeMenu}>Ransomware Readiness</DropdownItem>
+                    <DropdownItem to="/solutions/zero-trust" onClick={closeMenu}>Zero Trust Architecture</DropdownItem>
+                    <DropdownItem to="/solutions/cloud-security" onClick={closeMenu}>Cloud Security</DropdownItem>
+                    <DropdownItem to="/solutions/data-protection" onClick={closeMenu}>Data Protection</DropdownItem>
+                  </div>
+                </MegaHeader>
+                <MegaGrid
+                  initial="hidden"
+                  animate={activeMenu === 'solutions' ? "visible" : "hidden"}
+                  variants={{
+                    visible: { transition: { staggerChildren: 0.08 } },
+                    hidden: { transition: { staggerChildren: 0.05, staggerDirection: -1 } }
+                  }}
+                >
+                  <MegaCard 
+                    to="/solutions/financial-services" 
+                    variants={{
+                      hidden: { opacity: 0, y: 20, scale: 0.9 },
+                      visible: { opacity: 1, y: 0, scale: 1 }
+                    }}
+                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  >
+                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?q=80&w=1200')`}} />
+                    <MegaLabel>Financial Services</MegaLabel>
+                  </MegaCard>
+                  <MegaCard 
+                    to="/solutions/healthcare"
+                    variants={{
+                      hidden: { opacity: 0, y: 20, scale: 0.9 },
+                      visible: { opacity: 1, y: 0, scale: 1 }
+                    }}
+                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  >
+                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=1200')`}} />
+                    <MegaLabel>Healthcare</MegaLabel>
+                  </MegaCard>
+                  <MegaCard 
+                    to="/solutions/technology"
+                    variants={{
+                      hidden: { opacity: 0, y: 20, scale: 0.9 },
+                      visible: { opacity: 1, y: 0, scale: 1 }
+                    }}
+                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  >
+                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200')`}} />
+                    <MegaLabel>Technology</MegaLabel>
+                  </MegaCard>
+                  <MegaCard 
+                    to="/solutions/manufacturing"
+                    variants={{
+                      hidden: { opacity: 0, y: 20, scale: 0.9 },
+                      visible: { opacity: 1, y: 0, scale: 1 }
+                    }}
+                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  >
+                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200')`}} />
+                    <MegaLabel>Manufacturing</MegaLabel>
+                  </MegaCard>
+                </MegaGrid>
+              </MegaContainer>
+            </DropdownContent>
+          </Dropdown>
+
+
+          <Dropdown>
+            <NavLink to="#" onClick={(e) => { e.preventDefault(); setActiveMenu(activeMenu === 'company' ? '' : 'company'); }}>
+              Company
+              <FaChevronDown size={12} />
+            </NavLink>
+            <DropdownContent className="dropdown-content" $open={activeMenu === 'company'} $blue initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+              <MegaContainer>
+                <MegaHeader>
+                  <div>
+                    <MegaTitle>About TransAsia</MegaTitle>
+                    <MegaSubtitle>Learn more about our company, team, and opportunities to join us.</MegaSubtitle>
+                  </div>
+                </MegaHeader>
+                <MegaGrid 
+                  style={{ gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' }}
+                  initial="hidden"
+                  animate={activeMenu === 'company' ? "visible" : "hidden"}
+                  variants={{
+                    visible: { transition: { staggerChildren: 0.08 } },
+                    hidden: { transition: { staggerChildren: 0.05, staggerDirection: -1 } }
+                  }}
+                >
+                  <MegaCard 
+                    to="/about" 
+                    onClick={closeMenu}
+                    variants={{
+                      hidden: { opacity: 0, y: 20, scale: 0.9 },
+                      visible: { opacity: 1, y: 0, scale: 1 }
+                    }}
+                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  >
+                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200')`}} />
+                    <MegaLabel>About Us</MegaLabel>
+                  </MegaCard>
+                  <MegaCard 
+                    to="/team" 
+                    onClick={closeMenu}
+                    variants={{
+                      hidden: { opacity: 0, y: 20, scale: 0.9 },
+                      visible: { opacity: 1, y: 0, scale: 1 }
+                    }}
+                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  >
+                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200')`}} />
+                    <MegaLabel>Our Team</MegaLabel>
+                  </MegaCard>
+                  <MegaCard 
+                    to="/careers" 
+                    onClick={closeMenu}
+                    variants={{
+                      hidden: { opacity: 0, y: 20, scale: 0.9 },
+                      visible: { opacity: 1, y: 0, scale: 1 }
+                    }}
+                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  >
+                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1200')`}} />
+                    <MegaLabel>Careers</MegaLabel>
+                  </MegaCard>
+                  <MegaCard 
+                    to="/press" 
+                    onClick={closeMenu}
+                    variants={{
+                      hidden: { opacity: 0, y: 20, scale: 0.9 },
+                      visible: { opacity: 1, y: 0, scale: 1 }
+                    }}
+                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  >
+                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1200')`}} />
+                    <MegaLabel>Press Release</MegaLabel>
+                  </MegaCard>
+                  <MegaCard 
+                    to="/gallery" 
+                    onClick={closeMenu}
+                    variants={{
+                      hidden: { opacity: 0, y: 20, scale: 0.9 },
+                      visible: { opacity: 1, y: 0, scale: 1 }
+                    }}
+                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  >
+                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200')`}} />
+                    <MegaLabel>Gallery</MegaLabel>
+                  </MegaCard>
+                  <MegaCard 
+                    to="/blog" 
+                    onClick={closeMenu}
+                    variants={{
+                      hidden: { opacity: 0, y: 20, scale: 0.9 },
+                      visible: { opacity: 1, y: 0, scale: 1 }
+                    }}
+                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  >
+                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=1200')`}} />
+                    <MegaLabel>Blog</MegaLabel>
+                  </MegaCard>
+                </MegaGrid>
+              </MegaContainer>
+            </DropdownContent>
+          </Dropdown>
+
+          <Dropdown>
+            <NavLink to="#" onClick={(e) => { e.preventDefault(); setActiveMenu(activeMenu === 'support' ? '' : 'support'); }}>
+              Support
+              <FaChevronDown size={12} />
+            </NavLink>
+            <DropdownContent className="dropdown-content" $open={activeMenu === 'support'}>
+              <DropdownGrid>
+                <DropdownItem to="/support/help-center" onClick={closeMenu}>Help Center</DropdownItem>
+                <DropdownItem to="/support/status" onClick={closeMenu}>Status</DropdownItem>
+                <DropdownItem to="/support/security" onClick={closeMenu}>Security</DropdownItem>
+                <DropdownItem to="/support/trust-center" onClick={closeMenu}>Trust Center</DropdownItem>
+                <DropdownItem to="/support/legal/privacy" onClick={closeMenu}>Privacy</DropdownItem>
+                <DropdownItem to="/support/legal/terms" onClick={closeMenu}>Terms</DropdownItem>
+                <DropdownItem to="/support/legal/cookies" onClick={closeMenu}>Cookies</DropdownItem>
+              </DropdownGrid>
+            </DropdownContent>
+          </Dropdown>
+
           <CTAButton to="/demo" onClick={closeMenu}>
             Get Demo
           </CTAButton>
@@ -294,6 +650,7 @@ const Header = () => {
         </MobileMenuButton>
       </NavContainer>
     </HeaderContainer>
+    </>
   );
 };
 

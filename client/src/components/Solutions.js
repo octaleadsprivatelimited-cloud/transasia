@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
+import { variants, transitions, withDelay } from '../styles/motion';
 import { useInView } from 'react-intersection-observer';
 import { 
   FaShieldAlt, 
@@ -14,11 +15,21 @@ import {
   FaGlobe,
   FaLock
 } from 'react-icons/fa';
+import AppleCardsCarousel from './AppleCardsCarousel';
 
 const SolutionsContainer = styled.section`
   padding: 120px 0;
-  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+  background: #ffffff;
   position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #ffffff;
+    z-index: 0;
+  }
 
   @media (max-width: 768px) {
     padding: 80px 0;
@@ -29,6 +40,8 @@ const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  position: relative;
+  z-index: 1;
 
   @media (max-width: 768px) {
     padding: 0 15px;
@@ -91,15 +104,18 @@ const SolutionsGrid = styled.div`
 `;
 
 const SolutionCard = styled(motion.div)`
-  background: rgba(26, 26, 26, 0.5);
-  border: 1px solid rgba(0, 102, 255, 0.1);
+  background: #ffffff;
+  border: 1px solid rgba(0, 102, 255, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), 0 2px 10px rgba(0, 102, 255, 0.08);
   border-radius: 20px;
   padding: 40px 30px;
   text-align: center;
-  transition: all 0.3s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  transform-style: preserve-3d;
+  will-change: transform;
 
   &::before {
     content: '';
@@ -112,10 +128,19 @@ const SolutionCard = styled(motion.div)`
     transition: left 0.5s;
   }
 
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(800px 200px at 20% 0%, rgba(255,255,255,0.18), transparent 60%);
+    pointer-events: none;
+    transform: translateZ(30px);
+  }
+
   &:hover {
     border-color: rgba(0, 102, 255, 0.3);
-    transform: translateY(-10px);
-    box-shadow: 0 20px 60px rgba(0, 102, 255, 0.1);
+    transform: translateY(-6px);
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.10), 0 8px 24px rgba(0, 102, 255, 0.12);
 
     &::before {
       left: 100%;
@@ -219,7 +244,7 @@ const LearnMoreButton = styled.button`
 `;
 
 const ComparisonSection = styled(motion.div)`
-  background: rgba(26, 26, 26, 0.3);
+  background: #ffffff;
   border: 1px solid rgba(0, 102, 255, 0.1);
   border-radius: 20px;
   padding: 60px 40px;
@@ -369,28 +394,38 @@ const comparisons = [
 ];
 
 const Solutions = () => {
+  const prefersReducedMotion = useReducedMotion();
   const [ref, inView] = useInView({
     threshold: 0.1,
     triggerOnce: true
   });
+  const carouselItems = [
+    { title: 'Financial Services', subtitle: 'Reduce sector risk with CRQ', image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200&auto=format&fit=crop' },
+    { title: 'Healthcare', subtitle: 'Protect PHI and meet HIPAA', image: 'https://images.unsplash.com/photo-1581594693700-99c0b2c8b4e5?q=80&w=1200&auto=format&fit=crop' },
+    { title: 'Technology', subtitle: 'Secure cloud-native at speed', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop' },
+    { title: 'Retail', subtitle: 'Safeguard payments and PII', image: 'https://images.unsplash.com/photo-1515165562835-c3b8c8a8e2d9?q=80&w=1200&auto=format&fit=crop' },
+    { title: 'Manufacturing', subtitle: 'OT/IT convergence security', image: 'https://images.unsplash.com/photo-1581093588401-16f8c585d6eb?q=80&w=1200&auto=format&fit=crop' }
+  ];
 
   return (
     <SolutionsContainer ref={ref}>
       <Container>
         <SectionHeader>
           <Badge
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            variants={variants.fadeUp}
+            initial="hidden"
+            animate={inView ? 'visible' : 'hidden'}
+            transition={transitions.fast}
           >
             <FaRocket />
             Comprehensive Solutions
           </Badge>
 
           <Title
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            variants={variants.fadeUp}
+            initial="hidden"
+            animate={inView ? 'visible' : 'hidden'}
+            transition={withDelay(transitions.base, 0.2)}
           >
             Enterprise Security
             <br />
@@ -398,23 +433,29 @@ const Solutions = () => {
           </Title>
 
           <Subtitle
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            variants={variants.fadeUp}
+            initial="hidden"
+            animate={inView ? 'visible' : 'hidden'}
+            transition={withDelay(transitions.base, 0.4)}
           >
             Protect your organization with our comprehensive suite of cybersecurity solutions 
             designed for modern enterprises facing evolving threats.
           </Subtitle>
         </SectionHeader>
 
+        <div style={{marginTop: 24}}>
+          <AppleCardsCarousel items={carouselItems} />
+        </div>
+
         <SolutionsGrid>
           {solutions.map((solution, index) => (
             <SolutionCard
               key={index}
-              initial={{ opacity: 0, y: 50 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ scale: 1.02 }}
+              variants={variants.fadeUp}
+              initial="hidden"
+              animate={inView ? 'visible' : 'hidden'}
+              transition={withDelay(transitions.base, index * 0.1)}
+              whileHover={{ scale: prefersReducedMotion ? 1 : 1.015, rotateX: prefersReducedMotion ? 0 : 3, rotateY: prefersReducedMotion ? 0 : -3 }}
             >
               <SolutionIcon>{solution.icon}</SolutionIcon>
               <SolutionTitle>{solution.title}</SolutionTitle>
@@ -438,9 +479,10 @@ const Solutions = () => {
         </SolutionsGrid>
 
         <ComparisonSection
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          variants={variants.fadeUp}
+          initial="hidden"
+          animate={inView ? 'visible' : 'hidden'}
+          transition={withDelay(transitions.base, 0.6)}
         >
           <ComparisonTitle>Why Choose CyberSecure?</ComparisonTitle>
           <ComparisonGrid>
