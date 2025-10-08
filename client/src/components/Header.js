@@ -484,18 +484,7 @@ const Header = () => {
           <NavLink to="/insurtech" onClick={closeMenu}>Insurtech</NavLink>
           <NavLink to="/products" onClick={closeMenu}>Products</NavLink>
           <NavLink to="/consulting" onClick={closeMenu}>Consulting</NavLink>
-
-          <Dropdown>
-            <NavLink to="#" onClick={(e) => { e.preventDefault(); setActiveMenu(activeMenu === 'services' ? '' : 'services'); }}>
-              Services
-              <FaChevronDown size={12} />
-            </NavLink>
-            <DropdownContent className="dropdown-content" $open={activeMenu === 'services'}>
-              <DropdownGrid>
-                <DropdownItem to="/services" onClick={closeMenu}>Cybersecurity Services</DropdownItem>
-              </DropdownGrid>
-            </DropdownContent>
-          </Dropdown>
+          <NavLink to="/services" onClick={closeMenu}>Services</NavLink>
 
           <Dropdown>
             <NavLink to="#" onClick={(e) => { e.preventDefault(); setActiveMenu(activeMenu === 'solutions' ? '' : 'solutions'); }}>
