@@ -6,6 +6,11 @@ import {
   FaLeaf, FaChartLine, FaUserShield, FaHandshake, FaArrowRight, FaPlay
 } from 'react-icons/fa';
 
+const float = keyframes`
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+`;
+
 const rotate = keyframes`
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
