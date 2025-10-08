@@ -354,15 +354,33 @@ const CyberSecurityProducts = () => {
       icon: <FaBolt />,
       title: 'R.U.D.R.A',
       gradient: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
-      description: 'Rapid Unified Defense & Response Automation. R.U.D.R.A is your intelligent incident response platform that automates threat containment, orchestrates security workflows, and accelerates response times with military precision.',
+      description: 'R.U.D.R.A: Rapid Unified Digital Risk Assessment Dashboard. The R.U.D.R.A dashboard provides a comprehensive overview of your organization\'s digital risk posture, integrating critical security assessments into a single, unified view.',
       features: [
-        'Automated Incident Response Playbooks',
-        'Real-time Threat Containment',
-        'Security Orchestration & Automation (SOAR)',
-        'Forensic Analysis & Evidence Collection'
+        'Cyber Risk Quantification',
+        'Deep Dark Web Data Breach Assessment',
+        'External Threat Assessment'
       ],
-      highlight: 'Reduce incident response time from hours to minutes with intelligent automation',
-      cta: 'Deploy R.U.D.R.A and respond at lightning speed!'
+      benefits: [
+        'Consolidated View of Overall Risk',
+        'Take Data-Driven Decisions',
+        'Improved Threat Detection'
+      ],
+      dashboardComponents: [
+        {
+          title: 'Cyber Risk Quantification',
+          items: ['Overall Risk Score', 'Risk Breakdown by Asset', 'Top Risk Contributors']
+        },
+        {
+          title: 'Deep Dark Web Data Breach Assessment',
+          items: ['Exposed Data', 'Identify Exposed End Point', 'Actionable Insights']
+        },
+        {
+          title: 'External Threat Assessment',
+          items: ['Threat Landscape Overview', 'Emerging Threats', 'Threat Mitigation Strategies']
+        }
+      ],
+      highlight: 'R.U.D.R.A empowers you to make informed decisions about your organization\'s cybersecurity posture, enabling you to proactively manage digital risks and protect your valuable assets',
+      cta: 'Deploy R.U.D.R.A and transform your risk management!'
     },
     {
       id: 'vrma',
@@ -587,7 +605,77 @@ const CyberSecurityProducts = () => {
                       </>
                     )}
 
-                    {product.id !== 'transgrc' && product.id !== 'huntercat' && (
+                    {product.id === 'rudra' && (
+                      <>
+                        <h4 style={{ fontSize: '1.4rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '20px' }}>
+                          Key Features:
+                        </h4>
+                        <FeaturesList>
+                          {product.features.map((feature, idx) => (
+                            <FeatureItem
+                              key={idx}
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: idx * 0.1 }}
+                            >
+                              <FeatureNumber>{idx + 1}</FeatureNumber>
+                              <FeatureText>{feature}</FeatureText>
+                            </FeatureItem>
+                          ))}
+                        </FeaturesList>
+
+                        <h4 style={{ fontSize: '1.4rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '20px', marginTop: '40px' }}>
+                          Benefits:
+                        </h4>
+                        <FeaturesList>
+                          {product.benefits.map((benefit, idx) => (
+                            <FeatureItem
+                              key={idx}
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: idx * 0.08 }}
+                            >
+                              <FeatureNumber>{idx + 1}</FeatureNumber>
+                              <FeatureText>{benefit}</FeatureText>
+                            </FeatureItem>
+                          ))}
+                        </FeaturesList>
+
+                        <h4 style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '24px', marginTop: '40px' }}>
+                          Dashboard Components:
+                        </h4>
+                        {product.dashboardComponents.map((component, idx) => (
+                          <div key={idx} style={{ marginBottom: '30px' }}>
+                            <h5 style={{ fontSize: '1.2rem', fontWeight: '700', color: 'var(--primary-color)', marginBottom: '16px' }}>
+                              {idx + 1}. {component.title}:
+                            </h5>
+                            <div style={{ display: 'grid', gap: '12px', paddingLeft: '20px' }}>
+                              {component.items.map((item, itemIdx) => (
+                                <div key={itemIdx} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                  <FaCheckCircle style={{ fontSize: '1.2rem', color: 'var(--primary-color)', flexShrink: 0 }} />
+                                  <span style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', lineHeight: '1.7' }}>{item}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+
+                        <Highlight>
+                          {product.highlight}
+                        </Highlight>
+
+                        <div style={{ textAlign: 'center' }}>
+                          <CTAButton
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <FaRocket /> {product.cta}
+                          </CTAButton>
+                        </div>
+                      </>
+                    )}
+
+                    {product.id !== 'transgrc' && product.id !== 'huntercat' && product.id !== 'rudra' && (
                       <>
                         <FeaturesList>
                           {product.features.map((feature, idx) => (
