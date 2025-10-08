@@ -488,7 +488,7 @@ const Footer = () => {
 
         <FooterBottom>
           <Copyright>
-            © 2025 CyberSecure. All rights reserved.
+            © 2025 Trans Asia Tech. All rights reserved.
           </Copyright>
           <LegalLinks>
             <LegalLink to="/privacy">Privacy Policy</LegalLink>

@@ -367,7 +367,7 @@ const LogoItem = styled.div`
 
 const testimonials = [
   {
-    text: "CyberSecure has revolutionized our security posture. The AI-powered threat detection has prevented multiple sophisticated attacks that would have cost us millions.",
+    text: "Trans Asia Tech has revolutionized our security posture. The AI-powered threat detection has prevented multiple sophisticated attacks that would have cost us millions.",
     rating: 5,
     author: {
       name: "Sarah Johnson",
@@ -397,7 +397,7 @@ const testimonials = [
     }
   },
   {
-    text: "CyberSecure's third-party risk management has streamlined our vendor assessment process. We can now monitor our entire supply chain in real-time.",
+    text: "Trans Asia Tech's third-party risk management has streamlined our vendor assessment process. We can now monitor our entire supply chain in real-time.",
     rating: 5,
     author: {
       name: "David Thompson",
@@ -477,7 +477,7 @@ const Testimonials = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             Don't just take our word for it. Hear from industry leaders who have 
-            transformed their security posture with CyberSecure.
+            transformed their security posture with Trans Asia Tech.
           </Subtitle>
         </SectionHeader>
 

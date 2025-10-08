@@ -390,7 +390,7 @@ const Stats = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             Our platform delivers measurable results that matter to your business. 
-            See why leading organizations trust CyberSecure for their security needs.
+            See why leading organizations trust Trans Asia Tech for their security needs.
           </Subtitle>
         </SectionHeader>
 

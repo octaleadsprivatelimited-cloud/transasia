@@ -38,7 +38,7 @@ const App = () => {
   return (
     <AppContainer>
       <Helmet>
-        <title>CyberSecure - Advanced Cybersecurity Platform</title>
+        <title>Trans Asia Tech - Advanced Cybersecurity Platform</title>
         <meta name="description" content="Revolutionary AI-powered cybersecurity platform for autonomous threat protection, risk management, and next-gen security solutions." />
         <meta name="keywords" content="cybersecurity, threat protection, risk management, AI security, cyber risk quantification, third-party risk management, security platform" />
       </Helmet>

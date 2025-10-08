@@ -484,7 +484,7 @@ const Solutions = () => {
           animate={inView ? 'visible' : 'hidden'}
           transition={withDelay(transitions.base, 0.6)}
         >
-          <ComparisonTitle>Why Choose CyberSecure?</ComparisonTitle>
+          <ComparisonTitle>Why Choose Trans Asia Tech?</ComparisonTitle>
           <ComparisonGrid>
             {comparisons.map((comparison, index) => (
               <ComparisonItem key={index}>

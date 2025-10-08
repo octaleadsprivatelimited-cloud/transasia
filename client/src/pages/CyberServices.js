@@ -59,7 +59,7 @@ const CyberServices = () => {
   return (
     <Wrapper>
       <Helmet>
-        <title>Cybersecurity Services | CyberSecure</title>
+        <title>Cybersecurity Services | Trans Asia Tech</title>
         <meta name="description" content="Managed security, incident response, red teaming, and compliance operations for enterprises." />
       </Helmet>
       <Container>
