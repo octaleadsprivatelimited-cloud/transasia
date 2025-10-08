@@ -1,574 +1,445 @@
-import React from 'react';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { FaUserShield, FaSearch, FaClipboardCheck, FaHeadset, FaGraduationCap, FaCogs, FaCheckCircle, FaShieldAlt, FaLaptopCode, FaChartBar } from 'react-icons/fa';
-import LifecycleDiagram from '../components/LifecycleDiagram';
+import React, { useState } from 'react';
+import styled, { keyframes } from 'styled-components';
+import { Helmet } from 'react-helmet-async';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  FaUserShield, FaChevronDown, FaRocket, FaLaptopCode, FaServer, FaRobot, FaLock, FaDatabase, FaSearch, FaGraduationCap
+} from 'react-icons/fa';
+
+const rotate = keyframes`
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+`;
 
 const PageContainer = styled.div`
   min-height: 100vh;
   padding-top: 80px;
-  background: var(--bg-primary);
+  background: #ffffff;
+  overflow-x: hidden;
 `;
 
 const HeroSection = styled.section`
-  background: var(--gradient-hero);
-  padding: 120px 20px 80px;
-  text-align: center;
   position: relative;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #0a1128 0%, #1e3a8a 50%, #1e40af 100%);
   overflow: hidden;
+  padding: 120px 40px 80px;
 
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 50% 50%, rgba(30, 64, 175, 0.1) 0%, transparent 70%);
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
+    animation: ${rotate} 30s linear infinite;
   }
 `;
 
 const HeroContent = styled.div`
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
+  text-align: center;
   position: relative;
   z-index: 1;
 `;
 
-const Pill = styled.span`
-  display: inline-block;
-  background: var(--gradient-primary);
+const HeroTitle = styled(motion.h1)`
+  font-size: 4rem;
+  font-weight: 700;
   color: white;
-  padding: 8px 20px;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-`;
-
-const Title = styled.h1`
-  font-size: 3.5rem;
-  font-weight: 800;
-  color: var(--text-primary);
   margin-bottom: 24px;
   line-height: 1.2;
+  letter-spacing: -1px;
+
+  span {
+    display: block;
+    font-weight: 300;
+    font-size: 3.5rem;
+    background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-top: 8px;
+  }
 
   @media (max-width: 768px) {
     font-size: 2.5rem;
+    
+    span {
+      font-size: 2.2rem;
+    }
   }
 `;
 
-const Subtitle = styled.p`
+const HeroSubtitle = styled(motion.p)`
   font-size: 1.3rem;
-  color: var(--text-secondary);
-  margin-bottom: 40px;
-  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.7;
+`;
+
+const ServicesSection = styled.section`
+  padding: 120px 40px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+`;
+
+const SectionTitle = styled(motion.h2)`
+  font-size: 3rem;
+  font-weight: 800;
+  text-align: center;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  letter-spacing: -1px;
 
   @media (max-width: 768px) {
-    font-size: 1.1rem;
+    font-size: 2rem;
   }
 `;
 
-const Section = styled.section`
-  padding: 80px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-`;
-
-const SectionTitle = styled.h2`
-  font-size: 2.5rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 20px;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-`;
-
-const SectionSubtitle = styled.p`
+const SectionSubtitle = styled(motion.p)`
   font-size: 1.2rem;
   color: var(--text-secondary);
   text-align: center;
-  margin-bottom: 60px;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 700px;
+  margin: 0 auto 80px;
+  line-height: 1.7;
 `;
 
-const ServicesGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 40px;
-  margin-bottom: 60px;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
+const ServicesContainer = styled.div`
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 `;
 
 const ServiceCard = styled(motion.div)`
   background: white;
-  padding: 50px 40px;
   border-radius: 24px;
-  box-shadow: 0 4px 20px rgba(30, 64, 175, 0.1);
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-  position: relative;
   overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: var(--gradient-primary);
-  }
+  border: 2px solid ${props => props.$isOpen ? 'var(--primary-color)' : 'rgba(0, 0, 0, 0.05)'};
+  box-shadow: ${props => props.$isOpen ? '0 20px 60px rgba(30, 64, 175, 0.15)' : '0 4px 20px rgba(0, 0, 0, 0.06)'};
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 40px rgba(30, 64, 175, 0.2);
-    border-color: var(--primary-color);
+    box-shadow: 0 12px 40px rgba(30, 64, 175, 0.12);
+  }
+`;
+
+const ServiceHeader = styled.div`
+  padding: 0;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: ${props => props.$isOpen ? '1fr' : '400px 1fr'};
+  align-items: center;
+  transition: all 0.4s ease;
+
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const ServiceImage = styled.div`
+  width: 100%;
+  height: ${props => props.$isOpen ? '300px' : '200px'};
+  background-image: url(${props => props.$image});
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  transition: all 0.4s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: ${props => props.$isOpen 
+      ? 'linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.7) 100%)' 
+      : 'linear-gradient(135deg, rgba(30, 64, 175, 0.8) 0%, rgba(59, 130, 246, 0.6) 100%)'};
+  }
+
+  @media (max-width: 968px) {
+    height: ${props => props.$isOpen ? '250px' : '180px'};
+  }
+`;
+
+const ServiceHeaderContent = styled.div`
+  padding: 32px 40px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  position: ${props => props.$isOpen ? 'absolute' : 'relative'};
+  bottom: ${props => props.$isOpen ? '0' : 'auto'};
+  left: ${props => props.$isOpen ? '0' : 'auto'};
+  right: ${props => props.$isOpen ? '0' : 'auto'};
+  z-index: 1;
+
+  @media (max-width: 968px) {
+    padding: 24px 20px;
+    gap: 16px;
+    position: ${props => props.$isOpen ? 'absolute' : 'relative'};
   }
 `;
 
 const ServiceIcon = styled.div`
-  width: 80px;
-  height: 80px;
-  border-radius: 20px;
-  background: var(--gradient-primary);
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  background: ${props => props.$isOpen ? 'rgba(255, 255, 255, 0.2)' : props.$gradient};
+  backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   color: white;
-  margin-bottom: 24px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+
+  @media (max-width: 768px) {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
 `;
 
 const ServiceTitle = styled.h3`
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 16px;
+  color: ${props => props.$isOpen ? 'white' : 'var(--text-primary)'};
+  flex: 1;
+  transition: color 0.3s ease;
+
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
+`;
+
+const ServiceChevron = styled(motion.div)`
+  font-size: 1.5rem;
+  color: ${props => props.$isOpen ? 'white' : 'var(--primary-color)'};
+  transition: color 0.3s ease;
+`;
+
+const ServiceContent = styled(motion.div)`
+  padding: 40px;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    padding: 24px 20px;
+  }
 `;
 
 const ServiceDescription = styled.p`
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   color: var(--text-secondary);
-  line-height: 1.7;
-  margin-bottom: 24px;
-`;
-
-const FeatureList = styled.ul`
-  list-style: none;
-  padding: 0;
-`;
-
-const FeatureItem = styled.li`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 14px;
-  color: var(--text-secondary);
-  font-size: 1rem;
-
-  svg {
-    color: var(--primary-color);
-    flex-shrink: 0;
-    font-size: 1.2rem;
-  }
-`;
-
-const ProcessSection = styled.div`
-  background: white;
-  padding: 60px 40px;
-  border-radius: 24px;
-  box-shadow: 0 4px 20px rgba(30, 64, 175, 0.1);
-  margin: 60px 0;
-`;
-
-const BenefitsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-  margin-top: 40px;
-`;
-
-const BenefitCard = styled(motion.div)`
-  text-align: center;
-  padding: 30px;
-  background: var(--bg-tertiary);
-  border-radius: 16px;
-  transition: all 0.3s ease;
-
-  &:hover {
-    transform: translateY(-5px);
-    background: white;
-    box-shadow: 0 8px 24px rgba(30, 64, 175, 0.15);
-  }
-`;
-
-const BenefitIcon = styled.div`
-  font-size: 3rem;
-  color: var(--primary-color);
-  margin-bottom: 16px;
-`;
-
-const BenefitTitle = styled.h4`
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 12px;
-`;
-
-const BenefitDescription = styled.p`
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-`;
-
-const CTASection = styled.section`
-  background: var(--gradient-secondary);
-  padding: 100px 20px;
-  text-align: center;
-  margin-top: 80px;
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-  }
-`;
-
-const CTAContent = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-`;
-
-const CTATitle = styled.h2`
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 20px;
-`;
-
-const CTADescription = styled.p`
-  font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 40px;
+  line-height: 1.8;
+  margin-bottom: 30px;
 `;
 
 const CTAButton = styled(motion.button)`
-  background: white;
-  color: var(--primary-color);
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
   border: none;
-  padding: 18px 48px;
+  padding: 16px 40px;
   border-radius: 12px;
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
 
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(59, 130, 246, 0.4);
   }
 `;
 
 const CyberSecurityServices = () => {
+  const [openService, setOpenService] = useState(null);
+
   const services = [
     {
+      id: 'red-team',
       icon: <FaUserShield />,
-      title: 'Managed Security Services',
-      description: 'Comprehensive 24/7 security monitoring and management by our expert SOC team, ensuring your infrastructure is always protected.',
-      features: [
-        '24/7/365 Security Operations Center',
-        'Real-time threat monitoring and response',
-        'Incident management and forensics',
-        'Monthly security reports and analytics',
-        'Compliance management support'
-      ]
+      title: 'Red Team Assessment',
+      gradient: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+      image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200',
+      description: 'Comprehensive adversarial simulation testing that mimics real-world attack scenarios. Our Red Team experts employ advanced tactics, techniques, and procedures (TTPs) to identify vulnerabilities in your security posture before malicious actors can exploit them.'
     },
     {
-      icon: <FaSearch />,
-      title: 'Penetration Testing',
-      description: 'Ethical hacking services to identify vulnerabilities before malicious actors do, with detailed remediation guidance.',
-      features: [
-        'Network and application penetration testing',
-        'Social engineering assessments',
-        'Wireless security testing',
-        'Physical security evaluation',
-        'Detailed vulnerability reports'
-      ]
-    },
-    {
-      icon: <FaClipboardCheck />,
-      title: 'Security Audits & Compliance',
-      description: 'Comprehensive security assessments and compliance audits for ISO 27001, SOC 2, GDPR, HIPAA, and more.',
-      features: [
-        'Gap analysis and risk assessment',
-        'Compliance framework mapping',
-        'Policy and procedure development',
-        'Audit preparation and support',
-        'Continuous compliance monitoring'
-      ]
-    },
-    {
-      icon: <FaHeadset />,
-      title: 'Incident Response',
-      description: 'Rapid response team available 24/7 to contain, investigate, and remediate security incidents.',
-      features: [
-        'Emergency incident response',
-        'Digital forensics investigation',
-        'Malware analysis and removal',
-        'Data breach notification support',
-        'Post-incident review and recommendations'
-      ]
-    },
-    {
-      icon: <FaGraduationCap />,
-      title: 'Security Awareness Training',
-      description: 'Comprehensive training programs to build a security-conscious culture within your organization.',
-      features: [
-        'Customized training modules',
-        'Phishing simulation campaigns',
-        'Security best practices workshops',
-        'Executive security briefings',
-        'Certification preparation courses'
-      ]
-    },
-    {
-      icon: <FaCogs />,
-      title: 'Security Architecture Design',
-      description: 'Design and implementation of robust security architectures tailored to your business requirements.',
-      features: [
-        'Zero Trust architecture design',
-        'Cloud security architecture',
-        'Network segmentation planning',
-        'Identity and access management',
-        'Security tool integration'
-      ]
-    }
-  ];
-
-  const serviceLifecycle = [
-    {
-      number: '1',
-      title: 'Discovery & Assessment',
-      description: 'Comprehensive analysis of your current security posture and identification of gaps'
-    },
-    {
-      number: '2',
-      title: 'Strategy Development',
-      description: 'Custom security strategy aligned with your business objectives and risk tolerance'
-    },
-    {
-      number: '3',
-      title: 'Implementation',
-      description: 'Deployment of security controls and services with minimal business disruption'
-    },
-    {
-      number: '4',
-      title: 'Continuous Monitoring',
-      description: '24/7 monitoring and proactive threat hunting to detect and respond to incidents'
-    },
-    {
-      number: '5',
-      title: 'Review & Optimize',
-      description: 'Regular reviews and optimization based on threat landscape and business changes'
-    }
-  ];
-
-  const responseProcess = [
-    {
-      icon: <FaShieldAlt />,
-      title: 'Detect',
-      description: 'Identify security incidents through monitoring'
-    },
-    {
-      icon: <FaSearch />,
-      title: 'Analyze',
-      description: 'Investigate and assess the scope of impact'
-    },
-    {
+      id: 'app-security',
       icon: <FaLaptopCode />,
-      title: 'Contain',
-      description: 'Isolate affected systems and prevent spread'
+      title: 'Application Security Assessment',
+      gradient: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
+      image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200',
+      description: 'In-depth security evaluation of web, mobile, and desktop applications. We perform comprehensive code reviews, penetration testing, and vulnerability assessments to ensure your applications are secure from design to deployment.'
     },
     {
-      icon: <FaChartBar />,
-      title: 'Recover',
-      description: 'Restore operations and implement fixes'
+      id: 'infrastructure',
+      icon: <FaServer />,
+      title: 'Infrastructure Security Assessment',
+      gradient: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+      image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200',
+      description: 'Complete evaluation of your network infrastructure, servers, cloud environments, and security controls. We identify misconfigurations, vulnerabilities, and security gaps across your entire IT infrastructure.'
+    },
+    {
+      id: 'ot-iot',
+      icon: <FaRobot />,
+      title: 'OT and IOT Cyber Assessments',
+      gradient: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200',
+      description: 'Specialized security assessments for Operational Technology (OT) and Internet of Things (IoT) environments. We evaluate industrial control systems, SCADA networks, and connected devices to ensure operational safety and security.'
+    },
+    {
+      id: 'anti-ransomware',
+      icon: <FaLock />,
+      title: 'Anti Ransomware Readiness Assessment',
+      gradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+      image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200',
+      description: 'Comprehensive evaluation of your organization\'s ransomware preparedness. We assess backup strategies, incident response plans, security controls, and recovery capabilities to ensure you\'re ready to defend against and recover from ransomware attacks.'
+    },
+    {
+      id: 'data-breach',
+      icon: <FaDatabase />,
+      title: 'Data Breach Assessment',
+      gradient: 'linear-gradient(135deg, #ec4899 0%, #db2777 100%)',
+      image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200',
+      description: 'Thorough investigation and analysis of data breach incidents. We identify the scope of compromise, assess impact, collect forensic evidence, and provide actionable recommendations to prevent future breaches and strengthen your data protection measures.'
+    },
+    {
+      id: 'cyber-forensic',
+      icon: <FaSearch />,
+      title: 'Cyber Forensic Assessment',
+      gradient: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
+      image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200',
+      description: 'Expert digital forensics and incident investigation services. We collect, preserve, and analyze digital evidence to understand attack vectors, identify perpetrators, and support legal proceedings while ensuring chain of custody compliance.'
+    },
+    {
+      id: 'training',
+      icon: <FaGraduationCap />,
+      title: 'Cyber Security Training',
+      gradient: 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)',
+      image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1200',
+      description: 'Comprehensive security awareness and technical training programs. We offer customized training for employees, security teams, and executives covering topics from basic security hygiene to advanced threat detection and incident response.'
     }
   ];
 
-  const benefits = [
-    {
-      icon: <FaShieldAlt />,
-      title: 'Proactive Protection',
-      description: 'Stay ahead of threats with continuous monitoring and threat intelligence'
-    },
-    {
-      icon: <FaCheckCircle />,
-      title: 'Compliance Assurance',
-      description: 'Meet regulatory requirements with expert guidance and documentation'
-    },
-    {
-      icon: <FaUserShield />,
-      title: 'Expert Team',
-      description: 'Access to certified security professionals with decades of experience'
-    },
-    {
-      icon: <FaCogs />,
-      title: 'Cost Efficiency',
-      description: 'Reduce security costs compared to building an in-house team'
-    }
-  ];
+  const toggleService = (id) => {
+    setOpenService(openService === id ? null : id);
+  };
 
   return (
     <PageContainer>
+      <Helmet>
+        <title>Cybersecurity Services | TransAsia</title>
+        <meta name="description" content="Professional cybersecurity assessment and training services" />
+      </Helmet>
+
       <HeroSection>
         <HeroContent>
-          <Pill>Cybersecurity Services</Pill>
-          <Title>Professional Security Services</Title>
-          <Subtitle>
-            Expert cybersecurity services delivered by certified professionals to protect 
-            your organization from evolving cyber threats and ensure compliance.
-          </Subtitle>
+          <HeroTitle
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            Cybersecurity Services
+            <span>Expert Assessment & Training</span>
+          </HeroTitle>
+          <HeroSubtitle
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Comprehensive security services to assess, protect, and train your organization against evolving cyber threats
+          </HeroSubtitle>
         </HeroContent>
       </HeroSection>
 
-      {/* Section 1: Services Overview */}
-      <Section>
-        <SectionTitle>Our Service Offerings</SectionTitle>
-        <SectionSubtitle>
-          Comprehensive cybersecurity services tailored to your organization's unique needs and risk profile
+      <ServicesSection>
+        <SectionTitle
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          Our Services
+        </SectionTitle>
+        <SectionSubtitle
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+        >
+          Professional security assessments and training tailored to your needs
         </SectionSubtitle>
-        <ServicesGrid>
+
+        <ServicesContainer>
           {services.map((service, index) => (
             <ServiceCard
-              key={index}
+              key={service.id}
+              $isOpen={openService === service.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
+              transition={{ delay: index * 0.08 }}
             >
-              <ServiceIcon>{service.icon}</ServiceIcon>
-              <ServiceTitle>{service.title}</ServiceTitle>
-              <ServiceDescription>{service.description}</ServiceDescription>
-              <FeatureList>
-                {service.features.map((feature, idx) => (
-                  <FeatureItem key={idx}>
-                    <FaCheckCircle />
-                    <span>{feature}</span>
-                  </FeatureItem>
-                ))}
-              </FeatureList>
+              <ServiceHeader
+                $isOpen={openService === service.id}
+                onClick={() => toggleService(service.id)}
+              >
+                <ServiceImage 
+                  $image={service.image} 
+                  $isOpen={openService === service.id}
+                />
+                <ServiceHeaderContent $isOpen={openService === service.id}>
+                  <ServiceIcon $gradient={service.gradient} $isOpen={openService === service.id}>
+                    {service.icon}
+                  </ServiceIcon>
+                  <ServiceTitle $isOpen={openService === service.id}>
+                    {service.title}
+                  </ServiceTitle>
+                  <ServiceChevron
+                    $isOpen={openService === service.id}
+                    animate={{ rotate: openService === service.id ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <FaChevronDown />
+                  </ServiceChevron>
+                </ServiceHeaderContent>
+              </ServiceHeader>
+
+              <AnimatePresence>
+                {openService === service.id && (
+                  <ServiceContent
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  >
+                    <ServiceDescription>{service.description}</ServiceDescription>
+                    
+                    <div style={{ textAlign: 'center', marginTop: '30px' }}>
+                      <CTAButton
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <FaRocket /> Learn More
+                      </CTAButton>
+                    </div>
+                  </ServiceContent>
+                )}
+              </AnimatePresence>
             </ServiceCard>
           ))}
-        </ServicesGrid>
-      </Section>
-
-      {/* Section 2: Service Delivery Lifecycle */}
-      <LifecycleDiagram
-        title="Service Delivery Lifecycle"
-        steps={serviceLifecycle}
-        type="horizontal"
-        background="var(--bg-secondary)"
-      />
-
-      {/* Section 3: Incident Response Process */}
-      <LifecycleDiagram
-        title="Incident Response Process"
-        steps={responseProcess}
-        type="circular"
-        background="var(--bg-tertiary)"
-      />
-
-      {/* Section 4: Benefits */}
-      <Section>
-        <SectionTitle>Why Choose Our Services</SectionTitle>
-        <SectionSubtitle>
-          Partner with us for comprehensive security services backed by expertise and proven methodologies
-        </SectionSubtitle>
-        <BenefitsGrid>
-          {benefits.map((benefit, index) => (
-            <BenefitCard
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <BenefitIcon>{benefit.icon}</BenefitIcon>
-              <BenefitTitle>{benefit.title}</BenefitTitle>
-              <BenefitDescription>{benefit.description}</BenefitDescription>
-            </BenefitCard>
-          ))}
-        </BenefitsGrid>
-      </Section>
-
-      {/* Section 5: Service Process */}
-      <Section>
-        <ProcessSection>
-          <SectionTitle>Our Engagement Process</SectionTitle>
-          <SectionSubtitle>
-            A structured approach to delivering exceptional security services
-          </SectionSubtitle>
-          <FeatureList style={{ maxWidth: '800px', margin: '0 auto' }}>
-            <FeatureItem>
-              <FaCheckCircle />
-              <span><strong>Initial Consultation:</strong> Free 30-minute security assessment call</span>
-            </FeatureItem>
-            <FeatureItem>
-              <FaCheckCircle />
-              <span><strong>Proposal & Scoping:</strong> Detailed service proposal with clear deliverables</span>
-            </FeatureItem>
-            <FeatureItem>
-              <FaCheckCircle />
-              <span><strong>Onboarding:</strong> Smooth transition with dedicated account manager</span>
-            </FeatureItem>
-            <FeatureItem>
-              <FaCheckCircle />
-              <span><strong>Service Delivery:</strong> Professional execution with regular updates</span>
-            </FeatureItem>
-            <FeatureItem>
-              <FaCheckCircle />
-              <span><strong>Continuous Improvement:</strong> Regular reviews and service optimization</span>
-            </FeatureItem>
-          </FeatureList>
-        </ProcessSection>
-      </Section>
-
-      {/* Section 6: CTA */}
-      <CTASection>
-        <CTAContent>
-          <CTATitle>Protect Your Business Today</CTATitle>
-          <CTADescription>
-            Schedule a free consultation with our security experts to discuss your 
-            organization's security needs and how we can help.
-          </CTADescription>
-          <CTAButton
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Get Started Now
-          </CTAButton>
-        </CTAContent>
-      </CTASection>
+        </ServicesContainer>
+      </ServicesSection>
     </PageContainer>
   );
 };
