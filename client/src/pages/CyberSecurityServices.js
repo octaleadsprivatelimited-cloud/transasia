@@ -3,43 +3,29 @@ import styled, { keyframes } from 'styled-components';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  FaUserShield, FaRocket, FaLaptopCode, FaServer, FaRobot, FaLock, FaDatabase, FaSearch, FaGraduationCap, FaCheckCircle, FaTimes, FaArrowRight
+  FaUserShield, FaRocket, FaLaptopCode, FaServer, FaRobot, FaLock, FaDatabase, FaSearch, FaGraduationCap, FaCheckCircle, FaChevronDown, FaArrowRight
 } from 'react-icons/fa';
 
-const float = keyframes`
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(5deg); }
+const pulse = keyframes`
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
 `;
 
-const shimmer = keyframes`
-  0% { background-position: -1000px 0; }
-  100% { background-position: 1000px 0; }
+const lineGrow = keyframes`
+  from { height: 0; }
+  to { height: 100%; }
 `;
 
 const PageContainer = styled.div`
   min-height: 100vh;
   padding-top: 80px;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-  position: relative;
-  overflow-x: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 600px;
-    background: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
-    pointer-events: none;
-  }
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
 `;
 
 const HeroSection = styled.section`
   padding: 80px 40px 60px;
   text-align: center;
-  position: relative;
-  z-index: 1;
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
 
   @media (max-width: 768px) {
     padding: 60px 20px 40px;
@@ -47,14 +33,11 @@ const HeroSection = styled.section`
 `;
 
 const HeroTitle = styled(motion.h1)`
-  font-size: 4.5rem;
+  font-size: 4rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #ffffff 0%, #60a5fa 50%, #a78bfa 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 24px;
-  letter-spacing: -3px;
+  color: #0f172a;
+  margin-bottom: 20px;
+  letter-spacing: -2px;
 
   @media (max-width: 768px) {
     font-size: 2.5rem;
@@ -64,9 +47,9 @@ const HeroTitle = styled(motion.h1)`
 
 const HeroSubtitle = styled(motion.p)`
   font-size: 1.3rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: #64748b;
   max-width: 700px;
-  margin: 0 auto 40px;
+  margin: 0 auto;
   line-height: 1.7;
 
   @media (max-width: 768px) {
@@ -74,123 +57,184 @@ const HeroSubtitle = styled(motion.p)`
   }
 `;
 
-const BentoGrid = styled.div`
-  max-width: 1400px;
+const TimelineContainer = styled.div`
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 40px 100px;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 24px;
+  padding: 80px 40px 100px;
   position: relative;
-  z-index: 1;
-
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(6, 1fr);
-  }
 
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    padding: 0 20px 60px;
-    gap: 20px;
+    padding: 60px 20px 80px;
   }
 `;
 
-const BentoCard = styled(motion.div)`
-  grid-column: span ${props => props.span || 4};
-  min-height: ${props => props.height || '400px'};
-  border-radius: 24px;
-  padding: 40px;
-  background: ${props => props.gradient || 'rgba(30, 41, 59, 0.5)'};
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: all 0.4s ease;
+const TimelineLine = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent 0%, #e2e8f0 10%, #e2e8f0 90%, transparent 100%);
+  transform: translateX(-50%);
 
   &::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: ${props => props.bgImage ? `url(${props.bgImage}) center/cover` : 'none'};
-    opacity: ${props => props.bgImage ? '0.08' : '0'};
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    width: 100%;
+    height: 0;
+    background: linear-gradient(180deg, #3b82f6 0%, #8b5cf6 100%);
+    animation: ${lineGrow} 2s ease-out forwards;
+  }
+
+  @media (max-width: 768px) {
+    left: 30px;
+  }
+`;
+
+const TimelineItem = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  margin-bottom: 80px;
+  position: relative;
+
+  &:nth-child(even) {
+    flex-direction: row-reverse;
+
+    @media (max-width: 768px) {
+      flex-direction: row;
+    }
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 60px;
+  }
+`;
+
+const TimelineDot = styled.div`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  border: 5px solid #ffffff;
+  box-shadow: 0 0 0 8px rgba(59, 130, 246, 0.1), 0 8px 24px rgba(59, 130, 246, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+  z-index: 2;
+  animation: ${pulse} 2s ease-in-out infinite;
+
+  @media (max-width: 768px) {
+    left: 30px;
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+`;
+
+const TimelineContent = styled.div`
+  width: calc(50% - 60px);
+  padding: ${props => props.isLeft ? '0 60px 0 0' : '0 0 0 60px'};
+
+  @media (max-width: 768px) {
+    width: calc(100% - 80px);
+    padding: 0 0 0 50px;
+  }
+`;
+
+const ServiceCard = styled(motion.div)`
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: ${props => props.gradient};
+    transition: height 0.4s ease;
   }
 
   &:hover {
     transform: translateY(-8px);
-    border-color: rgba(59, 130, 246, 0.5);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.15);
+    border-color: #3b82f6;
 
     &::before {
-      opacity: ${props => props.bgImage ? '0.15' : '0'};
-      transform: scale(1.1);
+      height: 100%;
+      opacity: 0.05;
     }
   }
 
-  @media (max-width: 1024px) {
-    grid-column: span ${props => props.spanTablet || 6};
-  }
-
   @media (max-width: 768px) {
-    grid-column: span 1;
-    min-height: 350px;
     padding: 30px;
   }
 `;
 
 const CardHeader = styled.div`
-  position: relative;
-  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 20px;
 `;
 
 const CardIcon = styled.div`
   width: 70px;
   height: 70px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  background: ${props => props.gradient};
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.2rem;
+  font-size: 2rem;
   color: white;
-  margin-bottom: 24px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  animation: ${float} 4s ease-in-out infinite;
+  flex-shrink: 0;
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
 
   @media (max-width: 768px) {
     width: 60px;
     height: 60px;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
+`;
+
+const CardHeaderText = styled.div`
+  flex: 1;
 `;
 
 const CardTag = styled.span`
   display: inline-block;
   padding: 6px 14px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
+  background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+  color: #3b82f6;
   border-radius: 20px;
   font-size: 0.8rem;
-  font-weight: 600;
-  color: white;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
 `;
 
 const CardTitle = styled.h3`
   font-size: 2rem;
   font-weight: 800;
-  color: white;
-  margin-bottom: 16px;
+  color: #0f172a;
+  margin: 0 0 12px 0;
   line-height: 1.2;
 
   @media (max-width: 768px) {
@@ -200,9 +244,9 @@ const CardTitle = styled.h3`
 
 const CardDescription = styled.p`
   font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: #64748b;
   line-height: 1.7;
-  margin-bottom: 24px;
+  margin: 0 0 24px 0;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -210,30 +254,34 @@ const CardDescription = styled.p`
 `;
 
 const CardFooter = styled.div`
-  position: relative;
-  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid #e2e8f0;
 `;
 
-const LearnMoreLink = styled.div`
+const ExpandButton = styled.button`
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 1.05rem;
-  font-weight: 600;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
   color: white;
-  transition: gap 0.3s ease;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
 
   svg {
     transition: transform 0.3s ease;
   }
 
-  ${BentoCard}:hover & {
-    gap: 12px;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
 
     svg {
       transform: translateX(4px);
@@ -241,224 +289,79 @@ const LearnMoreLink = styled.div`
   }
 `;
 
-const ModalOverlay = styled(motion.div)`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(12px);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  overflow-y: auto;
-`;
-
-const ModalContent = styled(motion.div)`
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  border-radius: 32px;
-  max-width: 1000px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-  position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 25px 100px rgba(0, 0, 0, 0.5);
-
-  /* Custom scrollbar */
-  &::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: rgba(59, 130, 246, 0.3);
-    border-radius: 10px;
-
-    &:hover {
-      background: rgba(59, 130, 246, 0.5);
-    }
-  }
-`;
-
-const ModalHeader = styled.div`
-  padding: 60px;
-  background: ${props => props.gradient};
-  position: relative;
-  overflow: hidden;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url(${props => props.bgImage}) center/cover;
-    opacity: 0.1;
-  }
-
-  @media (max-width: 768px) {
-    padding: 40px 30px;
-  }
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  border: none;
-  color: white;
-  font-size: 1.5rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  z-index: 10;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: rotate(90deg);
-  }
-`;
-
-const ModalIconTitle = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  position: relative;
-  z-index: 1;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-  }
-`;
-
-const ModalIcon = styled.div`
-  width: 90px;
-  height: 90px;
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-  color: white;
-  flex-shrink: 0;
-
-  @media (max-width: 768px) {
-    width: 70px;
-    height: 70px;
-    font-size: 2.5rem;
-  }
-`;
-
-const ModalTitle = styled.h2`
-  font-size: 3rem;
-  font-weight: 800;
-  color: white;
-  margin: 0;
-  line-height: 1.2;
-
-  @media (max-width: 768px) {
-    font-size: 2rem;
-  }
-`;
-
-const ModalBody = styled.div`
-  padding: 60px;
-
-  @media (max-width: 768px) {
-    padding: 40px 30px;
-  }
-`;
-
-const ModalDescription = styled.p`
-  font-size: 1.15rem;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.8;
-  margin-bottom: 50px;
+const ExpandedContent = styled(motion.div)`
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 2px solid #e2e8f0;
 `;
 
 const Section = styled.div`
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 
   &:last-child {
     margin-bottom: 0;
   }
 `;
 
-const SectionTitle = styled.h3`
-  font-size: 2rem;
+const SectionTitle = styled.h4`
+  font-size: 1.6rem;
   font-weight: 700;
-  color: white;
-  margin-bottom: 12px;
+  color: #0f172a;
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
   gap: 12px;
 
   &::before {
     content: '';
-    width: 5px;
-    height: 36px;
+    width: 4px;
+    height: 28px;
     background: linear-gradient(180deg, #3b82f6 0%, #8b5cf6 100%);
-    border-radius: 3px;
+    border-radius: 2px;
   }
 
   @media (max-width: 768px) {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
 
     &::before {
-      height: 30px;
+      height: 24px;
     }
   }
 `;
 
 const SectionSubtitle = styled.p`
-  font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 30px;
+  font-size: 1rem;
+  color: #64748b;
+  margin-bottom: 24px;
+  line-height: 1.6;
 `;
 
-const ItemsGrid = styled.div`
+const MethodologyGrid = styled.div`
   display: grid;
-  gap: 20px;
-`;
-
-const Item = styled.div`
-  padding: 24px 28px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  transition: all 0.3s ease;
-  display: flex;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
 
-  &:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(59, 130, 246, 0.5);
-    transform: translateX(5px);
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
   }
 `;
 
-const ItemNumber = styled.div`
+const MethodologyItem = styled.div`
+  padding: 24px;
+  background: #f8fafc;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #ffffff;
+    border-color: #3b82f6;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.1);
+  }
+`;
+
+const MethodologyNumber = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 10px;
@@ -469,23 +372,19 @@ const ItemNumber = styled.div`
   font-size: 1.1rem;
   font-weight: 700;
   color: white;
-  flex-shrink: 0;
+  margin-bottom: 16px;
 `;
 
-const ItemContent = styled.div`
-  flex: 1;
-`;
-
-const ItemTitle = styled.h4`
-  font-size: 1.2rem;
+const MethodologyTitle = styled.h5`
+  font-size: 1.1rem;
   font-weight: 700;
-  color: white;
+  color: #0f172a;
   margin-bottom: 8px;
 `;
 
-const ItemDesc = styled.p`
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.7);
+const MethodologyDesc = styled.p`
+  font-size: 0.95rem;
+  color: #64748b;
   line-height: 1.6;
   margin: 0;
 `;
@@ -494,102 +393,106 @@ const BenefitsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 20px;
-`;
 
-const BenefitItem = styled.div`
-  padding: 28px;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
-  border: 1px solid rgba(59, 130, 246, 0.2);
-  border-radius: 16px;
-  transition: all 0.3s ease;
-
-  &:hover {
-    border-color: rgba(59, 130, 246, 0.5);
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.2);
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
   }
 `;
 
-const BenefitIconWrapper = styled.div`
-  width: 50px;
-  height: 50px;
+const BenefitItem = styled.div`
+  padding: 24px;
+  background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+  border-radius: 16px;
+  border: 1px solid #bfdbfe;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+  }
+`;
+
+const BenefitIcon = styled.div`
+  width: 48px;
+  height: 48px;
   border-radius: 12px;
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 16px;
   color: white;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  margin-bottom: 16px;
 `;
 
 const BenefitTitle = styled.h5`
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  color: white;
+  color: #1e40af;
   margin-bottom: 8px;
 `;
 
 const BenefitDesc = styled.p`
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: #1e40af;
   line-height: 1.6;
   margin: 0;
+  opacity: 0.8;
 `;
 
 const CTASection = styled.div`
-  margin-top: 50px;
-  padding: 50px;
+  margin-top: 40px;
+  padding: 40px;
   background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-  border-radius: 24px;
+  border-radius: 20px;
   text-align: center;
 
   @media (max-width: 768px) {
-    padding: 40px 30px;
+    padding: 30px 24px;
   }
 `;
 
 const CTATitle = styled.h4`
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: white;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 
   @media (max-width: 768px) {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 `;
 
 const CTAText = styled.p`
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: rgba(255, 255, 255, 0.95);
-  margin-bottom: 30px;
-  line-height: 1.7;
+  margin-bottom: 24px;
+  line-height: 1.6;
 `;
 
 const CTAButton = styled.button`
-  padding: 18px 45px;
+  padding: 16px 40px;
   background: white;
   color: #3b82f6;
   border: none;
-  border-radius: 14px;
-  font-size: 1.1rem;
+  border-radius: 12px;
+  font-size: 1.05rem;
   font-weight: 700;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   transition: all 0.3s ease;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   }
 `;
 
 const CyberSecurityServices = () => {
-  const [selectedService, setSelectedService] = useState(null);
+  const [expandedService, setExpandedService] = useState(null);
 
   const services = [
     {
@@ -597,29 +500,25 @@ const CyberSecurityServices = () => {
       icon: <FaUserShield />,
       title: 'Red Team Assessment',
       tag: 'Advanced',
-      span: 6,
-      spanTablet: 6,
-      height: '500px',
-      gradient: 'linear-gradient(135deg, rgba(220, 38, 38, 0.2) 0%, rgba(153, 27, 27, 0.3) 100%)',
-      bgImage: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200',
+      gradient: 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)',
       shortDesc: 'Simulate real-world cyber attacks to test your security defenses and identify vulnerabilities before malicious actors do.',
       description: 'Red teaming is a security assessment methodology where a team acts like an adversary, attempting to bypass your defenses and achieve specific objectives. This approach provides a holistic view of your security posture.',
       methodology: {
         title: 'MITRE ATT&CK Methodology',
         subtitle: 'A red team assessment using MITRE ATT&CK typically follows these stages:',
         items: [
-          { title: 'Planning and Scoping', desc: 'Define objectives, rules of engagement, and success criteria' },
-          { title: 'Reconnaissance', desc: 'Gather intelligence and establish initial access' },
+          { title: 'Planning and Scoping', desc: 'Define objectives, rules of engagement, and success criteria for the assessment' },
+          { title: 'Reconnaissance', desc: 'Gather intelligence and establish initial access to the target environment' },
           { title: 'Lateral Movement', desc: 'Navigate through the network to reach high-value targets' },
-          { title: 'C2 Communication', desc: 'Deploy persistence and establish command channels' },
-          { title: 'Actions on Objectives', desc: 'Execute mission goals like data exfiltration' }
+          { title: 'C2 Communication', desc: 'Deploy persistence mechanisms and establish command channels' },
+          { title: 'Actions on Objectives', desc: 'Execute mission goals such as data exfiltration' }
         ]
       },
       benefits: [
-        { title: 'Real Attacker View', desc: 'Experience how adversaries approach your systems' },
-        { title: 'Improved Posture', desc: 'Identify and fix weaknesses before exploitation' },
-        { title: 'Enhanced Detection', desc: 'Test monitoring and response capabilities' },
-        { title: 'Risk Management', desc: 'Stay ahead with actionable intelligence' }
+        { title: 'Real Attacker View', desc: 'Experience how adversaries would approach your systems' },
+        { title: 'Improved Security Posture', desc: 'Identify and fix weaknesses before real attackers exploit them' },
+        { title: 'Enhanced Threat Detection', desc: 'Test and improve your monitoring and response capabilities' },
+        { title: 'Proactive Risk Management', desc: 'Stay ahead of threats with actionable intelligence' }
       ]
     },
     {
@@ -627,30 +526,26 @@ const CyberSecurityServices = () => {
       icon: <FaLaptopCode />,
       title: 'Application Security',
       tag: 'Essential',
-      span: 6,
-      spanTablet: 6,
-      height: '500px',
-      gradient: 'linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(91, 33, 182, 0.3) 100%)',
-      bgImage: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200',
+      gradient: 'linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%)',
       shortDesc: 'Comprehensive security testing using OWASP 2023 methodology to identify and fix application vulnerabilities.',
       description: 'An Application Security Assessment (ASA) is a systematic process of identifying, evaluating, and documenting vulnerabilities in software applications using OWASP Testing Guide methodology.',
       methodology: {
         title: 'OWASP 2023 Methodology',
         subtitle: 'Phases of an OWASP-based Application Security Assessment:',
         items: [
-          { title: 'Preparation', desc: 'Define scope and establish testing parameters' },
-          { title: 'Information Gathering', desc: 'Collect data about application architecture' },
+          { title: 'Preparation', desc: 'Define scope, gather requirements, and establish testing parameters' },
+          { title: 'Information Gathering', desc: 'Collect data about the application architecture and technologies' },
           { title: 'Threat Modeling', desc: 'Identify potential threats and attack vectors' },
-          { title: 'Vulnerability Scanning', desc: 'Use automated tools for common weaknesses' },
-          { title: 'Manual Testing', desc: 'Hands-on validation and exploitation' },
-          { title: 'Reporting', desc: 'Document findings with remediation steps' }
+          { title: 'Vulnerability Scanning', desc: 'Use automated tools to discover common security weaknesses' },
+          { title: 'Manual Testing', desc: 'Perform hands-on testing to validate vulnerabilities' },
+          { title: 'Reporting', desc: 'Document findings with risk ratings and remediation recommendations' }
         ]
       },
       benefits: [
-        { title: 'Structured Approach', desc: 'Follow industry-standard methodology' },
-        { title: 'Focus on Threats', desc: 'Prioritize real-world attack vectors' },
-        { title: 'Flexibility', desc: 'Adapt to your specific needs' },
-        { title: 'Community Resources', desc: 'Leverage global security knowledge' }
+        { title: 'Structured Approach', desc: 'Follow industry-standard methodology for comprehensive testing' },
+        { title: 'Focus on Threats', desc: 'Prioritize real-world attack vectors that matter most' },
+        { title: 'Flexibility', desc: 'Adapt methodology to fit your specific application needs' },
+        { title: 'Community Resources', desc: 'Leverage global security community knowledge and tools' }
       ]
     },
     {
@@ -658,89 +553,77 @@ const CyberSecurityServices = () => {
       icon: <FaServer />,
       title: 'Infrastructure Security',
       tag: 'Critical',
-      span: 4,
-      spanTablet: 3,
-      height: '450px',
-      gradient: 'linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(30, 64, 175, 0.3) 100%)',
-      bgImage: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200',
-      shortDesc: 'Comprehensive evaluation using NIST framework to identify infrastructure security gaps.',
-      description: 'Infrastructure Security Assessment (ISA) is a comprehensive evaluation to identify vulnerabilities, misconfigurations, and attack vectors using NIST SP 800-30.',
+      gradient: 'linear-gradient(135deg, #2563eb 0%, #1e40af 100%)',
+      shortDesc: 'Comprehensive evaluation using NIST framework to identify infrastructure security gaps and misconfigurations.',
+      description: 'Infrastructure Security Assessment (ISA) is a comprehensive evaluation to identify vulnerabilities, security misconfigurations, and potential attack vectors using NIST Special Publication 800-30.',
       methodology: {
-        title: 'NIST Framework',
-        subtitle: 'Structured approach aligned with NIST Special Publication 800-30:',
+        title: 'NIST Framework Methodology',
+        subtitle: 'Following a structured approach ensures a thorough and effective ISA:',
         items: [
-          { title: 'Planning', desc: 'Identify high-risk assets for testing' },
-          { title: 'Information Gathering', desc: 'Collect network and system data' },
-          { title: 'Scanning', desc: 'Identify misconfigurations and vulnerabilities' },
-          { title: 'Analysis', desc: 'Evaluate findings and assess impact' },
-          { title: 'Remediation', desc: 'Provide actionable recommendations' }
+          { title: 'Planning and Scoping', desc: 'Identify high-risk assets and prioritize them for testing' },
+          { title: 'Information Gathering', desc: 'Collect data about network topology and security controls' },
+          { title: 'Vulnerability Scanning', desc: 'Identify misconfigurations and vulnerabilities' },
+          { title: 'Data Analysis', desc: 'Evaluate findings and assess potential impact' },
+          { title: 'Remediation', desc: 'Provide actionable recommendations and support' }
         ]
       },
       benefits: [
-        { title: 'Security Posture', desc: 'Strengthen IT infrastructure defenses' },
-        { title: 'Compliance', desc: 'Meet regulatory requirements' },
-        { title: 'Risk Management', desc: 'Address risks proactively' },
-        { title: 'Decision-making', desc: 'Make informed security investments' }
+        { title: 'Improved Security Posture', desc: 'Strengthen defenses across your entire IT infrastructure' },
+        { title: 'Regulatory Compliance', desc: 'Meet industry standards and regulatory requirements' },
+        { title: 'Proactive Risk Management', desc: 'Identify and address risks before they become incidents' },
+        { title: 'Enhanced Decision-making', desc: 'Make informed security investments based on real data' }
       ]
     },
     {
       id: 'ot-iot',
       icon: <FaRobot />,
-      title: 'OT & IoT Security',
+      title: 'OT and IoT Security',
       tag: 'Specialized',
-      span: 4,
-      spanTablet: 3,
-      height: '450px',
-      gradient: 'linear-gradient(135deg, rgba(5, 150, 105, 0.2) 0%, rgba(4, 120, 87, 0.3) 100%)',
-      bgImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200',
-      shortDesc: 'Specialized assessments for OT and IoT environments ensuring operational safety.',
-      description: 'OT and IoT cyber assessments are crucial for understanding risks in interconnected industrial systems and IoT devices.',
+      gradient: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
+      shortDesc: 'Specialized security assessments for Operational Technology and IoT environments ensuring operational safety.',
+      description: 'OT and IoT cyber assessments are crucial for understanding and mitigating the risks associated with interconnected systems in industrial environments.',
       methodology: {
-        title: 'Assessment Areas',
+        title: 'Key Assessment Areas',
         subtitle: 'Comprehensive evaluation covering six critical areas:',
         items: [
-          { title: 'Asset Discovery', desc: 'Identify all devices and their criticality' },
-          { title: 'Vulnerability Assessment', desc: 'Find and prioritize vulnerabilities' },
-          { title: 'Threat Modeling', desc: 'Analyze threats and attack vectors' },
-          { title: 'Risk Assessment', desc: 'Evaluate incident likelihood and impact' },
-          { title: 'Security Controls', desc: 'Assess firewall and IDS effectiveness' },
-          { title: 'Compliance', desc: 'Ensure NIST and NERC CIP compliance' }
+          { title: 'Asset Discovery', desc: 'Identify all devices and systems, understanding their criticality' },
+          { title: 'Vulnerability Assessment', desc: 'Identify and prioritize vulnerabilities in devices and firmware' },
+          { title: 'Threat Modeling', desc: 'Analyze potential threats, attack vectors, and insider risks' },
+          { title: 'Risk Assessment', desc: 'Evaluate likelihood and impact of potential security incidents' },
+          { title: 'Security Controls', desc: 'Assess effectiveness of firewalls, IDS, and access controls' },
+          { title: 'Compliance Review', desc: 'Ensure compliance with NIST, NERC CIP, and relevant standards' }
         ]
       },
       benefits: [
-        { title: 'Infrastructure Protection', desc: 'Safeguard essential systems' },
-        { title: 'Operational Safety', desc: 'Prevent safety hazards' },
-        { title: 'Compliance', desc: 'Meet regulatory requirements' },
-        { title: 'Reduced Attack Surface', desc: 'Minimize exposure to threats' }
+        { title: 'Critical Infrastructure Protection', desc: 'Safeguard essential systems from cyber threats' },
+        { title: 'Operational Safety', desc: 'Prevent disruptions that could cause safety hazards' },
+        { title: 'Compliance Assurance', desc: 'Meet mandatory regulatory requirements' },
+        { title: 'Reduced Attack Surface', desc: 'Minimize exposure to potential cyber attacks' }
       ]
     },
     {
       id: 'anti-ransomware',
       icon: <FaLock />,
       title: 'Anti-Ransomware',
-      tag: 'Priority',
-      span: 4,
-      spanTablet: 6,
-      height: '450px',
-      gradient: 'linear-gradient(135deg, rgba(217, 119, 6, 0.2) 0%, rgba(180, 83, 9, 0.3) 100%)',
-      bgImage: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200',
-      shortDesc: 'Test ransomware preparedness using MITRE ATT&CK framework simulation.',
-      description: 'Anti-Ransomware Readiness Assessment (ARRA) leverages MITRE ATT&CK to simulate real-world ransomware attacks.',
+      tag: 'High Priority',
+      gradient: 'linear-gradient(135deg, #d97706 0%, #b45309 100%)',
+      shortDesc: 'Comprehensive ransomware preparedness assessment using MITRE ATT&CK to test defenses and response capabilities.',
+      description: 'Anti-Ransomware Readiness Assessment (ARRA) leverages the MITRE ATT&CK framework to simulate real-world ransomware attacks and test your organization\'s preparedness.',
       methodology: {
         title: 'ARRA Methodology',
-        subtitle: 'Targeted assessment based on MITRE ATT&CK:',
+        subtitle: 'An ARRA leverages MITRE ATT&CK for targeted ransomware simulation:',
         items: [
-          { title: 'Preparation', desc: 'Define scope and identify critical assets' },
-          { title: 'Emulation', desc: 'Simulate ransomware tactics and techniques' },
-          { title: 'Detection', desc: 'Test detection and response procedures' },
-          { title: 'Remediation', desc: 'Provide prioritized recommendations' }
+          { title: 'Preparation', desc: 'Define scope and identify critical assets requiring ransomware protection' },
+          { title: 'Emulation', desc: 'Simulate ransomware tactics and techniques based on real-world attack patterns' },
+          { title: 'Detection and Response', desc: 'Test your detection capabilities and incident response procedures' },
+          { title: 'Remediation', desc: 'Provide prioritized recommendations to mitigate ransomware risk' }
         ]
       },
       benefits: [
-        { title: 'Ransomware Focus', desc: 'Target specific attack methods' },
-        { title: 'Real Simulation', desc: 'Experience actual attack scenarios' },
-        { title: 'Holistic Testing', desc: 'Test people, processes, technology' },
-        { title: 'Prioritized Steps', desc: 'Get actionable recommendations' }
+        { title: 'Targeted Ransomware Focus', desc: 'Specifically address ransomware attack methods' },
+        { title: 'Real-world Simulation', desc: 'Experience how ransomware operators would attack' },
+        { title: 'Holistic Testing', desc: 'Test people, processes, and technology together' },
+        { title: 'Prioritized Recommendations', desc: 'Get actionable steps ranked by impact' }
       ]
     },
     {
@@ -748,29 +631,25 @@ const CyberSecurityServices = () => {
       icon: <FaDatabase />,
       title: 'Data Breach Assessment',
       tag: 'Intelligence',
-      span: 4,
-      spanTablet: 6,
-      height: '450px',
-      gradient: 'linear-gradient(135deg, rgba(219, 39, 119, 0.2) 0%, rgba(190, 24, 93, 0.3) 100%)',
-      bgImage: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200',
-      shortDesc: 'Monitor deep/dark web for stolen data and map to MITRE ATT&CK.',
-      description: 'Deep Dark Web monitoring to identify stolen data and map findings to MITRE ATT&CK for understanding attacker tactics.',
+      gradient: 'linear-gradient(135deg, #db2777 0%, #be185d 100%)',
+      shortDesc: 'Monitor deep and dark web for stolen data and map findings to MITRE ATT&CK for proactive threat intelligence.',
+      description: 'Deep Dark Web monitoring to identify stolen data from breaches and map findings to MITRE ATT&CK framework for understanding attacker tactics.',
       methodology: {
         title: 'Monitoring Process',
-        subtitle: 'Comprehensive monitoring and analysis:',
+        subtitle: 'Comprehensive monitoring and analysis of compromised data:',
         items: [
-          { title: 'Identify Leaks', desc: 'Monitor hidden marketplaces for your data' },
-          { title: 'Gauge Severity', desc: 'Assess type and volume of compromise' },
-          { title: 'Track Activity', desc: 'Monitor attacker discussions' },
-          { title: 'Map TTPs', desc: 'Understand exploitation methods' },
-          { title: 'Mitigation', desc: 'Develop actionable plans' }
+          { title: 'Identify Data Leaks', desc: 'Monitor hidden marketplaces and forums for your organization\'s data' },
+          { title: 'Gauge Breach Severity', desc: 'Assess the type, volume, and sensitivity of compromised data' },
+          { title: 'Track Attacker Activity', desc: 'Monitor discussions and sale of stolen credentials' },
+          { title: 'Map TTPs to Data', desc: 'Map findings to MITRE ATT&CK to understand exploitation methods' },
+          { title: 'Develop Mitigation', desc: 'Create actionable plans to address identified risks' }
         ]
       },
       benefits: [
-        { title: 'Threat Intelligence', desc: 'Gain insights into attacker goals' },
-        { title: 'Proactive Defense', desc: 'Act before data is weaponized' },
-        { title: 'Targeted Response', desc: 'Focus on actual threats' },
-        { title: 'Early Warning', desc: 'Detect breaches early' }
+        { title: 'Improved Threat Intelligence', desc: 'Gain insights into attacker goals and methods' },
+        { title: 'Proactive Defense', desc: 'Take action before stolen data is weaponized' },
+        { title: 'Targeted Incident Response', desc: 'Focus response efforts on actual threats' },
+        { title: 'Early Warning System', desc: 'Detect breaches before significant damage occurs' }
       ]
     },
     {
@@ -778,29 +657,25 @@ const CyberSecurityServices = () => {
       icon: <FaSearch />,
       title: 'Cyber Forensics',
       tag: 'Investigation',
-      span: 4,
-      spanTablet: 6,
-      height: '450px',
-      gradient: 'linear-gradient(135deg, rgba(8, 145, 178, 0.2) 0%, rgba(14, 116, 144, 0.3) 100%)',
-      bgImage: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200',
-      shortDesc: 'Systematic investigation using NIST framework to preserve digital evidence.',
-      description: 'Cyber forensic assessment is a systematic investigation using NIST CyberSecurity Framework to identify, collect, analyze, and preserve digital evidence.',
+      gradient: 'linear-gradient(135deg, #0891b2 0%, #0e7490 100%)',
+      shortDesc: 'Systematic investigation to identify, collect, analyze, and preserve digital evidence using NIST framework.',
+      description: 'Cyber forensic assessment is a systematic investigation to identify, collect, analyze, and preserve digital evidence using NIST CyberSecurity Framework.',
       methodology: {
-        title: 'NIST Framework',
+        title: 'NIST Framework Functions',
         subtitle: 'The NIST Cybersecurity Framework outlines five core functions:',
         items: [
-          { title: 'Identify', desc: 'Understand systems and cybersecurity risk' },
-          { title: 'Protect', desc: 'Implement safeguards for critical services' },
-          { title: 'Detect', desc: 'Identify cybersecurity events timely' },
-          { title: 'Respond', desc: 'Take action to minimize impact' },
-          { title: 'Recover', desc: 'Restore impaired capabilities' }
+          { title: 'Identify', desc: 'Develop understanding of systems, assets, and capabilities to manage risk' },
+          { title: 'Protect', desc: 'Implement appropriate safeguards to ensure delivery of critical services' },
+          { title: 'Detect', desc: 'Develop and implement activities to identify cybersecurity events' },
+          { title: 'Respond', desc: 'Take action regarding a detected cybersecurity incident' },
+          { title: 'Recover', desc: 'Maintain plans for resilience and restore impaired capabilities' }
         ]
       },
       benefits: [
-        { title: 'Structured Approach', desc: 'Follow proven investigation framework' },
-        { title: 'Focus on Threats', desc: 'Concentrate on actual security events' },
-        { title: 'Flexibility', desc: 'Adapt to different incident types' },
-        { title: 'Best Practices', desc: 'Leverage industry resources' }
+        { title: 'Structured Approach', desc: 'Follow proven framework for incident investigation' },
+        { title: 'Focus on Threats', desc: 'Concentrate on actual security events and their impact' },
+        { title: 'Flexibility', desc: 'Adapt methodology to different types of incidents' },
+        { title: 'Community Resources', desc: 'Leverage industry best practices and tools' }
       ]
     },
     {
@@ -808,41 +683,31 @@ const CyberSecurityServices = () => {
       icon: <FaGraduationCap />,
       title: 'Security Training',
       tag: 'Essential',
-      span: 4,
-      spanTablet: 6,
-      height: '450px',
-      gradient: 'linear-gradient(135deg, rgba(13, 148, 136, 0.2) 0%, rgba(15, 118, 110, 0.3) 100%)',
-      bgImage: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1200',
-      shortDesc: 'Customized training programs to empower your workforce and build security culture.',
-      description: 'Comprehensive customized Cybersecurity Training Programs designed to address your organization\'s unique needs and build a strong security culture.',
+      gradient: 'linear-gradient(135deg, #0d9488 0%, #0f766e 100%)',
+      shortDesc: 'Customized cybersecurity training programs designed to empower your workforce and build strong security culture.',
+      description: 'Comprehensive customized Cybersecurity Training Programs designed to address the unique needs of your organization and build a strong security culture.',
       methodology: {
         title: 'Training Approach',
-        subtitle: 'Our methodology ensures maximum effectiveness:',
+        subtitle: 'Our training methodology ensures maximum effectiveness:',
         items: [
-          { title: 'Needs Assessment', desc: 'Evaluate security awareness levels' },
-          { title: 'Content Development', desc: 'Create targeted training materials' },
-          { title: 'Delivery Options', desc: 'Online, in-person, or hybrid formats' },
-          { title: 'Hands-on Exercises', desc: 'Practice with simulated incidents' },
-          { title: 'Certification', desc: 'Measure outcomes and certify completion' }
+          { title: 'Needs Assessment', desc: 'Evaluate current security awareness levels and identify knowledge gaps' },
+          { title: 'Content Development', desc: 'Create targeted training materials specific to your organization\'s risks' },
+          { title: 'Delivery Options', desc: 'Choose from online, in-person, or hybrid training formats' },
+          { title: 'Hands-on Exercises', desc: 'Practice responding to simulated security incidents' },
+          { title: 'Certification', desc: 'Measure learning outcomes and provide completion certificates' }
         ]
       },
       benefits: [
-        { title: 'Reduced Risk', desc: 'Empower employees to prevent threats' },
-        { title: 'Data Security', desc: 'Build protection best practices' },
-        { title: 'Compliance', desc: 'Meet training requirements' },
-        { title: 'Productivity', desc: 'Reduce time lost to incidents' }
+        { title: 'Reduced Risk of Cyberattacks', desc: 'Empower employees to identify and prevent security threats' },
+        { title: 'Improved Data Security', desc: 'Build awareness of data protection best practices' },
+        { title: 'Enhanced Compliance', desc: 'Meet training requirements for security regulations' },
+        { title: 'Increased Productivity', desc: 'Reduce time lost to security incidents and recovery' }
       ]
     }
   ];
 
-  const openModal = (service) => {
-    setSelectedService(service);
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closeModal = () => {
-    setSelectedService(null);
-    document.body.style.overflow = 'auto';
+  const toggleService = (id) => {
+    setExpandedService(expandedService === id ? null : id);
   };
 
   return (
@@ -869,109 +734,96 @@ const CyberSecurityServices = () => {
         </HeroSubtitle>
       </HeroSection>
 
-      <BentoGrid>
+      <TimelineContainer>
+        <TimelineLine />
         {services.map((service, index) => (
-          <BentoCard
+          <TimelineItem
             key={service.id}
-            span={service.span}
-            spanTablet={service.spanTablet}
-            height={service.height}
-            gradient={service.gradient}
-            bgImage={service.bgImage}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: index * 0.08 }}
-            onClick={() => openModal(service)}
+            initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: index * 0.15 }}
           >
-            <CardHeader>
-              <CardTag>{service.tag}</CardTag>
-              <CardIcon>{service.icon}</CardIcon>
-              <CardTitle>{service.title}</CardTitle>
-              <CardDescription>{service.shortDesc}</CardDescription>
-            </CardHeader>
-            <CardFooter>
-              <LearnMoreLink>
-                View Details <FaArrowRight />
-              </LearnMoreLink>
-            </CardFooter>
-          </BentoCard>
+            <TimelineDot>{service.icon}</TimelineDot>
+            <TimelineContent isLeft={index % 2 === 0}>
+              <ServiceCard gradient={service.gradient}>
+                <CardHeader>
+                  <CardIcon gradient={service.gradient}>{service.icon}</CardIcon>
+                  <CardHeaderText>
+                    <CardTag>{service.tag}</CardTag>
+                    <CardTitle>{service.title}</CardTitle>
+                  </CardHeaderText>
+                </CardHeader>
+                <CardDescription>{service.shortDesc}</CardDescription>
+                <CardFooter>
+                  <ExpandButton onClick={() => toggleService(service.id)}>
+                    {expandedService === service.id ? 'Show Less' : 'Learn More'} 
+                    <FaArrowRight style={{ 
+                      transform: expandedService === service.id ? 'rotate(-90deg)' : 'rotate(0deg)',
+                      transition: 'transform 0.3s ease'
+                    }} />
+                  </ExpandButton>
+                </CardFooter>
+
+                <AnimatePresence>
+                  {expandedService === service.id && (
+                    <ExpandedContent
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      <Section>
+                        <p style={{ fontSize: '1.05rem', color: '#64748b', lineHeight: '1.7', marginBottom: '30px' }}>
+                          {service.description}
+                        </p>
+                      </Section>
+
+                      <Section>
+                        <SectionTitle>{service.methodology.title}</SectionTitle>
+                        <SectionSubtitle>{service.methodology.subtitle}</SectionSubtitle>
+                        <MethodologyGrid>
+                          {service.methodology.items.map((item, idx) => (
+                            <MethodologyItem key={idx}>
+                              <MethodologyNumber>{idx + 1}</MethodologyNumber>
+                              <MethodologyTitle>{item.title}</MethodologyTitle>
+                              <MethodologyDesc>{item.desc}</MethodologyDesc>
+                            </MethodologyItem>
+                          ))}
+                        </MethodologyGrid>
+                      </Section>
+
+                      <Section>
+                        <SectionTitle>Key Benefits</SectionTitle>
+                        <BenefitsGrid>
+                          {service.benefits.map((benefit, idx) => (
+                            <BenefitItem key={idx}>
+                              <BenefitIcon>
+                                <FaCheckCircle />
+                              </BenefitIcon>
+                              <BenefitTitle>{benefit.title}</BenefitTitle>
+                              <BenefitDesc>{benefit.desc}</BenefitDesc>
+                            </BenefitItem>
+                          ))}
+                        </BenefitsGrid>
+                      </Section>
+
+                      <CTASection>
+                        <CTATitle>Ready to Get Started?</CTATitle>
+                        <CTAText>
+                          Contact us today for a free consultation and learn how we can help secure your organization.
+                        </CTAText>
+                        <CTAButton>
+                          <FaRocket /> Request Assessment
+                        </CTAButton>
+                      </CTASection>
+                    </ExpandedContent>
+                  )}
+                </AnimatePresence>
+              </ServiceCard>
+            </TimelineContent>
+          </TimelineItem>
         ))}
-      </BentoGrid>
-
-      <AnimatePresence>
-        {selectedService && (
-          <ModalOverlay
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={closeModal}
-          >
-            <ModalContent
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: 'spring', duration: 0.5 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <CloseButton onClick={closeModal}>
-                <FaTimes />
-              </CloseButton>
-
-              <ModalHeader gradient={selectedService.gradient} bgImage={selectedService.bgImage}>
-                <ModalIconTitle>
-                  <ModalIcon>{selectedService.icon}</ModalIcon>
-                  <ModalTitle>{selectedService.title}</ModalTitle>
-                </ModalIconTitle>
-              </ModalHeader>
-
-              <ModalBody>
-                <ModalDescription>{selectedService.description}</ModalDescription>
-
-                <Section>
-                  <SectionTitle>{selectedService.methodology.title}</SectionTitle>
-                  <SectionSubtitle>{selectedService.methodology.subtitle}</SectionSubtitle>
-                  <ItemsGrid>
-                    {selectedService.methodology.items.map((item, idx) => (
-                      <Item key={idx}>
-                        <ItemNumber>{idx + 1}</ItemNumber>
-                        <ItemContent>
-                          <ItemTitle>{item.title}</ItemTitle>
-                          <ItemDesc>{item.desc}</ItemDesc>
-                        </ItemContent>
-                      </Item>
-                    ))}
-                  </ItemsGrid>
-                </Section>
-
-                <Section>
-                  <SectionTitle>Key Benefits</SectionTitle>
-                  <BenefitsGrid>
-                    {selectedService.benefits.map((benefit, idx) => (
-                      <BenefitItem key={idx}>
-                        <BenefitIconWrapper>
-                          <FaCheckCircle />
-                        </BenefitIconWrapper>
-                        <BenefitTitle>{benefit.title}</BenefitTitle>
-                        <BenefitDesc>{benefit.desc}</BenefitDesc>
-                      </BenefitItem>
-                    ))}
-                  </BenefitsGrid>
-                </Section>
-
-                <CTASection>
-                  <CTATitle>Ready to Get Started?</CTATitle>
-                  <CTAText>
-                    Contact us today for a free consultation and learn how we can help secure your organization.
-                  </CTAText>
-                  <CTAButton>
-                    <FaRocket /> Request Assessment <FaArrowRight />
-                  </CTAButton>
-                </CTASection>
-              </ModalBody>
-            </ModalContent>
-          </ModalOverlay>
-        )}
-      </AnimatePresence>
+      </TimelineContainer>
     </PageContainer>
   );
 };
