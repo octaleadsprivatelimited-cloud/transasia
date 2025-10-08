@@ -387,15 +387,24 @@ const CyberSecurityProducts = () => {
       icon: <FaNetworkWired />,
       title: 'V.R.M.A',
       gradient: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
-      description: 'Vulnerability & Risk Management Automation. V.R.M.A provides continuous vulnerability assessment, intelligent risk prioritization, and automated remediation workflows to keep your infrastructure secure.',
+      description: 'V.R.M.A: Streamline Your Vulnerability Remediation. Conquer your Vulnerability Remediation backlog with V.R.M.A! This powerful Vulnerability Remediation Management Application, empowers you to streamline the entire remediation process, saving you time, resources, and stress.',
+      subtitle: 'V.R.M.A offers a robust feature set built to simplify vulnerability management and expedite remediation.',
       features: [
-        'Continuous Vulnerability Scanning',
-        'AI-Driven Risk Prioritization',
-        'Automated Patch Management',
-        'Compliance & Audit Reporting'
+        'Centralize Vulnerability Data',
+        'Prioritize Threats Effectively',
+        'Track Remediation Progress',
+        'Collaborate Seamlessly',
+        'Generate Comprehensive Reports'
       ],
-      highlight: 'Manage 10,000+ assets with automated vulnerability detection and remediation workflows',
-      cta: 'Secure your infrastructure with V.R.M.A today!'
+      benefits: [
+        'Reduced Risk',
+        'Improved Efficiency',
+        'Enhanced Visibility',
+        'Simplified Compliance',
+        'Reduce Overall Cost'
+      ],
+      highlight: 'V.R.M.A: Take Control of Your Vulnerability Remediation Today!',
+      cta: 'Ready to transform your vulnerability remediation process? V.R.M.A offers a powerful and user-friendly solution that simplifies every step. Contact TransAsia Soft Tech Pvt. Ltd today to learn more and request a demo!'
     }
   ];
 
@@ -675,32 +684,65 @@ const CyberSecurityProducts = () => {
                       </>
                     )}
 
-                    {product.id !== 'transgrc' && product.id !== 'huntercat' && product.id !== 'rudra' && (
+                    {(product.id === 'vrma' || product.id === 'sunshine') && (
                       <>
+                        {product.subtitle && (
+                          <p style={{ fontSize: '1.15rem', color: 'var(--text-primary)', lineHeight: '1.8', marginBottom: '30px', fontWeight: '600' }}>
+                            {product.subtitle}
+                          </p>
+                        )}
+
+                        <h4 style={{ fontSize: '1.4rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '20px' }}>
+                          {product.id === 'vrma' ? 'V.R.M.A empowers you to:' : 'Key Features:'}
+                        </h4>
                         <FeaturesList>
                           {product.features.map((feature, idx) => (
                             <FeatureItem
                               key={idx}
                               initial={{ opacity: 0, x: -20 }}
                               animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: idx * 0.1 }}
+                              transition={{ delay: idx * 0.08 }}
                             >
-                              <FaCheckCircle style={{ fontSize: '1.5rem', color: 'var(--primary-color)', flexShrink: 0 }} />
+                              <FeatureNumber>{idx + 1}</FeatureNumber>
                               <FeatureText>{feature}</FeatureText>
                             </FeatureItem>
                           ))}
                         </FeaturesList>
+
+                        {product.benefits && (
+                          <>
+                            <h4 style={{ fontSize: '1.4rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '20px', marginTop: '40px' }}>
+                              {product.id === 'vrma' ? 'Benefits of V.R.M.A:' : 'Benefits:'}
+                            </h4>
+                            <FeaturesList>
+                              {product.benefits.map((benefit, idx) => (
+                                <FeatureItem
+                                  key={idx}
+                                  initial={{ opacity: 0, x: -20 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: idx * 0.08 }}
+                                >
+                                  <FeatureNumber>{idx + 1}</FeatureNumber>
+                                  <FeatureText>{benefit}</FeatureText>
+                                </FeatureItem>
+                              ))}
+                            </FeaturesList>
+                          </>
+                        )}
 
                         <Highlight>
                           {product.highlight}
                         </Highlight>
 
                         <div style={{ textAlign: 'center' }}>
+                          <p style={{ fontSize: '1.15rem', color: 'var(--text-secondary)', lineHeight: '1.8', marginBottom: '24px', fontWeight: '500' }}>
+                            {product.cta}
+                          </p>
                           <CTAButton
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                           >
-                            <FaRocket /> {product.cta}
+                            <FaRocket /> Request a Demo
                           </CTAButton>
                         </div>
                       </>
