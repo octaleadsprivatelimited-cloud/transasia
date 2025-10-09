@@ -64,8 +64,8 @@ const NavMenu = styled(motion.nav)`
   display: flex;
   align-items: center;
   gap: 28px;
-  flex: 1;
-  justify-content: flex-start;
+  margin-left: auto;
+  margin-right: 20px;
 
   @media (max-width: 968px) {
     position: fixed;
@@ -85,6 +85,8 @@ const NavMenu = styled(motion.nav)`
     transition: all 0.3s ease;
     overflow-y: auto;
     z-index: 999;
+    margin-left: 0;
+    margin-right: 0;
 
     &.active {
       transform: translateX(0);
@@ -98,7 +100,6 @@ const NavActions = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
-  margin-left: auto;
 
   @media (max-width: 968px) {
     display: none;
