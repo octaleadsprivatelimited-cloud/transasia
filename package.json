@@ -14,6 +14,9 @@
   "keywords": ["cybersecurity", "threat-protection", "security-platform", "risk-management"],
   "author": "CyberSecure Team",
   "license": "MIT",
+  "engines": {
+    "node": "22.x"
+  },
   "devDependencies": {
     "concurrently": "^8.2.2"
   }
