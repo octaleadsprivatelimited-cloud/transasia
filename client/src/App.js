@@ -9,6 +9,7 @@ import Testimonials from './components/Testimonials';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
 import BackgroundAnimation from './components/BackgroundAnimation';
+import ScrollToTop from './components/ScrollToTop';
 import Insurtech from './pages/Insurtech';
 import Consulting from './pages/Consulting';
 import CyberProducts from './pages/CyberProducts';
@@ -45,6 +46,7 @@ const App = () => {
       </Helmet>
       
       <BackgroundAnimation />
+      <ScrollToTop />
       <Header />
       
       <Routes>
