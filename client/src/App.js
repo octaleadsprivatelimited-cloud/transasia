@@ -21,6 +21,7 @@ import Careers from './pages/Careers';
 import About from './pages/About';
 import Team from './pages/Team';
 import Blog from './pages/Blog';
+import Contact from './pages/Contact';
 import { BasicPage } from './pages';
 import { routes as dynamicRoutes } from './routes/config';
 
@@ -67,6 +68,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/team" element={<Team />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/contact" element={<Contact />} />
         {dynamicRoutes.map(r => (
           <Route key={r.path} path={r.path} element={<BasicPage pill={r.pill} title={r.title} description={r.description} />} />
         ))}
