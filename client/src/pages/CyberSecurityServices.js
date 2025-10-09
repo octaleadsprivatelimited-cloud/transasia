@@ -11,11 +11,6 @@ const float = keyframes`
   50% { transform: translateY(-15px); }
 `;
 
-const shimmer = keyframes`
-  0% { background-position: -1000px 0; }
-  100% { background-position: 1000px 0; }
-`;
-
 const PageContainer = styled.div`
   min-height: 100vh;
   padding-top: 80px;

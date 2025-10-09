@@ -1,20 +1,10 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { 
-  FaRocket,
   FaArrowRight,
-  FaCheck,
-  FaShieldAlt,
-  FaChartLine,
-  FaGlobe
+  FaCheck
 } from 'react-icons/fa';
-
-const float = keyframes`
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
-`;
 
 const rotate = keyframes`
   from { transform: rotate(0deg); }
