@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -105,67 +105,68 @@ const CTASubtitle = styled.p`
   }
 `;
 
-const ButtonGroup = styled.div`
+const ContactForm = styled.form`
+  max-width: 600px;
+  margin: 0 auto;
   display: flex;
+  flex-direction: column;
   gap: 20px;
-  justify-content: center;
-  margin-bottom: 60px;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-  }
 `;
 
-const PrimaryButton = styled.button`
-  padding: 24px 60px;
-  background: white;
-  color: #1e3a8a;
-  border: none;
-  border-radius: 16px;
-  font-size: 1.2rem;
-  font-weight: 800;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  transition: all 0.3s ease;
-  box-shadow: 0 15px 50px rgba(255, 255, 255, 0.2);
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 70px rgba(255, 255, 255, 0.3);
-  }
-
-  @media (max-width: 768px) {
-    width: 100%;
-    justify-content: center;
-    padding: 20px 50px;
-  }
-`;
-
-const SecondaryButton = styled.button`
-  padding: 24px 60px;
-  background: transparent;
-  color: white;
+const FormInput = styled.input`
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.95);
   border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 16px;
-  font-size: 1.2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  color: #1a1a1a;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+
+  &::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #fbbf24;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.2);
+  }
+
+  @media (max-width: 768px) {
+    padding: 14px 20px;
+    font-size: 0.95rem;
+  }
+`;
+
+const SubmitButton = styled.button`
+  padding: 18px 40px;
+  background: #fbbf24;
+  color: #1a1a1a;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 8px 24px rgba(251, 191, 36, 0.4);
 
   &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-4px);
-    box-shadow: 0 15px 50px rgba(255, 255, 255, 0.15);
+    background: #f59e0b;
+    box-shadow: 0 12px 32px rgba(251, 191, 36, 0.6);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 
   @media (max-width: 768px) {
-    width: 100%;
-    padding: 20px 50px;
+    padding: 16px 32px;
+    font-size: 1rem;
   }
 `;
 
@@ -226,6 +227,25 @@ const CTA = () => {
     triggerOnce: true
   });
 
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    mobile: ''
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form submitted:', formData);
+    // Add your form submission logic here
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
   return (
     <CTAContainer ref={ref}>
       <Container>
@@ -245,14 +265,35 @@ const CTA = () => {
               Join 500+ enterprises worldwide who trust Trans Asia Tech for their cybersecurity needs
             </CTASubtitle>
 
-            <ButtonGroup>
-              <PrimaryButton>
-                Get Started Free <FaArrowRight />
-              </PrimaryButton>
-              <SecondaryButton>
-                Schedule Demo
-              </SecondaryButton>
-            </ButtonGroup>
+            <ContactForm onSubmit={handleSubmit}>
+              <FormInput
+                type="text"
+                name="name"
+                placeholder="Name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+              <FormInput
+                type="email"
+                name="email"
+                placeholder="E-mail"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+              <FormInput
+                type="tel"
+                name="mobile"
+                placeholder="Mobile"
+                value={formData.mobile}
+                onChange={handleChange}
+                required
+              />
+              <SubmitButton type="submit">
+                Submit
+              </SubmitButton>
+            </ContactForm>
           </CTAContent>
         </CTABox>
       </Container>
