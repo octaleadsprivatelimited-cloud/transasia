@@ -128,8 +128,12 @@ const FooterColumn = styled.div``;
 const CompanyInfo = styled.div``;
 
 const Logo = styled.img`
-  height: 45px;
+  height: 80px;
   margin-bottom: 24px;
+
+  @media (max-width: 768px) {
+    height: 60px;
+  }
 `;
 
 const CompanyName = styled.h3`
