@@ -469,9 +469,6 @@ const About = () => {
           >
             <ValueIcon><FaShieldAlt /></ValueIcon>
             <ValueTitle>Unified Dashboard of Entire Business Risk</ValueTitle>
-            <ValueDescription>
-              Comprehensive view of all business risks in a single, intuitive dashboard for better decision-making
-            </ValueDescription>
           </ValueCard>
           <ValueCard
             initial={{ opacity: 0, y: 20 }}
@@ -481,9 +478,6 @@ const About = () => {
           >
             <ValueIcon><FaCheckCircle /></ValueIcon>
             <ValueTitle>Complete Control of Vulnerability Lifecycle</ValueTitle>
-            <ValueDescription>
-              End-to-end management from discovery to remediation, ensuring no vulnerability goes unaddressed
-            </ValueDescription>
           </ValueCard>
           <ValueCard
             initial={{ opacity: 0, y: 20 }}
@@ -493,9 +487,6 @@ const About = () => {
           >
             <ValueIcon><FaLock /></ValueIcon>
             <ValueTitle>Advanced Algorithm to prevent Zero-Day Ransomware Attack</ValueTitle>
-            <ValueDescription>
-              Cutting-edge AI-powered algorithms that detect and prevent even unknown ransomware threats
-            </ValueDescription>
           </ValueCard>
           <ValueCard
             initial={{ opacity: 0, y: 20 }}
@@ -505,9 +496,6 @@ const About = () => {
           >
             <ValueIcon><FaSearch /></ValueIcon>
             <ValueTitle>Find Organizations List Posture from Industrial Data Leaks</ValueTitle>
-            <ValueDescription>
-              Monitor and assess your organization's exposure from industry-wide data breaches and leaks
-            </ValueDescription>
           </ValueCard>
           <ValueCard
             initial={{ opacity: 0, y: 20 }}
@@ -517,9 +505,6 @@ const About = () => {
           >
             <ValueIcon><FaCog /></ValueIcon>
             <ValueTitle>Process Oriented & Consistent Quality</ValueTitle>
-            <ValueDescription>
-              Standardized processes ensuring consistent, high-quality security services across all engagements
-            </ValueDescription>
           </ValueCard>
           <ValueCard
             initial={{ opacity: 0, y: 20 }}
@@ -529,9 +514,6 @@ const About = () => {
           >
             <ValueIcon><FaEye /></ValueIcon>
             <ValueTitle>360 degree of Risk from Hackers point of View</ValueTitle>
-            <ValueDescription>
-              Comprehensive risk assessment from an attacker's perspective to identify all potential vulnerabilities
-            </ValueDescription>
           </ValueCard>
         </ValuesGrid>
 
