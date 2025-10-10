@@ -106,11 +106,21 @@ const CTASubtitle = styled.p`
 `;
 
 const ContactForm = styled.form`
-  max-width: 600px;
+  max-width: 900px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 20px;
+`;
+
+const FormRow = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const FormInput = styled.input`
@@ -266,30 +276,32 @@ const CTA = () => {
             </CTASubtitle>
 
             <ContactForm onSubmit={handleSubmit}>
-              <FormInput
-                type="text"
-                name="name"
-                placeholder="Name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-              <FormInput
-                type="email"
-                name="email"
-                placeholder="E-mail"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-              <FormInput
-                type="tel"
-                name="mobile"
-                placeholder="Mobile"
-                value={formData.mobile}
-                onChange={handleChange}
-                required
-              />
+              <FormRow>
+                <FormInput
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+                <FormInput
+                  type="email"
+                  name="email"
+                  placeholder="E-mail"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+                <FormInput
+                  type="tel"
+                  name="mobile"
+                  placeholder="Mobile"
+                  value={formData.mobile}
+                  onChange={handleChange}
+                  required
+                />
+              </FormRow>
               <SubmitButton type="submit">
                 Submit
               </SubmitButton>
