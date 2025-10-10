@@ -6,7 +6,7 @@ import { FaShieldAlt, FaGlobe, FaUsers, FaAward, FaRocket, FaCheckCircle, FaChar
 const PageContainer = styled.div`
   min-height: 100vh;
   padding-top: 0;
-  background: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 100%);
+  background: #ffffff;
 `;
 
 const HeroSection = styled.section`
@@ -62,7 +62,7 @@ const SectionTitle = styled.h2`
   font-weight: 700;
   text-align: center;
   margin-bottom: 20px;
-  background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -70,7 +70,7 @@ const SectionTitle = styled.h2`
 
 const SectionSubtitle = styled.p`
   font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: #64748b;
   text-align: center;
   margin-bottom: 60px;
   max-width: 800px;
@@ -109,13 +109,13 @@ const StoryContent = styled.div``;
 const StoryTitle = styled.h3`
   font-size: 2rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #1e293b;
   margin-bottom: 20px;
 `;
 
 const StoryText = styled.p`
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: #475569;
   line-height: 1.8;
   margin-bottom: 16px;
 `;
@@ -128,20 +128,18 @@ const StatsGrid = styled.div`
 `;
 
 const StatCard = styled(motion.div)`
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
   padding: 40px 30px;
   border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   text-align: center;
   transition: all 0.3s ease;
 
   &:hover {
     transform: translateY(-10px);
-    background: rgba(59, 130, 246, 0.1);
-    border-color: rgba(59, 130, 246, 0.4);
-    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.3);
+    border-color: #3b82f6;
+    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.2);
   }
 `;
 
@@ -154,13 +152,13 @@ const StatIcon = styled.div`
 const StatNumber = styled.div`
   font-size: 3rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #1e293b;
   margin-bottom: 8px;
 `;
 
 const StatLabel = styled.div`
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: #64748b;
 `;
 
 const MissionVisionGrid = styled.div`
@@ -175,12 +173,11 @@ const MissionVisionGrid = styled.div`
 `;
 
 const MissionCard = styled(motion.div)`
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
   padding: 50px 40px;
   border-radius: 24px;
-  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   border-top: 4px solid #3b82f6;
 `;
 
@@ -200,13 +197,13 @@ const CardIcon = styled.div`
 const CardTitle = styled.h3`
   font-size: 1.8rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #1e293b;
   margin-bottom: 16px;
 `;
 
 const CardText = styled.p`
   font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: #475569;
   line-height: 1.8;
 `;
 
@@ -217,19 +214,17 @@ const ValuesGrid = styled.div`
 `;
 
 const ValueCard = styled(motion.div)`
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
   padding: 40px 30px;
   border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 
   &:hover {
     transform: translateY(-5px);
-    background: rgba(59, 130, 246, 0.1);
-    border-color: rgba(59, 130, 246, 0.4);
-    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.3);
+    border-color: #3b82f6;
+    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.2);
   }
 `;
 
@@ -237,7 +232,7 @@ const ValueIcon = styled.div`
   width: 60px;
   height: 60px;
   border-radius: 12px;
-  background: rgba(59, 130, 246, 0.2);
+  background: rgba(59, 130, 246, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -249,13 +244,13 @@ const ValueIcon = styled.div`
 const ValueTitle = styled.h4`
   font-size: 1.3rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #1e293b;
   margin-bottom: 12px;
 `;
 
 const ValueDescription = styled.p`
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: #64748b;
   line-height: 1.6;
 `;
 
@@ -311,7 +306,7 @@ const TimelineDot = styled.div`
   background: #3b82f6;
   transform: translateX(-50%);
   z-index: 1;
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2), 0 0 0 6px #3b82f6;
+  box-shadow: 0 0 0 4px #ffffff, 0 0 0 6px #3b82f6;
 
   @media (max-width: 768px) {
     left: 20px;
@@ -319,12 +314,11 @@ const TimelineDot = styled.div`
 `;
 
 const TimelineContent = styled.div`
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
   padding: 30px;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 `;
 
 const TimelineYear = styled.div`
@@ -337,13 +331,13 @@ const TimelineYear = styled.div`
 const TimelineTitle = styled.h4`
   font-size: 1.3rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #1e293b;
   margin-bottom: 12px;
 `;
 
 const TimelineText = styled.p`
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: #64748b;
   line-height: 1.6;
 `;
 
