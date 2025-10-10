@@ -55,24 +55,24 @@ const SectionHeader = styled.div`
 `;
 
 const Title = styled(motion.h2)`
-  font-size: 2rem;
+  font-size: 1rem;
   font-weight: 700;
   background: linear-gradient(135deg, #ffffff 0%, #60a5fa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 12px;
-  letter-spacing: -1px;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
 
   @media (max-width: 768px) {
-    font-size: 1.5rem;
+    font-size: 0.85rem;
   }
 `;
 
 const Subtitle = styled(motion.p)`
-  font-size: 0.95rem;
+  font-size: 0.5rem;
   color: rgba(255, 255, 255, 0.8);
-  max-width: 600px;
+  max-width: 400px;
   margin: 0 auto;
 `;
 
@@ -86,78 +86,78 @@ const TestimonialCard = styled(motion.div)`
   background: rgba(30, 58, 138, 0.3);
   backdrop-filter: blur(30px);
   border: 1px solid rgba(59, 130, 246, 0.3);
-  border-radius: 24px;
-  padding: 40px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   position: relative;
 
   @media (max-width: 768px) {
-    padding: 30px 20px;
+    padding: 15px 10px;
   }
 `;
 
 const QuoteIcon = styled.div`
-  width: 70px;
-  height: 70px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.8rem;
+  font-size: 0.9rem;
   color: white;
-  margin: 0 auto 30px;
-  box-shadow: 0 15px 50px rgba(59, 130, 246, 0.5);
+  margin: 0 auto 15px;
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
   animation: ${float} 3s ease-in-out infinite;
 `;
 
 const TestimonialText = styled.p`
-  font-size: 1.5rem;
-  line-height: 1.8;
+  font-size: 0.75rem;
+  line-height: 1.6;
   color: white;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   font-style: italic;
   font-weight: 400;
 
   @media (max-width: 768px) {
-    font-size: 1.2rem;
+    font-size: 0.6rem;
   }
 `;
 
 const Rating = styled.div`
   display: flex;
   justify-content: center;
-  gap: 8px;
-  margin-bottom: 30px;
+  gap: 4px;
+  margin-bottom: 15px;
 `;
 
 const Star = styled.div`
   color: #fbbf24;
-  font-size: 1.3rem;
+  font-size: 0.65rem;
 `;
 
 const AuthorSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  padding-top: 30px;
+  gap: 10px;
+  padding-top: 15px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 `;
 
 const AuthorAvatar = styled.div`
-  width: 70px;
-  height: 70px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.8rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: white;
-  box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
 `;
 
 const AuthorInfo = styled.div`
@@ -165,19 +165,19 @@ const AuthorInfo = styled.div`
 `;
 
 const AuthorName = styled.div`
-  font-size: 1.2rem;
+  font-size: 0.6rem;
   font-weight: 700;
   color: white;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 `;
 
 const AuthorTitle = styled.div`
-  font-size: 1rem;
+  font-size: 0.5rem;
   color: rgba(255, 255, 255, 0.7);
 `;
 
 const AuthorCompany = styled.div`
-  font-size: 0.95rem;
+  font-size: 0.48rem;
   color: #60a5fa;
   font-weight: 600;
 `;
@@ -185,19 +185,19 @@ const AuthorCompany = styled.div`
 const Navigation = styled.div`
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin-top: 50px;
+  gap: 10px;
+  margin-top: 25px;
 `;
 
 const NavButton = styled.button`
-  width: 60px;
-  height: 60px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background: rgba(59, 130, 246, 0.2);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(59, 130, 246, 0.4);
   color: white;
-  font-size: 1.3rem;
+  font-size: 0.65rem;
   cursor: pointer;
   display: flex;
   align-items: center;
