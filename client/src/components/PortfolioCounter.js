@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -34,10 +34,10 @@ const rotate = keyframes`
 `;
 
 const CounterContainer = styled.section`
-  min-height: 300vh;
-  background: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
   position: relative;
-  overflow: hidden;
+  background: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
+  padding: 200vh 0 100px;
+  overflow: visible;
 
   &::before {
     content: '';
@@ -69,18 +69,24 @@ const CounterContainer = styled.section`
   }
 
   @media (max-width: 768px) {
-    min-height: 250vh;
+    padding: 150vh 0 80px;
   }
 `;
 
-const StickyContainer = styled.div`
+const StickyWrapper = styled.div`
   position: sticky;
-  top: 0;
-  height: 100vh;
+  top: 100px;
+  height: calc(100vh - 200px);
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  margin-top: -200vh;
+
+  @media (max-width: 768px) {
+    top: 80px;
+    height: calc(100vh - 160px);
+    margin-top: -150vh;
+  }
 `;
 
 const Container = styled.div`
@@ -99,13 +105,13 @@ const Container = styled.div`
 const CardsStack = styled.div`
   position: relative;
   width: 100%;
-  height: 600px;
+  min-height: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
 
   @media (max-width: 768px) {
-    height: 500px;
+    min-height: 450px;
   }
 `;
 
@@ -276,38 +282,41 @@ const Subtitle = styled(motion.p)`
   line-height: 1.6;
 `;
 
-const CardItem = ({ counter, index, scrollYProgress, showCounters, totalCards }) => {
-  const cardProgress = useTransform(
-    scrollYProgress,
-    [index * 0.25, (index + 1) * 0.25],
-    [1, 0]
-  );
+const CardItem = ({ counter, index, scrollYProgress, totalCards }) => {
+  const [ref, inView] = useInView({
+    threshold: 0.3,
+    triggerOnce: true
+  });
+
+  // Calculate scroll ranges for this specific card
+  const startProgress = index / totalCards;
+  const endProgress = (index + 1) / totalCards;
   
   const scale = useTransform(
     scrollYProgress,
-    [index * 0.25, (index + 1) * 0.25],
-    [1, 0.9]
+    [startProgress, endProgress],
+    [1, 0.85]
   );
   
   const y = useTransform(
     scrollYProgress,
-    [index * 0.25, (index + 1) * 0.25],
-    [0, -100]
+    [startProgress, endProgress],
+    [0, -120]
   );
   
-  const rotate = useTransform(
+  const opacity = useTransform(
     scrollYProgress,
-    [index * 0.25, (index + 1) * 0.25],
-    [0, -5]
+    [startProgress, endProgress],
+    [1, 0.3]
   );
 
   return (
     <CounterItem
+      ref={ref}
       style={{
-        opacity: cardProgress,
-        scale: scale,
-        y: y,
-        rotate: rotate,
+        scale,
+        y,
+        opacity,
         zIndex: totalCards - index,
       }}
     >
@@ -315,7 +324,7 @@ const CardItem = ({ counter, index, scrollYProgress, showCounters, totalCards })
         {counter.icon}
       </IconWrapper>
       <CounterNumber>
-        {showCounters && (
+        {inView && (
           <CountUp
             end={counter.number}
             duration={2.5}
@@ -330,11 +339,10 @@ const CardItem = ({ counter, index, scrollYProgress, showCounters, totalCards })
 
 const PortfolioCounter = () => {
   const containerRef = useRef(null);
-  const [showCounters, setShowCounters] = useState(false);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"]
+    offset: ["start end", "end start"]
   });
 
   const counters = [
@@ -361,41 +369,34 @@ const PortfolioCounter = () => {
     }
   ];
 
-  useEffect(() => {
-    const unsubscribe = scrollYProgress.on('change', (latest) => {
-      if (latest > 0.1) {
-        setShowCounters(true);
-      }
-    });
-    
-    return () => unsubscribe();
-  }, [scrollYProgress]);
-
   return (
     <CounterContainer ref={containerRef}>
-      <StickyContainer>
+      <StickyWrapper>
         <Container>
           <StatsTitle>
             <Badge
               initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
             >
               <FaStar /> Our Achievements
             </Badge>
             
             <Title
               initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
             >
               Trusted by Industry Leaders
             </Title>
             
             <Subtitle
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
+              viewport={{ once: true }}
             >
               Delivering excellence in cybersecurity with proven expertise and unwavering commitment to protecting your digital assets
             </Subtitle>
@@ -408,13 +409,12 @@ const PortfolioCounter = () => {
                 counter={counter}
                 index={index}
                 scrollYProgress={scrollYProgress}
-                showCounters={showCounters}
                 totalCards={counters.length}
               />
             ))}
           </CardsStack>
         </Container>
-      </StickyContainer>
+      </StickyWrapper>
     </CounterContainer>
   );
 };
