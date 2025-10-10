@@ -5,14 +5,14 @@ import { motion } from 'framer-motion';
 import { FaBars, FaTimes, FaChevronDown } from 'react-icons/fa';
 
 const HeaderContainer = styled(motion.header)`
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  background: #1e3a8a;
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0, 102, 255, 0.1);
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom: none;
   transition: all 0.3s ease;
 `;
 
