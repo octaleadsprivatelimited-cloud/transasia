@@ -6,11 +6,11 @@ import { FaShieldAlt, FaGlobe, FaUsers, FaAward, FaRocket, FaCheckCircle, FaChar
 const PageContainer = styled.div`
   min-height: 100vh;
   padding-top: 0;
-  background: var(--bg-primary);
+  background: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 100%);
 `;
 
 const HeroSection = styled.section`
-  background: var(--gradient-hero);
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
   padding: 180px 20px 80px;
   text-align: center;
   position: relative;
@@ -23,7 +23,7 @@ const HeroSection = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 50% 50%, rgba(30, 64, 175, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
   }
 `;
 
@@ -37,7 +37,7 @@ const HeroContent = styled.div`
 const Title = styled.h1`
   font-size: 3.5rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: #ffffff;
   margin-bottom: 24px;
 
   @media (max-width: 768px) {
@@ -47,7 +47,7 @@ const Title = styled.h1`
 
 const Subtitle = styled.p`
   font-size: 1.3rem;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.6;
 `;
 
@@ -62,7 +62,7 @@ const SectionTitle = styled.h2`
   font-weight: 700;
   text-align: center;
   margin-bottom: 20px;
-  background: var(--gradient-primary);
+  background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -70,7 +70,7 @@ const SectionTitle = styled.h2`
 
 const SectionSubtitle = styled.p`
   font-size: 1.2rem;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.7);
   text-align: center;
   margin-bottom: 60px;
   max-width: 800px;
@@ -95,13 +95,13 @@ const StoryImage = styled.div`
   width: 100%;
   height: 400px;
   border-radius: 24px;
-  background: var(--gradient-primary);
+  background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 6rem;
   color: white;
-  box-shadow: 0 12px 40px rgba(30, 64, 175, 0.2);
+  box-shadow: 0 12px 40px rgba(59, 130, 246, 0.3);
 `;
 
 const StoryContent = styled.div``;
@@ -109,13 +109,13 @@ const StoryContent = styled.div``;
 const StoryTitle = styled.h3`
   font-size: 2rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: #ffffff;
   margin-bottom: 20px;
 `;
 
 const StoryText = styled.p`
   font-size: 1.1rem;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.8);
   line-height: 1.8;
   margin-bottom: 16px;
 `;
@@ -128,35 +128,39 @@ const StatsGrid = styled.div`
 `;
 
 const StatCard = styled(motion.div)`
-  background: white;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
   padding: 40px 30px;
   border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(30, 64, 175, 0.1);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.1);
   text-align: center;
   transition: all 0.3s ease;
 
   &:hover {
     transform: translateY(-10px);
-    box-shadow: 0 12px 40px rgba(30, 64, 175, 0.2);
+    background: rgba(59, 130, 246, 0.1);
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.3);
   }
 `;
 
 const StatIcon = styled.div`
   font-size: 3rem;
-  color: var(--primary-color);
+  color: #3b82f6;
   margin-bottom: 16px;
 `;
 
 const StatNumber = styled.div`
   font-size: 3rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: #ffffff;
   margin-bottom: 8px;
 `;
 
 const StatLabel = styled.div`
   font-size: 1.1rem;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.8);
 `;
 
 const MissionVisionGrid = styled.div`
@@ -171,18 +175,20 @@ const MissionVisionGrid = styled.div`
 `;
 
 const MissionCard = styled(motion.div)`
-  background: white;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
   padding: 50px 40px;
   border-radius: 24px;
-  box-shadow: 0 4px 20px rgba(30, 64, 175, 0.1);
-  border-top: 4px solid var(--primary-color);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.1);
+  border-top: 4px solid #3b82f6;
 `;
 
 const CardIcon = styled.div`
   width: 70px;
   height: 70px;
   border-radius: 16px;
-  background: var(--gradient-primary);
+  background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -194,13 +200,13 @@ const CardIcon = styled.div`
 const CardTitle = styled.h3`
   font-size: 1.8rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: #ffffff;
   margin-bottom: 16px;
 `;
 
 const CardText = styled.p`
   font-size: 1.05rem;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.8);
   line-height: 1.8;
 `;
 
@@ -211,15 +217,19 @@ const ValuesGrid = styled.div`
 `;
 
 const ValueCard = styled(motion.div)`
-  background: white;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
   padding: 40px 30px;
   border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(30, 64, 175, 0.1);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.1);
   transition: all 0.3s ease;
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 40px rgba(30, 64, 175, 0.2);
+    background: rgba(59, 130, 246, 0.1);
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.3);
   }
 `;
 
@@ -227,25 +237,25 @@ const ValueIcon = styled.div`
   width: 60px;
   height: 60px;
   border-radius: 12px;
-  background: var(--bg-tertiary);
+  background: rgba(59, 130, 246, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.8rem;
-  color: var(--primary-color);
+  color: #3b82f6;
   margin-bottom: 20px;
 `;
 
 const ValueTitle = styled.h4`
   font-size: 1.3rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: #ffffff;
   margin-bottom: 12px;
 `;
 
 const ValueDescription = styled.p`
   font-size: 1rem;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.7);
   line-height: 1.6;
 `;
 
@@ -260,7 +270,7 @@ const TimelineSection = styled.div`
     top: 0;
     bottom: 0;
     width: 2px;
-    background: var(--primary-color);
+    background: #3b82f6;
     transform: translateX(-50%);
 
     @media (max-width: 768px) {
@@ -298,10 +308,10 @@ const TimelineDot = styled.div`
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: var(--primary-color);
+  background: #3b82f6;
   transform: translateX(-50%);
   z-index: 1;
-  box-shadow: 0 0 0 4px white, 0 0 0 6px var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2), 0 0 0 6px #3b82f6;
 
   @media (max-width: 768px) {
     left: 20px;
@@ -309,29 +319,31 @@ const TimelineDot = styled.div`
 `;
 
 const TimelineContent = styled.div`
-  background: white;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
   padding: 30px;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(30, 64, 175, 0.1);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.1);
 `;
 
 const TimelineYear = styled.div`
   font-size: 1.5rem;
   font-weight: 800;
-  color: var(--primary-color);
+  color: #3b82f6;
   margin-bottom: 12px;
 `;
 
 const TimelineTitle = styled.h4`
   font-size: 1.3rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: #ffffff;
   margin-bottom: 12px;
 `;
 
 const TimelineText = styled.p`
   font-size: 1rem;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.7);
   line-height: 1.6;
 `;
 
