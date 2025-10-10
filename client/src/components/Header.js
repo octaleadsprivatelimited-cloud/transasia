@@ -404,8 +404,8 @@ const DropdownItem = styled(Link)`
 `;
 
 const CTAButton = styled(Link)`
-  background: #1a1a1a;
-  color: white;
+  background: #fbbf24;
+  color: #1a1a1a;
   padding: 12px 28px;
   border-radius: 8px;
   text-decoration: none;
@@ -415,12 +415,12 @@ const CTAButton = styled(Link)`
   text-transform: uppercase;
   letter-spacing: 0.5px;
   white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-    background: #000000;
+    box-shadow: 0 8px 20px rgba(251, 191, 36, 0.6);
+    background: #f59e0b;
   }
 
   @media (max-width: 968px) {
