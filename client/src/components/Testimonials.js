@@ -55,17 +55,17 @@ const SectionHeader = styled.div`
 `;
 
 const Title = styled(motion.h2)`
-  font-size: 1rem;
+  font-size: 2.5rem;
   font-weight: 700;
   background: linear-gradient(135deg, #ffffff 0%, #60a5fa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 8px;
-  letter-spacing: -0.5px;
+  margin-bottom: 12px;
+  letter-spacing: -1px;
 
   @media (max-width: 768px) {
-    font-size: 0.85rem;
+    font-size: 1.8rem;
   }
 `;
 
