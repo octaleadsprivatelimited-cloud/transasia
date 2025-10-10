@@ -43,7 +43,7 @@ const Logo = styled(Link)`
   transition: all 0.3s ease;
 
   img {
-    height: 50px;
+    height: 70px;
     width: auto;
     object-fit: contain;
   }
@@ -56,7 +56,7 @@ const Logo = styled(Link)`
     font-size: 20px;
     
     img {
-      height: 40px;
+      height: 50px;
     }
   }
 `;
