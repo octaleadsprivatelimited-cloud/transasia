@@ -468,20 +468,6 @@ const About = () => {
         </SectionSubtitle>
         <MissionVisionGrid>
           <MissionCard
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <CardIcon><FaRocket /></CardIcon>
-            <CardTitle>Our Mission</CardTitle>
-            <CardText>
-              To empower organizations with innovative cybersecurity solutions that protect their 
-              digital assets, ensure business continuity, and enable secure digital transformation. 
-              We strive to make advanced security accessible to businesses of all sizes through 
-              cutting-edge technology and expert guidance.
-            </CardText>
-          </MissionCard>
-          <MissionCard
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -489,10 +475,24 @@ const About = () => {
             <CardIcon><FaGlobe /></CardIcon>
             <CardTitle>Our Vision</CardTitle>
             <CardText>
-              To be the most trusted cybersecurity partner in the Asia-Pacific region, recognized 
-              for innovation, excellence, and unwavering commitment to client success. We envision 
-              a future where businesses can operate fearlessly in the digital realm, protected by 
-              intelligent, proactive security solutions.
+              To be the leader in building a Secure and Resilient future for organizations by:<br/><br/>
+              • Empowering organizations to thrive through unwavering security<br/>
+              • Building a future where resilient security drives organizational growth<br/>
+              • Securing business success through innovative and cyber resilient solutions
+            </CardText>
+          </MissionCard>
+          <MissionCard
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <CardIcon><FaRocket /></CardIcon>
+            <CardTitle>Our Mission</CardTitle>
+            <CardText>
+              At TransAsia Soft Tech Pvt. Ltd, our mission is to:<br/><br/>
+              • Quantifying Cyber exposures to enable Boards in making balance sheets resilient to Cyber Risks<br/>
+              • Empowering businesses to achieve their full potential through proactive vulnerability management<br/>
+              • Transforming security into a strategic asset for businesses, driving growth and resilience
             </CardText>
           </MissionCard>
         </MissionVisionGrid>
