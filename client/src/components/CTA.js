@@ -253,21 +253,6 @@ const CTA = () => {
                 Schedule Demo
               </SecondaryButton>
             </ButtonGroup>
-
-            <Features>
-              <FeatureItem>
-                <FeatureIcon><FaCheck /></FeatureIcon>
-                <FeatureText>No credit card required</FeatureText>
-              </FeatureItem>
-              <FeatureItem>
-                <FeatureIcon><FaCheck /></FeatureIcon>
-                <FeatureText>14-day free trial</FeatureText>
-              </FeatureItem>
-              <FeatureItem>
-                <FeatureIcon><FaCheck /></FeatureIcon>
-                <FeatureText>Cancel anytime</FeatureText>
-              </FeatureItem>
-            </Features>
           </CTAContent>
         </CTABox>
       </Container>
