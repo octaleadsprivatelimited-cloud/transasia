@@ -188,8 +188,8 @@ const Hero = () => {
 
   const slides = [
     {
-      title: 'Enterprise Cybersecurity Solutions',
-      description: 'Protect your business with advanced threat intelligence and 24/7 security monitoring',
+      title: 'Quantifying Cyber Risk for the Board of Directors',
+      description: 'Translate complex cyber threats into financial metrics that enable informed decision-making at the board level',
       buttonText: 'Learn More',
       bgImage: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop'
     },
