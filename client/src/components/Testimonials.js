@@ -15,7 +15,7 @@ const float = keyframes`
 `;
 
 const TestimonialsContainer = styled.section`
-  padding: 120px 0;
+  padding: 60px 0;
   background: linear-gradient(135deg, #0a0e27 0%, #1a237e 50%, #0d47a1 100%);
   position: relative;
   overflow: hidden;
@@ -33,7 +33,7 @@ const TestimonialsContainer = styled.section`
   }
 
   @media (max-width: 768px) {
-    padding: 80px 0;
+    padding: 40px 0;
   }
 `;
 
@@ -51,28 +51,28 @@ const Container = styled.div`
 
 const SectionHeader = styled.div`
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
 `;
 
 const Title = styled(motion.h2)`
-  font-size: 3.5rem;
-  font-weight: 900;
+  font-size: 2rem;
+  font-weight: 700;
   background: linear-gradient(135deg, #ffffff 0%, #60a5fa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 20px;
-  letter-spacing: -2px;
+  margin-bottom: 12px;
+  letter-spacing: -1px;
 
   @media (max-width: 768px) {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
   }
 `;
 
 const Subtitle = styled(motion.p)`
-  font-size: 1.2rem;
+  font-size: 0.95rem;
   color: rgba(255, 255, 255, 0.8);
-  max-width: 700px;
+  max-width: 600px;
   margin: 0 auto;
 `;
 
@@ -86,13 +86,13 @@ const TestimonialCard = styled(motion.div)`
   background: rgba(30, 58, 138, 0.3);
   backdrop-filter: blur(30px);
   border: 1px solid rgba(59, 130, 246, 0.3);
-  border-radius: 32px;
-  padding: 60px;
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.4);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
   position: relative;
 
   @media (max-width: 768px) {
-    padding: 40px 30px;
+    padding: 30px 20px;
   }
 `;
 
