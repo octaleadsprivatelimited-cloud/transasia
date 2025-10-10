@@ -10,7 +10,7 @@ const HeaderContainer = styled(motion.header)`
   left: 0;
   right: 0;
   z-index: 1000;
-  background: var(--primary-light);
+  background: var(--primary-dark);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(0, 102, 255, 0.1);
   transition: all 0.3s ease;
