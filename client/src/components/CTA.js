@@ -35,7 +35,7 @@ const Container = styled.div`
 `;
 
 const CTABox = styled(motion.div)`
-  background-image: linear-gradient(rgba(10, 14, 39, 0.425), rgba(30, 58, 138, 0.425)), url('/insurtech/1.jpg');
+  background-image: linear-gradient(rgba(10, 14, 39, 0.51), rgba(30, 58, 138, 0.51)), url('/insurtech/1.jpg');
   background-size: cover;
   background-position: center;
   border-radius: 40px;
@@ -61,7 +61,7 @@ const CTABox = styled(motion.div)`
     content: '';
     position: absolute;
     inset: 3px;
-    background-image: linear-gradient(rgba(10, 14, 39, 0.425), rgba(30, 58, 138, 0.425)), url('/insurtech/1.jpg');
+    background-image: linear-gradient(rgba(10, 14, 39, 0.51), rgba(30, 58, 138, 0.51)), url('/insurtech/1.jpg');
     background-size: cover;
     background-position: center;
     border-radius: 37px;
