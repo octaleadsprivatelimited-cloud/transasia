@@ -415,11 +415,9 @@ const CTAButton = styled(Link)`
   text-transform: uppercase;
   letter-spacing: 0.5px;
   white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4);
+  box-shadow: none;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(251, 191, 36, 0.6);
     background: #f59e0b;
   }
 
