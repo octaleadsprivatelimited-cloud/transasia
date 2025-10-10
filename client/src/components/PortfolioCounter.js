@@ -276,6 +276,58 @@ const Subtitle = styled(motion.p)`
   line-height: 1.6;
 `;
 
+const CardItem = ({ counter, index, scrollYProgress, showCounters, totalCards }) => {
+  const cardProgress = useTransform(
+    scrollYProgress,
+    [index * 0.25, (index + 1) * 0.25],
+    [1, 0]
+  );
+  
+  const scale = useTransform(
+    scrollYProgress,
+    [index * 0.25, (index + 1) * 0.25],
+    [1, 0.9]
+  );
+  
+  const y = useTransform(
+    scrollYProgress,
+    [index * 0.25, (index + 1) * 0.25],
+    [0, -100]
+  );
+  
+  const rotate = useTransform(
+    scrollYProgress,
+    [index * 0.25, (index + 1) * 0.25],
+    [0, -5]
+  );
+
+  return (
+    <CounterItem
+      style={{
+        opacity: cardProgress,
+        scale: scale,
+        y: y,
+        rotate: rotate,
+        zIndex: totalCards - index,
+      }}
+    >
+      <IconWrapper>
+        {counter.icon}
+      </IconWrapper>
+      <CounterNumber>
+        {showCounters && (
+          <CountUp
+            end={counter.number}
+            duration={2.5}
+            suffix={counter.suffix}
+          />
+        )}
+      </CounterNumber>
+      <CounterLabel>{counter.label}</CounterLabel>
+    </CounterItem>
+  );
+};
+
 const PortfolioCounter = () => {
   const containerRef = useRef(null);
   const [showCounters, setShowCounters] = useState(false);
@@ -350,58 +402,16 @@ const PortfolioCounter = () => {
           </StatsTitle>
 
           <CardsStack>
-            {counters.map((counter, index) => {
-              const cardProgress = useTransform(
-                scrollYProgress,
-                [index * 0.25, (index + 1) * 0.25],
-                [1, 0]
-              );
-              
-              const scale = useTransform(
-                scrollYProgress,
-                [index * 0.25, (index + 1) * 0.25],
-                [1, 0.9]
-              );
-              
-              const y = useTransform(
-                scrollYProgress,
-                [index * 0.25, (index + 1) * 0.25],
-                [0, -100]
-              );
-              
-              const rotate = useTransform(
-                scrollYProgress,
-                [index * 0.25, (index + 1) * 0.25],
-                [0, -5]
-              );
-
-              return (
-                <CounterItem
-                  key={index}
-                  style={{
-                    opacity: cardProgress,
-                    scale: scale,
-                    y: y,
-                    rotate: rotate,
-                    zIndex: counters.length - index,
-                  }}
-                >
-                  <IconWrapper>
-                    {counter.icon}
-                  </IconWrapper>
-                  <CounterNumber>
-                    {showCounters && (
-                      <CountUp
-                        end={counter.number}
-                        duration={2.5}
-                        suffix={counter.suffix}
-                      />
-                    )}
-                  </CounterNumber>
-                  <CounterLabel>{counter.label}</CounterLabel>
-                </CounterItem>
-              );
-            })}
+            {counters.map((counter, index) => (
+              <CardItem
+                key={index}
+                counter={counter}
+                index={index}
+                scrollYProgress={scrollYProgress}
+                showCounters={showCounters}
+                totalCards={counters.length}
+              />
+            ))}
           </CardsStack>
         </Container>
       </StickyContainer>
