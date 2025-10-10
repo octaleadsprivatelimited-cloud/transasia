@@ -440,6 +440,11 @@ const MobileMenuButton = styled.button`
 
   @media (max-width: 968px) {
     display: block;
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 8px;
+    line-height: 0;
   }
 `;
 
