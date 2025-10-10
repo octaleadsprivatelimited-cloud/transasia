@@ -5,14 +5,12 @@ import { FaArrowRight, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const HeroContainer = styled.section`
   position: relative;
-  height: calc(100vh - 80px);
+  height: 100vh;
   background: #000000;
   overflow: hidden;
-  margin-top: 80px;
 
   @media (max-width: 768px) {
-    height: calc(100vh - 70px);
-    margin-top: 70px;
+    height: 100vh;
   }
 `;
 
