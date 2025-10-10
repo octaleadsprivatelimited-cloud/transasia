@@ -3,21 +3,39 @@ import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import CountUp from 'react-countup';
-import { FaUserTie, FaBriefcase, FaClock } from 'react-icons/fa';
+import { FaUserTie, FaBriefcase, FaClock, FaStar } from 'react-icons/fa';
 
-const pulse = keyframes`
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+const shimmer = keyframes`
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+`;
+
+const glow = keyframes`
+  0%, 100% { 
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.4),
+                0 0 60px rgba(59, 130, 246, 0.2),
+                inset 0 0 20px rgba(59, 130, 246, 0.1);
+  }
+  50% { 
+    box-shadow: 0 0 50px rgba(59, 130, 246, 0.6),
+                0 0 100px rgba(59, 130, 246, 0.3),
+                inset 0 0 30px rgba(59, 130, 246, 0.2);
+  }
 `;
 
 const float = keyframes`
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(5deg); }
+`;
+
+const rotate = keyframes`
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 `;
 
 const CounterContainer = styled.section`
-  padding: 80px 0;
-  background: linear-gradient(135deg, #0a1128 0%, #1e3a8a 50%, #1e40af 100%);
+  padding: 120px 0;
+  background: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
   position: relative;
   overflow: hidden;
 
@@ -29,13 +47,29 @@ const CounterContainer = styled.section`
     right: 0;
     bottom: 0;
     background: 
-      radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
-      radial-gradient(circle at 80% 50%, rgba(96, 165, 250, 0.15) 0%, transparent 50%);
+      radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(147, 51, 234, 0.12) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 60%);
     pointer-events: none;
   }
 
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+      linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
   @media (max-width: 768px) {
-    padding: 60px 0;
+    padding: 80px 0;
   }
 `;
 
@@ -54,100 +88,204 @@ const Container = styled.div`
 const CounterGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
+  gap: 50px;
 
   @media (max-width: 968px) {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 40px;
   }
 `;
 
 const CounterItem = styled(motion.div)`
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  border-radius: 24px;
-  padding: 50px 40px;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 30px;
+  padding: 60px 40px;
   text-align: center;
   position: relative;
   overflow: hidden;
-  transition: all 0.4s ease;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%);
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+      #3b82f6 0%, 
+      #8b5cf6 25%, 
+      #ec4899 50%, 
+      #f59e0b 75%, 
+      #3b82f6 100%);
+    border-radius: 30px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    background-size: 300% 300%;
+    animation: ${shimmer} 3s linear infinite;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
   }
 
   &:hover {
-    transform: translateY(-10px);
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(251, 191, 36, 0.5);
-    box-shadow: 0 20px 60px rgba(251, 191, 36, 0.3);
+    transform: translateY(-15px) scale(1.02);
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: 
+      0 30px 80px rgba(59, 130, 246, 0.3),
+      0 0 60px rgba(139, 92, 246, 0.2),
+      inset 0 0 30px rgba(59, 130, 246, 0.1);
+    
+    &::before {
+      opacity: 1;
+    }
+
+    &::after {
+      opacity: 1;
+    }
   }
 
   @media (max-width: 768px) {
-    padding: 40px 30px;
+    padding: 50px 30px;
   }
 `;
 
 const IconWrapper = styled.div`
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 24px;
-  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-  border-radius: 20px;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 30px;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  border-radius: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
-  color: #1a1a1a;
-  box-shadow: 0 10px 30px rgba(251, 191, 36, 0.4);
-  animation: ${float} 3s ease-in-out infinite;
+  font-size: 3rem;
+  color: #ffffff;
+  position: relative;
+  animation: ${float} 4s ease-in-out infinite;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899, #f59e0b);
+    border-radius: 25px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    animation: ${rotate} 3s linear infinite;
+  }
+
+  ${CounterItem}:hover & {
+    animation: ${glow} 2s ease-in-out infinite;
+    
+    &::before {
+      opacity: 0.7;
+    }
+  }
 
   @media (max-width: 768px) {
-    width: 60px;
-    height: 60px;
-    font-size: 2rem;
-    margin-bottom: 20px;
+    width: 80px;
+    height: 80px;
+    font-size: 2.5rem;
+    margin-bottom: 25px;
   }
 `;
 
 const CounterNumber = styled.div`
-  font-size: 4.5rem;
+  font-size: 5.5rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #ffffff 0%, #fbbf24 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #3b82f6 50%, #8b5cf6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   line-height: 1;
-  animation: ${pulse} 2s ease-in-out infinite;
+  position: relative;
+  filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.5));
 
   @media (max-width: 768px) {
-    font-size: 3.5rem;
+    font-size: 4rem;
   }
 `;
 
 const CounterLabel = styled.div`
-  font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.95);
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.9);
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.5;
   letter-spacing: 0.5px;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(59, 130, 246, 0.9) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 
   @media (max-width: 768px) {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
+`;
+
+const StatsTitle = styled(motion.div)`
+  text-align: center;
+  margin-bottom: 80px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 60px;
+  }
+`;
+
+const Badge = styled(motion.div)`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #3b82f6;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+
+  svg {
+    animation: ${rotate} 3s linear infinite;
+  }
+`;
+
+const Title = styled(motion.h2)`
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, #ffffff 0%, #3b82f6 50%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.3));
+`;
+
+const Subtitle = styled(motion.p)`
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
 `;
 
 const PortfolioCounter = () => {
   const [ref, inView] = useInView({
-    threshold: 0.3,
+    threshold: 0.2,
     triggerOnce: true
   });
 
@@ -175,14 +313,44 @@ const PortfolioCounter = () => {
   return (
     <CounterContainer ref={ref}>
       <Container>
+        <StatsTitle>
+          <Badge
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.6 }}
+          >
+            <FaStar /> Our Achievements
+          </Badge>
+          
+          <Title
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            Trusted by Industry Leaders
+          </Title>
+          
+          <Subtitle
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            Delivering excellence in cybersecurity with proven expertise and unwavering commitment to protecting your digital assets
+          </Subtitle>
+        </StatsTitle>
+
         <CounterGrid>
           {counters.map((counter, index) => (
             <CounterItem
               key={index}
-              initial={{ opacity: 0, y: 50, scale: 0.9 }}
+              initial={{ opacity: 0, y: 60, scale: 0.8 }}
               animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-              transition={{ duration: 0.7, delay: index * 0.2, type: 'spring', stiffness: 100 }}
-              whileHover={{ scale: 1.05 }}
+              transition={{ 
+                duration: 0.8, 
+                delay: 0.6 + index * 0.15, 
+                type: 'spring', 
+                stiffness: 100 
+              }}
             >
               <IconWrapper>
                 {counter.icon}
