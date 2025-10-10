@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaBars, FaTimes, FaChevronDown } from 'react-icons/fa';
 
 const HeaderContainer = styled(motion.header)`
-  position: absolute;
+  position: ${props => props.$scrolled ? 'fixed' : 'absolute'};
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  background: transparent;
-  backdrop-filter: none;
-  border-bottom: none;
+  background: ${props => props.$scrolled ? '#1e3a8a' : 'transparent'};
+  backdrop-filter: ${props => props.$scrolled ? 'blur(12px)' : 'none'};
+  border-bottom: ${props => props.$scrolled ? '1px solid rgba(0, 102, 255, 0.1)' : 'none'};
   transition: all 0.3s ease;
+  box-shadow: ${props => props.$scrolled ? '0 4px 20px rgba(0, 0, 0, 0.1)' : 'none'};
 `;
 
 const NavContainer = styled.div`
@@ -447,6 +448,16 @@ const MobileMenuButton = styled.button`
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState('');
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -459,6 +470,7 @@ const Header = () => {
 
   return (
     <HeaderContainer
+      $scrolled={isScrolled}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
