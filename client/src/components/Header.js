@@ -213,13 +213,15 @@ const DropdownContent = styled(motion.div)`
     backdrop-filter: none;
     border: none;
     padding: 0;
-    margin: 8px 0;
+    padding-left: 20px;
+    margin: 0;
     min-width: auto;
     opacity: 1;
     visibility: visible;
     transform: none;
     pointer-events: auto;
     box-shadow: none;
+    display: ${props => props.$open ? 'block' : 'none'};
   }
 `;
 
@@ -227,6 +229,11 @@ const DropdownGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(180px, 1fr));
   gap: 12px 24px;
+
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
 `;
 
 const MegaContainer = styled.div`
@@ -242,7 +249,7 @@ const MegaHeader = styled.div`
   margin-bottom: 24px;
 
   @media (max-width: 968px) {
-    grid-template-columns: 1fr;
+    display: none;
   }
 `;
 
@@ -273,7 +280,7 @@ const MegaGrid = styled(motion.div)`
   gap: 20px;
 
   @media (max-width: 968px) {
-    grid-template-columns: 1fr 1fr;
+    display: none;
   }
 `;
 
