@@ -110,7 +110,8 @@ const NavActions = styled.div`
 const NavLink = styled(Link)`
   color: #ffffff;
   text-decoration: none;
-  font-weight: 500;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
   font-size: 16px;
   position: relative;
   transition: all 0.3s ease;
