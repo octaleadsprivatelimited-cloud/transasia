@@ -406,11 +406,11 @@ const DropdownItem = styled(Link)`
 const CTAButton = styled(Link)`
   background: #fbbf24;
   color: #1a1a1a;
-  padding: 12px 28px;
-  border-radius: 8px;
+  padding: 8px 20px;
+  border-radius: 6px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 13px;
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -424,8 +424,8 @@ const CTAButton = styled(Link)`
   }
 
   @media (max-width: 968px) {
-    padding: 14px 24px;
-    font-size: 14px;
+    padding: 10px 18px;
+    font-size: 12px;
   }
 `;
 
