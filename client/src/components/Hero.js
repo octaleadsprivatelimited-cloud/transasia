@@ -25,7 +25,7 @@ const Slide = styled(motion.div)`
   inset: 0;
   background-image: ${props => `linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url(${props.bgImage})`};
   background-size: cover;
-  background-position: center center;
+  background-position: center 25%;
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
@@ -191,7 +191,7 @@ const Hero = () => {
       title: 'Quantifying Cyber Risk for the Board of Directors',
       description: 'World Leaders in Cyber Risk Quantification providing a Robust Risk Management Framework Executive Dashboard - Justifying Cyber Spend',
       buttonText: 'Learn More',
-      bgImage: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop'
+      bgImage: '/insurtech/hero.png'
     },
     {
       title: 'AI-Powered Threat Detection',
