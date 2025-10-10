@@ -70,9 +70,9 @@ const Title = styled(motion.h2)`
 `;
 
 const Subtitle = styled(motion.p)`
-  font-size: 0.5rem;
+  font-size: 1rem;
   color: rgba(255, 255, 255, 0.8);
-  max-width: 400px;
+  max-width: 600px;
   margin: 0 auto;
 `;
 
