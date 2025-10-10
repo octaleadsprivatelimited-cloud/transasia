@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion';
@@ -10,8 +10,8 @@ const HeaderContainer = styled(motion.header)`
   left: 0;
   right: 0;
   z-index: 1000;
-  background: transparent;
-  backdrop-filter: none;
+  background: rgba(248, 250, 252, 0.95);
+  backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(0, 102, 255, 0.1);
   transition: all 0.3s ease;
 `;
@@ -107,7 +107,7 @@ const NavActions = styled.div`
 `;
 
 const NavLink = styled(Link)`
-  color: #ffffff;
+  color: var(--text-primary);
   text-decoration: none;
   font-weight: 500;
   font-size: 16px;
@@ -118,7 +118,7 @@ const NavLink = styled(Link)`
   gap: 5px;
 
   &:hover {
-    color: #ffffff;
+    color: var(--primary-color);
   }
 
   &::after {
@@ -157,11 +157,11 @@ const DropdownContent = styled(motion.div)`
   top: 80px;
   left: 0;
   right: 0;
-  background: ${props => props.$blue ? 'linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 50%, var(--primary-light) 100%)' : 'rgba(255, 255, 255, 0.98)'};
+  background: ${props => props.$blue ? 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%)' : 'rgba(255, 255, 255, 0.98)'};
   ${props => props.$blue 
     ? css`
         backdrop-filter: blur(30px) saturate(180%);
-        box-shadow: 0 20px 60px rgba(14, 165, 233, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        box-shadow: 0 20px 60px rgba(30, 64, 175, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
         &, * {
           color: #ffffff !important;
         }
@@ -440,13 +440,23 @@ const MobileMenuButton = styled.button`
 
   @media (max-width: 968px) {
     display: block;
-    color: var(--primary-color);
+    color: #ffffff;
   }
 `;
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [activeMenu, setActiveMenu] = useState('');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -462,6 +472,9 @@ const Header = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
+      style={{
+        background: isScrolled ? 'rgba(248, 250, 252, 0.98)' : 'rgba(248, 250, 252, 0.95)'
+      }}
     >
         <NavContainer>
           <Logo to="/">
