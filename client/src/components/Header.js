@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion';
@@ -10,8 +10,8 @@ const HeaderContainer = styled(motion.header)`
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(248, 250, 252, 0.95);
-  backdrop-filter: blur(20px);
+  background: var(--primary-color);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(0, 102, 255, 0.1);
   transition: all 0.3s ease;
 `;
@@ -107,7 +107,7 @@ const NavActions = styled.div`
 `;
 
 const NavLink = styled(Link)`
-  color: var(--text-primary);
+  color: #ffffff;
   text-decoration: none;
   font-weight: 500;
   font-size: 16px;
@@ -118,7 +118,7 @@ const NavLink = styled(Link)`
   gap: 5px;
 
   &:hover {
-    color: var(--primary-color);
+    color: #ffffff;
   }
 
   &::after {
@@ -446,17 +446,7 @@ const MobileMenuButton = styled.button`
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [activeMenu, setActiveMenu] = useState('');
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -472,9 +462,6 @@ const Header = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
-      style={{
-        background: isScrolled ? 'rgba(248, 250, 252, 0.98)' : 'rgba(248, 250, 252, 0.95)'
-      }}
     >
         <NavContainer>
           <Logo to="/">
