@@ -107,7 +107,7 @@ const NavActions = styled.div`
 `;
 
 const NavLink = styled(Link)`
-  color: var(--text-primary);
+  color: #ffffff;
   text-decoration: none;
   font-weight: 500;
   font-size: 16px;
@@ -118,7 +118,7 @@ const NavLink = styled(Link)`
   gap: 5px;
 
   &:hover {
-    color: var(--primary-color);
+    color: #ffffff;
   }
 
   &::after {
