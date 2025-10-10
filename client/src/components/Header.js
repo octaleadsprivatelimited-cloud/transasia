@@ -477,7 +477,7 @@ const Header = () => {
     >
         <NavContainer>
           <Logo to="/">
-            <img src="/insurtech/logo.png" alt="Trans Asia Tech Logo" />
+            <img src="/insurtech/top_logo.png" alt="Trans Asia Tech Logo" />
           </Logo>
 
           <NavMenu className={isMenuOpen ? 'active' : ''}>
