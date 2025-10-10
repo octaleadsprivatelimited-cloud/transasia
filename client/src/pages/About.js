@@ -430,16 +430,15 @@ const About = () => {
           <StoryContent>
             <StoryTitle>Our Story</StoryTitle>
             <StoryText>
-              Founded in 2015, TransAsia Technologies emerged from a simple yet powerful vision: 
-              to make the digital world safer for businesses of all sizes. What started as a small 
-              team of passionate cybersecurity experts has grown into a leading security provider 
-              serving Fortune 500 companies across the Asia-Pacific region.
+              TransAsia Soft Tech Provides Intelligent systems that address untapped areas of Management Risk 
+              and also assist institutions to adapt with changing trends in technology to stay ahead of competition 
+              thus enabling them to meet customer needs to derive higher business volumes and profitability and 
+              focus on their core business services.
             </StoryText>
             <StoryText>
-              Today, we protect over 500 enterprise clients across 25 countries, blocking more than 
-              10 million threats daily. Our innovative AI-powered platform and expert services have 
-              earned us recognition as an industry leader and trusted partner for organizations 
-              facing the most sophisticated cyber threats.
+              Core system is specifically designed by industry experts with 125 years of collective experience 
+              in risk finance, insurance process and Cybercat. Academically researched robust modelling to assess 
+              and price cyber risks which are dynamic in nature considering global cyber incidents.
             </StoryText>
           </StoryContent>
         </StorySection>
