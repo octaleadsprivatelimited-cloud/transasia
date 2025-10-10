@@ -14,7 +14,7 @@ const rotate = keyframes`
 
 const PageContainer = styled.div`
   min-height: 100vh;
-  padding-top: 80px;
+  padding-top: 0;
   background: #ffffff;
   overflow-x: hidden;
 `;
@@ -26,7 +26,7 @@ const HeroSection = styled.section`
   align-items: center;
   background: linear-gradient(135deg, #0a1128 0%, #1e3a8a 50%, #1e40af 100%);
   overflow: hidden;
-  padding: 120px 40px 80px;
+  padding: 180px 40px 80px;
 
   &::before {
     content: '';
