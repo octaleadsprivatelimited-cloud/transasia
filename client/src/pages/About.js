@@ -455,23 +455,6 @@ const About = () => {
           </StoryContent>
         </StorySection>
 
-        {/* Stats */}
-        <StatsGrid>
-          {stats.map((stat, index) => (
-            <StatCard
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <StatIcon>{stat.icon}</StatIcon>
-              <StatNumber>{stat.number}</StatNumber>
-              <StatLabel>{stat.label}</StatLabel>
-            </StatCard>
-          ))}
-        </StatsGrid>
-
         {/* Why Us */}
         <SectionTitle>Why Us?</SectionTitle>
         <SectionSubtitle>
@@ -551,6 +534,23 @@ const About = () => {
             </ValueDescription>
           </ValueCard>
         </ValuesGrid>
+
+        {/* Stats */}
+        <StatsGrid>
+          {stats.map((stat, index) => (
+            <StatCard
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              viewport={{ once: true }}
+            >
+              <StatIcon>{stat.icon}</StatIcon>
+              <StatNumber>{stat.number}</StatNumber>
+              <StatLabel>{stat.label}</StatLabel>
+            </StatCard>
+          ))}
+        </StatsGrid>
 
         {/* Mission & Vision */}
         <SectionTitle>Mission & Vision</SectionTitle>
