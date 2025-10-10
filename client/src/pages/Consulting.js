@@ -18,7 +18,7 @@ const rotate = keyframes`
 
 const PageContainer = styled.div`
   min-height: 100vh;
-  padding-top: 80px;
+  padding-top: 0;
   background: #ffffff;
   overflow-x: hidden;
 `;

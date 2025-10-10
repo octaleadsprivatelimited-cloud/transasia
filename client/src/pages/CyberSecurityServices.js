@@ -13,7 +13,7 @@ const float = keyframes`
 
 const PageContainer = styled.div`
   min-height: 100vh;
-  padding-top: 80px;
+  padding-top: 0;
   background: linear-gradient(135deg, #0a1929 0%, #1a2332 50%, #0a1929 100%);
   position: relative;
   
@@ -30,7 +30,7 @@ const PageContainer = styled.div`
 `;
 
 const HeroSection = styled.section`
-  padding: 100px 40px 80px;
+  padding: 180px 40px 80px;
   text-align: center;
   position: relative;
   z-index: 1;

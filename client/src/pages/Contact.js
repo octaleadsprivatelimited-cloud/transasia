@@ -5,12 +5,12 @@ import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaArrowRight } from 'react-icons/f
 
 const PageContainer = styled.div`
   min-height: 100vh;
-  padding-top: 80px;
+  padding-top: 0;
   background: #ffffff;
 `;
 
 const HeroSection = styled.section`
-  padding: 100px 80px 80px;
+  padding: 180px 80px 80px;
   background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
   text-align: center;
 

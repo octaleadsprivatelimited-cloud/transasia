@@ -5,13 +5,13 @@ import { FaShieldAlt, FaGlobe, FaUsers, FaAward, FaRocket, FaCheckCircle, FaChar
 
 const PageContainer = styled.div`
   min-height: 100vh;
-  padding-top: 80px;
+  padding-top: 0;
   background: var(--bg-primary);
 `;
 
 const HeroSection = styled.section`
   background: var(--gradient-hero);
-  padding: 120px 20px 80px;
+  padding: 180px 20px 80px;
   text-align: center;
   position: relative;
   overflow: hidden;
