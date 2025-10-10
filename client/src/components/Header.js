@@ -14,11 +14,6 @@ const HeaderContainer = styled(motion.header)`
   backdrop-filter: none;
   border-bottom: 1px solid rgba(0, 102, 255, 0.1);
   transition: all 0.3s ease;
-
-  @media (max-width: 968px) {
-    background: rgba(248, 250, 252, 0.95);
-    backdrop-filter: blur(20px);
-  }
 `;
 
 const NavContainer = styled.div`
