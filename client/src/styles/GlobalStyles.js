@@ -16,7 +16,7 @@ export const GlobalStyles = createGlobalStyle`
       "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #f8fafc;
+    background-color: var(--bg-primary);
     color: #1e293b;
     line-height: 1.6;
     overflow-x: hidden;
@@ -41,35 +41,35 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #0066ff;
+    background: #0ea5e9;
     border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #0047cc;
+    background: #0284c7;
   }
 
-  /* Custom CSS Variables - Thick Blue Theme */
+  /* Custom CSS Variables - Sky Blue Theme */
   :root {
-    --primary-color: #1e40af; /* Thick blue */
-    --primary-dark: #1e3a8a;
-    --primary-light: #3b82f6;
-    --secondary-color: #60a5fa;
-    --accent-color: #06b6d4;
-    --bg-primary: #f0f9ff;
+    --primary-color: #0ea5e9; /* sky-500 */
+    --primary-dark: #0284c7; /* sky-600 */
+    --primary-light: #38bdf8; /* sky-400 */
+    --secondary-color: #7dd3fc; /* sky-300 */
+    --accent-color: #22d3ee; /* cyan-400 */
+    --bg-primary: #f0f9ff; /* sky-50 */
     --bg-secondary: #ffffff;
-    --bg-tertiary: #e0f2fe;
+    --bg-tertiary: #e0f2fe; /* sky-100 */
     --text-primary: #0f172a;
     --text-secondary: #334155;
     --text-muted: #64748b;
     --border-color: #cbd5e1;
-    --shadow: 0 12px 28px rgba(30, 64, 175, 0.15);
-    --shadow-hover: 0 18px 48px rgba(30, 64, 175, 0.25);
-    --gradient-primary: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-    --gradient-secondary: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-    --gradient-light: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-    --gradient-hero: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%);
-    --gradient-fade: linear-gradient(180deg, rgba(30, 64, 175, 0.05) 0%, rgba(30, 64, 175, 0) 100%);
+    --shadow: 0 12px 28px rgba(14, 165, 233, 0.15);
+    --shadow-hover: 0 18px 48px rgba(14, 165, 233, 0.25);
+    --gradient-primary: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
+    --gradient-secondary: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+    --gradient-light: linear-gradient(135deg, #ecfeff 0%, #e0f2fe 100%);
+    --gradient-hero: linear-gradient(135deg, #bae6fd 0%, #7dd3fc 50%, #38bdf8 100%);
+    --gradient-fade: linear-gradient(180deg, rgba(14, 165, 233, 0.05) 0%, rgba(14, 165, 233, 0) 100%);
   }
 
   /* Responsive Design */

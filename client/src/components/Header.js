@@ -157,11 +157,11 @@ const DropdownContent = styled(motion.div)`
   top: 80px;
   left: 0;
   right: 0;
-  background: ${props => props.$blue ? 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%)' : 'rgba(255, 255, 255, 0.98)'};
+  background: ${props => props.$blue ? 'linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 50%, var(--primary-light) 100%)' : 'rgba(255, 255, 255, 0.98)'};
   ${props => props.$blue 
     ? css`
         backdrop-filter: blur(30px) saturate(180%);
-        box-shadow: 0 20px 60px rgba(30, 64, 175, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        box-shadow: 0 20px 60px rgba(14, 165, 233, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
         &, * {
           color: #ffffff !important;
         }
