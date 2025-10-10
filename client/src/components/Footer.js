@@ -293,7 +293,7 @@ const Footer = () => {
         <FooterMain>
           <FooterColumn>
             <CompanyInfo>
-              <Logo src="/insurtech/logo.png" alt="Trans Asia Tech" />
+              <Logo src="/insurtech/top_logo.png" alt="Trans Asia Tech" />
               <CompanyDescription>
                 Leading provider of cybersecurity solutions and risk management services. We help organizations protect their digital assets and navigate the complex landscape of cyber threats.
               </CompanyDescription>
