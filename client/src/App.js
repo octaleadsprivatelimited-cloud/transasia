@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import styled from 'styled-components';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import PortfolioCounter from './components/PortfolioCounter';
 import Solutions from './components/Solutions';
 import Testimonials from './components/Testimonials';
 import CTA from './components/CTA';
@@ -53,6 +54,7 @@ const App = () => {
         <Route path="/" element={
           <>
             <Hero />
+            <PortfolioCounter />
             <Solutions />
             <Testimonials />
             <CTA />
