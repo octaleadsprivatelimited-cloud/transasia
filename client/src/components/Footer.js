@@ -368,6 +368,7 @@ const Footer = () => {
             <ColumnTitle>Resources</ColumnTitle>
             <LinkList>
               <li><FooterLink to="/blog">Blog</FooterLink></li>
+              <li><FooterLink to="/insights">Insights</FooterLink></li>
               <li><FooterLink to="/gallery">Gallery</FooterLink></li>
               <li><FooterLink to="/contact">Contact Us</FooterLink></li>
             </LinkList>
