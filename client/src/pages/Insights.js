@@ -157,12 +157,27 @@ const InsightCard = styled(motion.article)`
 const InsightImage = styled.div`
   width: 100%;
   height: 240px;
-  background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+  background: ${props => props.bgImage 
+    ? `linear-gradient(rgba(30, 58, 138, 0.7), rgba(59, 130, 246, 0.8)), url(${props.bgImage})`
+    : 'linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)'};
+  background-size: cover;
+  background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 4rem;
   color: white;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '${props => props.icon || ''}';
+    position: absolute;
+    font-size: 5rem;
+    opacity: 0.3;
+    bottom: -20px;
+    right: -20px;
+  }
 `;
 
 const InsightContent = styled.div`
@@ -243,7 +258,8 @@ const Insights = () => {
       author: 'Trans Asia Team',
       date: 'Jan 15, 2025',
       readTime: '8 min read',
-      icon: '📊'
+      icon: '📊',
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80'
     },
     {
       id: 2,
@@ -253,7 +269,8 @@ const Insights = () => {
       author: 'Security Research',
       date: 'Jan 10, 2025',
       readTime: '10 min read',
-      icon: '🔒'
+      icon: '🔒',
+      image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80'
     },
     {
       id: 3,
@@ -263,7 +280,8 @@ const Insights = () => {
       author: 'Compliance Team',
       date: 'Jan 5, 2025',
       readTime: '12 min read',
-      icon: '✅'
+      icon: '✅',
+      image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80'
     },
     {
       id: 4,
@@ -273,7 +291,8 @@ const Insights = () => {
       author: 'Innovation Lab',
       date: 'Dec 28, 2024',
       readTime: '7 min read',
-      icon: '🚀'
+      icon: '🚀',
+      image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80'
     },
     {
       id: 5,
@@ -283,7 +302,8 @@ const Insights = () => {
       author: 'Client Success',
       date: 'Dec 20, 2024',
       readTime: '15 min read',
-      icon: '📈'
+      icon: '📈',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80'
     },
     {
       id: 6,
@@ -293,7 +313,8 @@ const Insights = () => {
       author: 'Threat Intelligence',
       date: 'Dec 15, 2024',
       readTime: '9 min read',
-      icon: '🕵️'
+      icon: '🕵️',
+      image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80'
     },
     {
       id: 7,
@@ -303,7 +324,8 @@ const Insights = () => {
       author: 'Strategy Team',
       date: 'Dec 10, 2024',
       readTime: '11 min read',
-      icon: '🛡️'
+      icon: '🛡️',
+      image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&q=80'
     },
     {
       id: 8,
@@ -313,7 +335,8 @@ const Insights = () => {
       author: 'OT Security',
       date: 'Dec 5, 2024',
       readTime: '10 min read',
-      icon: '🌐'
+      icon: '🌐',
+      image: 'https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?w=800&q=80'
     },
     {
       id: 9,
@@ -323,7 +346,8 @@ const Insights = () => {
       author: 'Research Team',
       date: 'Dec 1, 2024',
       readTime: '13 min read',
-      icon: '🔮'
+      icon: '🔮',
+      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80'
     }
   ];
 
@@ -383,7 +407,7 @@ const Insights = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <InsightImage>
+              <InsightImage bgImage={insight.image} icon={insight.icon}>
                 {insight.icon}
               </InsightImage>
               <InsightContent>
