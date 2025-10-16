@@ -78,6 +78,7 @@ const Title = styled.h1`
   margin-bottom: 28px;
   line-height: 1.2;
   letter-spacing: -1px;
+  font-family: 'Times New Roman', Times, serif;
 
   @media (max-width: 968px) {
     font-size: 2.8rem;
@@ -134,6 +135,7 @@ const ArticleContent = styled.div`
   font-size: 1.125rem;
   line-height: 1.8;
   color: #334155;
+  font-family: 'Times New Roman', Times, serif;
 
   h2 {
     font-size: 2rem;
@@ -141,6 +143,7 @@ const ArticleContent = styled.div`
     color: #0f172a;
     margin: 48px 0 20px;
     letter-spacing: -0.3px;
+    font-family: 'Times New Roman', Times, serif;
   }
 
   h3 {
@@ -148,6 +151,7 @@ const ArticleContent = styled.div`
     font-weight: 600;
     color: #1e293b;
     margin: 36px 0 16px;
+    font-family: 'Times New Roman', Times, serif;
   }
 
   p {
@@ -293,6 +297,7 @@ const WidgetTitle = styled.h4`
   font-weight: 700;
   color: #0f172a;
   margin-bottom: 20px;
+  font-family: 'Times New Roman', Times, serif;
 `;
 
 const ContactTitle = styled.h4`
@@ -300,6 +305,7 @@ const ContactTitle = styled.h4`
   font-weight: 700;
   color: #ffffff;
   margin-bottom: 8px;
+  font-family: 'Times New Roman', Times, serif;
 `;
 
 const ContactSubtitle = styled.p`
@@ -365,6 +371,7 @@ const SubmitBtn = styled.button`
   border-radius: 8px;
   font-size: 0.95rem;
   font-weight: 600;
+  font-family: 'Times New Roman', Times, serif;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
