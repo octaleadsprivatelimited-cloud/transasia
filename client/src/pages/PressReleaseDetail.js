@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import styled, { keyframes } from 'styled-components';
+import { useParams, Link } from 'react-router-dom';
+import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { FaCalendar, FaDownload, FaArrowRight, FaCheckCircle, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
+import { FaCalendar, FaDownload, FaLinkedin, FaTwitter, FaFacebook, FaArrowRight, FaCheckCircle, FaPhone, FaEnvelope } from 'react-icons/fa';
 
 const PageContainer = styled.div`
   min-height: 100vh;
   padding-top: 0;
-  background: #f8fafc;
+  background: #ffffff;
 `;
 
 const HeroSection = styled.section`
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-  padding: 140px 20px 60px;
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  padding: 160px 0 80px;
   position: relative;
-  overflow: hidden;
 
   &::before {
     content: '';
@@ -24,58 +23,75 @@ const HeroSection = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    background: 
-      radial-gradient(circle at 30% 40%, rgba(96, 165, 250, 0.2) 0%, transparent 50%),
-      radial-gradient(circle at 70% 60%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+    background: radial-gradient(circle at 50% 30%, rgba(96, 165, 250, 0.15) 0%, transparent 70%);
   }
 `;
 
-const HeroContent = styled.div`
+const HeroContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 40px;
   position: relative;
   z-index: 1;
+
+  @media (max-width: 768px) {
+    padding: 0 20px;
+  }
 `;
 
-const Category = styled(motion.span)`
+const Breadcrumb = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+
+  a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+
+    &:hover {
+      color: #ffffff;
+    }
+  }
+`;
+
+const Category = styled.span`
   display: inline-block;
-  padding: 8px 20px;
-  background: rgba(251, 191, 36, 0.2);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(251, 191, 36, 0.4);
+  padding: 6px 16px;
+  background: rgba(251, 191, 36, 0.15);
+  border: 1px solid rgba(251, 191, 36, 0.3);
   color: #fbbf24;
-  border-radius: 4px;
+  border-radius: 20px;
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 20px;
   text-transform: uppercase;
-  letter-spacing: 1.2px;
+  letter-spacing: 0.5px;
 `;
 
-const Title = styled(motion.h1)`
-  font-size: 3.8rem;
-  font-weight: 900;
+const Title = styled.h1`
+  font-size: 3.5rem;
+  font-weight: 800;
   color: #ffffff;
-  margin-bottom: 24px;
-  line-height: 1.15;
-  letter-spacing: -1.5px;
+  margin-bottom: 28px;
+  line-height: 1.2;
+  letter-spacing: -1px;
 
   @media (max-width: 968px) {
     font-size: 2.8rem;
   }
 
   @media (max-width: 768px) {
-    font-size: 2.2rem;
-    letter-spacing: -1px;
+    font-size: 2rem;
   }
 `;
 
-const Meta = styled(motion.div)`
+const MetaBar = styled.div`
   display: flex;
   align-items: center;
-  gap: 30px;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.95rem;
+  gap: 24px;
   flex-wrap: wrap;
 `;
 
@@ -83,10 +99,8 @@ const MetaItem = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
 
   svg {
     color: #fbbf24;
@@ -94,95 +108,82 @@ const MetaItem = styled.div`
 `;
 
 const Container = styled.div`
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 60px 20px 100px;
-`;
-
-const ContentWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 50px;
-  align-items: start;
-
-  @media (max-width: 1100px) {
-    grid-template-columns: 1fr;
-    gap: 50px;
-  }
-`;
-
-const MainContent = styled.div`
-  background: #ffffff;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-`;
-
-const ArticleContent = styled.div`
-  padding: 50px 60px;
+  padding: 60px 40px;
 
   @media (max-width: 768px) {
-    padding: 35px 25px;
+    padding: 40px 20px;
   }
 `;
 
-const Content = styled.div`
-  font-size: 1.1rem;
-  line-height: 1.85;
+const MainGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 50px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+`;
+
+const ArticleMain = styled.article``;
+
+const ArticleContent = styled.div`
+  font-size: 1.125rem;
+  line-height: 1.8;
   color: #334155;
-  font-weight: 400;
 
   h2 {
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: #1e293b;
-    margin: 45px 0 20px;
-    line-height: 1.3;
-    letter-spacing: -0.5px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 48px 0 20px;
+    letter-spacing: -0.3px;
   }
 
   h3 {
-    font-size: 1.6rem;
-    font-weight: 700;
+    font-size: 1.5rem;
+    font-weight: 600;
     color: #1e293b;
-    margin: 35px 0 16px;
+    margin: 36px 0 16px;
   }
 
   p {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
 
   ul, ol {
-    margin: 20px 0;
-    padding-left: 28px;
+    margin: 24px 0;
+    padding-left: 24px;
   }
 
   li {
-    margin-bottom: 10px;
-    line-height: 1.7;
+    margin-bottom: 12px;
   }
 
   strong {
-    font-weight: 700;
-    color: #1e293b;
+    font-weight: 600;
+    color: #0f172a;
   }
 
   blockquote {
-    border-left: 4px solid #3b82f6;
-    padding: 20px 24px;
-    margin: 30px 0;
+    border-left: 3px solid #3b82f6;
+    padding: 20px 28px;
+    margin: 32px 0;
+    background: #f8fafc;
+    border-radius: 8px;
     font-style: italic;
     color: #475569;
-    font-size: 1.25rem;
-    background: #f8fafc;
-    border-radius: 0 8px 8px 0;
+    font-size: 1.2rem;
   }
 `;
 
-const ActionSection = styled.div`
+const ActionBar = styled.div`
   margin-top: 50px;
-  padding-top: 30px;
-  border-top: 2px solid #e2e8f0;
+  padding-top: 32px;
+  border-top: 1px solid #e2e8f0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -196,67 +197,60 @@ const ShareSection = styled.div`
   gap: 16px;
 `;
 
-const ShareText = styled.div`
+const ShareLabel = styled.span`
   font-weight: 600;
   color: #64748b;
   font-size: 0.95rem;
 `;
 
-const ShareButtons = styled.div`
+const ShareButtonGroup = styled.div`
   display: flex;
   gap: 10px;
 `;
 
-const ShareButton = styled.button`
-  width: 44px;
-  height: 44px;
-  background: #f8fafc;
-  border: 2px solid #e2e8f0;
-  border-radius: 50%;
-  color: #64748b;
-  cursor: pointer;
+const SocialButton = styled.button`
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: ${props => props.color || '#64748b'};
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  cursor: pointer;
+  transition: all 0.2s ease;
 
   &:hover {
-    background: #3b82f6;
-    border-color: #3b82f6;
+    background: ${props => props.color || '#3b82f6'};
     color: #ffffff;
-    transform: translateY(-3px);
-  }
-
-  svg {
-    font-size: 1.1rem;
+    border-color: ${props => props.color || '#3b82f6'};
+    transform: translateY(-2px);
   }
 `;
 
-const DownloadButton = styled.button`
-  padding: 12px 24px;
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+const DownloadBtn = styled.button`
+  padding: 10px 20px;
+  background: #3b82f6;
   color: #ffffff;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   font-weight: 600;
+  font-size: 0.9rem;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 10px;
-  transition: all 0.3s ease;
+  gap: 8px;
+  transition: all 0.2s ease;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+    background: #2563eb;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
   }
 `;
 
-const Sidebar = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-
-  @media (max-width: 1100px) {
+const Sidebar = styled.aside`
+  @media (max-width: 1024px) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
@@ -267,51 +261,68 @@ const Sidebar = styled.div`
   }
 `;
 
-const ContactForm = styled.div`
-  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-  border-radius: 4px;
-  padding: 35px 28px;
-  box-shadow: 0 10px 40px rgba(30, 58, 138, 0.25);
-  position: sticky;
-  top: 100px;
+const SidebarWidget = styled.div`
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 24px;
 
-  @media (max-width: 1100px) {
-    position: static;
-    top: auto;
+  @media (max-width: 1024px) {
+    margin-bottom: 0;
   }
 `;
 
-const FormTitle = styled.h3`
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: #ffffff;
-  margin-bottom: 10px;
-  letter-spacing: -0.5px;
+const ContactWidget = styled.div`
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  border-radius: 12px;
+  padding: 32px 28px;
+  margin-bottom: 24px;
+  position: sticky;
+  top: 100px;
+  box-shadow: 0 4px 20px rgba(30, 58, 138, 0.2);
+
+  @media (max-width: 1024px) {
+    position: static;
+    margin-bottom: 0;
+  }
 `;
 
-const FormSubtitle = styled.p`
+const WidgetTitle = styled.h4`
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 20px;
+`;
+
+const ContactTitle = styled.h4`
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+`;
+
+const ContactSubtitle = styled.p`
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 28px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 24px;
   line-height: 1.5;
 `;
 
-const Form = styled.form`
+const ContactForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 14px;
 `;
 
-const FormInput = styled.input`
-  padding: 14px 16px;
+const Input = styled.input`
+  padding: 12px 16px;
   background: #ffffff;
-  border: none;
-  border-radius: 2px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
   font-size: 0.9rem;
-  color: #1e3a8a;
+  color: #0f172a;
   transition: all 0.2s ease;
-  font-weight: 500;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
   &::placeholder {
     color: #94a3b8;
@@ -319,23 +330,21 @@ const FormInput = styled.input`
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.3), 0 4px 12px rgba(0, 0, 0, 0.1);
-    transform: translateY(-1px);
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
   }
 `;
 
-const FormTextarea = styled.textarea`
-  padding: 14px 16px;
+const Textarea = styled.textarea`
+  padding: 12px 16px;
   background: #ffffff;
-  border: none;
-  border-radius: 2px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
   font-size: 0.9rem;
-  color: #1e3a8a;
-  transition: all 0.2s ease;
-  font-weight: 500;
+  color: #0f172a;
   resize: vertical;
-  min-height: 100px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  min-height: 90px;
+  transition: all 0.2s ease;
 
   &::placeholder {
     color: #94a3b8;
@@ -343,140 +352,70 @@ const FormTextarea = styled.textarea`
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.3), 0 4px 12px rgba(0, 0, 0, 0.1);
-    transform: translateY(-1px);
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
   }
 `;
 
-const SubmitButton = styled.button`
-  padding: 15px 28px;
-  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-  color: #000000;
+const SubmitBtn = styled.button`
+  padding: 14px 28px;
+  background: #3b82f6;
+  color: #ffffff;
   border: none;
-  border-radius: 2px;
-  font-size: 1rem;
-  font-weight: 700;
-  font-family: 'Times New Roman', Times, serif;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 20px rgba(251, 191, 36, 0.35);
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: left 0.5s;
-  }
-
-  &:hover::before {
-    left: 100%;
-  }
+  gap: 8px;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(251, 191, 36, 0.5);
+    background: #2563eb;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
   }
 
-  svg {
-    transition: transform 0.3s ease;
-  }
-
-  &:hover svg {
-    transform: translateX(4px);
+  &:active {
+    transform: translateY(1px);
   }
 `;
 
-const SuccessMessage = styled(motion.div)`
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-  padding: 18px;
-  border-radius: 2px;
+const SuccessMsg = styled(motion.div)`
+  padding: 16px;
+  background: #10b981;
+  color: #ffffff;
+  border-radius: 8px;
   text-align: center;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-
-  svg {
-    font-size: 1.2rem;
-  }
+  gap: 8px;
 `;
 
-const SidebarSection = styled.div`
-  background: #ffffff;
-  border-radius: 4px;
-  padding: 28px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-`;
-
-const SidebarTitle = styled.h3`
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: #1e293b;
-  margin-bottom: 20px;
-  letter-spacing: -0.3px;
-`;
-
-const SocialShare = styled.div`
+const ContactInfo = styled.div`
   display: flex;
-  gap: 12px;
+  flex-direction: column;
+  gap: 14px;
 `;
 
-const SocialButton = styled.button`
-  width: 48px;
-  height: 48px;
-  border-radius: 4px;
-  border: none;
-  background: ${props => props.color || '#3b82f6'};
-  color: #ffffff;
-  cursor: pointer;
+const ContactItem = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px ${props => props.color ? `${props.color}40` : 'rgba(59, 130, 246, 0.25)'};
-
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px ${props => props.color ? `${props.color}60` : 'rgba(59, 130, 246, 0.4)'};
-  }
+  gap: 12px;
+  font-size: 0.9rem;
+  color: #475569;
 
   svg {
-    font-size: 1.2rem;
+    color: #3b82f6;
   }
-`;
 
-const InfoBox = styled.div`
-  padding: 20px;
-  background: #eff6ff;
-  border-left: 4px solid #3b82f6;
-  border-radius: 0 8px 8px 0;
-`;
-
-const InfoTitle = styled.div`
-  font-weight: 700;
-  color: #1e3a8a;
-  margin-bottom: 8px;
-  font-size: 0.95rem;
-`;
-
-const InfoText = styled.div`
-  color: #475569;
-  font-size: 0.9rem;
-  line-height: 1.6;
+  strong {
+    color: #0f172a;
+  }
 `;
 
 const PressReleaseDetail = () => {
@@ -511,7 +450,6 @@ const PressReleaseDetail = () => {
     }, 4000);
   };
 
-  // Press release data
   const pressReleases = {
     '1': {
       category: 'Product Launch',
@@ -604,151 +542,138 @@ const PressReleaseDetail = () => {
   return (
     <PageContainer>
       <Helmet>
-        <title>{release.title} | TransAsia Press Release</title>
+        <title>{release.title} | TransAsia Press</title>
         <meta name="description" content={release.title} />
       </Helmet>
 
       <HeroSection>
-        <HeroContent>
-          <Category
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            {release.category}
-          </Category>
-          <Title
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            {release.title}
-          </Title>
-          <Meta
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
+        <HeroContainer>
+          <Breadcrumb>
+            <Link to="/">Home</Link> / <Link to="/press">Press</Link> / Release
+          </Breadcrumb>
+          <Category>{release.category}</Category>
+          <Title>{release.title}</Title>
+          <MetaBar>
             <MetaItem>
               <FaCalendar />
               {release.date}
             </MetaItem>
-          </Meta>
-        </HeroContent>
+          </MetaBar>
+        </HeroContainer>
       </HeroSection>
 
       <Container>
-        <ContentWrapper>
-          <MainContent>
-            <ArticleContent>
-              <Content dangerouslySetInnerHTML={{ __html: release.content }} />
+        <MainGrid>
+          <ArticleMain>
+            <ArticleContent dangerouslySetInnerHTML={{ __html: release.content }} />
 
-              <ActionSection>
-                <ShareSection>
-                  <ShareText>Share:</ShareText>
-                  <ShareButtons>
-                    <ShareButton>
-                      <FaLinkedin />
-                    </ShareButton>
-                    <ShareButton>
-                      <FaTwitter />
-                    </ShareButton>
-                    <ShareButton>
-                      <FaEnvelope />
-                    </ShareButton>
-                  </ShareButtons>
-                </ShareSection>
-                <DownloadButton>
-                  <FaDownload />
-                  Download PDF
-                </DownloadButton>
-              </ActionSection>
-            </ArticleContent>
-          </MainContent>
+            <ActionBar>
+              <ShareSection>
+                <ShareLabel>Share:</ShareLabel>
+                <ShareButtonGroup>
+                  <SocialButton color="#0077b5">
+                    <FaLinkedin />
+                  </SocialButton>
+                  <SocialButton color="#1da1f2">
+                    <FaTwitter />
+                  </SocialButton>
+                  <SocialButton color="#1877f2">
+                    <FaFacebook />
+                  </SocialButton>
+                </ShareButtonGroup>
+              </ShareSection>
+              <DownloadBtn>
+                <FaDownload />
+                Download PDF
+              </DownloadBtn>
+            </ActionBar>
+          </ArticleMain>
 
           <Sidebar>
-            <ContactForm>
-              <FormTitle>Media Inquiries</FormTitle>
-              <FormSubtitle>
-                Contact our PR team for more information.
-              </FormSubtitle>
+            <ContactWidget>
+              <ContactTitle>Media Inquiries</ContactTitle>
+              <ContactSubtitle>
+                Contact our PR team.
+              </ContactSubtitle>
 
               {!submitted ? (
-                <Form onSubmit={handleSubmit}>
-                  <FormInput
+                <ContactForm onSubmit={handleSubmit}>
+                  <Input
                     type="text"
                     name="name"
-                    placeholder="Name *"
+                    placeholder="Name"
                     value={formData.name}
                     onChange={handleChange}
                     required
                   />
-                  <FormInput
+                  <Input
                     type="email"
                     name="email"
-                    placeholder="Email *"
+                    placeholder="Email"
                     value={formData.email}
                     onChange={handleChange}
                     required
                   />
-                  <FormInput
+                  <Input
                     type="text"
                     name="subject"
-                    placeholder="Subject *"
+                    placeholder="Subject"
                     value={formData.subject}
                     onChange={handleChange}
                     required
                   />
-                  <FormTextarea
+                  <Textarea
                     name="message"
-                    placeholder="Message *"
+                    placeholder="Message"
                     value={formData.message}
                     onChange={handleChange}
                     required
                   />
-                  <SubmitButton type="submit">
-                    Send <FaArrowRight />
-                  </SubmitButton>
-                </Form>
+                  <SubmitBtn type="submit">
+                    Send Message <FaArrowRight />
+                  </SubmitBtn>
+                </ContactForm>
               ) : (
-                <SuccessMessage
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                <SuccessMsg
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
                 >
                   <FaCheckCircle />
                   Message sent!
-                </SuccessMessage>
+                </SuccessMsg>
               )}
-            </ContactForm>
+            </ContactWidget>
 
-            <SidebarSection>
-              <SidebarTitle>Share Release</SidebarTitle>
-              <SocialShare>
+            <SidebarWidget>
+              <WidgetTitle>Media Contact</WidgetTitle>
+              <ContactInfo>
+                <ContactItem>
+                  <FaEnvelope />
+                  <strong>pr@transasia.com</strong>
+                </ContactItem>
+                <ContactItem>
+                  <FaPhone />
+                  <strong>+1 (234) 567-890</strong>
+                </ContactItem>
+              </ContactInfo>
+            </SidebarWidget>
+
+            <SidebarWidget>
+              <WidgetTitle>Share Release</WidgetTitle>
+              <ShareButtonGroup>
                 <SocialButton color="#0077b5">
                   <FaLinkedin />
                 </SocialButton>
                 <SocialButton color="#1da1f2">
                   <FaTwitter />
                 </SocialButton>
-                <SocialButton color="#ea4335">
-                  <FaEnvelope />
+                <SocialButton color="#1877f2">
+                  <FaFacebook />
                 </SocialButton>
-              </SocialShare>
-            </SidebarSection>
-
-            <SidebarSection>
-              <SidebarTitle>Media Contact</SidebarTitle>
-              <InfoBox>
-                <InfoTitle>Press Relations</InfoTitle>
-                <InfoText>
-                  For media inquiries, please contact:<br/>
-                  <strong>pr@transasia.com</strong><br/>
-                  +1 (234) 567-890
-                </InfoText>
-              </InfoBox>
-            </SidebarSection>
+              </ShareButtonGroup>
+            </SidebarWidget>
           </Sidebar>
-        </ContentWrapper>
+        </MainGrid>
       </Container>
     </PageContainer>
   );
