@@ -10,16 +10,30 @@ const PageContainer = styled.div`
 `;
 
 const HeroSection = styled.section`
-  background: var(--gradient-hero);
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
   padding: 180px 20px 80px;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(96, 165, 250, 0.2) 0%, transparent 70%);
+  }
 `;
 
 const Title = styled.h1`
   font-size: 3.5rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: #ffffff;
   margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
 
   @media (max-width: 768px) {
     font-size: 2.5rem;
@@ -28,9 +42,11 @@ const Title = styled.h1`
 
 const Subtitle = styled.p`
   font-size: 1.3rem;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.9);
   max-width: 800px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 `;
 
 const Section = styled.section`
