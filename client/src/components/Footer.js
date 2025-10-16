@@ -136,14 +136,6 @@ const Logo = styled.img`
   }
 `;
 
-const CompanyName = styled.h3`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 16px;
-  letter-spacing: -0.3px;
-`;
-
 const CompanyDescription = styled.p`
   font-size: 0.95rem;
   line-height: 1.7;

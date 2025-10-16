@@ -225,17 +225,6 @@ const DropdownContent = styled(motion.div)`
   }
 `;
 
-const DropdownGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, minmax(180px, 1fr));
-  gap: 12px 24px;
-
-  @media (max-width: 968px) {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-`;
-
 const MegaContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
@@ -355,59 +344,6 @@ const MegaLabel = styled.div`
     background: rgba(255, 255, 255, 1);
     color: #1e40af;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
-  }
-`;
-
-const DropdownItem = styled(Link)`
-  display: block;
-  color: var(--text-secondary);
-  text-decoration: none;
-  padding: 12px 16px;
-  font-size: 14px;
-  font-weight: 500;
-  border-radius: 10px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 3px;
-    height: 0;
-    background: var(--gradient-primary);
-    transition: height 0.3s ease;
-    border-radius: 0 2px 2px 0;
-  }
-
-  &:hover {
-    color: var(--primary-color);
-    transform: translateX(8px);
-    background: rgba(30, 64, 175, 0.05);
-    
-    &::before {
-      height: 60%;
-    }
-  }
-
-  @media (max-width: 968px) {
-    color: #ffffff;
-    padding: 12px 20px;
-    border-radius: 0;
-    font-size: 16px;
-
-    &:hover {
-      background: rgba(59, 130, 246, 0.2);
-      color: #60a5fa;
-      transform: translateX(0);
-    }
-
-    &::before {
-      display: none;
-    }
   }
 `;
 

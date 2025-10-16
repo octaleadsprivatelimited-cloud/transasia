@@ -91,6 +91,7 @@ const Button = styled(Link)`
   color: ${props => props.$primary ? '#000000' : '#ffffff'};
   border: 2px solid ${props => props.$primary ? '#fbbf24' : 'rgba(255, 255, 255, 0.3)'};
   box-shadow: ${props => props.$primary ? '0 4px 20px rgba(251, 191, 36, 0.3)' : 'none'};
+  cursor: pointer;
 
   &:hover {
     transform: translateY(-3px);
@@ -136,7 +137,7 @@ const NotFound = () => {
           <Button to="/" $primary>
             <FaHome /> Go Home
           </Button>
-          <Button to="javascript:history.back()" onClick={(e) => { e.preventDefault(); window.history.back(); }}>
+          <Button as="button" onClick={() => window.history.back()}>
             <FaArrowLeft /> Go Back
           </Button>
         </ButtonGroup>
