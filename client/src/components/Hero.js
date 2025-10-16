@@ -32,8 +32,8 @@ const HeroContainer = styled.section`
     width: 200%;
     height: 200%;
     background: 
-      radial-gradient(circle at 20% 50%, rgba(251, 191, 36, 0.1) 0%, transparent 25%),
-      radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 25%);
+      radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 25%),
+      radial-gradient(circle at 80% 50%, rgba(96, 165, 250, 0.1) 0%, transparent 25%);
     animation: ${rotate} 30s linear infinite;
   }
 
@@ -76,8 +76,8 @@ const Slide = styled(motion.div)`
     position: absolute;
     inset: 0;
     background: 
-      radial-gradient(circle at 20% 30%, rgba(251, 191, 36, 0.15) 0%, transparent 40%),
-      radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.15) 0%, transparent 40%);
+      radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.2) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(96, 165, 250, 0.15) 0%, transparent 40%);
     pointer-events: none;
   }
 `;
@@ -104,17 +104,17 @@ const SlideLabel = styled(motion.div)`
   align-items: center;
   gap: 10px;
   padding: 12px 24px;
-  background: rgba(251, 191, 36, 0.15);
+  background: rgba(59, 130, 246, 0.15);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(251, 191, 36, 0.3);
+  border: 1px solid rgba(59, 130, 246, 0.3);
   border-radius: 50px;
   font-size: 0.9rem;
   font-weight: 600;
-  color: #fbbf24;
+  color: #60a5fa;
   margin-bottom: 30px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.2);
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2);
 
   svg {
     font-size: 1.2rem;
@@ -133,7 +133,7 @@ const SlideTitle = styled(motion.h1)`
   margin-bottom: 30px;
   max-width: 1000px;
   letter-spacing: -3px;
-  background: linear-gradient(135deg, #ffffff 0%, #fbbf24 50%, #f59e0b 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #60a5fa 50%, #3b82f6 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -148,7 +148,7 @@ const SlideTitle = styled(motion.h1)`
     left: 0;
     width: 150px;
     height: 6px;
-    background: linear-gradient(90deg, #fbbf24 0%, transparent 100%);
+    background: linear-gradient(90deg, #3b82f6 0%, transparent 100%);
     border-radius: 3px;
   }
 
@@ -194,9 +194,10 @@ const PrimaryButton = styled(motion.button)`
   background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
   color: #000000;
   border: none;
-  border-radius: 12px;
+  border-radius: 4px;
   font-size: 1.1rem;
   font-weight: 700;
+  font-family: 'Times New Roman', Times, serif;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -224,6 +225,7 @@ const PrimaryButton = styled(motion.button)`
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 40px rgba(251, 191, 36, 0.6);
+    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
   }
 
   svg {
@@ -254,8 +256,8 @@ const SecondaryButton = styled(motion.button)`
 
   &:hover {
     background: rgba(255, 255, 255, 0.2);
-    border-color: #fbbf24;
-    color: #fbbf24;
+    border-color: #60a5fa;
+    color: #60a5fa;
     transform: translateY(-3px);
   }
 
@@ -319,7 +321,7 @@ const StatCard = styled(motion.div)`
 const StatNumber = styled.div`
   font-size: 2.2rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #fbbf24 0%, #ffffff 100%);
+  background: linear-gradient(135deg, #60a5fa 0%, #ffffff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -359,25 +361,25 @@ const NavigationButtons = styled.div`
 const NavButton = styled.button`
   width: 60px;
   height: 60px;
-  background: rgba(251, 191, 36, 0.2);
+  background: rgba(59, 130, 246, 0.2);
   backdrop-filter: blur(10px);
-  border: 2px solid rgba(251, 191, 36, 0.5);
+  border: 2px solid rgba(59, 130, 246, 0.5);
   border-radius: 50%;
-  color: #fbbf24;
+  color: #60a5fa;
   font-size: 1.3rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(251, 191, 36, 0.3);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
 
   &:hover {
-    background: #fbbf24;
-    color: #000000;
-    border-color: #fbbf24;
+    background: #3b82f6;
+    color: #ffffff;
+    border-color: #3b82f6;
     transform: scale(1.1);
-    box-shadow: 0 6px 30px rgba(251, 191, 36, 0.6);
+    box-shadow: 0 6px 30px rgba(59, 130, 246, 0.6);
   }
 
   &:disabled {
@@ -410,12 +412,12 @@ const ProgressDots = styled.div`
 const Dot = styled.button`
   width: ${props => props.active ? '50px' : '15px'};
   height: 15px;
-  background: ${props => props.active ? '#fbbf24' : 'rgba(255, 255, 255, 0.3)'};
-  border: ${props => props.active ? '2px solid rgba(251, 191, 36, 0.5)' : 'none'};
+  background: ${props => props.active ? '#3b82f6' : 'rgba(255, 255, 255, 0.3)'};
+  border: ${props => props.active ? '2px solid rgba(59, 130, 246, 0.5)' : 'none'};
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: ${props => props.active ? '0 4px 20px rgba(251, 191, 36, 0.6)' : 'none'};
+  box-shadow: ${props => props.active ? '0 4px 20px rgba(59, 130, 246, 0.6)' : 'none'};
   position: relative;
   overflow: hidden;
 
@@ -426,7 +428,7 @@ const Dot = styled.button`
     left: 0;
     width: 100%;
     height: 100%;
-    background: #fbbf24;
+    background: #3b82f6;
     opacity: 0;
     transition: opacity 0.3s ease;
   }
@@ -436,7 +438,7 @@ const Dot = styled.button`
   }
 
   &:hover {
-    box-shadow: 0 4px 20px rgba(251, 191, 36, 0.6);
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.6);
   }
 `;
 
@@ -507,7 +509,7 @@ const Hero = () => {
       }
 
       draw() {
-        ctx.fillStyle = `rgba(251, 191, 36, ${this.opacity})`;
+        ctx.fillStyle = `rgba(59, 130, 246, ${this.opacity})`;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -531,7 +533,7 @@ const Hero = () => {
           const distance = Math.sqrt(dx * dx + dy * dy);
           
           if (distance < 100) {
-            ctx.strokeStyle = `rgba(251, 191, 36, ${0.15 * (1 - distance / 100)})`;
+            ctx.strokeStyle = `rgba(59, 130, 246, ${0.15 * (1 - distance / 100)})`;
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);

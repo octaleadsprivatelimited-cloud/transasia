@@ -83,7 +83,7 @@ const LabelBadge = styled(motion.div)`
   align-items: center;
   gap: 8px;
   padding: 10px 24px;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(251, 191, 36, 0.1) 100%);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(96, 165, 250, 0.1) 100%);
   border: 2px solid rgba(59, 130, 246, 0.2);
   border-radius: 50px;
   font-size: 0.9rem;
@@ -94,14 +94,14 @@ const LabelBadge = styled(motion.div)`
   letter-spacing: 1.5px;
 
   svg {
-    color: #fbbf24;
+    color: #3b82f6;
   }
 `;
 
 const Title = styled(motion.h2)`
   font-size: 4.5rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #fbbf24 100%);
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -120,7 +120,7 @@ const Title = styled(motion.h2)`
     transform: translateX(-50%);
     width: 120px;
     height: 6px;
-    background: linear-gradient(90deg, #3b82f6 0%, #fbbf24 100%);
+    background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
     border-radius: 3px;
     box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
   }
@@ -176,9 +176,7 @@ const SolutionCard = styled(motion.div)`
     left: 0;
     width: 100%;
     height: 6px;
-    background: ${props => props.featured 
-      ? 'linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%)' 
-      : 'linear-gradient(90deg, #3b82f6 0%, #1e3a8a 100%)'};
+    background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.4s ease;
@@ -186,10 +184,8 @@ const SolutionCard = styled(motion.div)`
 
   &:hover {
     transform: translateY(-12px) scale(1.02);
-    box-shadow: ${props => props.featured 
-      ? '0 30px 80px rgba(251, 191, 36, 0.35)' 
-      : '0 25px 70px rgba(59, 130, 246, 0.25)'};
-    border-color: ${props => props.featured ? '#f59e0b' : '#3b82f6'};
+    box-shadow: 0 25px 70px rgba(59, 130, 246, 0.3);
+    border-color: #3b82f6;
 
     &::before {
       transform: scaleX(1);
@@ -205,18 +201,14 @@ const IconWrapper = styled.div`
   width: 90px;
   height: 90px;
   border-radius: 20px;
-  background: ${props => props.featured 
-    ? 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)' 
-    : 'linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)'};
+  background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2.5rem;
   color: white;
   margin-bottom: 28px;
-  box-shadow: ${props => props.featured 
-    ? '0 15px 40px rgba(251, 191, 36, 0.4)' 
-    : '0 15px 40px rgba(59, 130, 246, 0.3)'};
+  box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3);
   animation: ${float} 4s ease-in-out infinite;
   position: relative;
 
@@ -224,9 +216,7 @@ const IconWrapper = styled.div`
     content: '';
     position: absolute;
     inset: -4px;
-    background: ${props => props.featured 
-      ? 'linear-gradient(135deg, #fbbf24, #f59e0b)' 
-      : 'linear-gradient(135deg, #3b82f6, #60a5fa)'};
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
     border-radius: 20px;
     z-index: -1;
     opacity: 0;
@@ -249,7 +239,7 @@ const CardTitle = styled.h3`
   transition: color 0.3s ease;
 
   ${SolutionCard}:hover & {
-    color: ${props => props.featured ? '#f59e0b' : '#3b82f6'};
+    color: #3b82f6;
   }
 
   @media (max-width: 768px) {
@@ -279,7 +269,7 @@ const FeatureItem = styled.li`
   margin-bottom: 12px;
 
   svg {
-    color: ${props => props.featured ? '#fbbf24' : '#3b82f6'};
+    color: #3b82f6;
     flex-shrink: 0;
   }
 `;
@@ -290,7 +280,7 @@ const CardLink = styled.div`
   gap: 10px;
   font-size: 1.05rem;
   font-weight: 700;
-  color: ${props => props.featured ? '#fbbf24' : '#3b82f6'};
+  color: #3b82f6;
   transition: gap 0.3s ease;
 
   svg {
@@ -324,7 +314,7 @@ const StatsSection = styled.div`
     right: -20%;
     width: 400px;
     height: 400px;
-    background: radial-gradient(circle, rgba(251, 191, 36, 0.2) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(96, 165, 250, 0.2) 0%, transparent 70%);
     border-radius: 50%;
     animation: ${rotate} 20s linear infinite;
   }
@@ -348,7 +338,7 @@ const StatCard = styled(motion.div)`
 const StatNumber = styled.div`
   font-size: 3.5rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #ffffff 0%, #fbbf24 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #60a5fa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
