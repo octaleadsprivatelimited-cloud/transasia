@@ -82,9 +82,25 @@ const MetaItem = styled.div`
 `;
 
 const Container = styled.div`
-  max-width: 900px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 80px 20px;
+`;
+
+const ContentWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 60px;
+  align-items: start;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+`;
+
+const MainContent = styled.div`
+  max-width: 900px;
 `;
 
 const Content = styled.div`
@@ -201,137 +217,111 @@ const DownloadButton = styled.button`
   }
 `;
 
-const ContactFormSection = styled.div`
-  margin-top: 80px;
-  padding: 60px;
+const SidebarForm = styled.div`
+  position: sticky;
+  top: 100px;
   background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-  border-radius: 20px;
-  position: relative;
-  overflow: hidden;
+  border-radius: 4px;
+  padding: 40px 30px;
+  box-shadow: 0 10px 40px rgba(30, 58, 138, 0.3);
+  border: 3px solid #1e3a8a;
 
-  &::before {
-    content: '';
-    position: absolute;
+  @media (max-width: 1024px) {
+    position: static;
     top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-      radial-gradient(circle at 20% 30%, rgba(96, 165, 250, 0.2) 0%, transparent 50%),
-      radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.2) 0%, transparent 50%);
-    pointer-events: none;
-  }
-
-  @media (max-width: 768px) {
-    padding: 40px 30px;
   }
 `;
 
 const ContactFormContent = styled.div`
   position: relative;
   z-index: 1;
-  max-width: 600px;
-  margin: 0 auto;
 `;
 
-const ContactFormTitle = styled.h2`
-  font-size: 2.5rem;
-  font-weight: 900;
+const ContactFormTitle = styled.h3`
+  font-size: 1.6rem;
+  font-weight: 800;
   color: #ffffff;
-  margin-bottom: 16px;
-  text-align: center;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
 
   @media (max-width: 768px) {
-    font-size: 2rem;
+    font-size: 1.4rem;
   }
 `;
 
 const ContactFormSubtitle = styled.p`
-  font-size: 1.15rem;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 40px;
-  text-align: center;
-  line-height: 1.6;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 30px;
+  line-height: 1.5;
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 18px;
-`;
-
-const FormRow = styled.div`
-  display: grid;
-  grid-template-columns: ${props => props.columns || '1fr'};
-  gap: 18px;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
+  gap: 16px;
 `;
 
 const FormInput = styled.input`
-  padding: 16px 20px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  font-size: 0.95rem;
+  padding: 14px 18px;
+  background: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  font-size: 0.9rem;
   color: #1e3a8a;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   font-weight: 500;
 
   &::placeholder {
-    color: #64748b;
+    color: #94a3b8;
   }
 
   &:focus {
     outline: none;
     border-color: #fbbf24;
-    background: #ffffff;
-    box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.2);
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15);
   }
 `;
 
 const FormTextarea = styled.textarea`
-  padding: 16px 20px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  font-size: 0.95rem;
+  padding: 14px 18px;
+  background: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  font-size: 0.9rem;
   color: #1e3a8a;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   font-weight: 500;
   resize: vertical;
-  min-height: 120px;
+  min-height: 100px;
 
   &::placeholder {
-    color: #64748b;
+    color: #94a3b8;
   }
 
   &:focus {
     outline: none;
     border-color: #fbbf24;
-    background: #ffffff;
-    box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.2);
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15);
   }
 `;
 
 const SubmitButton = styled.button`
-  padding: 18px 40px;
+  padding: 16px 32px;
   background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
   color: #000000;
   border: none;
-  border-radius: 10px;
-  font-size: 1.1rem;
+  border-radius: 2px;
+  font-size: 1rem;
   font-weight: 700;
   font-family: 'Times New Roman', Times, serif;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 10px 30px rgba(251, 191, 36, 0.4);
+  box-shadow: 0 8px 24px rgba(251, 191, 36, 0.4);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
   position: relative;
   overflow: hidden;
 
@@ -352,7 +342,7 @@ const SubmitButton = styled.button`
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 15px 40px rgba(251, 191, 36, 0.6);
+    box-shadow: 0 12px 32px rgba(251, 191, 36, 0.6);
   }
 
   &:disabled {
@@ -365,26 +355,25 @@ const SubmitButton = styled.button`
   }
 
   &:hover svg {
-    transform: translateX(5px);
+    transform: translateX(4px);
   }
 `;
 
 const SuccessMessage = styled.div`
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
-  padding: 24px;
-  border-radius: 12px;
+  padding: 20px;
+  border-radius: 2px;
   text-align: center;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+  gap: 10px;
 
   svg {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 `;
 
@@ -531,36 +520,38 @@ const PressReleaseDetail = () => {
       </HeroSection>
 
       <Container>
-        <Content dangerouslySetInnerHTML={{ __html: release.content }} />
+        <ContentWrapper>
+          <MainContent>
+            <Content dangerouslySetInnerHTML={{ __html: release.content }} />
 
-        <ActionSection>
-          <ShareSection>
-            <ShareText>
-              <FaShareAlt />
-              Share:
-            </ShareText>
-            <ShareButtons>
-              <ShareButton>LinkedIn</ShareButton>
-              <ShareButton>Twitter</ShareButton>
-              <ShareButton>Email</ShareButton>
-            </ShareButtons>
-          </ShareSection>
-          <DownloadButton>
-            <FaDownload />
-            Download PDF
-          </DownloadButton>
-        </ActionSection>
+            <ActionSection>
+              <ShareSection>
+                <ShareText>
+                  <FaShareAlt />
+                  Share:
+                </ShareText>
+                <ShareButtons>
+                  <ShareButton>LinkedIn</ShareButton>
+                  <ShareButton>Twitter</ShareButton>
+                  <ShareButton>Email</ShareButton>
+                </ShareButtons>
+              </ShareSection>
+              <DownloadButton>
+                <FaDownload />
+                Download PDF
+              </DownloadButton>
+            </ActionSection>
+          </MainContent>
 
-        <ContactFormSection>
-          <ContactFormContent>
-            <ContactFormTitle>Media Inquiries</ContactFormTitle>
-            <ContactFormSubtitle>
-              For press inquiries, interviews, or additional information about this release, please contact our media relations team.
-            </ContactFormSubtitle>
+          <SidebarForm>
+            <ContactFormContent>
+              <ContactFormTitle>Media Inquiries</ContactFormTitle>
+              <ContactFormSubtitle>
+                Contact our PR team for interviews or additional information.
+              </ContactFormSubtitle>
 
-            {!submitted ? (
-              <Form onSubmit={handleSubmit}>
-                <FormRow columns="1fr 1fr">
+              {!submitted ? (
+                <Form onSubmit={handleSubmit}>
                   <FormInput
                     type="text"
                     name="name"
@@ -577,9 +568,6 @@ const PressReleaseDetail = () => {
                     onChange={handleChange}
                     required
                   />
-                </FormRow>
-
-                <FormRow>
                   <FormInput
                     type="text"
                     name="subject"
@@ -588,9 +576,6 @@ const PressReleaseDetail = () => {
                     onChange={handleChange}
                     required
                   />
-                </FormRow>
-
-                <FormRow>
                   <FormTextarea
                     name="message"
                     placeholder="Your Message *"
@@ -598,20 +583,19 @@ const PressReleaseDetail = () => {
                     onChange={handleChange}
                     required
                   />
-                </FormRow>
-
-                <SubmitButton type="submit">
-                  Send Message <FaArrowRight />
-                </SubmitButton>
-              </Form>
-            ) : (
-              <SuccessMessage>
-                <FaCheckCircle />
-                Thank you! We'll get back to you within 24 hours.
-              </SuccessMessage>
-            )}
-          </ContactFormContent>
-        </ContactFormSection>
+                  <SubmitButton type="submit">
+                    Send <FaArrowRight />
+                  </SubmitButton>
+                </Form>
+              ) : (
+                <SuccessMessage>
+                  <FaCheckCircle />
+                  Message sent!
+                </SuccessMessage>
+              )}
+            </ContactFormContent>
+          </SidebarForm>
+        </ContentWrapper>
       </Container>
     </PageContainer>
   );
