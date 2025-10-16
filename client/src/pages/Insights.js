@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
@@ -139,7 +140,9 @@ const InsightsGrid = styled.div`
   }
 `;
 
-const InsightCard = styled(motion.article)`
+const InsightCard = styled(motion(Link))`
+  display: block;
+  text-decoration: none;
   background: #ffffff;
   border: 2px solid #e2e8f0;
   border-radius: 20px;
@@ -402,6 +405,7 @@ const Insights = () => {
           {filteredInsights.map((insight, index) => (
             <InsightCard
               key={insight.id}
+              to={`/insights/${insight.id}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
