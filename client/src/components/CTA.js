@@ -2,36 +2,26 @@ import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FaArrowRight, FaPaperPlane, FaCheckCircle } from 'react-icons/fa';
-
-const float = keyframes`
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(5deg); }
-`;
+import { FaArrowRight, FaCheckCircle, FaPhone, FaEnvelope } from 'react-icons/fa';
 
 const shimmer = keyframes`
   0% { background-position: -1000px 0; }
   100% { background-position: 1000px 0; }
 `;
 
-const rotate = keyframes`
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-`;
-
 const CTAContainer = styled.section`
-  padding: 120px 0;
-  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  padding: 80px 0;
+  background: #ffffff;
   position: relative;
   overflow: hidden;
 
   @media (max-width: 768px) {
-    padding: 80px 0;
+    padding: 60px 0;
   }
 `;
 
 const Container = styled.div`
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 40px;
   position: relative;
@@ -43,73 +33,31 @@ const Container = styled.div`
 `;
 
 const CTABox = styled(motion.div)`
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-  border-radius: 40px;
-  padding: 80px;
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  border-radius: 16px;
+  padding: 60px 70px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 30px 80px rgba(30, 58, 138, 0.3);
-  border: 3px solid rgba(251, 191, 36, 0.3);
+  box-shadow: 0 20px 60px rgba(30, 58, 138, 0.25);
 
   &::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: 
-      radial-gradient(circle at 20% 50%, rgba(251, 191, 36, 0.15) 0%, transparent 40%),
-      radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.2) 0%, transparent 40%);
-    animation: ${rotate} 20s linear infinite;
-  }
-
-  &::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="1" cy="1" r="1" fill="rgba(251,191,36,0.3)"/></svg>');
-    background-size: 50px 50px;
-    opacity: 0.1;
+    background: 
+      radial-gradient(circle at 80% 20%, rgba(96, 165, 250, 0.2) 0%, transparent 50%);
     pointer-events: none;
   }
 
+  @media (max-width: 968px) {
+    padding: 50px 40px;
+  }
+
   @media (max-width: 768px) {
-    padding: 60px 30px;
-  }
-`;
-
-const FloatingShape = styled.div`
-  position: absolute;
-  border-radius: 50%;
-  background: ${props => props.color || 'rgba(251, 191, 36, 0.2)'};
-  filter: blur(40px);
-  pointer-events: none;
-  animation: ${float} ${props => props.duration || '6s'} ease-in-out infinite;
-  animation-delay: ${props => props.delay || '0s'};
-
-  &:nth-child(1) {
-    width: 300px;
-    height: 300px;
-    top: -150px;
-    right: -100px;
-  }
-
-  &:nth-child(2) {
-    width: 200px;
-    height: 200px;
-    bottom: -100px;
-    left: -50px;
-  }
-
-  &:nth-child(3) {
-    width: 150px;
-    height: 150px;
-    top: 50%;
-    left: 10%;
+    padding: 40px 30px;
   }
 `;
 
@@ -117,199 +65,117 @@ const CTAContent = styled.div`
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 60px;
+  grid-template-columns: 1fr auto;
+  gap: 50px;
   align-items: center;
 
   @media (max-width: 968px) {
     grid-template-columns: 1fr;
-    gap: 50px;
+    gap: 35px;
+    text-align: center;
   }
 `;
 
 const LeftSection = styled.div``;
 
-const CTALabel = styled(motion.div)`
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: rgba(251, 191, 36, 0.2);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(251, 191, 36, 0.4);
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #fbbf24;
-  margin-bottom: 24px;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-`;
-
 const CTATitle = styled(motion.h2)`
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #ffffff 0%, #fbbf24 50%, #ffffff 100%);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 24px;
-  letter-spacing: -2px;
-  line-height: 1.1;
-  animation: ${shimmer} 3s ease-in-out infinite;
+  color: #ffffff;
+  margin-bottom: 16px;
+  letter-spacing: -1.5px;
+  line-height: 1.2;
 
   @media (max-width: 768px) {
-    font-size: 2.5rem;
+    font-size: 2rem;
     letter-spacing: -1px;
   }
 `;
 
 const CTASubtitle = styled(motion.p)`
-  font-size: 1.3rem;
-  color: rgba(255, 255, 255, 0.95);
-  margin-bottom: 40px;
-  line-height: 1.7;
-  font-weight: 400;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 24px;
+  line-height: 1.6;
+  max-width: 600px;
+
+  @media (max-width: 968px) {
+    margin-left: auto;
+    margin-right: auto;
+  }
 
   @media (max-width: 768px) {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
   }
 `;
 
 const FeatureList = styled(motion.ul)`
   list-style: none;
   padding: 0;
-  margin-bottom: 30px;
-`;
-
-const FeatureItem = styled.li`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 16px;
-  font-weight: 500;
-
-  svg {
-    color: #fbbf24;
-    font-size: 1.2rem;
-    flex-shrink: 0;
-  }
-`;
-
-const RightSection = styled.div``;
-
-const ContactForm = styled(motion.form)`
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  padding: 45px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.5);
-
-  @media (max-width: 768px) {
-    padding: 35px 25px;
-  }
-`;
-
-const FormTitle = styled.h3`
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: #1e3a8a;
-  margin-bottom: 24px;
-  text-align: center;
-`;
-
-const FormRow = styled.div`
+  margin: 0;
   display: grid;
-  grid-template-columns: ${props => props.columns || '1fr'};
-  gap: 16px;
-  margin-bottom: 16px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+
+  @media (max-width: 968px) {
+    justify-content: center;
+  }
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 `;
 
-const FormInput = styled.input`
-  padding: 18px 24px;
-  background: #f8fafc;
-  border: 2px solid #e2e8f0;
-  border-radius: 14px;
-  font-size: 1rem;
-  color: #1e3a8a;
-  transition: all 0.3s ease;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+const FeatureItem = styled.li`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.95);
   font-weight: 500;
 
-  &::placeholder {
-    color: #94a3b8;
+  svg {
+    color: #fbbf24;
+    font-size: 1rem;
+    flex-shrink: 0;
   }
 
-  &:focus {
-    outline: none;
-    border-color: #3b82f6;
-    background: #ffffff;
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
-    transform: translateY(-2px);
+  @media (max-width: 968px) {
+    justify-content: center;
   }
 
   @media (max-width: 768px) {
-    padding: 16px 20px;
-    font-size: 0.95rem;
+    justify-content: flex-start;
   }
 `;
 
-const FormTextarea = styled.textarea`
-  padding: 18px 24px;
-  background: #f8fafc;
-  border: 2px solid #e2e8f0;
-  border-radius: 14px;
-  font-size: 1rem;
-  color: #1e3a8a;
-  transition: all 0.3s ease;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-weight: 500;
-  resize: vertical;
-  min-height: 120px;
+const RightSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 
-  &::placeholder {
-    color: #94a3b8;
-  }
-
-  &:focus {
-    outline: none;
-    border-color: #3b82f6;
-    background: #ffffff;
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
-    transform: translateY(-2px);
-  }
-
-  @media (max-width: 768px) {
-    padding: 16px 20px;
-    font-size: 0.95rem;
+  @media (max-width: 968px) {
+    align-items: center;
   }
 `;
 
-const SubmitButton = styled.button`
-  width: 100%;
-  padding: 20px 50px;
+const CTAButton = styled(motion.button)`
+  padding: 18px 40px;
   background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
   color: #000000;
   border: none;
-  border-radius: 14px;
-  font-size: 1.15rem;
+  border-radius: 4px;
+  font-size: 1.1rem;
   font-weight: 700;
+  font-family: 'Times New Roman', Times, serif;
   cursor: pointer;
-  transition: all 0.3s ease;
-  letter-spacing: 0.5px;
-  box-shadow: 0 8px 24px rgba(251, 191, 36, 0.4);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(251, 191, 36, 0.4);
+  white-space: nowrap;
   position: relative;
   overflow: hidden;
 
@@ -320,7 +186,7 @@ const SubmitButton = styled.button`
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     transition: left 0.5s;
   }
 
@@ -329,14 +195,8 @@ const SubmitButton = styled.button`
   }
 
   &:hover {
-    transform: translateY(-3px);
-    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
-    box-shadow: 0 15px 50px rgba(251, 191, 36, 0.6);
-  }
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(251, 191, 36, 0.6);
   }
 
   svg {
@@ -348,27 +208,71 @@ const SubmitButton = styled.button`
   }
 
   @media (max-width: 768px) {
-    padding: 16px 32px;
+    padding: 16px 35px;
     font-size: 1rem;
   }
 `;
 
-const SuccessMessage = styled(motion.div)`
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-  padding: 20px;
-  border-radius: 14px;
-  text-align: center;
-  font-size: 1.1rem;
+const SecondaryButton = styled(motion.button)`
+  padding: 18px 40px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  font-size: 1.05rem;
   font-weight: 600;
-  display: flex;
+  cursor: pointer;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+  gap: 10px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    padding: 16px 35px;
+    font-size: 1rem;
+  }
+`;
+
+const ContactInfo = styled.div`
+  display: flex;
+  gap: 24px;
+  margin-top: 8px;
+
+  @media (max-width: 968px) {
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+`;
+
+const ContactItem = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
 
   svg {
-    font-size: 1.5rem;
+    color: #fbbf24;
+  }
+
+  &:hover {
+    color: #ffffff;
   }
 `;
 
@@ -378,74 +282,27 @@ const CTA = () => {
     triggerOnce: true
   });
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    phone: '',
-    message: ''
-  });
-
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        phone: '',
-        message: ''
-      });
-    }, 3000);
-  };
-
   const features = [
-    "Free security assessment included",
-    "24/7 expert support & monitoring",
-    "No credit card required for demo",
-    "Trusted by 500+ enterprises"
+    "Free Security Assessment",
+    "24/7 Expert Support",
+    "Enterprise-Grade Protection",
+    "ROI-Focused Solutions"
   ];
 
   return (
     <CTAContainer ref={ref}>
       <Container>
         <CTABox
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7 }}
         >
-          <FloatingShape color="rgba(251, 191, 36, 0.2)" duration="8s" delay="0s" />
-          <FloatingShape color="rgba(59, 130, 246, 0.2)" duration="10s" delay="1s" />
-          <FloatingShape color="rgba(251, 191, 36, 0.15)" duration="12s" delay="2s" />
-
           <CTAContent>
             <LeftSection>
-              <CTALabel
-                initial={{ opacity: 0, x: -20 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <FaPaperPlane />
-                Get Started Today
-              </CTALabel>
-
               <CTATitle
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: 0.3 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
               >
                 Ready to Secure Your Future?
               </CTATitle>
@@ -453,15 +310,15 @@ const CTA = () => {
               <CTASubtitle
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: 0.4 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
               >
-                Join industry leaders protecting their digital assets with TransAsia's cutting-edge cybersecurity solutions
+                Join 500+ enterprises protecting their digital assets with TransAsia's cutting-edge cybersecurity solutions
               </CTASubtitle>
 
               <FeatureList
                 initial={{ opacity: 0 }}
                 animate={inView ? { opacity: 1 } : {}}
-                transition={{ duration: 0.8, delay: 0.5 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
               >
                 {features.map((feature, index) => (
                   <FeatureItem key={index}>
@@ -470,80 +327,39 @@ const CTA = () => {
                   </FeatureItem>
                 ))}
               </FeatureList>
+
+              <ContactInfo>
+                <ContactItem href="tel:+1234567890">
+                  <FaPhone size={14} />
+                  +1 (234) 567-890
+                </ContactItem>
+                <ContactItem href="mailto:info@transasia.com">
+                  <FaEnvelope size={14} />
+                  info@transasia.com
+                </ContactItem>
+              </ContactInfo>
             </LeftSection>
 
             <RightSection>
-              <ContactForm
-                onSubmit={handleSubmit}
-                initial={{ opacity: 0, x: 30 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.8, delay: 0.6 }}
+              <CTAButton
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={inView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
               >
-                {!submitted ? (
-                  <>
-                    <FormTitle>Request a Demo</FormTitle>
-                    
-                    <FormRow columns="1fr 1fr">
-                      <FormInput
-                        type="text"
-                        name="name"
-                        placeholder="Full Name *"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                      />
-                      <FormInput
-                        type="email"
-                        name="email"
-                        placeholder="Work Email *"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                      />
-                    </FormRow>
+                Get Started Now <FaArrowRight />
+              </CTAButton>
 
-                    <FormRow columns="1fr 1fr">
-                      <FormInput
-                        type="text"
-                        name="company"
-                        placeholder="Company Name *"
-                        value={formData.company}
-                        onChange={handleChange}
-                        required
-                      />
-                      <FormInput
-                        type="tel"
-                        name="phone"
-                        placeholder="Phone Number"
-                        value={formData.phone}
-                        onChange={handleChange}
-                      />
-                    </FormRow>
-
-                    <FormRow>
-                      <FormTextarea
-                        name="message"
-                        placeholder="Tell us about your security needs..."
-                        value={formData.message}
-                        onChange={handleChange}
-                      />
-                    </FormRow>
-
-                    <SubmitButton type="submit">
-                      Get Your Free Demo <FaArrowRight />
-                    </SubmitButton>
-                  </>
-                ) : (
-                  <SuccessMessage
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    <FaCheckCircle />
-                    Thank you! We'll be in touch soon.
-                  </SuccessMessage>
-                )}
-              </ContactForm>
+              <SecondaryButton
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={inView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Schedule a Demo
+              </SecondaryButton>
             </RightSection>
           </CTAContent>
         </CTABox>
