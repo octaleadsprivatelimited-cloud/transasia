@@ -24,6 +24,7 @@ import Team from './pages/Team';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import Insights from './pages/Insights';
+import NotFound from './pages/NotFound';
 import { BasicPage } from './pages';
 import { routes as dynamicRoutes } from './routes/config';
 
@@ -76,6 +77,7 @@ const App = () => {
         {dynamicRoutes.map(r => (
           <Route key={r.path} path={r.path} element={<BasicPage pill={r.pill} title={r.title} description={r.description} />} />
         ))}
+        <Route path="*" element={<NotFound />} />
       </Routes>
       
       <Footer />
