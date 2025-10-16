@@ -1,29 +1,73 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect, useRef } from 'react';
+import styled, { keyframes } from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaArrowRight, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaArrowRight, FaChevronLeft, FaChevronRight, FaShieldAlt, FaBrain, FaRocket } from 'react-icons/fa';
+
+const float = keyframes`
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+`;
+
+const pulse = keyframes`
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+`;
+
+const shimmer = keyframes`
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+`;
+
+const rotate = keyframes`
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+`;
 
 const HeroContainer = styled.section`
   position: relative;
   height: 100vh;
-  background: linear-gradient(135deg, #0a0e27 0%, #1e3a8a 100%);
+  background: radial-gradient(ellipse at top, #1e3a8a 0%, #0a0e27 100%);
   overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(251, 191, 36, 0.1) 0%, transparent 25%),
+      radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 25%);
+    animation: ${rotate} 30s linear infinite;
+  }
 
   @media (max-width: 768px) {
     height: 100vh;
   }
 `;
 
+const ParticleCanvas = styled.canvas`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+`;
+
 const SlideContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
+  z-index: 2;
 `;
 
 const Slide = styled(motion.div)`
   position: absolute;
   inset: 0;
-  background-image: ${props => `linear-gradient(to right, rgba(10, 14, 39, 0.95) 0%, rgba(30, 58, 138, 0.7) 50%, rgba(0, 0, 0, 0.3) 100%), url(${props.bgImage})`};
+  background-image: ${props => `linear-gradient(to right, rgba(10, 14, 39, 0.97) 0%, rgba(30, 58, 138, 0.85) 40%, rgba(0, 0, 0, 0.4) 100%), url(${props.bgImage})`};
   background-size: cover;
   background-position: center 25%;
   background-repeat: no-repeat;
@@ -36,7 +80,9 @@ const Slide = styled(motion.div)`
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 30% 50%, rgba(251, 191, 36, 0.08) 0%, transparent 50%);
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(251, 191, 36, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.15) 0%, transparent 40%);
     pointer-events: none;
   }
 `;
@@ -58,179 +104,438 @@ const SlideContent = styled.div`
   }
 `;
 
-const SlideTitle = styled(motion.h1)`
-  font-size: 4.5rem;
-  font-weight: 800;
-  line-height: 1.15;
+const SlideLabel = styled(motion.div)`
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: rgba(251, 191, 36, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fbbf24;
   margin-bottom: 30px;
-  max-width: 900px;
-  letter-spacing: -2px;
-  background: linear-gradient(135deg, #ffffff 0%, #fbbf24 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 4px 20px rgba(251, 191, 36, 0.3);
-  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.2);
 
-  @media (max-width: 1024px) {
-    font-size: 3.5rem;
+  svg {
+    font-size: 1.2rem;
   }
 
   @media (max-width: 768px) {
-    font-size: 2.2rem;
+    font-size: 0.8rem;
+    padding: 10px 20px;
+  }
+`;
+
+const SlideTitle = styled(motion.h1)`
+  font-size: 5.5rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 30px;
+  max-width: 1000px;
+  letter-spacing: -3px;
+  background: linear-gradient(135deg, #ffffff 0%, #fbbf24 50%, #f59e0b 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  animation: ${shimmer} 3s ease-in-out infinite;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    width: 150px;
+    height: 6px;
+    background: linear-gradient(90deg, #fbbf24 0%, transparent 100%);
+    border-radius: 3px;
+  }
+
+  @media (max-width: 1024px) {
+    font-size: 4rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
     margin-bottom: 20px;
-    letter-spacing: -1px;
+    letter-spacing: -1.5px;
   }
 `;
 
 const SlideDescription = styled(motion.p)`
-  font-size: 1.4rem;
-  line-height: 1.6;
-  margin-bottom: 40px;
-  max-width: 700px;
+  font-size: 1.5rem;
+  line-height: 1.7;
+  margin-bottom: 50px;
+  max-width: 750px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 
   @media (max-width: 768px) {
-    font-size: 1.1rem;
-    margin-bottom: 30px;
+    font-size: 1.15rem;
+    margin-bottom: 35px;
   }
 `;
 
-const SlideButton = styled(motion.button)`
-  padding: 18px 40px;
-  background: #fbbf24;
+const ButtonGroup = styled(motion.div)`
+  display: flex;
+  gap: 20px;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+`;
+
+const PrimaryButton = styled(motion.button)`
+  padding: 20px 45px;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
   color: #000000;
   border: none;
-  border-radius: 8px;
-  font-size: 1.05rem;
-  font-weight: 600;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(251, 191, 36, 0.4);
+  gap: 12px;
+  transition: all 0.4s ease;
+  box-shadow: 0 8px 30px rgba(251, 191, 36, 0.4);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
 
   &:hover {
-    background: #fcd34d;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(251, 191, 36, 0.6);
+  }
+
+  svg {
+    transition: transform 0.3s ease;
+  }
+
+  &:hover svg {
     transform: translateX(5px);
-    box-shadow: 0 6px 30px rgba(251, 191, 36, 0.6);
   }
 
   @media (max-width: 768px) {
-    padding: 16px 32px;
+    padding: 16px 35px;
     font-size: 1rem;
   }
 `;
 
+const SecondaryButton = styled(motion.button)`
+  padding: 20px 45px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #fbbf24;
+    color: #fbbf24;
+    transform: translateY(-3px);
+  }
+
+  @media (max-width: 768px) {
+    padding: 16px 35px;
+    font-size: 1rem;
+  }
+`;
+
+const FloatingStats = styled(motion.div)`
+  position: absolute;
+  right: 80px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
+`;
+
+const StatCard = styled(motion.div)`
+  padding: 25px 30px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  min-width: 200px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  animation: ${float} 4s ease-in-out infinite;
+  
+  &:nth-child(2) {
+    animation-delay: 0.5s;
+  }
+  
+  &:nth-child(3) {
+    animation-delay: 1s;
+  }
+`;
+
+const StatNumber = styled.div`
+  font-size: 2.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #fbbf24 0%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 5px;
+`;
+
+const StatLabel = styled.div`
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+`;
+
 const NavigationButtons = styled.div`
   position: absolute;
-  bottom: 60px;
+  bottom: 80px;
   right: 80px;
   display: flex;
   gap: 15px;
   z-index: 20;
 
   @media (max-width: 768px) {
-    bottom: 30px;
+    bottom: 40px;
     right: 30px;
   }
 `;
 
 const NavButton = styled.button`
-  width: 50px;
-  height: 50px;
-  background: #fbbf24;
+  width: 60px;
+  height: 60px;
+  background: rgba(251, 191, 36, 0.2);
   backdrop-filter: blur(10px);
-  border: 2px solid #fbbf24;
+  border: 2px solid rgba(251, 191, 36, 0.5);
   border-radius: 50%;
-  color: #000000;
-  font-size: 1.2rem;
+  color: #fbbf24;
+  font-size: 1.3rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+  box-shadow: 0 4px 20px rgba(251, 191, 36, 0.3);
 
   &:hover {
-    background: #f59e0b;
-    border-color: #f59e0b;
-    transform: scale(1.15);
-    box-shadow: 0 6px 20px rgba(251, 191, 36, 0.6);
+    background: #fbbf24;
+    color: #000000;
+    border-color: #fbbf24;
+    transform: scale(1.1);
+    box-shadow: 0 6px 30px rgba(251, 191, 36, 0.6);
   }
 
   &:disabled {
-    opacity: 0.5;
+    opacity: 0.3;
     cursor: not-allowed;
   }
 
   @media (max-width: 768px) {
-    width: 45px;
-    height: 45px;
-    font-size: 1rem;
+    width: 50px;
+    height: 50px;
+    font-size: 1.1rem;
   }
 `;
 
 const ProgressDots = styled.div`
   position: absolute;
-  bottom: 60px;
+  bottom: 80px;
   left: 80px;
   display: flex;
-  gap: 12px;
+  gap: 15px;
   z-index: 20;
 
   @media (max-width: 768px) {
-    bottom: 30px;
+    bottom: 40px;
     left: 30px;
+    gap: 10px;
   }
 `;
 
 const Dot = styled.button`
-  width: ${props => props.active ? '40px' : '12px'};
-  height: 12px;
-  background: ${props => props.active ? '#fbbf24' : 'rgba(255, 255, 255, 0.4)'};
-  border: none;
-  border-radius: 6px;
+  width: ${props => props.active ? '50px' : '15px'};
+  height: 15px;
+  background: ${props => props.active ? '#fbbf24' : 'rgba(255, 255, 255, 0.3)'};
+  border: ${props => props.active ? '2px solid rgba(251, 191, 36, 0.5)' : 'none'};
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: ${props => props.active ? '0 2px 10px rgba(251, 191, 36, 0.5)' : 'none'};
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: ${props => props.active ? '0 4px 20px rgba(251, 191, 36, 0.6)' : 'none'};
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fbbf24;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
 
   &:hover {
-    background: #fbbf24;
-    box-shadow: 0 2px 10px rgba(251, 191, 36, 0.5);
+    box-shadow: 0 4px 20px rgba(251, 191, 36, 0.6);
   }
 `;
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const canvasRef = useRef(null);
 
   const slides = [
     {
+      label: 'Cyber Risk Intelligence',
+      icon: FaShieldAlt,
       title: 'Quantifying Cyber Risk for the Board of Directors',
       description: 'World Leaders in Cyber Risk Quantification providing a Robust Risk Management Framework Executive Dashboard - Justifying Cyber Spend',
-      buttonText: 'Learn More',
+      primaryButton: 'Get Started',
+      secondaryButton: 'Learn More',
       bgImage: '/insurtech/hero.png'
     },
     {
-      title: 'AI-Powered Threat Detection',
-      description: 'Real-time protection with machine learning algorithms that identify and respond to threats instantly',
-      buttonText: 'Discover More',
+      label: 'AI-Powered Security',
+      icon: FaBrain,
+      title: 'Next-Gen Threat Detection & Response',
+      description: 'Real-time protection with machine learning algorithms that identify and respond to threats instantly, protecting your digital assets 24/7',
+      primaryButton: 'Discover More',
+      secondaryButton: 'Watch Demo',
       bgImage: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2070&auto=format&fit=crop'
     },
     {
-      title: 'Risk Management Excellence',
-      description: 'Quantify cyber risks in financial terms and make data-driven security decisions',
-      buttonText: 'Explore Solutions',
+      label: 'Innovation First',
+      icon: FaRocket,
+      title: 'Transform Security into Strategic Asset',
+      description: 'Quantify cyber risks in financial terms and make data-driven security decisions that drive business growth and resilience',
+      primaryButton: 'Explore Solutions',
+      secondaryButton: 'Contact Us',
       bgImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop'
     }
   ];
 
+  // Particle animation effect
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    const particleCount = 80;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+        this.opacity = Math.random() * 0.5 + 0.2;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+
+      draw() {
+        ctx.fillStyle = `rgba(251, 191, 36, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+        
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < 100) {
+            ctx.strokeStyle = `rgba(251, 191, 36, ${0.15 * (1 - distance / 100)})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    }, 7000);
 
     return () => clearInterval(timer);
   }, [slides.length]);
@@ -243,21 +548,34 @@ const Hero = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
+  const IconComponent = slides[currentSlide].icon;
+
   return (
     <HeroContainer>
+      <ParticleCanvas ref={canvasRef} />
+      
       <SlideContainer>
         <AnimatePresence mode="wait">
           <Slide
             key={currentSlide}
             bgImage={slides[currentSlide].bgImage}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 1, ease: "easeInOut" }}
           >
             <SlideContent>
+              <SlideLabel
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+              >
+                <IconComponent />
+                {slides[currentSlide].label}
+              </SlideLabel>
+
               <SlideTitle
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
@@ -265,23 +583,51 @@ const Hero = () => {
               </SlideTitle>
               
               <SlideDescription
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
                 {slides[currentSlide].description}
               </SlideDescription>
 
-              <SlideButton
-                initial={{ opacity: 0, y: 20 }}
+              <ButtonGroup
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
               >
-                {slides[currentSlide].buttonText} <FaArrowRight />
-              </SlideButton>
+                <PrimaryButton
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {slides[currentSlide].primaryButton} <FaArrowRight />
+                </PrimaryButton>
+                <SecondaryButton
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {slides[currentSlide].secondaryButton}
+                </SecondaryButton>
+              </ButtonGroup>
             </SlideContent>
+
+            <FloatingStats
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.8 }}
+            >
+              <StatCard whileHover={{ scale: 1.05, y: -5 }}>
+                <StatNumber>19+</StatNumber>
+                <StatLabel>Cyber Experts</StatLabel>
+              </StatCard>
+              <StatCard whileHover={{ scale: 1.05, y: -5 }}>
+                <StatNumber>125+</StatNumber>
+                <StatLabel>Years Experience</StatLabel>
+              </StatCard>
+              <StatCard whileHover={{ scale: 1.05, y: -5 }}>
+                <StatNumber>99.9%</StatNumber>
+                <StatLabel>Protection Rate</StatLabel>
+              </StatCard>
+            </FloatingStats>
           </Slide>
         </AnimatePresence>
 
