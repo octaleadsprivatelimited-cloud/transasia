@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Helmet } from 'react-helmet-async';
-import { FaCalendar, FaClock, FaShareAlt } from 'react-icons/fa';
+import { FaCalendar, FaClock, FaShareAlt, FaArrowRight, FaCheckCircle } from 'react-icons/fa';
 
 const PageContainer = styled.div`
   min-height: 100vh;
@@ -250,8 +250,224 @@ const RelatedCardExcerpt = styled.p`
   line-height: 1.6;
 `;
 
+const ContactFormSection = styled.div`
+  margin-top: 80px;
+  padding: 60px;
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(96, 165, 250, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.2) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    padding: 40px 30px;
+  }
+`;
+
+const ContactFormContent = styled.div`
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  margin: 0 auto;
+`;
+
+const ContactFormTitle = styled.h2`
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 16px;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+`;
+
+const ContactFormSubtitle = styled.p`
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 40px;
+  text-align: center;
+  line-height: 1.6;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+`;
+
+const FormRow = styled.div`
+  display: grid;
+  grid-template-columns: ${props => props.columns || '1fr'};
+  gap: 18px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const FormInput = styled.input`
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: #1e3a8a;
+  transition: all 0.3s ease;
+  font-weight: 500;
+
+  &::placeholder {
+    color: #64748b;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #fbbf24;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.2);
+  }
+`;
+
+const FormTextarea = styled.textarea`
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: #1e3a8a;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  resize: vertical;
+  min-height: 120px;
+
+  &::placeholder {
+    color: #64748b;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #fbbf24;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.2);
+  }
+`;
+
+const SubmitButton = styled.button`
+  padding: 18px 40px;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: #000000;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: 'Times New Roman', Times, serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(251, 191, 36, 0.4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(251, 191, 36, 0.6);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  svg {
+    transition: transform 0.3s ease;
+  }
+
+  &:hover svg {
+    transform: translateX(5px);
+  }
+`;
+
+const SuccessMessage = styled.div`
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 24px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+
+  svg {
+    font-size: 1.5rem;
+  }
+`;
+
 const ArticleDetail = () => {
   const { id } = useParams();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form submitted:', formData);
+    setSubmitted(true);
+    setTimeout(() => {
+      setSubmitted(false);
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+    }, 4000);
+  };
 
   // Article data - in a real app, this would come from an API
   const articles = {
@@ -439,6 +655,68 @@ const ArticleDetail = () => {
             ))}
           </RelatedGrid>
         </RelatedArticles>
+
+        <ContactFormSection>
+          <ContactFormContent>
+            <ContactFormTitle>Get in Touch</ContactFormTitle>
+            <ContactFormSubtitle>
+              Have questions about this article? Want to learn more about our cybersecurity solutions? Reach out to our team.
+            </ContactFormSubtitle>
+
+            {!submitted ? (
+              <Form onSubmit={handleSubmit}>
+                <FormRow columns="1fr 1fr">
+                  <FormInput
+                    type="text"
+                    name="name"
+                    placeholder="Your Name *"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                  />
+                  <FormInput
+                    type="email"
+                    name="email"
+                    placeholder="Your Email *"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </FormRow>
+
+                <FormRow>
+                  <FormInput
+                    type="text"
+                    name="subject"
+                    placeholder="Subject *"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                  />
+                </FormRow>
+
+                <FormRow>
+                  <FormTextarea
+                    name="message"
+                    placeholder="Your Message *"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                  />
+                </FormRow>
+
+                <SubmitButton type="submit">
+                  Send Message <FaArrowRight />
+                </SubmitButton>
+              </Form>
+            ) : (
+              <SuccessMessage>
+                <FaCheckCircle />
+                Thank you! We'll get back to you within 24 hours.
+              </SuccessMessage>
+            )}
+          </ContactFormContent>
+        </ContactFormSection>
       </Container>
     </PageContainer>
   );
