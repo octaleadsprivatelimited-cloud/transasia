@@ -30,36 +30,36 @@ const Container = styled.div`
 `;
 
 const CTABox = styled(motion.div)`
-  background-image: linear-gradient(rgba(10, 14, 39, 0.51), rgba(30, 58, 138, 0.51)), url('/insurtech/1.jpg');
-  background-size: cover;
-  background-position: center;
-  border-radius: 40px;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  border-radius: 32px;
   padding: 80px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 30px 100px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 30px 80px rgba(30, 58, 138, 0.3);
+  border: 3px solid rgba(251, 191, 36, 0.3);
 
   &::before {
     content: '';
     position: absolute;
-    inset: -200%;
-    background: conic-gradient(
-      from 0deg,
-      transparent,
-      rgba(59, 130, 246, 0.3),
-      transparent 30%
-    );
-    animation: ${rotate} 6s linear infinite;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(251, 191, 36, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.2) 0%, transparent 50%);
+    pointer-events: none;
   }
 
   &::after {
     content: '';
     position: absolute;
-    inset: 3px;
-    background-image: linear-gradient(rgba(10, 14, 39, 0.51), rgba(30, 58, 138, 0.51)), url('/insurtech/1.jpg');
-    background-size: cover;
-    background-position: center;
-    border-radius: 37px;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(251, 191, 36, 0.1) 0%, transparent 70%);
+    animation: ${rotate} 15s linear infinite;
   }
 
   @media (max-width: 768px) {
@@ -76,7 +76,10 @@ const CTAContent = styled.div`
 const CTATitle = styled.h2`
   font-size: 4rem;
   font-weight: 900;
-  color: white;
+  background: linear-gradient(135deg, #ffffff 0%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 24px;
   letter-spacing: -2px;
   line-height: 1.1;
@@ -88,12 +91,13 @@ const CTATitle = styled.h2`
 
 const CTASubtitle = styled.p`
   font-size: 1.4rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.95);
   margin-bottom: 50px;
   line-height: 1.7;
-  max-width: 700px;
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+  font-weight: 400;
 
   @media (max-width: 768px) {
     font-size: 1.15rem;
@@ -119,17 +123,18 @@ const FormRow = styled.div`
 `;
 
 const FormInput = styled.input`
-  padding: 16px 24px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 12px;
+  padding: 18px 24px;
+  background: rgba(255, 255, 255, 0.98);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 14px;
   font-size: 1rem;
-  color: #1a1a1a;
+  color: #1e3a8a;
   transition: all 0.3s ease;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
 
   &::placeholder {
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(30, 58, 138, 0.5);
   }
 
   &:focus {
@@ -137,21 +142,22 @@ const FormInput = styled.input`
     border-color: #fbbf24;
     background: #ffffff;
     box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.2);
+    transform: translateY(-2px);
   }
 
   @media (max-width: 768px) {
-    padding: 14px 20px;
+    padding: 16px 20px;
     font-size: 0.95rem;
   }
 `;
 
 const SubmitButton = styled.button`
-  padding: 18px 40px;
+  padding: 20px 50px;
   background: #fbbf24;
-  color: #1a1a1a;
+  color: #000000;
   border: none;
-  border-radius: 12px;
-  font-size: 1.1rem;
+  border-radius: 14px;
+  font-size: 1.15rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;

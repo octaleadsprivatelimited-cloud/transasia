@@ -6,7 +6,7 @@ import { FaArrowRight, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 const HeroContainer = styled.section`
   position: relative;
   height: 100vh;
-  background: #000000;
+  background: linear-gradient(135deg, #0a0e27 0%, #1e3a8a 100%);
   overflow: hidden;
 
   @media (max-width: 768px) {
@@ -23,7 +23,7 @@ const SlideContainer = styled.div`
 const Slide = styled(motion.div)`
   position: absolute;
   inset: 0;
-  background-image: ${props => `linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url(${props.bgImage})`};
+  background-image: ${props => `linear-gradient(to right, rgba(10, 14, 39, 0.95) 0%, rgba(30, 58, 138, 0.7) 50%, rgba(0, 0, 0, 0.3) 100%), url(${props.bgImage})`};
   background-size: cover;
   background-position: center 25%;
   background-repeat: no-repeat;
@@ -31,6 +31,14 @@ const Slide = styled(motion.div)`
   align-items: center;
   width: 100%;
   height: 100%;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(251, 191, 36, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
 `;
 
 const SlideContent = styled.div`
@@ -52,11 +60,17 @@ const SlideContent = styled.div`
 
 const SlideTitle = styled(motion.h1)`
   font-size: 4.5rem;
-  font-weight: 600;
-  line-height: 1.2;
+  font-weight: 800;
+  line-height: 1.15;
   margin-bottom: 30px;
   max-width: 900px;
-  letter-spacing: -0.5px;
+  letter-spacing: -2px;
+  background: linear-gradient(135deg, #ffffff 0%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 20px rgba(251, 191, 36, 0.3);
+  position: relative;
 
   @media (max-width: 1024px) {
     font-size: 3.5rem;
@@ -65,6 +79,7 @@ const SlideTitle = styled(motion.h1)`
   @media (max-width: 768px) {
     font-size: 2.2rem;
     margin-bottom: 20px;
+    letter-spacing: -1px;
   }
 `;
 
@@ -126,25 +141,28 @@ const NavigationButtons = styled.div`
 const NavButton = styled.button`
   width: 50px;
   height: 50px;
-  background: rgba(255, 255, 255, 0.2);
+  background: #fbbf24;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid #fbbf24;
   border-radius: 50%;
-  color: white;
+  color: #000000;
   font-size: 1.2rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
 
   &:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: scale(1.1);
+    background: #f59e0b;
+    border-color: #f59e0b;
+    transform: scale(1.15);
+    box-shadow: 0 6px 20px rgba(251, 191, 36, 0.6);
   }
 
   &:disabled {
-    opacity: 0.3;
+    opacity: 0.5;
     cursor: not-allowed;
   }
 
@@ -172,14 +190,16 @@ const ProgressDots = styled.div`
 const Dot = styled.button`
   width: ${props => props.active ? '40px' : '12px'};
   height: 12px;
-  background: ${props => props.active ? '#ffffff' : 'rgba(255, 255, 255, 0.5)'};
+  background: ${props => props.active ? '#fbbf24' : 'rgba(255, 255, 255, 0.4)'};
   border: none;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: ${props => props.active ? '0 2px 10px rgba(251, 191, 36, 0.5)' : 'none'};
 
   &:hover {
-    background: #ffffff;
+    background: #fbbf24;
+    box-shadow: 0 2px 10px rgba(251, 191, 36, 0.5);
   }
 `;
 

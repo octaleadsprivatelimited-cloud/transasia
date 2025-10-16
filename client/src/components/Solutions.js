@@ -54,12 +54,26 @@ const SectionHeader = styled.div`
 `;
 
 const Title = styled(motion.h2)`
-  font-size: 3.5rem;
+  font-size: 4rem;
   font-weight: 900;
   color: #ffffff;
   margin-bottom: 20px;
   letter-spacing: -2px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 120px;
+    height: 5px;
+    background: linear-gradient(90deg, #fbbf24 0%, #3b82f6 100%);
+    border-radius: 3px;
+    box-shadow: 0 2px 10px rgba(251, 191, 36, 0.5);
+  }
 
   @media (max-width: 768px) {
     font-size: 2.5rem;
@@ -67,11 +81,12 @@ const Title = styled(motion.h2)`
 `;
 
 const Subtitle = styled(motion.p)`
-  font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.9);
-  max-width: 700px;
-  margin: 0 auto;
-  line-height: 1.7;
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.95);
+  max-width: 800px;
+  margin: 30px auto 0;
+  line-height: 1.8;
+  font-weight: 400;
 `;
 
 const BentoGrid = styled.div`
@@ -204,51 +219,38 @@ const CardLink = styled.div`
 
 const CTASection = styled(motion.div)`
   margin-top: 80px;
-  padding: 80px 60px;
-  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
-  border-radius: 40px;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
   text-align: center;
   position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: -100%;
-    background: conic-gradient(
-      from 0deg,
-      transparent 0deg,
-      rgba(59, 130, 246, 0.3) 90deg,
-      transparent 180deg,
-      rgba(59, 130, 246, 0.3) 270deg,
-      transparent 360deg
-    );
-    animation: ${rotate} 4s linear infinite;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 2px;
-    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
-    border-radius: 38px;
-  }
-
-  @media (max-width: 768px) {
-    padding: 60px 30px;
-  }
+  overflow: visible;
 `;
 
 const CTAContent = styled.div`
   position: relative;
   z-index: 1;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  padding: 60px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+
+  @media (max-width: 768px) {
+    padding: 40px 30px;
+  }
 `;
 
 const CTATitle = styled.h3`
-  font-size: 2.8rem;
+  font-size: 3rem;
   font-weight: 900;
-  color: white;
+  background: linear-gradient(135deg, #ffffff 0%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 20px;
+  letter-spacing: -1px;
 
   @media (max-width: 768px) {
     font-size: 2rem;
@@ -256,32 +258,34 @@ const CTATitle = styled.h3`
 `;
 
 const CTAText = styled.p`
-  font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.95);
   margin-bottom: 40px;
-  max-width: 600px;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
+  line-height: 1.7;
 `;
 
 const CTAButton = styled.button`
-  padding: 22px 60px;
-  background: white;
-  color: #1e3a8a;
+  padding: 20px 50px;
+  background: #fbbf24;
+  color: #000000;
   border: none;
-  border-radius: 16px;
+  border-radius: 12px;
   font-size: 1.15rem;
-  font-weight: 800;
+  font-weight: 700;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 12px;
   transition: all 0.3s ease;
-  box-shadow: 0 10px 40px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 30px rgba(251, 191, 36, 0.4);
 
   &:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 60px rgba(255, 255, 255, 0.3);
+    background: #f59e0b;
+    box-shadow: 0 12px 40px rgba(251, 191, 36, 0.6);
   }
 `;
 

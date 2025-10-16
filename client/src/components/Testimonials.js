@@ -15,8 +15,8 @@ const float = keyframes`
 `;
 
 const TestimonialsContainer = styled.section`
-  padding: 60px 0;
-  background: linear-gradient(135deg, #0a0e27 0%, #1a237e 50%, #0d47a1 100%);
+  padding: 100px 0;
+  background: #ffffff;
   position: relative;
   overflow: hidden;
 
@@ -26,14 +26,13 @@ const TestimonialsContainer = styled.section`
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    background: 
-      radial-gradient(circle at 20% 80%, rgba(33, 150, 243, 0.2) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(100, 181, 246, 0.15) 0%, transparent 50%);
+    height: 300px;
+    background: linear-gradient(180deg, #3b82f6 0%, transparent 100%);
+    opacity: 0.03;
   }
 
   @media (max-width: 768px) {
-    padding: 40px 0;
+    padding: 60px 0;
   }
 `;
 
@@ -55,25 +54,36 @@ const SectionHeader = styled.div`
 `;
 
 const Title = styled(motion.h2)`
-  font-size: 2.5rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, #ffffff 0%, #60a5fa 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 12px;
-  letter-spacing: -1px;
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #1e3a8a;
+  margin-bottom: 20px;
+  letter-spacing: -2px;
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100px;
+    height: 5px;
+    background: linear-gradient(90deg, #3b82f6 0%, #fbbf24 100%);
+    border-radius: 3px;
+  }
 
   @media (max-width: 768px) {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
   }
 `;
 
 const Subtitle = styled(motion.p)`
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
-  max-width: 600px;
-  margin: 0 auto;
+  font-size: 1.2rem;
+  color: #64748b;
+  max-width: 700px;
+  margin: 30px auto 0;
+  line-height: 1.7;
 `;
 
 const CarouselContainer = styled.div`
