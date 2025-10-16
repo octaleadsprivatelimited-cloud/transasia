@@ -212,85 +212,85 @@ const AdvisorBio = styled.p`
 const Team = () => {
   const leadership = [
     {
-      name: 'Michael Chen',
+      name: 'Vijay Kumar',
       role: 'Chief Executive Officer',
       bio: 'Former CISO at Fortune 500 companies with 20+ years in cybersecurity. Led security transformations for global enterprises.',
       social: {
         linkedin: '#',
         twitter: '#',
-        email: 'michael.chen@transasia.com'
+        email: 'vijay.kumar@transasia.com'
       }
     },
     {
-      name: 'Sarah Williams',
+      name: 'Anand Sharma',
       role: 'Chief Technology Officer',
-      bio: 'AI and machine learning expert with PhD from MIT. Pioneer in applying AI to cybersecurity threat detection.',
+      bio: 'AI and machine learning expert with PhD from IIT. Pioneer in applying AI to cybersecurity threat detection.',
       social: {
         linkedin: '#',
         twitter: '#',
-        email: 'sarah.williams@transasia.com'
+        email: 'anand.sharma@transasia.com'
       }
     },
     {
-      name: 'David Kumar',
+      name: 'Rajesh Patel',
       role: 'Chief Security Officer',
       bio: 'Certified ethical hacker and security researcher. Published author on advanced persistent threats and incident response.',
       social: {
         linkedin: '#',
         twitter: '#',
-        email: 'david.kumar@transasia.com'
+        email: 'rajesh.patel@transasia.com'
       }
     },
     {
-      name: 'Emily Zhang',
+      name: 'Priya Iyer',
       role: 'Chief Operating Officer',
       bio: 'Operations excellence leader with experience scaling security service organizations across Asia-Pacific region.',
       social: {
         linkedin: '#',
         twitter: '#',
-        email: 'emily.zhang@transasia.com'
+        email: 'priya.iyer@transasia.com'
       }
     },
     {
-      name: 'James Rodriguez',
+      name: 'Arjun Reddy',
       role: 'VP of Engineering',
       bio: 'Full-stack security engineer with expertise in building scalable security platforms. Former lead at major cloud providers.',
       social: {
         linkedin: '#',
         twitter: '#',
-        email: 'james.rodriguez@transasia.com'
+        email: 'arjun.reddy@transasia.com'
       }
     },
     {
-      name: 'Lisa Tanaka',
+      name: 'Lakshmi Menon',
       role: 'VP of Customer Success',
       bio: 'Customer-focused leader ensuring client satisfaction and success. Expert in security consulting and relationship management.',
       social: {
         linkedin: '#',
         twitter: '#',
-        email: 'lisa.tanaka@transasia.com'
+        email: 'lakshmi.menon@transasia.com'
       }
     }
   ];
 
   const advisors = [
     {
-      name: 'Dr. Robert Anderson',
+      name: 'Dr. Suresh Krishnan',
       role: 'Security Advisor',
-      bio: 'Former NSA Director with 30+ years in national cybersecurity'
+      bio: 'Former National Cyber Security Coordinator with 30+ years in cybersecurity'
     },
     {
-      name: 'Jennifer Lee',
+      name: 'Kavita Desai',
       role: 'Compliance Advisor',
       bio: 'ISO 27001 Lead Auditor and regulatory compliance expert'
     },
     {
-      name: 'Prof. Alan Wong',
+      name: 'Prof. Ramesh Nair',
       role: 'Research Advisor',
-      bio: 'Leading cybersecurity researcher at Stanford University'
+      bio: 'Leading cybersecurity researcher at IIT Bombay'
     },
     {
-      name: 'Maria Santos',
+      name: 'Meera Srinivasan',
       role: 'Business Advisor',
       bio: 'Serial entrepreneur and venture capital investor in security'
     }
