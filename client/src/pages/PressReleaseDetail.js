@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
+import styled, { keyframes } from 'styled-components';
+import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { FaCalendar, FaShareAlt, FaArrowRight, FaCheckCircle, FaDownload } from 'react-icons/fa';
+import { FaCalendar, FaDownload, FaArrowRight, FaCheckCircle, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
 
 const PageContainer = styled.div`
   min-height: 100vh;
   padding-top: 0;
-  background: #ffffff;
+  background: #f8fafc;
 `;
 
 const HeroSection = styled.section`
   background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-  padding: 160px 20px 80px;
+  padding: 140px 20px 60px;
   position: relative;
   overflow: hidden;
 
@@ -23,58 +24,69 @@ const HeroSection = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+    background: 
+      radial-gradient(circle at 30% 40%, rgba(96, 165, 250, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 70% 60%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
   }
 `;
 
 const HeroContent = styled.div`
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
 `;
 
-const Category = styled.span`
+const Category = styled(motion.span)`
   display: inline-block;
-  padding: 8px 16px;
+  padding: 8px 20px;
   background: rgba(251, 191, 36, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(251, 191, 36, 0.4);
   color: #fbbf24;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 600;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 700;
   margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
 `;
 
-const Title = styled.h1`
-  font-size: 3.5rem;
+const Title = styled(motion.h1)`
+  font-size: 3.8rem;
   font-weight: 900;
   color: #ffffff;
   margin-bottom: 24px;
-  line-height: 1.2;
+  line-height: 1.15;
+  letter-spacing: -1.5px;
+
+  @media (max-width: 968px) {
+    font-size: 2.8rem;
+  }
 
   @media (max-width: 768px) {
     font-size: 2.2rem;
+    letter-spacing: -1px;
   }
 `;
 
-const Meta = styled.div`
+const Meta = styled(motion.div)`
   display: flex;
   align-items: center;
   gap: 30px;
   color: rgba(255, 255, 255, 0.9);
   font-size: 0.95rem;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
+  flex-wrap: wrap;
 `;
 
 const MetaItem = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
 
   svg {
     color: #fbbf24;
@@ -84,56 +96,70 @@ const MetaItem = styled.div`
 const Container = styled.div`
   max-width: 1400px;
   margin: 0 auto;
-  padding: 80px 20px;
+  padding: 60px 20px 100px;
 `;
 
 const ContentWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 400px;
-  gap: 60px;
+  grid-template-columns: 1fr 380px;
+  gap: 50px;
   align-items: start;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1100px) {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 50px;
   }
 `;
 
 const MainContent = styled.div`
-  max-width: 900px;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+`;
+
+const ArticleContent = styled.div`
+  padding: 50px 60px;
+
+  @media (max-width: 768px) {
+    padding: 35px 25px;
+  }
 `;
 
 const Content = styled.div`
-  font-size: 1.15rem;
-  line-height: 1.8;
+  font-size: 1.1rem;
+  line-height: 1.85;
   color: #334155;
+  font-weight: 400;
 
   h2 {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 800;
     color: #1e293b;
-    margin: 50px 0 24px;
+    margin: 45px 0 20px;
     line-height: 1.3;
+    letter-spacing: -0.5px;
   }
 
   h3 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 700;
     color: #1e293b;
-    margin: 40px 0 20px;
+    margin: 35px 0 16px;
   }
 
   p {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
 
   ul, ol {
-    margin: 24px 0;
-    padding-left: 30px;
+    margin: 20px 0;
+    padding-left: 28px;
   }
 
   li {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+    line-height: 1.7;
   }
 
   strong {
@@ -143,17 +169,19 @@ const Content = styled.div`
 
   blockquote {
     border-left: 4px solid #3b82f6;
-    padding-left: 24px;
+    padding: 20px 24px;
     margin: 30px 0;
     font-style: italic;
-    color: #64748b;
-    font-size: 1.2rem;
+    color: #475569;
+    font-size: 1.25rem;
+    background: #f8fafc;
+    border-radius: 0 8px 8px 0;
   }
 `;
 
 const ActionSection = styled.div`
-  margin-top: 60px;
-  padding-top: 40px;
+  margin-top: 50px;
+  padding-top: 30px;
   border-top: 2px solid #e2e8f0;
   display: flex;
   align-items: center;
@@ -165,36 +193,42 @@ const ActionSection = styled.div`
 const ShareSection = styled.div`
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 `;
 
 const ShareText = styled.div`
   font-weight: 600;
-  color: #1e293b;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  color: #64748b;
+  font-size: 0.95rem;
 `;
 
 const ShareButtons = styled.div`
   display: flex;
-  gap: 12px;
+  gap: 10px;
 `;
 
 const ShareButton = styled.button`
-  padding: 10px 20px;
+  width: 44px;
+  height: 44px;
   background: #f8fafc;
   border: 2px solid #e2e8f0;
-  border-radius: 8px;
-  font-weight: 600;
+  border-radius: 50%;
   color: #64748b;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.3s ease;
 
   &:hover {
     background: #3b82f6;
     border-color: #3b82f6;
     color: #ffffff;
+    transform: translateY(-3px);
+  }
+
+  svg {
+    font-size: 1.1rem;
   }
 `;
 
@@ -203,7 +237,7 @@ const DownloadButton = styled.button`
   background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   color: #ffffff;
   border: none;
-  border-radius: 8px;
+  border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
   display: flex;
@@ -217,60 +251,67 @@ const DownloadButton = styled.button`
   }
 `;
 
-const SidebarForm = styled.div`
-  position: sticky;
-  top: 100px;
-  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-  border-radius: 4px;
-  padding: 40px 30px;
-  box-shadow: 0 10px 40px rgba(30, 58, 138, 0.3);
-  border: 3px solid #1e3a8a;
+const Sidebar = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 
-  @media (max-width: 1024px) {
-    position: static;
-    top: 0;
+  @media (max-width: 1100px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
   }
-`;
-
-const ContactFormContent = styled.div`
-  position: relative;
-  z-index: 1;
-`;
-
-const ContactFormTitle = styled.h3`
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: #ffffff;
-  margin-bottom: 12px;
-  letter-spacing: -0.5px;
 
   @media (max-width: 768px) {
-    font-size: 1.4rem;
+    grid-template-columns: 1fr;
   }
 `;
 
-const ContactFormSubtitle = styled.p`
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 30px;
+const ContactForm = styled.div`
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  border-radius: 4px;
+  padding: 35px 28px;
+  box-shadow: 0 10px 40px rgba(30, 58, 138, 0.25);
+  position: sticky;
+  top: 100px;
+
+  @media (max-width: 1100px) {
+    position: static;
+    top: auto;
+  }
+`;
+
+const FormTitle = styled.h3`
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+`;
+
+const FormSubtitle = styled.p`
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 28px;
   line-height: 1.5;
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 `;
 
 const FormInput = styled.input`
-  padding: 14px 18px;
+  padding: 14px 16px;
   background: #ffffff;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: none;
   border-radius: 2px;
   font-size: 0.9rem;
   color: #1e3a8a;
   transition: all 0.2s ease;
   font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
   &::placeholder {
     color: #94a3b8;
@@ -278,15 +319,15 @@ const FormInput = styled.input`
 
   &:focus {
     outline: none;
-    border-color: #fbbf24;
-    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15);
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.3), 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
   }
 `;
 
 const FormTextarea = styled.textarea`
-  padding: 14px 18px;
+  padding: 14px 16px;
   background: #ffffff;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: none;
   border-radius: 2px;
   font-size: 0.9rem;
   color: #1e3a8a;
@@ -294,6 +335,7 @@ const FormTextarea = styled.textarea`
   font-weight: 500;
   resize: vertical;
   min-height: 100px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
   &::placeholder {
     color: #94a3b8;
@@ -301,13 +343,13 @@ const FormTextarea = styled.textarea`
 
   &:focus {
     outline: none;
-    border-color: #fbbf24;
-    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15);
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.3), 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
   }
 `;
 
 const SubmitButton = styled.button`
-  padding: 16px 32px;
+  padding: 15px 28px;
   background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
   color: #000000;
   border: none;
@@ -317,8 +359,8 @@ const SubmitButton = styled.button`
   font-family: 'Times New Roman', Times, serif;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 8px 24px rgba(251, 191, 36, 0.4);
-  display: inline-flex;
+  box-shadow: 0 6px 20px rgba(251, 191, 36, 0.35);
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
@@ -342,12 +384,7 @@ const SubmitButton = styled.button`
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 32px rgba(251, 191, 36, 0.6);
-  }
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+    box-shadow: 0 10px 30px rgba(251, 191, 36, 0.5);
   }
 
   svg {
@@ -359,10 +396,10 @@ const SubmitButton = styled.button`
   }
 `;
 
-const SuccessMessage = styled.div`
+const SuccessMessage = styled(motion.div)`
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
-  padding: 20px;
+  padding: 18px;
   border-radius: 2px;
   text-align: center;
   font-size: 0.95rem;
@@ -375,6 +412,71 @@ const SuccessMessage = styled.div`
   svg {
     font-size: 1.2rem;
   }
+`;
+
+const SidebarSection = styled.div`
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 28px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+`;
+
+const SidebarTitle = styled.h3`
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 20px;
+  letter-spacing: -0.3px;
+`;
+
+const SocialShare = styled.div`
+  display: flex;
+  gap: 12px;
+`;
+
+const SocialButton = styled.button`
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  border: none;
+  background: ${props => props.color || '#3b82f6'};
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px ${props => props.color ? `${props.color}40` : 'rgba(59, 130, 246, 0.25)'};
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px ${props => props.color ? `${props.color}60` : 'rgba(59, 130, 246, 0.4)'};
+  }
+
+  svg {
+    font-size: 1.2rem;
+  }
+`;
+
+const InfoBox = styled.div`
+  padding: 20px;
+  background: #eff6ff;
+  border-left: 4px solid #3b82f6;
+  border-radius: 0 8px 8px 0;
+`;
+
+const InfoTitle = styled.div`
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+`;
+
+const InfoText = styled.div`
+  color: #475569;
+  font-size: 0.9rem;
+  line-height: 1.6;
 `;
 
 const PressReleaseDetail = () => {
@@ -508,9 +610,25 @@ const PressReleaseDetail = () => {
 
       <HeroSection>
         <HeroContent>
-          <Category>{release.category}</Category>
-          <Title>{release.title}</Title>
-          <Meta>
+          <Category
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            {release.category}
+          </Category>
+          <Title
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            {release.title}
+          </Title>
+          <Meta
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             <MetaItem>
               <FaCalendar />
               {release.date}
@@ -522,40 +640,45 @@ const PressReleaseDetail = () => {
       <Container>
         <ContentWrapper>
           <MainContent>
-            <Content dangerouslySetInnerHTML={{ __html: release.content }} />
+            <ArticleContent>
+              <Content dangerouslySetInnerHTML={{ __html: release.content }} />
 
-            <ActionSection>
-              <ShareSection>
-                <ShareText>
-                  <FaShareAlt />
-                  Share:
-                </ShareText>
-                <ShareButtons>
-                  <ShareButton>LinkedIn</ShareButton>
-                  <ShareButton>Twitter</ShareButton>
-                  <ShareButton>Email</ShareButton>
-                </ShareButtons>
-              </ShareSection>
-              <DownloadButton>
-                <FaDownload />
-                Download PDF
-              </DownloadButton>
-            </ActionSection>
+              <ActionSection>
+                <ShareSection>
+                  <ShareText>Share:</ShareText>
+                  <ShareButtons>
+                    <ShareButton>
+                      <FaLinkedin />
+                    </ShareButton>
+                    <ShareButton>
+                      <FaTwitter />
+                    </ShareButton>
+                    <ShareButton>
+                      <FaEnvelope />
+                    </ShareButton>
+                  </ShareButtons>
+                </ShareSection>
+                <DownloadButton>
+                  <FaDownload />
+                  Download PDF
+                </DownloadButton>
+              </ActionSection>
+            </ArticleContent>
           </MainContent>
 
-          <SidebarForm>
-            <ContactFormContent>
-              <ContactFormTitle>Media Inquiries</ContactFormTitle>
-              <ContactFormSubtitle>
-                Contact our PR team for interviews or additional information.
-              </ContactFormSubtitle>
+          <Sidebar>
+            <ContactForm>
+              <FormTitle>Media Inquiries</FormTitle>
+              <FormSubtitle>
+                Contact our PR team for more information.
+              </FormSubtitle>
 
               {!submitted ? (
                 <Form onSubmit={handleSubmit}>
                   <FormInput
                     type="text"
                     name="name"
-                    placeholder="Your Name *"
+                    placeholder="Name *"
                     value={formData.name}
                     onChange={handleChange}
                     required
@@ -563,7 +686,7 @@ const PressReleaseDetail = () => {
                   <FormInput
                     type="email"
                     name="email"
-                    placeholder="Your Email *"
+                    placeholder="Email *"
                     value={formData.email}
                     onChange={handleChange}
                     required
@@ -578,7 +701,7 @@ const PressReleaseDetail = () => {
                   />
                   <FormTextarea
                     name="message"
-                    placeholder="Your Message *"
+                    placeholder="Message *"
                     value={formData.message}
                     onChange={handleChange}
                     required
@@ -588,13 +711,43 @@ const PressReleaseDetail = () => {
                   </SubmitButton>
                 </Form>
               ) : (
-                <SuccessMessage>
+                <SuccessMessage
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                >
                   <FaCheckCircle />
                   Message sent!
                 </SuccessMessage>
               )}
-            </ContactFormContent>
-          </SidebarForm>
+            </ContactForm>
+
+            <SidebarSection>
+              <SidebarTitle>Share Release</SidebarTitle>
+              <SocialShare>
+                <SocialButton color="#0077b5">
+                  <FaLinkedin />
+                </SocialButton>
+                <SocialButton color="#1da1f2">
+                  <FaTwitter />
+                </SocialButton>
+                <SocialButton color="#ea4335">
+                  <FaEnvelope />
+                </SocialButton>
+              </SocialShare>
+            </SidebarSection>
+
+            <SidebarSection>
+              <SidebarTitle>Media Contact</SidebarTitle>
+              <InfoBox>
+                <InfoTitle>Press Relations</InfoTitle>
+                <InfoText>
+                  For media inquiries, please contact:<br/>
+                  <strong>pr@transasia.com</strong><br/>
+                  +1 (234) 567-890
+                </InfoText>
+              </InfoBox>
+            </SidebarSection>
+          </Sidebar>
         </ContentWrapper>
       </Container>
     </PageContainer>
@@ -602,4 +755,3 @@ const PressReleaseDetail = () => {
 };
 
 export default PressReleaseDetail;
-
