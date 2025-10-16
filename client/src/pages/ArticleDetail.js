@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Helmet } from 'react-helmet-async';
-import { FaCalendar, FaClock, FaArrowLeft, FaShareAlt } from 'react-icons/fa';
+import { FaCalendar, FaClock, FaShareAlt } from 'react-icons/fa';
 
 const PageContainer = styled.div`
   min-height: 100vh;
@@ -32,22 +32,6 @@ const HeroContent = styled.div`
   margin: 0 auto;
   position: relative;
   z-index: 1;
-`;
-
-const BackButton = styled(Link)`
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: rgba(255, 255, 255, 0.9);
-  text-decoration: none;
-  font-weight: 600;
-  margin-bottom: 30px;
-  transition: all 0.3s ease;
-
-  &:hover {
-    color: #ffffff;
-    gap: 12px;
-  }
 `;
 
 const Category = styled.span`
@@ -409,9 +393,6 @@ const ArticleDetail = () => {
 
       <HeroSection>
         <HeroContent>
-          <BackButton to="/insights">
-            <FaArrowLeft /> Back to Insights
-          </BackButton>
           <Category>{article.category}</Category>
           <Title>{article.title}</Title>
           <Meta>
