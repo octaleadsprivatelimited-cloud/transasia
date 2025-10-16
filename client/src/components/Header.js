@@ -154,6 +154,140 @@ const Dropdown = styled.div`
   position: relative;
 `;
 
+const CompanyDropdown = styled.div`
+  position: absolute;
+  top: calc(100% + 15px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  opacity: ${props => props.$open ? 1 : 0};
+  visibility: ${props => props.$open ? 'visible' : 'hidden'};
+  pointer-events: ${props => props.$open ? 'auto' : 'none'};
+  transform: translateX(-50%) translateY(${props => props.$open ? '0' : '-10px'});
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1001;
+  min-width: 320px;
+  border: 1px solid rgba(226, 232, 240, 1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 8px solid #ffffff;
+  }
+
+  @media (max-width: 968px) {
+    position: static;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    min-width: auto;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    pointer-events: auto;
+    display: ${props => props.$open ? 'block' : 'none'};
+
+    &::before {
+      display: none;
+    }
+  }
+`;
+
+const CompanyList = styled.div`
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  @media (max-width: 968px) {
+    padding: 0;
+    padding-left: 20px;
+    gap: 0;
+  }
+`;
+
+const CompanyItem = styled(Link)`
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  color: #1e293b;
+
+  &:hover {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 968px) {
+    color: #ffffff;
+    padding: 14px 0;
+    border-radius: 0;
+
+    &:hover {
+      background: transparent;
+      transform: translateX(0);
+      color: #60a5fa;
+    }
+  }
+`;
+
+const CompanyItemIcon = styled.div`
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border-radius: 10px;
+  transition: all 0.2s ease;
+
+  ${CompanyItem}:hover & {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    transform: scale(1.1);
+  }
+
+  @media (max-width: 968px) {
+    display: none;
+  }
+`;
+
+const CompanyItemContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+`;
+
+const CompanyItemTitle = styled.div`
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: inherit;
+  line-height: 1.2;
+`;
+
+const CompanyItemDesc = styled.div`
+  font-size: 0.8rem;
+  color: #64748b;
+  line-height: 1.3;
+
+  @media (max-width: 968px) {
+    display: none;
+  }
+`;
+
 const DropdownContent = styled(motion.div)`
   position: fixed;
   top: 80px;
@@ -435,86 +569,45 @@ const Header = () => {
               Company
               <FaChevronDown size={12} />
             </NavLink>
-            <DropdownContent className="dropdown-content" $open={activeMenu === 'company'} $blue initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-              <MegaContainer>
-                <MegaHeader>
-                  <div>
-                    <MegaTitle>About TransAsia</MegaTitle>
-                    <MegaSubtitle>Learn more about our company, team, and stories.</MegaSubtitle>
-                  </div>
-                </MegaHeader>
-                <MegaGrid 
-                  style={{ gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' }}
-                  initial="hidden"
-                  animate={activeMenu === 'company' ? "visible" : "hidden"}
-                  variants={{
-                    visible: { transition: { staggerChildren: 0.08 } },
-                    hidden: { transition: { staggerChildren: 0.05, staggerDirection: -1 } }
-                  }}
-                >
-                  <MegaCard 
-                    to="/press" 
-                    onClick={closeMenu}
-                    variants={{
-                      hidden: { opacity: 0, y: 20, scale: 0.9 },
-                      visible: { opacity: 1, y: 0, scale: 1 }
-                    }}
-                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                  >
-                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1200')`}} />
-                    <MegaLabel>Media</MegaLabel>
-                  </MegaCard>
-                  <MegaCard 
-                    to="/gallery" 
-                    onClick={closeMenu}
-                    variants={{
-                      hidden: { opacity: 0, y: 20, scale: 0.9 },
-                      visible: { opacity: 1, y: 0, scale: 1 }
-                    }}
-                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                  >
-                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200')`}} />
-                    <MegaLabel>Event Gallery</MegaLabel>
-                  </MegaCard>
-                  <MegaCard 
-                    to="/about" 
-                    onClick={closeMenu}
-                    variants={{
-                      hidden: { opacity: 0, y: 20, scale: 0.9 },
-                      visible: { opacity: 1, y: 0, scale: 1 }
-                    }}
-                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                  >
-                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200')`}} />
-                    <MegaLabel>Our Story</MegaLabel>
-                  </MegaCard>
-                  <MegaCard 
-                    to="/team" 
-                    onClick={closeMenu}
-                    variants={{
-                      hidden: { opacity: 0, y: 20, scale: 0.9 },
-                      visible: { opacity: 1, y: 0, scale: 1 }
-                    }}
-                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                  >
-                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200')`}} />
-                    <MegaLabel>Team</MegaLabel>
-                  </MegaCard>
-                  <MegaCard 
-                    to="/insights" 
-                    onClick={closeMenu}
-                    variants={{
-                      hidden: { opacity: 0, y: 20, scale: 0.9 },
-                      visible: { opacity: 1, y: 0, scale: 1 }
-                    }}
-                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                  >
-                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=1200')`}} />
-                    <MegaLabel>Articles/Blogs</MegaLabel>
-                  </MegaCard>
-                </MegaGrid>
-              </MegaContainer>
-            </DropdownContent>
+            <CompanyDropdown $open={activeMenu === 'company'}>
+              <CompanyList>
+                <CompanyItem to="/press" onClick={closeMenu}>
+                  <CompanyItemIcon>📰</CompanyItemIcon>
+                  <CompanyItemContent>
+                    <CompanyItemTitle>Media</CompanyItemTitle>
+                    <CompanyItemDesc>Press releases & news</CompanyItemDesc>
+                  </CompanyItemContent>
+                </CompanyItem>
+                <CompanyItem to="/gallery" onClick={closeMenu}>
+                  <CompanyItemIcon>🖼️</CompanyItemIcon>
+                  <CompanyItemContent>
+                    <CompanyItemTitle>Event Gallery</CompanyItemTitle>
+                    <CompanyItemDesc>Photos & highlights</CompanyItemDesc>
+                  </CompanyItemContent>
+                </CompanyItem>
+                <CompanyItem to="/about" onClick={closeMenu}>
+                  <CompanyItemIcon>🏢</CompanyItemIcon>
+                  <CompanyItemContent>
+                    <CompanyItemTitle>Our Story</CompanyItemTitle>
+                    <CompanyItemDesc>Company history</CompanyItemDesc>
+                  </CompanyItemContent>
+                </CompanyItem>
+                <CompanyItem to="/team" onClick={closeMenu}>
+                  <CompanyItemIcon>👥</CompanyItemIcon>
+                  <CompanyItemContent>
+                    <CompanyItemTitle>Team</CompanyItemTitle>
+                    <CompanyItemDesc>Meet our experts</CompanyItemDesc>
+                  </CompanyItemContent>
+                </CompanyItem>
+                <CompanyItem to="/insights" onClick={closeMenu}>
+                  <CompanyItemIcon>📝</CompanyItemIcon>
+                  <CompanyItemContent>
+                    <CompanyItemTitle>Articles/Blogs</CompanyItemTitle>
+                    <CompanyItemDesc>Latest insights</CompanyItemDesc>
+                  </CompanyItemContent>
+                </CompanyItem>
+              </CompanyList>
+            </CompanyDropdown>
           </Dropdown>
         </NavMenu>
 
