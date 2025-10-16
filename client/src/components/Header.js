@@ -574,35 +574,30 @@ const Header = () => {
             <CompanyDropdown $open={activeMenu === 'company'}>
               <CompanyList>
                 <CompanyItem to="/press" onClick={closeMenu}>
-                  <CompanyItemIcon>📰</CompanyItemIcon>
                   <CompanyItemContent>
                     <CompanyItemTitle>Media</CompanyItemTitle>
                     <CompanyItemDesc>Press releases & news</CompanyItemDesc>
                   </CompanyItemContent>
                 </CompanyItem>
                 <CompanyItem to="/gallery" onClick={closeMenu}>
-                  <CompanyItemIcon>🖼️</CompanyItemIcon>
                   <CompanyItemContent>
                     <CompanyItemTitle>Event Gallery</CompanyItemTitle>
                     <CompanyItemDesc>Photos & highlights</CompanyItemDesc>
                   </CompanyItemContent>
                 </CompanyItem>
                 <CompanyItem to="/about" onClick={closeMenu}>
-                  <CompanyItemIcon>🏢</CompanyItemIcon>
                   <CompanyItemContent>
                     <CompanyItemTitle>Our Story</CompanyItemTitle>
                     <CompanyItemDesc>Company history</CompanyItemDesc>
                   </CompanyItemContent>
                 </CompanyItem>
                 <CompanyItem to="/team" onClick={closeMenu}>
-                  <CompanyItemIcon>👥</CompanyItemIcon>
                   <CompanyItemContent>
                     <CompanyItemTitle>Team</CompanyItemTitle>
                     <CompanyItemDesc>Meet our experts</CompanyItemDesc>
                   </CompanyItemContent>
                 </CompanyItem>
                 <CompanyItem to="/insights" onClick={closeMenu}>
-                  <CompanyItemIcon>📝</CompanyItemIcon>
                   <CompanyItemContent>
                     <CompanyItemTitle>Articles/Blogs</CompanyItemTitle>
                     <CompanyItemDesc>Latest insights</CompanyItemDesc>
