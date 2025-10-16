@@ -372,8 +372,6 @@ const Solutions = () => {
     triggerOnce: true
   });
 
-  const [hoveredCard, setHoveredCard] = useState(null);
-
   const solutions = [
     {
       icon: <FaShieldAlt />,
@@ -488,8 +486,6 @@ const Solutions = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3 + (index * 0.1) }}
-              onMouseEnter={() => setHoveredCard(index)}
-              onMouseLeave={() => setHoveredCard(null)}
             >
               <IconWrapper featured={solution.featured}>
                 {solution.icon}

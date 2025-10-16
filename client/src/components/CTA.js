@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -7,11 +7,6 @@ import { FaArrowRight, FaPaperPlane, FaCheckCircle } from 'react-icons/fa';
 const float = keyframes`
   0%, 100% { transform: translateY(0px) rotate(0deg); }
   50% { transform: translateY(-20px) rotate(5deg); }
-`;
-
-const pulse = keyframes`
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.05); }
 `;
 
 const shimmer = keyframes`

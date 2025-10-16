@@ -8,11 +8,6 @@ const float = keyframes`
   50% { transform: translateY(-20px); }
 `;
 
-const pulse = keyframes`
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.05); }
-`;
-
 const shimmer = keyframes`
   0% { background-position: -1000px 0; }
   100% { background-position: 1000px 0; }
@@ -272,12 +267,18 @@ const SecondaryButton = styled(motion.button)`
 
 const FloatingStats = styled(motion.div)`
   position: absolute;
-  right: 80px;
+  right: 40px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   gap: 30px;
+  z-index: 10;
+
+  @media (max-width: 1200px) {
+    right: 20px;
+    gap: 20px;
+  }
 
   @media (max-width: 1024px) {
     display: none;
@@ -285,38 +286,60 @@ const FloatingStats = styled(motion.div)`
 `;
 
 const StatCard = styled(motion.div)`
-  padding: 25px 30px;
+  padding: 20px 25px;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
-  min-width: 200px;
+  border-radius: 16px;
+  min-width: 180px;
+  max-width: 200px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  animation: ${float} 4s ease-in-out infinite;
+  
+  &:nth-child(1) {
+    animation: ${float} 4s ease-in-out infinite;
+  }
   
   &:nth-child(2) {
+    animation: ${float} 4s ease-in-out infinite;
     animation-delay: 0.5s;
   }
   
   &:nth-child(3) {
+    animation: ${float} 4s ease-in-out infinite;
     animation-delay: 1s;
+  }
+
+  @media (max-width: 1200px) {
+    padding: 18px 20px;
+    min-width: 160px;
+    max-width: 180px;
   }
 `;
 
 const StatNumber = styled.div`
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 900;
   background: linear-gradient(135deg, #fbbf24 0%, #ffffff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin-bottom: 5px;
+  line-height: 1.1;
+
+  @media (max-width: 1200px) {
+    font-size: 2rem;
+  }
 `;
 
 const StatLabel = styled.div`
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.8);
   font-weight: 500;
+  line-height: 1.3;
+
+  @media (max-width: 1200px) {
+    font-size: 0.85rem;
+  }
 `;
 
 const NavigationButtons = styled.div`
