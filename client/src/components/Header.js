@@ -156,47 +156,19 @@ const Dropdown = styled.div`
 
 const CompanyDropdown = styled(motion.div)`
   position: absolute;
-  top: calc(100% + 20px);
+  top: calc(100% + 8px);
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(30, 58, 138, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   opacity: ${props => props.$open ? 1 : 0};
   visibility: ${props => props.$open ? 'visible' : 'hidden'};
   pointer-events: ${props => props.$open ? 'auto' : 'none'};
-  transform: translateX(-50%) translateY(${props => props.$open ? '0' : '-20px'}) scale(${props => props.$open ? '1' : '0.95'});
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.2s ease;
   z-index: 1001;
-  min-width: 380px;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 12px solid transparent;
-    border-right: 12px solid transparent;
-    border-bottom: 10px solid #1e3a8a;
-    filter: drop-shadow(0 -2px 4px rgba(0, 0, 0, 0.1));
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-      radial-gradient(circle at 20% 30%, rgba(96, 165, 250, 0.3) 0%, transparent 50%),
-      radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.2) 0%, transparent 50%);
-    pointer-events: none;
-  }
+  min-width: 240px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 
   @media (max-width: 968px) {
     position: static;
@@ -209,27 +181,17 @@ const CompanyDropdown = styled(motion.div)`
     transform: none;
     pointer-events: auto;
     display: ${props => props.$open ? 'block' : 'none'};
-
-    &::before,
-    &::after {
-      display: none;
-    }
   }
 `;
 
 const CompanyList = styled.div`
-  padding: 16px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  position: relative;
-  z-index: 1;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
 
   @media (max-width: 968px) {
-    grid-template-columns: 1fr;
     padding: 0;
     padding-left: 20px;
-    gap: 0;
   }
 `;
 
@@ -237,44 +199,38 @@ const CompanyItem = styled(Link)`
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 16px;
+  padding: 12px 20px;
   text-decoration: none;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  color: #ffffff;
+  transition: all 0.15s ease;
+  color: #1e293b;
+  font-size: 0.95rem;
+  font-weight: 500;
   position: relative;
-  overflow: hidden;
 
   &::before {
     content: '';
     position: absolute;
+    left: 0;
     top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
+    bottom: 0;
+    width: 3px;
+    background: #3b82f6;
+    transform: scaleY(0);
+    transition: transform 0.15s ease;
   }
 
   &:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    background: #f8fafc;
+    color: #3b82f6;
   }
 
   &:hover::before {
-    left: 100%;
+    transform: scaleY(1);
   }
 
   @media (max-width: 968px) {
-    background: transparent;
-    border: none;
+    color: #ffffff;
     padding: 14px 0;
-    border-radius: 0;
 
     &::before {
       display: none;
@@ -282,30 +238,23 @@ const CompanyItem = styled(Link)`
 
     &:hover {
       background: transparent;
-      transform: translateX(8px);
-      box-shadow: none;
       color: #60a5fa;
     }
   }
 `;
 
 const CompanyItemIcon = styled.div`
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   flex-shrink: 0;
-  width: 50px;
-  height: 50px;
+  width: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(251, 191, 36, 0.2);
-  border-radius: 12px;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  border: 1px solid rgba(251, 191, 36, 0.3);
+  color: #64748b;
+  transition: all 0.15s ease;
 
   ${CompanyItem}:hover & {
-    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 8px 20px rgba(251, 191, 36, 0.4);
+    color: #3b82f6;
   }
 
   @media (max-width: 968px) {
@@ -316,22 +265,25 @@ const CompanyItemIcon = styled.div`
 const CompanyItemContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
   flex: 1;
 `;
 
 const CompanyItemTitle = styled.div`
-  font-size: 1rem;
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 1.2;
-  letter-spacing: -0.2px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: inherit;
+  line-height: 1.3;
 `;
 
 const CompanyItemDesc = styled.div`
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.4;
+  color: #64748b;
+  line-height: 1.3;
+
+  ${CompanyItem}:hover & {
+    color: #94a3b8;
+  }
 
   @media (max-width: 968px) {
     display: none;
@@ -619,16 +571,7 @@ const Header = () => {
               Company
               <FaChevronDown size={12} />
             </NavLink>
-            <CompanyDropdown 
-              $open={activeMenu === 'company'}
-              initial={{ opacity: 0, y: -20, scale: 0.95 }}
-              animate={{ 
-                opacity: activeMenu === 'company' ? 1 : 0,
-                y: activeMenu === 'company' ? 0 : -20,
-                scale: activeMenu === 'company' ? 1 : 0.95
-              }}
-              transition={{ duration: 0.4, ease: [0.34, 1.56, 0.64, 1] }}
-            >
+            <CompanyDropdown $open={activeMenu === 'company'}>
               <CompanyList>
                 <CompanyItem to="/press" onClick={closeMenu}>
                   <CompanyItemIcon>📰</CompanyItemIcon>
