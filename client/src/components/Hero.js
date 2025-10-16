@@ -344,15 +344,15 @@ const StatLabel = styled.div`
 
 const NavigationButtons = styled.div`
   position: absolute;
-  bottom: 80px;
-  right: 80px;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   gap: 15px;
   z-index: 20;
 
   @media (max-width: 768px) {
-    bottom: 40px;
-    right: 30px;
+    bottom: 30px;
   }
 `;
 
@@ -394,14 +394,14 @@ const NavButton = styled.button`
 
 const ProgressDots = styled.div`
   position: absolute;
-  bottom: 80px;
+  bottom: 40px;
   left: 80px;
   display: flex;
   gap: 15px;
   z-index: 20;
 
   @media (max-width: 768px) {
-    bottom: 40px;
+    bottom: 30px;
     left: 30px;
     gap: 10px;
   }
