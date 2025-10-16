@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { FaNewspaper, FaCalendar, FaDownload, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaNewspaper, FaCalendar, FaArrowRight } from 'react-icons/fa';
 
 const PageContainer = styled.div`
   min-height: 100vh;
@@ -88,15 +89,16 @@ const PressGrid = styled.div`
   gap: 40px;
 `;
 
-const PressCard = styled(motion.article)`
+const PressCard = styled(motion(Link))`
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 30px;
+  text-decoration: none;
   background: white;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(30, 64, 175, 0.1);
   transition: all 0.3s ease;
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 30px;
 
   &:hover {
     transform: translateY(-5px);
@@ -170,28 +172,18 @@ const PressExcerpt = styled.p`
   margin-bottom: 24px;
 `;
 
-const PressActions = styled.div`
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-`;
-
-const ActionButton = styled.button`
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: 2px solid var(--primary-color);
-  background: ${props => props.primary ? 'var(--primary-color)' : 'transparent'};
-  color: ${props => props.primary ? 'white' : 'var(--primary-color)'};
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
+const ReadMoreLink = styled.div`
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  transition: all 0.3s ease;
+  color: #3b82f6;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: auto;
+  transition: gap 0.3s ease;
 
-  &:hover {
-    background: ${props => props.primary ? 'var(--primary-dark)' : 'var(--primary-color)'};
-    color: white;
+  ${PressCard}:hover & {
+    gap: 12px;
   }
 `;
 
@@ -389,6 +381,7 @@ const PressRelease = () => {
           {filteredReleases.map((release, index) => (
             <PressCard
               key={release.id}
+              to={`/press/${release.id}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
@@ -404,14 +397,9 @@ const PressRelease = () => {
                   {release.date}
                 </PressDate>
                 <PressExcerpt>{release.excerpt}</PressExcerpt>
-                <PressActions>
-                  <ActionButton primary>
-                    Read Full Release <FaExternalLinkAlt />
-                  </ActionButton>
-                  <ActionButton>
-                    Download PDF <FaDownload />
-                  </ActionButton>
-                </PressActions>
+                <ReadMoreLink>
+                  Read Full Release <FaArrowRight />
+                </ReadMoreLink>
               </PressContent>
             </PressCard>
           ))}

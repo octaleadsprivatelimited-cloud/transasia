@@ -25,6 +25,7 @@ import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import Insights from './pages/Insights';
 import ArticleDetail from './pages/ArticleDetail';
+import PressReleaseDetail from './pages/PressReleaseDetail';
 import NotFound from './pages/NotFound';
 import { BasicPage } from './pages';
 import { routes as dynamicRoutes } from './routes/config';
@@ -68,6 +69,7 @@ const App = () => {
         <Route path="/products" element={<CyberSecurityProducts />} />
         <Route path="/services" element={<CyberSecurityServices />} />
         <Route path="/press" element={<PressRelease />} />
+        <Route path="/press/:id" element={<PressReleaseDetail />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/about" element={<About />} />
