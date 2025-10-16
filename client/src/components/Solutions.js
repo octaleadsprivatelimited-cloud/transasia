@@ -18,7 +18,7 @@ const rotate = keyframes`
 
 const SolutionsContainer = styled.section`
   padding: 100px 0;
-  background: #ffffff;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
   position: relative;
   overflow: hidden;
 
@@ -28,8 +28,11 @@ const SolutionsContainer = styled.section`
     top: 0;
     left: 0;
     right: 0;
-    height: 300px;
-    background: linear-gradient(180deg, #0f172a 0%, transparent 100%);
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.2) 0%, transparent 50%);
+    pointer-events: none;
   }
 `;
 
@@ -53,9 +56,10 @@ const SectionHeader = styled.div`
 const Title = styled(motion.h2)`
   font-size: 3.5rem;
   font-weight: 900;
-  color: #0f172a;
+  color: #ffffff;
   margin-bottom: 20px;
   letter-spacing: -2px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 
   @media (max-width: 768px) {
     font-size: 2.5rem;
@@ -64,7 +68,7 @@ const Title = styled(motion.h2)`
 
 const Subtitle = styled(motion.p)`
   font-size: 1.2rem;
-  color: #64748b;
+  color: rgba(255, 255, 255, 0.9);
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.7;
@@ -89,43 +93,42 @@ const BentoCard = styled(motion.div)`
   grid-column: span ${props => props.span || 4};
   min-height: ${props => props.height || '380px'};
   background: ${props => props.featured 
-    ? 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)' 
-    : '#f8fafc'};
-  border: 1px solid ${props => props.featured ? 'rgba(59, 130, 246, 0.3)' : '#e2e8f0'};
-  border-radius: 28px;
+    ? 'rgba(255, 255, 255, 0.95)' 
+    : 'rgba(255, 255, 255, 0.95)'};
+  border: 2px solid ${props => props.featured ? '#fbbf24' : 'rgba(255, 255, 255, 0.3)'};
+  border-radius: 20px;
   padding: 40px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
 
   &::before {
     content: '';
     position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 200%;
-    height: 200%;
-    background: ${props => props.featured 
-      ? 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)' 
-      : 'radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%)'};
-    animation: ${rotate} 20s linear infinite;
-    opacity: 0;
-    transition: opacity 0.4s;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: ${props => props.featured ? '#fbbf24' : '#3b82f6'};
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
   }
 
   &:hover {
-    transform: translateY(-8px) scale(1.02);
+    transform: translateY(-8px);
     box-shadow: ${props => props.featured 
-      ? '0 30px 80px rgba(59, 130, 246, 0.4)' 
-      : '0 20px 60px rgba(59, 130, 246, 0.15)'};
-    border-color: ${props => props.featured ? '#60a5fa' : '#3b82f6'};
+      ? '0 20px 50px rgba(251, 191, 36, 0.4)' 
+      : '0 20px 50px rgba(255, 255, 255, 0.3)'};
+    border-color: ${props => props.featured ? '#fbbf24' : 'rgba(255, 255, 255, 0.5)'};
 
     &::before {
-      opacity: 1;
+      transform: scaleY(1);
     }
   }
 
@@ -142,26 +145,26 @@ const BentoCard = styled(motion.div)`
 const CardIcon = styled.div`
   width: 80px;
   height: 80px;
-  border-radius: 20px;
+  border-radius: 16px;
   background: ${props => props.featured 
-    ? 'rgba(255, 255, 255, 0.15)' 
-    : 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)'};
+    ? 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)' 
+    : 'linear-gradient(135deg, #3b82f6 0%, #1e3a8a 100%)'};
   backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2.2rem;
-  color: ${props => props.featured ? 'white' : 'white'};
+  color: white;
   margin-bottom: 24px;
   box-shadow: ${props => props.featured 
-    ? '0 10px 40px rgba(0, 0, 0, 0.2)' 
+    ? '0 10px 30px rgba(251, 191, 36, 0.4)' 
     : '0 10px 30px rgba(59, 130, 246, 0.4)'};
 `;
 
 const CardTitle = styled.h3`
   font-size: 1.8rem;
   font-weight: 800;
-  color: ${props => props.featured ? 'white' : '#0f172a'};
+  color: #1e3a8a;
   margin-bottom: 16px;
   line-height: 1.2;
 
@@ -172,7 +175,7 @@ const CardTitle = styled.h3`
 
 const CardDescription = styled.p`
   font-size: 1.05rem;
-  color: ${props => props.featured ? 'rgba(255, 255, 255, 0.9)' : '#64748b'};
+  color: #64748b;
   line-height: 1.7;
   margin-bottom: 24px;
 `;
@@ -183,7 +186,7 @@ const CardLink = styled.div`
   gap: 8px;
   font-size: 1rem;
   font-weight: 600;
-  color: ${props => props.featured ? 'white' : '#3b82f6'};
+  color: ${props => props.featured ? '#fbbf24' : '#3b82f6'};
   transition: gap 0.3s ease;
 
   svg {

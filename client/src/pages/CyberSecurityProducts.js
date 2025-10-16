@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  FaChevronDown, FaCheckCircle, FaRocket, FaLeaf, FaSearch, FaSun, FaBolt, FaNetworkWired
+  FaChevronDown, FaRocket, FaLeaf, FaSearch, FaSun, FaBolt, FaNetworkWired
 } from 'react-icons/fa';
 
 const rotate = keyframes`
@@ -285,9 +285,24 @@ const CyberSecurityProducts = () => {
 
   const products = [
     {
+      id: 'sunshine',
+      icon: <FaSun />,
+      title: 'Sunshine',
+      gradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+      description: 'Comprehensive security awareness and training platform. Sunshine illuminates your organization\'s security culture through engaging training modules, phishing simulations, and continuous security education programs.',
+      features: [
+        'Interactive Security Training Modules',
+        'Phishing Simulation Campaigns',
+        'Compliance Training & Certification',
+        'Real-time Progress Tracking & Analytics'
+      ],
+      highlight: 'Transform your employees from security risks to security champions with gamified learning',
+      cta: 'Brighten your security posture with Sunshine!'
+    },
+    {
       id: 'transgrc',
       icon: <FaLeaf />,
-      title: 'TransGRC-ESG',
+      title: 'TransGRC',
       gradient: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
       description: 'TransGRC: Your All-in-One Compliance Dashboard. Ensure peace of mind with TransGRC, a comprehensive compliance management solution designed to streamline your security posture. Automate tasks, centralize data, and gain complete visibility into your compliance efforts, all within a user-friendly platform.',
       features: [
@@ -306,6 +321,30 @@ const CyberSecurityProducts = () => {
       ],
       highlight: 'Multi Tenant solution with Dashboard, compliance status, HO & Plant grouping, supply chain interlinkage and Auditors feedback. Editable Report with Visualization',
       cta: 'Sign up today and be among the first to revolutionize your Compliance approach!'
+    },
+    {
+      id: 'vrma',
+      icon: <FaNetworkWired />,
+      title: 'VRMA',
+      gradient: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
+      description: 'V.R.M.A: Streamline Your Vulnerability Remediation. Conquer your Vulnerability Remediation backlog with V.R.M.A! This powerful Vulnerability Remediation Management Application, empowers you to streamline the entire remediation process, saving you time, resources, and stress.',
+      subtitle: 'V.R.M.A offers a robust feature set built to simplify vulnerability management and expedite remediation.',
+      features: [
+        'Centralize Vulnerability Data',
+        'Prioritize Threats Effectively',
+        'Track Remediation Progress',
+        'Collaborate Seamlessly',
+        'Generate Comprehensive Reports'
+      ],
+      benefits: [
+        'Reduced Risk',
+        'Improved Efficiency',
+        'Enhanced Visibility',
+        'Simplified Compliance',
+        'Reduce Overall Cost'
+      ],
+      highlight: 'V.R.M.A: Take Control of Your Vulnerability Remediation Today!',
+      cta: 'Ready to transform your vulnerability remediation process? V.R.M.A offers a powerful and user-friendly solution that simplifies every step. Contact TransAsia Soft Tech Pvt. Ltd today to learn more and request a demo!'
     },
     {
       id: 'huntercat',
@@ -335,76 +374,31 @@ const CyberSecurityProducts = () => {
       cta: 'Sign up today and be among the first to revolutionize your Compliance approach!'
     },
     {
-      id: 'sunshine',
-      icon: <FaSun />,
-      title: 'Sunshine',
-      gradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
-      description: 'Comprehensive security awareness and training platform. Sunshine illuminates your organization\'s security culture through engaging training modules, phishing simulations, and continuous security education programs.',
-      features: [
-        'Interactive Security Training Modules',
-        'Phishing Simulation Campaigns',
-        'Compliance Training & Certification',
-        'Real-time Progress Tracking & Analytics'
-      ],
-      highlight: 'Transform your employees from security risks to security champions with gamified learning',
-      cta: 'Brighten your security posture with Sunshine!'
-    },
-    {
-      id: 'rudra',
+      id: 'blacknet',
       icon: <FaBolt />,
-      title: 'R.U.D.R.A',
-      gradient: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
-      description: 'R.U.D.R.A: Rapid Unified Digital Risk Assessment Dashboard. The R.U.D.R.A dashboard provides a comprehensive overview of your organization\'s digital risk posture, integrating critical security assessments into a single, unified view.',
+      title: 'BlackNet',
+      gradient: 'linear-gradient(135deg, #1e1e1e 0%, #000000 100%)',
+      description: 'BlackNet: Advanced Dark Web Monitoring and Threat Intelligence Platform. BlackNet provides comprehensive monitoring of the deep and dark web to identify data breaches, stolen credentials, and emerging threats targeting your organization. Stay ahead of cyber criminals with real-time alerts and actionable intelligence.',
+      subtitle: 'BlackNet empowers organizations with proactive threat intelligence from the hidden corners of the internet.',
       features: [
-        'Cyber Risk Quantification',
-        'Deep Dark Web Data Breach Assessment',
-        'External Threat Assessment'
+        'Continuous Dark Web Monitoring',
+        'Real-time Breach Notifications',
+        'Stolen Credential Detection',
+        'Threat Actor Tracking',
+        'Compromised Asset Discovery',
+        'Intelligence Reporting & Analytics',
+        'Automated Alert System',
+        'Integration with Security Tools'
       ],
       benefits: [
-        'Consolidated View of Overall Risk',
-        'Take Data-Driven Decisions',
-        'Improved Threat Detection'
+        'Early Breach Detection',
+        'Proactive Threat Prevention',
+        'Reduced Incident Response Time',
+        'Enhanced Security Posture',
+        'Regulatory Compliance Support'
       ],
-      dashboardComponents: [
-        {
-          title: 'Cyber Risk Quantification',
-          items: ['Overall Risk Score', 'Risk Breakdown by Asset', 'Top Risk Contributors']
-        },
-        {
-          title: 'Deep Dark Web Data Breach Assessment',
-          items: ['Exposed Data', 'Identify Exposed End Point', 'Actionable Insights']
-        },
-        {
-          title: 'External Threat Assessment',
-          items: ['Threat Landscape Overview', 'Emerging Threats', 'Threat Mitigation Strategies']
-        }
-      ],
-      highlight: 'R.U.D.R.A empowers you to make informed decisions about your organization\'s cybersecurity posture, enabling you to proactively manage digital risks and protect your valuable assets',
-      cta: 'Deploy R.U.D.R.A and transform your risk management!'
-    },
-    {
-      id: 'vrma',
-      icon: <FaNetworkWired />,
-      title: 'V.R.M.A',
-      gradient: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
-      description: 'V.R.M.A: Streamline Your Vulnerability Remediation. Conquer your Vulnerability Remediation backlog with V.R.M.A! This powerful Vulnerability Remediation Management Application, empowers you to streamline the entire remediation process, saving you time, resources, and stress.',
-      subtitle: 'V.R.M.A offers a robust feature set built to simplify vulnerability management and expedite remediation.',
-      features: [
-        'Centralize Vulnerability Data',
-        'Prioritize Threats Effectively',
-        'Track Remediation Progress',
-        'Collaborate Seamlessly',
-        'Generate Comprehensive Reports'
-      ],
-      benefits: [
-        'Reduced Risk',
-        'Improved Efficiency',
-        'Enhanced Visibility',
-        'Simplified Compliance',
-        'Reduce Overall Cost'
-      ],
-      highlight: 'V.R.M.A: Take Control of Your Vulnerability Remediation Today!',
-      cta: 'Ready to transform your vulnerability remediation process? V.R.M.A offers a powerful and user-friendly solution that simplifies every step. Contact TransAsia Soft Tech Pvt. Ltd today to learn more and request a demo!'
+      highlight: 'BlackNet scours the dark web 24/7 to identify and alert you about threats before they impact your organization',
+      cta: 'Protect your organization with BlackNet\'s advanced threat intelligence. Contact us today for a comprehensive demo!'
     }
   ];
 
@@ -614,77 +608,7 @@ const CyberSecurityProducts = () => {
                       </>
                     )}
 
-                    {product.id === 'rudra' && (
-                      <>
-                        <h4 style={{ fontSize: '1.4rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '20px' }}>
-                          Key Features:
-                        </h4>
-                        <FeaturesList>
-                          {product.features.map((feature, idx) => (
-                            <FeatureItem
-                              key={idx}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: idx * 0.1 }}
-                            >
-                              <FeatureNumber>{idx + 1}</FeatureNumber>
-                              <FeatureText>{feature}</FeatureText>
-                            </FeatureItem>
-                          ))}
-                        </FeaturesList>
-
-                        <h4 style={{ fontSize: '1.4rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '20px', marginTop: '40px' }}>
-                          Benefits:
-                        </h4>
-                        <FeaturesList>
-                          {product.benefits.map((benefit, idx) => (
-                            <FeatureItem
-                              key={idx}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: idx * 0.08 }}
-                            >
-                              <FeatureNumber>{idx + 1}</FeatureNumber>
-                              <FeatureText>{benefit}</FeatureText>
-                            </FeatureItem>
-                          ))}
-                        </FeaturesList>
-
-                        <h4 style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '24px', marginTop: '40px' }}>
-                          Dashboard Components:
-                        </h4>
-                        {product.dashboardComponents.map((component, idx) => (
-                          <div key={idx} style={{ marginBottom: '30px' }}>
-                            <h5 style={{ fontSize: '1.2rem', fontWeight: '700', color: 'var(--primary-color)', marginBottom: '16px' }}>
-                              {idx + 1}. {component.title}:
-                            </h5>
-                            <div style={{ display: 'grid', gap: '12px', paddingLeft: '20px' }}>
-                              {component.items.map((item, itemIdx) => (
-                                <div key={itemIdx} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                                  <FaCheckCircle style={{ fontSize: '1.2rem', color: 'var(--primary-color)', flexShrink: 0 }} />
-                                  <span style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', lineHeight: '1.7' }}>{item}</span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-
-                        <Highlight>
-                          {product.highlight}
-                        </Highlight>
-
-                        <div style={{ textAlign: 'center' }}>
-                          <CTAButton
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <FaRocket /> {product.cta}
-                          </CTAButton>
-                        </div>
-                      </>
-                    )}
-
-                    {(product.id === 'vrma' || product.id === 'sunshine') && (
+                    {(product.id === 'vrma' || product.id === 'sunshine' || product.id === 'blacknet') && (
                       <>
                         {product.subtitle && (
                           <p style={{ fontSize: '1.15rem', color: 'var(--text-primary)', lineHeight: '1.8', marginBottom: '30px', fontWeight: '600' }}>
@@ -693,7 +617,7 @@ const CyberSecurityProducts = () => {
                         )}
 
                         <h4 style={{ fontSize: '1.4rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '20px' }}>
-                          {product.id === 'vrma' ? 'V.R.M.A empowers you to:' : 'Key Features:'}
+                          {product.id === 'vrma' ? 'V.R.M.A empowers you to:' : product.id === 'blacknet' ? 'Key Features:' : 'Key Features:'}
                         </h4>
                         <FeaturesList>
                           {product.features.map((feature, idx) => (

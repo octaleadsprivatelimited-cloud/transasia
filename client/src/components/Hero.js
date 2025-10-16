@@ -84,8 +84,8 @@ const SlideDescription = styled(motion.p)`
 
 const SlideButton = styled(motion.button)`
   padding: 18px 40px;
-  background: #ffffff;
-  color: #1e3a8a;
+  background: #fbbf24;
+  color: #000000;
   border: none;
   border-radius: 8px;
   font-size: 1.05rem;
@@ -95,12 +95,12 @@ const SlideButton = styled(motion.button)`
   align-items: center;
   gap: 10px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 20px rgba(251, 191, 36, 0.4);
 
   &:hover {
-    background: #f8fafc;
+    background: #fcd34d;
     transform: translateX(5px);
-    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 30px rgba(251, 191, 36, 0.6);
   }
 
   @media (max-width: 768px) {

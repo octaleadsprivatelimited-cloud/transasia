@@ -343,7 +343,7 @@ const MegaLabel = styled.div`
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px) saturate(180%);
-  color: var(--text-primary);
+  color: #1e3a8a;
   font-weight: 700;
   font-size: 15px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
@@ -353,6 +353,7 @@ const MegaLabel = styled.div`
   ${MegaCard}:hover & {
     transform: translateY(-4px);
     background: rgba(255, 255, 255, 1);
+    color: #1e40af;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
   }
 `;
@@ -494,83 +495,6 @@ const Header = () => {
           <NavLink to="/services" onClick={closeMenu}>Services</NavLink>
 
           <Dropdown>
-            <NavLink to="#" onClick={(e) => { e.preventDefault(); setActiveMenu(activeMenu === 'solutions' ? '' : 'solutions'); }}>
-              Solutions
-              <FaChevronDown size={12} />
-            </NavLink>
-            <DropdownContent className="dropdown-content" $open={activeMenu === 'solutions'} $blue initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-              <MegaContainer>
-                <MegaHeader>
-                  <div>
-                    <MegaTitle>Enterprise Security Solutions</MegaTitle>
-                    <MegaSubtitle>Explore by industry and use case. Rich visuals help you decide faster.</MegaSubtitle>
-                  </div>
-                  <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'12px'}}>
-                    <DropdownItem to="/solutions/ransomware" onClick={closeMenu}>Ransomware Readiness</DropdownItem>
-                    <DropdownItem to="/solutions/zero-trust" onClick={closeMenu}>Zero Trust Architecture</DropdownItem>
-                    <DropdownItem to="/solutions/cloud-security" onClick={closeMenu}>Cloud Security</DropdownItem>
-                    <DropdownItem to="/solutions/data-protection" onClick={closeMenu}>Data Protection</DropdownItem>
-                  </div>
-                </MegaHeader>
-                <MegaGrid
-                  initial="hidden"
-                  animate={activeMenu === 'solutions' ? "visible" : "hidden"}
-                  variants={{
-                    visible: { transition: { staggerChildren: 0.08 } },
-                    hidden: { transition: { staggerChildren: 0.05, staggerDirection: -1 } }
-                  }}
-                >
-                  <MegaCard 
-                    to="/solutions/financial-services" 
-                    variants={{
-                      hidden: { opacity: 0, y: 20, scale: 0.9 },
-                      visible: { opacity: 1, y: 0, scale: 1 }
-                    }}
-                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                  >
-                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?q=80&w=1200')`}} />
-                    <MegaLabel>Financial Services</MegaLabel>
-                  </MegaCard>
-                  <MegaCard 
-                    to="/solutions/healthcare"
-                    variants={{
-                      hidden: { opacity: 0, y: 20, scale: 0.9 },
-                      visible: { opacity: 1, y: 0, scale: 1 }
-                    }}
-                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                  >
-                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=1200')`}} />
-                    <MegaLabel>Healthcare</MegaLabel>
-                  </MegaCard>
-                  <MegaCard 
-                    to="/solutions/technology"
-                    variants={{
-                      hidden: { opacity: 0, y: 20, scale: 0.9 },
-                      visible: { opacity: 1, y: 0, scale: 1 }
-                    }}
-                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                  >
-                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200')`}} />
-                    <MegaLabel>Technology</MegaLabel>
-                  </MegaCard>
-                  <MegaCard 
-                    to="/solutions/manufacturing"
-                    variants={{
-                      hidden: { opacity: 0, y: 20, scale: 0.9 },
-                      visible: { opacity: 1, y: 0, scale: 1 }
-                    }}
-                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                  >
-                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200')`}} />
-                    <MegaLabel>Manufacturing</MegaLabel>
-                  </MegaCard>
-                </MegaGrid>
-              </MegaContainer>
-            </DropdownContent>
-          </Dropdown>
-
-
-          <Dropdown>
             <NavLink to="#" onClick={(e) => { e.preventDefault(); setActiveMenu(activeMenu === 'company' ? '' : 'company'); }}>
               Company
               <FaChevronDown size={12} />
@@ -580,7 +504,7 @@ const Header = () => {
                 <MegaHeader>
                   <div>
                     <MegaTitle>About TransAsia</MegaTitle>
-                    <MegaSubtitle>Learn more about our company, team, and opportunities to join us.</MegaSubtitle>
+                    <MegaSubtitle>Learn more about our company, team, and stories.</MegaSubtitle>
                   </div>
                 </MegaHeader>
                 <MegaGrid 
@@ -593,42 +517,6 @@ const Header = () => {
                   }}
                 >
                   <MegaCard 
-                    to="/about" 
-                    onClick={closeMenu}
-                    variants={{
-                      hidden: { opacity: 0, y: 20, scale: 0.9 },
-                      visible: { opacity: 1, y: 0, scale: 1 }
-                    }}
-                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                  >
-                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200')`}} />
-                    <MegaLabel>About Us</MegaLabel>
-                  </MegaCard>
-                  <MegaCard 
-                    to="/team" 
-                    onClick={closeMenu}
-                    variants={{
-                      hidden: { opacity: 0, y: 20, scale: 0.9 },
-                      visible: { opacity: 1, y: 0, scale: 1 }
-                    }}
-                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                  >
-                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200')`}} />
-                    <MegaLabel>Our Team</MegaLabel>
-                  </MegaCard>
-                  <MegaCard 
-                    to="/careers" 
-                    onClick={closeMenu}
-                    variants={{
-                      hidden: { opacity: 0, y: 20, scale: 0.9 },
-                      visible: { opacity: 1, y: 0, scale: 1 }
-                    }}
-                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                  >
-                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1200')`}} />
-                    <MegaLabel>Careers</MegaLabel>
-                  </MegaCard>
-                  <MegaCard 
                     to="/press" 
                     onClick={closeMenu}
                     variants={{
@@ -638,7 +526,7 @@ const Header = () => {
                     transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
                   >
                     <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1200')`}} />
-                    <MegaLabel>Press Release</MegaLabel>
+                    <MegaLabel>Media</MegaLabel>
                   </MegaCard>
                   <MegaCard 
                     to="/gallery" 
@@ -650,10 +538,34 @@ const Header = () => {
                     transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
                   >
                     <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200')`}} />
-                    <MegaLabel>Gallery</MegaLabel>
+                    <MegaLabel>Event Gallery</MegaLabel>
                   </MegaCard>
                   <MegaCard 
-                    to="/blog" 
+                    to="/about" 
+                    onClick={closeMenu}
+                    variants={{
+                      hidden: { opacity: 0, y: 20, scale: 0.9 },
+                      visible: { opacity: 1, y: 0, scale: 1 }
+                    }}
+                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  >
+                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200')`}} />
+                    <MegaLabel>Our Story</MegaLabel>
+                  </MegaCard>
+                  <MegaCard 
+                    to="/team" 
+                    onClick={closeMenu}
+                    variants={{
+                      hidden: { opacity: 0, y: 20, scale: 0.9 },
+                      visible: { opacity: 1, y: 0, scale: 1 }
+                    }}
+                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  >
+                    <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200')`}} />
+                    <MegaLabel>Team</MegaLabel>
+                  </MegaCard>
+                  <MegaCard 
+                    to="/insights" 
                     onClick={closeMenu}
                     variants={{
                       hidden: { opacity: 0, y: 20, scale: 0.9 },
@@ -662,28 +574,10 @@ const Header = () => {
                     transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
                   >
                     <MegaImage style={{backgroundImage:`url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=1200')`}} />
-                    <MegaLabel>Blog</MegaLabel>
+                    <MegaLabel>Articles/Blogs</MegaLabel>
                   </MegaCard>
                 </MegaGrid>
               </MegaContainer>
-            </DropdownContent>
-          </Dropdown>
-
-          <Dropdown>
-            <NavLink to="#" onClick={(e) => { e.preventDefault(); setActiveMenu(activeMenu === 'support' ? '' : 'support'); }}>
-              Support
-              <FaChevronDown size={12} />
-            </NavLink>
-            <DropdownContent className="dropdown-content" $open={activeMenu === 'support'}>
-              <DropdownGrid>
-                <DropdownItem to="/support/help-center" onClick={closeMenu}>Help Center</DropdownItem>
-                <DropdownItem to="/support/status" onClick={closeMenu}>Status</DropdownItem>
-                <DropdownItem to="/support/security" onClick={closeMenu}>Security</DropdownItem>
-                <DropdownItem to="/support/trust-center" onClick={closeMenu}>Trust Center</DropdownItem>
-                <DropdownItem to="/support/legal/privacy" onClick={closeMenu}>Privacy</DropdownItem>
-                <DropdownItem to="/support/legal/terms" onClick={closeMenu}>Terms</DropdownItem>
-                <DropdownItem to="/support/legal/cookies" onClick={closeMenu}>Cookies</DropdownItem>
-              </DropdownGrid>
             </DropdownContent>
           </Dropdown>
         </NavMenu>

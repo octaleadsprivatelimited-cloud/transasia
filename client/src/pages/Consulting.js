@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { 
-  FaLeaf, FaChartLine, FaUserShield, FaHandshake, FaArrowRight, FaPlay
+  FaUserShield, FaHandshake, FaArrowRight, FaPlay, FaLock, FaGraduationCap, FaClipboardCheck
 } from 'react-icons/fa';
 
 const float = keyframes`
@@ -707,61 +707,78 @@ const CTAButton = styled(motion.button)`
 const Consulting = () => {
   const services = [
     {
-      icon: <FaLeaf />,
-      title: 'ESG Consulting',
-      description: 'Comprehensive Environment, Social & Governance risk assessment and mitigation',
-      gradient: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+      icon: <FaUserShield />,
+      title: 'Consulting',
+      description: 'Strategic cybersecurity consulting services tailored to your business needs. Expert guidance on security posture, compliance, and risk management.',
+      gradient: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)',
       span: 'span 6',
       height: '500px',
       items: [
-        'BRSR Assessment & Regulatory Compliance',
-        'Beyond BRSR Evaluation',
-        'Risk Ratings & Quantification',
-        'ESG Exposure Evaluation',
-        'Mitigation Strategy & Implementation'
+        'Security Architecture Review',
+        'Compliance Strategy Development',
+        'Risk Assessment & Analysis',
+        'Security Program Development',
+        'Executive Advisory Services'
       ]
     },
     {
-      icon: <FaChartLine />,
-      title: 'Enterprise Risk',
-      description: 'Strategic risk identification and comprehensive assessment framework',
-      gradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+      icon: <FaLock />,
+      title: 'Anti-Ransomware',
+      description: 'Specialized ransomware readiness assessment and defense strategies. Protect your organization from devastating ransomware attacks with proactive measures.',
+      gradient: 'linear-gradient(135deg, #2563eb 0%, #1e40af 100%)',
       span: 'span 6',
       height: '500px',
       items: [
-        'Senior Management Workshops',
-        'Historical Data Analysis',
-        'Risk Identification & Mapping',
-        'Consequence Analysis',
-        'Probability Assessment'
+        'Ransomware Risk Assessment',
+        'Attack Simulation & Testing',
+        'Backup & Recovery Planning',
+        'Incident Response Preparation',
+        'Employee Awareness Training'
+      ]
+    },
+    {
+      icon: <FaGraduationCap />,
+      title: 'Training',
+      description: 'Comprehensive cybersecurity training programs for all skill levels. Transform your team into security champions with hands-on, practical training.',
+      gradient: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+      span: 'span 6',
+      height: '500px',
+      items: [
+        'Security Awareness Training',
+        'Phishing Simulation Campaigns',
+        'Technical Security Training',
+        'Compliance Training Programs',
+        'Custom Training Development'
+      ]
+    },
+    {
+      icon: <FaClipboardCheck />,
+      title: 'GRC',
+      description: 'Governance, Risk, and Compliance solutions to streamline your security operations. Automate compliance, manage risks, and improve governance.',
+      gradient: 'linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%)',
+      span: 'span 6',
+      height: '500px',
+      items: [
+        'Compliance Management',
+        'Policy & Procedure Development',
+        'Vendor Risk Management',
+        'Audit Support & Reporting',
+        'GRC Platform Implementation'
       ]
     },
     {
       icon: <FaHandshake />,
-      title: 'Cyber Insurance',
-      description: 'Policy alignment and coverage optimization for comprehensive protection',
-      gradient: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
-      span: 'span 7',
+      title: 'Risk Transfer',
+      description: 'Cyber insurance advisory and risk transfer strategies. Optimize coverage and protect your organization from financial impacts of cyber incidents.',
+      gradient: 'linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)',
+      span: 'span 12',
       height: '450px',
       items: [
-        'Forensic Investigation Coverage',
-        'Business Interruption Protection',
-        'Regulatory Fines & Penalties',
-        'Risk Consequence Analysis'
-      ]
-    },
-    {
-      icon: <FaUserShield />,
-      title: 'Cyber Forensics',
-      description: 'Expert incident response and investigation services',
-      gradient: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
-      span: 'span 5',
-      height: '450px',
-      items: [
-        'Attack Source Identification',
-        'Evidence Collection',
-        'Ransomware Negotiation',
-        'Security Posture Improvement'
+        'Cyber Insurance Policy Review',
+        'Coverage Gap Analysis',
+        'Risk Quantification for Insurance',
+        'Claims Support & Management',
+        'Insurance Broker Coordination'
       ]
     }
   ];

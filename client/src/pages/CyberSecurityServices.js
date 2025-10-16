@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  FaUserShield, FaRocket, FaLaptopCode, FaServer, FaRobot, FaLock, FaDatabase, FaSearch, FaGraduationCap, FaCheckCircle, FaArrowRight
+  FaUserShield, FaRocket, FaLaptopCode, FaServer, FaSearch, FaCheckCircle, FaArrowRight
 } from 'react-icons/fa';
 
 const float = keyframes`
@@ -571,7 +571,7 @@ const CyberSecurityServices = () => {
     {
       id: 'red-team',
       icon: <FaUserShield />,
-      title: 'Red Team',
+      title: 'Red-team',
       fullTitle: 'Red Team Assessment',
       description: 'Red teaming is a security assessment methodology where a team acts like an adversary, attempting to bypass your defenses and achieve specific objectives. Unlike penetration testing that focuses on vulnerabilities, red teaming mimics the tactics, techniques, and procedures (TTPs) of real-world attackers. This approach provides a more holistic view of your security posture, identifying not just exploitable vulnerabilities but also weaknesses in detection, response, and recovery capabilities.',
       methodology: {
@@ -595,7 +595,7 @@ const CyberSecurityServices = () => {
     {
       id: 'app-security',
       icon: <FaLaptopCode />,
-      title: 'App Security',
+      title: 'App-Sec',
       fullTitle: 'Application Security Assessment',
       description: 'An Application Security Assessment (ASA) is a systematic process of identifying, evaluating, and documenting vulnerabilities in software applications. It plays a crucial role in protecting applications from cyberattacks and data breaches. This assessment uses the Open Web Application Security Project (OWASP) Testing Guide methodology to ensure comprehensive coverage of potential security issues.',
       methodology: {
@@ -620,8 +620,8 @@ const CyberSecurityServices = () => {
     {
       id: 'infrastructure',
       icon: <FaServer />,
-      title: 'Infrastructure',
-      fullTitle: 'Infrastructure Security Assessment',
+      title: 'Infra VAPT',
+      fullTitle: 'Infrastructure Vulnerability Assessment & Penetration Testing',
       description: 'An Infrastructure Security Assessment (ISA) is a comprehensive evaluation of an organization\'s IT infrastructure to identify vulnerabilities, security misconfigurations, and potential attack vectors. It plays a crucial role in safeguarding critical systems and data from cyber threats. This assessment draws upon methodologies from frameworks like NIST and penetration testing to provide a robust security posture.',
       methodology: {
         title: 'NIST Framework Methodology',
@@ -639,78 +639,6 @@ const CyberSecurityServices = () => {
         { title: 'Regulatory Compliance', desc: 'Meet industry standards and regulatory requirements' },
         { title: 'Proactive Risk Management', desc: 'Identify and address risks before they become incidents' },
         { title: 'Enhanced Decision-making', desc: 'Make informed security investments based on real data' }
-      ]
-    },
-    {
-      id: 'ot-iot',
-      icon: <FaRobot />,
-      title: 'OT & IoT',
-      fullTitle: 'OT and IoT Cyber Assessments',
-      description: 'OT and IoT cyber assessments are crucial for understanding and mitigating the risks associated with these interconnected systems. Operational Technology (OT) systems control physical processes in industrial environments, while IoT devices form a vast network of interconnected sensors and devices. Both are increasingly connected to the internet, expanding their attack surface and requiring specialized security assessments.',
-      methodology: {
-        title: 'Key Areas of OT/IoT Assessment',
-        subtitle: 'Comprehensive evaluation covering six critical areas:',
-        items: [
-          { title: 'Asset Discovery', desc: 'Identify all devices and systems within the OT/IoT environment and understand their criticality' },
-          { title: 'Vulnerability Assessment', desc: 'Identify and prioritize known vulnerabilities in devices, software, and firmware' },
-          { title: 'Threat Modeling', desc: 'Analyze potential threats, attack vectors, and consider insider threats' },
-          { title: 'Risk Assessment', desc: 'Evaluate the likelihood and impact of potential security incidents' },
-          { title: 'Security Controls', desc: 'Assess the effectiveness of firewalls, IDS, and access controls' },
-          { title: 'Compliance Review', desc: 'Ensure compliance with NIST, NERC CIP, and other relevant standards' }
-        ]
-      },
-      benefits: [
-        { title: 'Critical Infrastructure Protection', desc: 'Safeguard essential systems from cyber threats' },
-        { title: 'Operational Safety', desc: 'Prevent disruptions that could cause safety hazards' },
-        { title: 'Compliance Assurance', desc: 'Meet mandatory regulatory requirements' },
-        { title: 'Reduced Attack Surface', desc: 'Minimize exposure to potential cyber attacks' }
-      ]
-    },
-    {
-      id: 'anti-ransomware',
-      icon: <FaLock />,
-      title: 'Anti-Ransomware',
-      fullTitle: 'Anti-Ransomware Readiness Assessment',
-      description: 'Ransomware Attacks pose a significant threat to organizations, disrupting operations and causing financial losses. To effectively combat this threat, a standard Vulnerability Assessment and Penetration Testing (VAPT) might not be sufficient. An Anti-Ransomware Readiness Assessment (ARRA) leverages the MITRE ATT&CK framework to provide a targeted assessment that simulates real-world ransomware attacks.',
-      methodology: {
-        title: 'ARRA Methodology based on MITRE ATT&CK',
-        subtitle: 'An ARRA leverages MITRE ATT&CK for targeted ransomware simulation:',
-        items: [
-          { title: 'Preparation', desc: 'Define scope and identify critical assets that need ransomware protection' },
-          { title: 'Emulation', desc: 'Simulate ransomware tactics and techniques based on real-world attack patterns' },
-          { title: 'Detection and Response', desc: 'Test detection capabilities and incident response procedures' },
-          { title: 'Remediation Suggestions', desc: 'Provide prioritized recommendations to mitigate ransomware risk' }
-        ]
-      },
-      benefits: [
-        { title: 'Targeted Ransomware Focus', desc: 'Specifically address ransomware attack methods' },
-        { title: 'Real-world Attack Simulation', desc: 'Experience how ransomware operators would attack' },
-        { title: 'Tests People, Processes & Technology', desc: 'Holistic evaluation of your entire security ecosystem' },
-        { title: 'Prioritized Recommendations', desc: 'Get actionable steps ranked by impact' }
-      ]
-    },
-    {
-      id: 'data-breach',
-      icon: <FaDatabase />,
-      title: 'Data Breach',
-      fullTitle: 'Deep Dark Web Data Breach Assessment',
-      description: 'The Deep and Dark Web are hidden corners of the internet not indexed by traditional search engines. These spaces can harbor criminal activity, including the sale of stolen data from data breaches. Organizations that have experienced a data breach can leverage deep dark web monitoring to assess the scope of the breach and potential impact. This assessment can then be mapped to the MITRE ATT&CK framework to understand the tactics and techniques attackers might use with the stolen data.',
-      methodology: {
-        title: 'Deep Dark Web Monitoring Process',
-        subtitle: 'Comprehensive monitoring and analysis of compromised data:',
-        items: [
-          { title: 'Identify Data Leaks', desc: 'Monitor hidden marketplaces and forums for your organization\'s data' },
-          { title: 'Gauge Breach Severity', desc: 'Assess the type, volume, and sensitivity of data compromised' },
-          { title: 'Track Attacker Activity', desc: 'Monitor attacker discussions and sale of stolen credentials' },
-          { title: 'Map TTPs to Data', desc: 'Map findings to MITRE ATT&CK to understand exploitation methods' },
-          { title: 'Develop Mitigation', desc: 'Create actionable plans to address identified risks' }
-        ]
-      },
-      benefits: [
-        { title: 'Improved Threat Intelligence', desc: 'Gain insights into attacker goals and methods' },
-        { title: 'Proactive Defense', desc: 'Take action before stolen data is weaponized' },
-        { title: 'Targeted Incident Response', desc: 'Focus response efforts on actual threats' },
-        { title: 'Early Warning System', desc: 'Detect breaches before significant damage occurs' }
       ]
     },
     {
@@ -735,30 +663,6 @@ const CyberSecurityServices = () => {
         { title: 'Focus on Threats', desc: 'Concentrate on actual security events and their impact' },
         { title: 'Flexibility', desc: 'Adapt methodology to different types of incidents' },
         { title: 'Community Resources', desc: 'Leverage industry best practices and tools' }
-      ]
-    },
-    {
-      id: 'training',
-      icon: <FaGraduationCap />,
-      title: 'Training',
-      fullTitle: 'Cyber Security Training',
-      description: 'In today\'s digital age, cyber threats are constantly evolving. Equipping your employees with the knowledge and skills to combat these threats is no longer optional, it\'s essential. TransAsia Soft Tech offers comprehensive customized Cybersecurity Training Programs designed to address the unique needs of your organization and build a strong security culture.',
-      methodology: {
-        title: 'Customized Training Approach',
-        subtitle: 'Our training methodology ensures maximum effectiveness:',
-        items: [
-          { title: 'Needs Assessment', desc: 'Evaluate current security awareness levels and identify specific knowledge gaps' },
-          { title: 'Content Development', desc: 'Create targeted training materials specific to your organization\'s risks and industry' },
-          { title: 'Delivery Options', desc: 'Choose from online, in-person, or hybrid training formats that fit your schedule' },
-          { title: 'Hands-on Exercises', desc: 'Practice responding to simulated security incidents in a safe environment' },
-          { title: 'Assessment & Certification', desc: 'Measure learning outcomes and provide completion certificates' }
-        ]
-      },
-      benefits: [
-        { title: 'Reduced Risk of Cyberattacks', desc: 'Empower employees to identify and prevent security threats' },
-        { title: 'Improved Data Security', desc: 'Build awareness of data protection best practices' },
-        { title: 'Enhanced Compliance', desc: 'Meet training requirements for security regulations' },
-        { title: 'Increased Productivity', desc: 'Reduce time lost to security incidents and recovery' }
       ]
     }
   ];

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { FaCalendar, FaUser, FaClock, FaArrowRight, FaSearch } from 'react-icons/fa';
+import { FaCalendar, FaClock, FaArrowRight, FaSearch } from 'react-icons/fa';
 
 const PageContainer = styled.div`
   min-height: 100vh;

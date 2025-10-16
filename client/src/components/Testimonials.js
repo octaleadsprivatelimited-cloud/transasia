@@ -83,13 +83,24 @@ const CarouselContainer = styled.div`
 `;
 
 const TestimonialCard = styled(motion.div)`
-  background: rgba(30, 58, 138, 0.3);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(30px);
-  border: 1px solid rgba(59, 130, 246, 0.3);
-  border-radius: 12px;
+  border: 2px solid #fbbf24;
+  border-radius: 16px;
   padding: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
   position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #fbbf24 0%, #3b82f6 100%);
+    border-radius: 16px 16px 0 0;
+  }
 
   @media (max-width: 768px) {
     padding: 15px 10px;
@@ -100,25 +111,25 @@ const QuoteIcon = styled.div`
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.9rem;
   color: white;
   margin: 0 auto 15px;
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+  box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4);
   animation: ${float} 3s ease-in-out infinite;
 `;
 
 const TestimonialText = styled.p`
   font-size: 0.75rem;
   line-height: 1.6;
-  color: white;
+  color: #1e3a8a;
   text-align: center;
   margin-bottom: 20px;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
 
   @media (max-width: 768px) {
     font-size: 0.6rem;
@@ -143,21 +154,21 @@ const AuthorSection = styled.div`
   justify-content: center;
   gap: 10px;
   padding-top: 15px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid #e5e7eb;
 `;
 
 const AuthorAvatar = styled.div`
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #1e3a8a 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.9rem;
   font-weight: 700;
   color: white;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
 `;
 
 const AuthorInfo = styled.div`
@@ -167,18 +178,18 @@ const AuthorInfo = styled.div`
 const AuthorName = styled.div`
   font-size: 0.6rem;
   font-weight: 700;
-  color: white;
+  color: #1e3a8a;
   margin-bottom: 2px;
 `;
 
 const AuthorTitle = styled.div`
   font-size: 0.5rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: #64748b;
 `;
 
 const AuthorCompany = styled.div`
   font-size: 0.48rem;
-  color: #60a5fa;
+  color: #3b82f6;
   font-weight: 600;
 `;
 
@@ -193,9 +204,9 @@ const NavButton = styled.button`
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: rgba(59, 130, 246, 0.2);
+  background: #fbbf24;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(59, 130, 246, 0.4);
+  border: 1px solid #fbbf24;
   color: white;
   font-size: 0.65rem;
   cursor: pointer;
@@ -203,11 +214,13 @@ const NavButton = styled.button`
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
 
   &:hover {
-    background: rgba(59, 130, 246, 0.4);
-    border-color: rgba(59, 130, 246, 0.6);
+    background: #f59e0b;
+    border-color: #f59e0b;
     transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(251, 191, 36, 0.4);
   }
 
   &:disabled {
