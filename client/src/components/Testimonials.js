@@ -246,6 +246,51 @@ const Testimonials = () => {
       rating: 5,
       initials: "DP",
       bgColor: "linear-gradient(135deg, #ec4899 0%, #f472b6 100%)"
+    },
+    {
+      text: "TransAsia's cyber risk quantification has been instrumental in our digital transformation journey. Their platform provides real-time insights that help us stay ahead of emerging threats. Exceptional service and expertise!",
+      author: "Rajesh Kumar",
+      role: "Chief Technology Officer",
+      company: "Leading Indian Conglomerate",
+      rating: 5,
+      initials: "RK",
+      bgColor: "linear-gradient(135deg, #10b981 0%, #34d399 100%)"
+    },
+    {
+      text: "The comprehensive vulnerability assessment and penetration testing services have significantly improved our security posture. TransAsia's team is highly professional and delivers results that matter. Highly recommend their services!",
+      author: "Priya Sharma",
+      role: "Head of Information Security",
+      company: "Mumbai Financial Services",
+      rating: 5,
+      initials: "PS",
+      bgColor: "linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)"
+    },
+    {
+      text: "Working with TransAsia has given us confidence in our cybersecurity strategy. Their risk management framework is comprehensive and their support team is always available. Best decision we made for our organization!",
+      author: "Amit Patel",
+      role: "VP of Operations",
+      company: "Tech Solutions India",
+      rating: 5,
+      initials: "AP",
+      bgColor: "linear-gradient(135deg, #06b6d4 0%, #22d3ee 100%)"
+    },
+    {
+      text: "TransAsia's GRC platform has streamlined our compliance processes and made audits much easier. Their expertise in the Indian regulatory landscape is invaluable. Outstanding partnership!",
+      author: "Sneha Reddy",
+      role: "Compliance Director",
+      company: "Bangalore IT Services",
+      rating: 5,
+      initials: "SR",
+      bgColor: "linear-gradient(135deg, #a855f7 0%, #c084fc 100%)"
+    },
+    {
+      text: "The dark web monitoring and threat intelligence services have helped us prevent multiple potential breaches. TransAsia's proactive approach to security is exactly what we needed. Fantastic team and technology!",
+      author: "Vikram Singh",
+      role: "Security Operations Lead",
+      company: "Delhi Enterprise Solutions",
+      rating: 5,
+      initials: "VS",
+      bgColor: "linear-gradient(135deg, #ef4444 0%, #f87171 100%)"
     }
   ];
 
