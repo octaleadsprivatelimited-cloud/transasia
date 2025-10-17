@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { 
@@ -12,52 +12,15 @@ import {
   FaCheckCircle
 } from 'react-icons/fa';
 
-const float = keyframes`
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
-`;
-
-const pulse = keyframes`
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
-`;
-
-const shimmer = keyframes`
-  0% { background-position: -1000px 0; }
-  100% { background-position: 1000px 0; }
-`;
-
-const rotate = keyframes`
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-`;
 
 const SolutionsContainer = styled.section`
-  padding: 120px 0;
-  background: #f8fafc;
+  padding: 100px 0;
+  background: #ffffff;
   position: relative;
   overflow: hidden;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -10%;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -30%;
-    left: -10%;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(251, 191, 36, 0.1) 0%, transparent 70%);
-    border-radius: 50%;
+  @media (max-width: 768px) {
+    padding: 60px 0;
   }
 `;
 
@@ -75,123 +38,69 @@ const Container = styled.div`
 
 const SectionHeader = styled.div`
   text-align: center;
-  margin-bottom: 80px;
-`;
-
-const LabelBadge = styled(motion.div)`
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 24px;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(96, 165, 250, 0.1) 100%);
-  border: 2px solid rgba(59, 130, 246, 0.2);
-  border-radius: 50px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #1e3a8a;
-  margin-bottom: 24px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-
-  svg {
-    color: #3b82f6;
-  }
+  margin-bottom: 60px;
 `;
 
 const Title = styled(motion.h2)`
-  font-size: 4.5rem;
-  font-weight: 900;
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 24px;
-  letter-spacing: -3px;
-  line-height: 1.1;
-  position: relative;
-  animation: ${shimmer} 5s ease-in-out infinite;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -16px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
-    height: 6px;
-    background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
-    border-radius: 3px;
-    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
-  }
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 12px;
+  letter-spacing: -1px;
+  line-height: 1.2;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 
   @media (max-width: 768px) {
-    font-size: 2.8rem;
-    letter-spacing: -1.5px;
+    font-size: 2rem;
+    letter-spacing: -0.5px;
   }
 `;
 
 const Subtitle = styled(motion.p)`
-  font-size: 1.35rem;
+  font-size: 1.1rem;
   color: #64748b;
-  max-width: 800px;
-  margin: 30px auto 0;
-  line-height: 1.8;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
   font-weight: 400;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 const SolutionsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  margin-bottom: 60px;
-
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 20px;
   }
 `;
 
 const SolutionCard = styled(motion(Link))`
   position: relative;
-  padding: 45px;
-  background: #ffffff;
-  border-radius: 24px;
+  padding: 40px;
+  background: #fafafa;
+  border-radius: 16px;
   cursor: pointer;
   overflow: hidden;
-  border: 2px solid ${props => props.featured ? '#fbbf24' : 'rgba(226, 232, 240, 1)'};
-  box-shadow: ${props => props.featured 
-    ? '0 20px 60px rgba(251, 191, 36, 0.2)' 
-    : '0 10px 40px rgba(0, 0, 0, 0.08)'};
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
   text-decoration: none;
   display: block;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 6px;
-    background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
-  }
-
   &:hover {
-    transform: translateY(-12px) scale(1.02);
-    box-shadow: 0 25px 70px rgba(59, 130, 246, 0.3);
-    border-color: #3b82f6;
-
-    &::before {
-      transform: scaleX(1);
-    }
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(30, 58, 138, 0.12);
+    border-color: #cbd5e1;
+    background: #ffffff;
   }
 
   @media (max-width: 768px) {
@@ -200,163 +109,91 @@ const SolutionCard = styled(motion(Link))`
 `;
 
 const IconWrapper = styled.div`
-  width: 90px;
-  height: 90px;
-  border-radius: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
   background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   color: white;
-  margin-bottom: 28px;
-  box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3);
-  animation: ${float} 4s ease-in-out infinite;
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: -4px;
-    background: linear-gradient(135deg, #3b82f6, #60a5fa);
-    border-radius: 20px;
-    z-index: -1;
-    opacity: 0;
-    filter: blur(20px);
-    transition: opacity 0.3s ease;
-  }
-
-  ${SolutionCard}:hover &::after {
-    opacity: 0.6;
-    animation: ${pulse} 2s ease-in-out infinite;
-  }
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
 `;
 
 const CardTitle = styled.h3`
-  font-size: 1.85rem;
-  font-weight: 800;
-  color: #1e293b;
-  margin-bottom: 16px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 12px;
   line-height: 1.3;
   transition: color 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 
   ${SolutionCard}:hover & {
     color: #3b82f6;
   }
 
   @media (max-width: 768px) {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
   }
 `;
 
 const CardDescription = styled.p`
-  font-size: 1.08rem;
+  font-size: 0.95rem;
   color: #64748b;
-  line-height: 1.75;
-  margin-bottom: 28px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 `;
 
 const FeatureList = styled.ul`
   list-style: none;
   padding: 0;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
 `;
 
 const FeatureItem = styled.li`
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 0.95rem;
+  gap: 10px;
+  font-size: 0.9rem;
   color: #475569;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 
   svg {
     color: #3b82f6;
     flex-shrink: 0;
+    font-size: 0.8rem;
   }
 `;
 
 const CardLink = styled.div`
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-size: 1.05rem;
-  font-weight: 700;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
   color: #3b82f6;
   transition: gap 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 
   svg {
     transition: transform 0.3s ease;
+    font-size: 0.85rem;
   }
 
   ${SolutionCard}:hover & {
-    gap: 16px;
+    gap: 12px;
     
     svg {
-      transform: translateX(5px);
+      transform: translateX(3px);
     }
   }
 `;
 
-const StatsSection = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  margin-top: 80px;
-  padding: 60px;
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-  border-radius: 30px;
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(96, 165, 250, 0.2) 0%, transparent 70%);
-    border-radius: 50%;
-    animation: ${rotate} 20s linear infinite;
-  }
-
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    padding: 40px 30px;
-  }
-`;
-
-const StatCard = styled(motion.div)`
-  text-align: center;
-  position: relative;
-  z-index: 1;
-`;
-
-const StatNumber = styled.div`
-  font-size: 3.5rem;
-  font-weight: 900;
-  background: linear-gradient(135deg, #ffffff 0%, #60a5fa 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 8px;
-  line-height: 1;
-
-  @media (max-width: 768px) {
-    font-size: 2.8rem;
-  }
-`;
-
-const StatLabel = styled.div`
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 500;
-`;
 
 const Solutions = () => {
   const [ref, inView] = useInView({
@@ -415,40 +252,25 @@ const Solutions = () => {
     }
   ];
 
-  const stats = [
-    { number: "99.9%", label: "Threat Detection Rate" },
-    { number: "500+", label: "Enterprise Clients" },
-    { number: "24/7", label: "Security Monitoring" },
-    { number: "<2min", label: "Average Response Time" }
-  ];
-
   return (
     <SolutionsContainer ref={ref}>
       <Container>
         <SectionHeader>
-          <LabelBadge
+
+          <Title
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            <FaShieldAlt />
             Our Solutions
-          </LabelBadge>
-
-          <Title
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.1 }}
-          >
-            Enterprise Security Solutions
           </Title>
 
           <Subtitle
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Comprehensive cybersecurity platform protecting organizations worldwide with cutting-edge AI and advanced threat intelligence
+            Comprehensive solutions for your business needs
           </Subtitle>
         </SectionHeader>
 
@@ -489,20 +311,6 @@ const Solutions = () => {
             </SolutionCard>
           ))}
         </SolutionsGrid>
-
-        <StatsSection>
-          {stats.map((stat, index) => (
-            <StatCard
-              key={index}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.6, delay: 1 + (index * 0.1) }}
-            >
-              <StatNumber>{stat.number}</StatNumber>
-              <StatLabel>{stat.label}</StatLabel>
-            </StatCard>
-          ))}
-        </StatsSection>
       </Container>
     </SolutionsContainer>
   );
