@@ -14,13 +14,13 @@ import {
 
 
 const SolutionsContainer = styled.section`
-  padding: 100px 0;
-  background: #ffffff;
+  padding: 80px 0;
+  background: #f9fafb;
   position: relative;
   overflow: hidden;
 
   @media (max-width: 768px) {
-    padding: 60px 0;
+    padding: 50px 0;
   }
 `;
 
@@ -38,35 +38,34 @@ const Container = styled.div`
 
 const SectionHeader = styled.div`
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 50px;
 `;
 
 const Title = styled(motion.h2)`
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 600;
-  color: #1e293b;
-  margin-bottom: 12px;
-  letter-spacing: -1px;
+  color: #111827;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
   line-height: 1.2;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 
   @media (max-width: 768px) {
-    font-size: 2rem;
-    letter-spacing: -0.5px;
+    font-size: 1.6rem;
   }
 `;
 
 const Subtitle = styled(motion.p)`
-  font-size: 1.1rem;
-  color: #64748b;
-  max-width: 700px;
+  font-size: 1rem;
+  color: #6b7280;
+  max-width: 650px;
   margin: 0 auto;
-  line-height: 1.6;
+  line-height: 1.5;
   font-weight: 400;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 
   @media (max-width: 768px) {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 `;
 
@@ -89,87 +88,100 @@ const SolutionsGrid = styled.div`
 
 const SolutionCard = styled(motion(Link))`
   position: relative;
-  padding: 40px;
-  background: #fafafa;
-  border-radius: 16px;
+  padding: 35px 25px;
+  background: #ffffff;
+  border-radius: 12px;
   cursor: pointer;
   overflow: hidden;
   border: 1px solid #e5e7eb;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
   transition: all 0.3s ease;
   text-decoration: none;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 32px rgba(30, 58, 138, 0.12);
-    border-color: #cbd5e1;
-    background: #ffffff;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-color: #3b82f6;
   }
 
   @media (max-width: 768px) {
-    padding: 35px;
+    padding: 30px 20px;
   }
 `;
 
 const IconWrapper = styled.div`
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  background: #eff6ff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.8rem;
-  color: white;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+  font-size: 1.6rem;
+  color: #3b82f6;
+  margin-bottom: 18px;
+  transition: all 0.3s ease;
+
+  ${SolutionCard}:hover & {
+    background: #3b82f6;
+    color: #ffffff;
+  }
 `;
 
 const CardTitle = styled.h3`
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  color: #0f172a;
-  margin-bottom: 12px;
+  color: #111827;
+  margin-bottom: 10px;
   line-height: 1.3;
   transition: color 0.3s ease;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 
-  ${SolutionCard}:hover & {
-    color: #3b82f6;
-  }
-
   @media (max-width: 768px) {
-    font-size: 1.3rem;
+    font-size: 1.15rem;
   }
 `;
 
 const CardDescription = styled.p`
-  font-size: 0.95rem;
-  color: #64748b;
-  line-height: 1.6;
-  margin-bottom: 20px;
+  font-size: 0.9rem;
+  color: #6b7280;
+  line-height: 1.5;
+  margin-bottom: 16px;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+  }
 `;
 
 const FeatureList = styled.ul`
   list-style: none;
   padding: 0;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
+  width: 100%;
 `;
 
 const FeatureItem = styled.li`
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.9rem;
-  color: #475569;
-  margin-bottom: 10px;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #4b5563;
+  margin-bottom: 8px;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 
   svg {
-    color: #3b82f6;
+    color: #10b981;
     flex-shrink: 0;
+    font-size: 0.75rem;
+  }
+
+  @media (max-width: 768px) {
     font-size: 0.8rem;
   }
 `;
@@ -177,24 +189,30 @@ const FeatureItem = styled.li`
 const CardLink = styled.div`
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.95rem;
+  gap: 6px;
+  font-size: 0.9rem;
   font-weight: 500;
   color: #3b82f6;
-  transition: gap 0.3s ease;
+  transition: all 0.3s ease;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  margin-top: auto;
+  padding-top: 10px;
 
   svg {
     transition: transform 0.3s ease;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 
   ${SolutionCard}:hover & {
-    gap: 12px;
+    gap: 10px;
     
     svg {
       transform: translateX(3px);
     }
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
   }
 `;
 
