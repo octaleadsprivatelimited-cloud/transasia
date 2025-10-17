@@ -62,8 +62,8 @@ const App = () => {
             <Hero />
             <Solutions />
             <Testimonials />
-            <IndustryLeaders />
             <IndustrialPresence />
+            <IndustryLeaders />
             <Geographies />
             <CTA />
           </>
