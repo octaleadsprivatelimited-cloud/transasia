@@ -138,20 +138,37 @@ const NavLink = styled(Link)`
     width: 100%;
   }
 
+  svg {
+    transition: transform 0.3s ease;
+  }
+
   @media (max-width: 968px) {
     color: #ffffff;
     font-size: 18px;
     padding: 12px 0;
     width: 100%;
+    justify-content: space-between;
 
     &:hover {
       color: #60a5fa;
+    }
+
+    &::after {
+      display: none;
     }
   }
 `;
 
 const Dropdown = styled.div`
   position: relative;
+
+  @media (max-width: 968px) {
+    width: 100%;
+  }
+
+  ${NavLink} svg {
+    ${props => props.$open ? 'transform: rotate(180deg);' : ''}
+  }
 `;
 
 const CompanyDropdown = styled(motion.div)`
@@ -190,8 +207,11 @@ const CompanyList = styled.div`
   flex-direction: column;
 
   @media (max-width: 968px) {
-    padding: 0;
+    padding: 10px 0;
     padding-left: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    margin-top: 8px;
   }
 `;
 
@@ -230,15 +250,20 @@ const CompanyItem = styled(Link)`
 
   @media (max-width: 968px) {
     color: #ffffff;
-    padding: 14px 0;
+    padding: 10px 16px;
+    border-radius: 6px;
 
     &::before {
       display: none;
     }
 
     &:hover {
-      background: transparent;
+      background: rgba(255, 255, 255, 0.1);
       color: #60a5fa;
+    }
+
+    &:active {
+      background: rgba(255, 255, 255, 0.15);
     }
   }
 `;
@@ -566,10 +591,17 @@ const Header = () => {
           <NavLink to="/consulting" onClick={closeMenu}>Consulting</NavLink>
           <NavLink to="/services" onClick={closeMenu}>Services</NavLink>
 
-          <Dropdown>
-            <NavLink to="#" onClick={(e) => { e.preventDefault(); setActiveMenu(activeMenu === 'company' ? '' : 'company'); }}>
+          <Dropdown $open={activeMenu === 'company'}>
+            <NavLink 
+              to="#" 
+              onClick={(e) => { 
+                e.preventDefault(); 
+                setActiveMenu(activeMenu === 'company' ? '' : 'company'); 
+              }}
+              style={{ transform: activeMenu === 'company' ? 'none' : 'none' }}
+            >
               Company
-              <FaChevronDown size={12} />
+              <FaChevronDown size={12} style={{ transform: activeMenu === 'company' ? 'rotate(180deg)' : 'rotate(0deg)' }} />
             </NavLink>
             <CompanyDropdown $open={activeMenu === 'company'}>
               <CompanyList>
