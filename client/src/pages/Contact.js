@@ -297,54 +297,8 @@ const Contact = () => {
           <FormSection>
             <SectionTitle>Get in Touch</SectionTitle>
             <SectionDescription>
-              Choose the topic that best describes your inquiry, and we'll route your message to the right team.
+              Fill out the form below and our team will get back to you within 24 hours.
             </SectionDescription>
-
-            <OptionsGrid>
-              <OptionCard
-                type="button"
-                selected={selectedOption === 'services'}
-                onClick={() => setSelectedOption('services')}
-              >
-                <OptionTitle>Request for Services</OptionTitle>
-                <OptionDescription>
-                  Learn about our cybersecurity, insurtech, and consulting solutions
-                </OptionDescription>
-              </OptionCard>
-
-              <OptionCard
-                type="button"
-                selected={selectedOption === 'demo'}
-                onClick={() => setSelectedOption('demo')}
-              >
-                <OptionTitle>Schedule a Demo</OptionTitle>
-                <OptionDescription>
-                  See our products in action with a personalized demonstration
-                </OptionDescription>
-              </OptionCard>
-
-              <OptionCard
-                type="button"
-                selected={selectedOption === 'support'}
-                onClick={() => setSelectedOption('support')}
-              >
-                <OptionTitle>Technical Support</OptionTitle>
-                <OptionDescription>
-                  Get help with existing products and services
-                </OptionDescription>
-              </OptionCard>
-
-              <OptionCard
-                type="button"
-                selected={selectedOption === 'other'}
-                onClick={() => setSelectedOption('other')}
-              >
-                <OptionTitle>General Inquiry</OptionTitle>
-                <OptionDescription>
-                  Partnerships, media inquiries, or other questions
-                </OptionDescription>
-              </OptionCard>
-            </OptionsGrid>
 
             <Form onSubmit={handleSubmit}>
               <FormGroup>
