@@ -325,7 +325,7 @@ const Footer = () => {
                   <FaFacebook />
                 </SocialLink>
                 <SocialLink 
-                  href="https://www.instagram.com/transasia/" 
+                  href="https://www.instagram.com/transasia/?hl=en" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   aria-label="Instagram"
