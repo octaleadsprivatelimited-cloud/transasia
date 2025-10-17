@@ -24,7 +24,10 @@ const HeroSection = styled.section`
   min-height: 70vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #0a1128 0%, #1e3a8a 50%, #1e40af 100%);
+  background-image: linear-gradient(135deg, rgba(10, 17, 40, 0.85) 0%, rgba(30, 58, 138, 0.75) 50%, rgba(30, 64, 175, 0.65) 100%), url('/insurtech/hero_1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   overflow: hidden;
   padding: 180px 40px 80px;
 
