@@ -18,16 +18,36 @@ const PageContainer = styled.div`
   overflow-x: hidden;
 `;
 
+const VideoBackground = styled.video`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+`;
+
 const HeroSection = styled.section`
   position: relative;
   min-height: 70vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #0a1128 0%, #1e3a8a 50%, #1e40af 100%);
   overflow: hidden;
   padding: 180px 40px 80px;
 
   &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(10, 17, 40, 0.8) 0%, rgba(30, 58, 138, 0.7) 50%, rgba(30, 64, 175, 0.8) 100%);
+    z-index: 1;
+  }
+
+  &::after {
     content: '';
     position: absolute;
     width: 200%;
@@ -38,6 +58,8 @@ const HeroSection = styled.section`
       radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
       radial-gradient(circle at 80% 50%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
     animation: ${rotate} 30s linear infinite;
+    z-index: 2;
+    pointer-events: none;
   }
 `;
 
@@ -46,7 +68,7 @@ const HeroContent = styled.div`
   margin: 0 auto;
   text-align: center;
   position: relative;
-  z-index: 1;
+  z-index: 3;
 `;
 
 const HeroTitle = styled(motion.h1)`
@@ -414,6 +436,14 @@ const CyberSecurityProducts = () => {
       </Helmet>
 
       <HeroSection>
+        <VideoBackground 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+        >
+          <source src="/insurtech/video.mp4" type="video/mp4" />
+        </VideoBackground>
         <HeroContent>
           <HeroTitle
             initial={{ opacity: 0, y: 30 }}
