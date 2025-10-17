@@ -108,7 +108,7 @@ const LogoItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 15px 20px;
+  padding: 8px 12px;
   background: #ffffff;
   border-radius: 8px;
   border: 1px solid #e5e7eb;
@@ -130,7 +130,7 @@ const LogoItem = styled.div`
   @media (max-width: 768px) {
     min-width: 150px;
     height: 70px;
-    padding: 12px 15px;
+    padding: 6px 10px;
   }
 `;
 
