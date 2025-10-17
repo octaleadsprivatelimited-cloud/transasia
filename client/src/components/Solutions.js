@@ -1,10 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { 
   FaShieldAlt, 
-  FaChartLine, 
   FaUsers, 
   FaBrain, 
   FaLock,
@@ -156,7 +156,7 @@ const SolutionsGrid = styled.div`
   }
 `;
 
-const SolutionCard = styled(motion.div)`
+const SolutionCard = styled(motion(Link))`
   position: relative;
   padding: 45px;
   background: #ffffff;
@@ -168,6 +168,8 @@ const SolutionCard = styled(motion.div)`
     ? '0 20px 60px rgba(251, 191, 36, 0.2)' 
     : '0 10px 40px rgba(0, 0, 0, 0.08)'};
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  display: block;
 
   &::before {
     content: '';
@@ -365,69 +367,51 @@ const Solutions = () => {
   const solutions = [
     {
       icon: <FaShieldAlt />,
-      title: "Advanced Threat Protection",
-      description: "AI-powered threat detection and autonomous response system protecting against sophisticated cyber attacks",
+      title: "Insurtech",
+      description: "Innovative insurance technology solutions for risk assessment, policy management, and claims automation",
       features: [
-        "Real-time threat intelligence",
-        "Automated incident response",
-        "Zero-day vulnerability protection"
+        "Cyber Risk Quantification",
+        "Policy Management",
+        "Claims Analytics & Forensics"
       ],
-      featured: true
-    },
-    {
-      icon: <FaChartLine />,
-      title: "Risk Intelligence",
-      description: "Quantify cyber risks in financial terms with comprehensive data-driven insights and predictive analytics",
-      features: [
-        "Financial impact analysis",
-        "Board-level risk reporting",
-        "Compliance dashboards"
-      ],
-      featured: false
-    },
-    {
-      icon: <FaUsers />,
-      title: "Third-Party Risk Management",
-      description: "Continuously monitor and assess vendor security posture across your entire supply chain",
-      features: [
-        "Vendor security scoring",
-        "Continuous monitoring",
-        "Risk mitigation strategies"
-      ],
-      featured: false
-    },
-    {
-      icon: <FaBrain />,
-      title: "AI Security Operations",
-      description: "Machine learning algorithms for predictive threat analysis and intelligent security automation",
-      features: [
-        "Behavioral analytics",
-        "Anomaly detection",
-        "Predictive threat modeling"
-      ],
-      featured: false
+      featured: true,
+      link: "/insurtech"
     },
     {
       icon: <FaLock />,
-      title: "Zero Trust Architecture",
-      description: "Continuous verification and least privilege access control across your entire infrastructure",
+      title: "Products",
+      description: "Enterprise-grade cybersecurity products including Sunshine, TransGRC, VRMA, HunterCat, and BlackNet",
       features: [
-        "Identity verification",
-        "Micro-segmentation",
-        "Adaptive access control"
+        "Vulnerability Management",
+        "GRC Platform",
+        "Dark Web Monitoring"
       ],
-      featured: false
+      featured: false,
+      link: "/products"
     },
     {
-      icon: <FaShieldAlt />,
-      title: "Cloud Security Posture",
-      description: "Comprehensive cloud security management with automated compliance and configuration monitoring",
+      icon: <FaUsers />,
+      title: "Consulting",
+      description: "Expert consulting services in ESG, ERM, Cyber Insurance, Anti-Ransomware, and Risk Transfer",
       features: [
-        "Multi-cloud protection",
-        "Automated compliance",
-        "Configuration management"
+        "Strategic Guidance",
+        "Risk Management",
+        "Compliance Support"
       ],
-      featured: false
+      featured: false,
+      link: "/consulting"
+    },
+    {
+      icon: <FaBrain />,
+      title: "Services",
+      description: "Comprehensive cybersecurity services including Red-team, App-Sec, Infra VAPT, and Forensics",
+      features: [
+        "Penetration Testing",
+        "Security Assessment",
+        "Incident Response"
+      ],
+      featured: false,
+      link: "/services"
     }
   ];
 
@@ -472,6 +456,7 @@ const Solutions = () => {
           {solutions.map((solution, index) => (
             <SolutionCard
               key={index}
+              to={solution.link}
               featured={solution.featured}
               initial={{ opacity: 0, y: 40 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
