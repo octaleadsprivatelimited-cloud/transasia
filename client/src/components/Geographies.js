@@ -92,7 +92,7 @@ const FlagContainer = styled.div`
   width: 80px;
   height: 80px;
   margin: 0 auto 20px;
-  border-radius: 50%;
+  border-radius: 8px;
   overflow: hidden;
   border: 3px solid #f1f5f9;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
