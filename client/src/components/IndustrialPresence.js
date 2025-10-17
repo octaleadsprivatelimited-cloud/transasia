@@ -2,6 +2,18 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { 
+  FaUniversity, 
+  FaTruck, 
+  FaLaptop, 
+  FaGamepad, 
+  FaCogs, 
+  FaPlane, 
+  FaBuilding, 
+  FaFlask, 
+  FaOilCan, 
+  FaBroadcastTower 
+} from 'react-icons/fa';
 
 const float = keyframes`
   0%, 100% {
@@ -119,13 +131,26 @@ const IndustryCard = styled(motion.div)`
   }
 `;
 
-const EmojiContainer = styled.div`
-  font-size: 3rem;
+const IconContainer = styled.div`
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: white;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
   animation: ${float} 3s ease-in-out infinite;
   animation-delay: ${props => props.delay}s;
+  transition: all 0.3s ease;
 
   @media (max-width: 768px) {
-    font-size: 2.5rem;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
   }
 `;
 
@@ -148,16 +173,16 @@ const IndustrialPresence = () => {
   });
 
   const industries = [
-    { name: 'BFSI', emoji: '🏦', delay: 0 },
-    { name: 'LOGISTICS', emoji: '🚚', delay: 0.1 },
-    { name: 'TECHNOLOGY', emoji: '💻', delay: 0.2 },
-    { name: 'GAMING', emoji: '🎮', delay: 0.3 },
-    { name: 'MANUFACTURING', emoji: '🏭', delay: 0.4 },
-    { name: 'AVIATION', emoji: '✈️', delay: 0.5 },
-    { name: 'REALTY & INFRA', emoji: '🏗️', delay: 0.6 },
-    { name: 'PETROCHEMICAL', emoji: '⚗️', delay: 0.7 },
-    { name: 'OIL & GAS', emoji: '🛢️', delay: 0.8 },
-    { name: 'TELECOM', emoji: '📡', delay: 0.9 },
+    { name: 'BFSI', icon: <FaUniversity />, delay: 0 },
+    { name: 'LOGISTICS', icon: <FaTruck />, delay: 0.1 },
+    { name: 'TECHNOLOGY', icon: <FaLaptop />, delay: 0.2 },
+    { name: 'GAMING', icon: <FaGamepad />, delay: 0.3 },
+    { name: 'MANUFACTURING', icon: <FaCogs />, delay: 0.4 },
+    { name: 'AVIATION', icon: <FaPlane />, delay: 0.5 },
+    { name: 'REALTY & INFRA', icon: <FaBuilding />, delay: 0.6 },
+    { name: 'PETROCHEMICAL', icon: <FaFlask />, delay: 0.7 },
+    { name: 'OIL & GAS', icon: <FaOilCan />, delay: 0.8 },
+    { name: 'TELECOM', icon: <FaBroadcastTower />, delay: 0.9 },
   ];
 
   return (
@@ -188,9 +213,9 @@ const IndustrialPresence = () => {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.05 }}
             >
-              <EmojiContainer delay={industry.delay}>
-                {industry.emoji}
-              </EmojiContainer>
+              <IconContainer delay={industry.delay}>
+                {industry.icon}
+              </IconContainer>
               <IndustryName>{industry.name}</IndustryName>
             </IndustryCard>
           ))}
