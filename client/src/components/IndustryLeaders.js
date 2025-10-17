@@ -103,24 +103,21 @@ const LogoGroup = styled.div`
 `;
 
 const LogoItem = styled.div`
-  min-width: 140px;
-  height: 60px;
+  min-width: 180px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 15px 20px;
-  background: #fafafa;
+  background: #ffffff;
   border-radius: 8px;
   border: 1px solid #e5e7eb;
   transition: all 0.3s ease;
-  filter: grayscale(100%);
-  opacity: 0.6;
 
   &:hover {
-    filter: grayscale(0%);
-    opacity: 1;
     transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    border-color: #cbd5e1;
   }
 
   img {
@@ -131,8 +128,8 @@ const LogoItem = styled.div`
   }
 
   @media (max-width: 768px) {
-    min-width: 120px;
-    height: 50px;
+    min-width: 150px;
+    height: 70px;
     padding: 12px 15px;
   }
 `;
