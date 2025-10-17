@@ -162,6 +162,14 @@ const NavLink = styled(Link)`
 const Dropdown = styled.div`
   position: relative;
 
+  @media (min-width: 969px) {
+    &:hover ${CompanyDropdown} {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+  }
+
   @media (max-width: 968px) {
     width: 100%;
   }
@@ -591,17 +599,20 @@ const Header = () => {
           <NavLink to="/consulting" onClick={closeMenu}>Consulting</NavLink>
           <NavLink to="/services" onClick={closeMenu}>Services</NavLink>
 
-          <Dropdown $open={activeMenu === 'company'}>
+          <Dropdown 
+            $open={activeMenu === 'company'}
+            onMouseEnter={() => window.innerWidth > 968 && setActiveMenu('company')}
+            onMouseLeave={() => window.innerWidth > 968 && setActiveMenu('')}
+          >
             <NavLink 
               to="#" 
               onClick={(e) => { 
                 e.preventDefault(); 
                 setActiveMenu(activeMenu === 'company' ? '' : 'company'); 
               }}
-              style={{ transform: activeMenu === 'company' ? 'none' : 'none' }}
             >
               Company
-              <FaChevronDown size={12} style={{ transform: activeMenu === 'company' ? 'rotate(180deg)' : 'rotate(0deg)' }} />
+              <FaChevronDown size={12} style={{ transform: activeMenu === 'company' ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s ease' }} />
             </NavLink>
             <CompanyDropdown $open={activeMenu === 'company'}>
               <CompanyList>
