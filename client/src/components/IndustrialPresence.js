@@ -88,7 +88,9 @@ const Subtitle = styled(motion.p)`
 const IndustryGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 25px;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 
   @media (max-width: 1200px) {
     grid-template-columns: repeat(4, 1fr);
@@ -96,73 +98,81 @@ const IndustryGrid = styled.div`
 
   @media (max-width: 968px) {
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 16px;
   }
 
   @media (max-width: 640px) {
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    gap: 14px;
   }
 `;
 
 const IndustryCard = styled(motion.div)`
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 30px 20px;
-  border: 1px solid #e5e7eb;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 35px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
   transition: all 0.3s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   text-align: center;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 16px;
+  position: relative;
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(30, 58, 138, 0.15);
-    border-color: #3b82f6;
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 16px 40px rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.3);
+    background: rgba(255, 255, 255, 0.95);
   }
 
   @media (max-width: 768px) {
-    padding: 25px 15px;
+    padding: 28px 16px;
     gap: 12px;
   }
 `;
 
 const IconContainer = styled.div`
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
+  width: 70px;
+  height: 70px;
+  border-radius: 14px;
   background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.8rem;
+  font-size: 2rem;
   color: white;
-  margin-bottom: 15px;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
   animation: ${float} 3s ease-in-out infinite;
   animation-delay: ${props => props.delay}s;
   transition: all 0.3s ease;
 
+  ${IndustryCard}:hover & {
+    transform: scale(1.1);
+    box-shadow: 0 12px 28px rgba(59, 130, 246, 0.4);
+  }
+
   @media (max-width: 768px) {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
+    width: 60px;
+    height: 60px;
+    font-size: 1.7rem;
   }
 `;
 
 const IndustryName = styled.h3`
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  color: #0f172a;
+  color: #111827;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.3;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 
   @media (max-width: 768px) {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 `;
 
