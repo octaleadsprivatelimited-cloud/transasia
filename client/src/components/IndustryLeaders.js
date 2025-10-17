@@ -103,12 +103,12 @@ const LogoGroup = styled.div`
 `;
 
 const LogoItem = styled.div`
-  min-width: 180px;
-  height: 80px;
+  min-width: 220px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 12px;
+  padding: 10px 15px;
   background: #ffffff;
   border-radius: 8px;
   border: 1px solid #e5e7eb;
@@ -121,16 +121,16 @@ const LogoItem = styled.div`
   }
 
   img {
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     display: block;
   }
 
   @media (max-width: 768px) {
-    min-width: 150px;
-    height: 70px;
-    padding: 6px 10px;
+    min-width: 180px;
+    height: 85px;
+    padding: 8px 12px;
   }
 `;
 
