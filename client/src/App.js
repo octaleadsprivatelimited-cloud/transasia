@@ -7,6 +7,7 @@ import Hero from './components/Hero';
 import Solutions from './components/Solutions';
 import Testimonials from './components/Testimonials';
 import IndustryLeaders from './components/IndustryLeaders';
+import IndustrialPresence from './components/IndustrialPresence';
 import Geographies from './components/Geographies';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
@@ -62,6 +63,7 @@ const App = () => {
             <Solutions />
             <Testimonials />
             <IndustryLeaders />
+            <IndustrialPresence />
             <Geographies />
             <CTA />
           </>
