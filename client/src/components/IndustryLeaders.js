@@ -1,12 +1,21 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
-const scroll = keyframes`
+const scrollForward = keyframes`
   0% {
     transform: translateX(0);
   }
   100% {
     transform: translateX(-50%);
+  }
+`;
+
+const scrollBackward = keyframes`
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
   }
 `;
 
@@ -82,8 +91,19 @@ const ScrollWrapper = styled.div`
 
 const ScrollTrack = styled.div`
   display: flex;
-  animation: ${scroll} 30s linear infinite;
+  animation: ${scrollForward} 40s linear infinite;
   width: fit-content;
+  
+  &:hover {
+    animation-play-state: paused;
+  }
+`;
+
+const ScrollTrackReverse = styled.div`
+  display: flex;
+  animation: ${scrollBackward} 40s linear infinite;
+  width: fit-content;
+  margin-top: 20px;
   
   &:hover {
     animation-play-state: paused;
@@ -159,6 +179,7 @@ const IndustryLeaders = () => {
         <Title>Trusted by Industry Leaders</Title>
       </Container>
       
+      {/* First row - scrolling left to right (0-9) */}
       <ScrollWrapper>
         <ScrollTrack>
           <LogoGroup>
@@ -177,6 +198,27 @@ const IndustryLeaders = () => {
             ))}
           </LogoGroup>
         </ScrollTrack>
+      </ScrollWrapper>
+
+      {/* Second row - scrolling right to left (9-0) */}
+      <ScrollWrapper>
+        <ScrollTrackReverse>
+          <LogoGroup>
+            {leaders.slice().reverse().map((leader, index) => (
+              <LogoItem key={`reverse-${index}`}>
+                <img src={leader.logo} alt={leader.name} />
+              </LogoItem>
+            ))}
+          </LogoGroup>
+          {/* Duplicate for seamless loop */}
+          <LogoGroup>
+            {leaders.slice().reverse().map((leader, index) => (
+              <LogoItem key={`reverse-duplicate-${index}`}>
+                <img src={leader.logo} alt={leader.name} />
+              </LogoItem>
+            ))}
+          </LogoGroup>
+        </ScrollTrackReverse>
       </ScrollWrapper>
     </LeadersContainer>
   );
