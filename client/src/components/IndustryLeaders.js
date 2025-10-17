@@ -171,6 +171,7 @@ const IndustryLeaders = () => {
     { name: 'Games 24x7', logo: '/insurtech/leaders/games_24_seven.png' },
     { name: 'Pro Connect', logo: '/insurtech/leaders/pro_connect.png' },
     { name: 'Writer', logo: '/insurtech/leaders/writer.png' },
+    { name: 'Partner', logo: '/insurtech/leaders/12.9bbd0102b3b224e65741.png' },
   ];
 
   return (
