@@ -1,17 +1,62 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaArrowRight, FaCheckCircle, FaPhone, FaEnvelope } from 'react-icons/fa';
 
+const matrix = keyframes`
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+`;
+
+const pulse = keyframes`
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+`;
+
 const CTAContainer = styled.section`
-  padding: 100px 0;
-  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  padding: 120px 0;
+  background: #000000;
   position: relative;
   overflow: hidden;
 
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      linear-gradient(45deg, transparent 30%, rgba(0, 255, 65, 0.03) 30%, rgba(0, 255, 65, 0.03) 70%, transparent 70%),
+      linear-gradient(-45deg, transparent 30%, rgba(0, 200, 255, 0.03) 30%, rgba(0, 200, 255, 0.03) 70%, transparent 70%);
+    background-size: 60px 60px;
+    animation: ${matrix} 20s linear infinite;
+    opacity: 0.4;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(0, 100, 200, 0.15) 0%, transparent 70%);
+    animation: ${pulse} 4s ease-in-out infinite;
+  }
+
   @media (max-width: 768px) {
-    padding: 60px 0;
+    padding: 80px 0;
   }
 `;
 
@@ -28,25 +73,14 @@ const Container = styled.div`
 `;
 
 const CTABox = styled(motion.div)`
-  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   padding: 0;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 25px 70px rgba(30, 58, 138, 0.3);
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-      radial-gradient(circle at 10% 20%, rgba(96, 165, 250, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
-    pointer-events: none;
-  }
+  z-index: 1;
 `;
 
 const CTAContent = styled.div`
@@ -73,27 +107,30 @@ const LeftSection = styled.div`
 `;
 
 const CTATitle = styled(motion.h2)`
-  font-size: 3.2rem;
-  font-weight: 900;
+  font-size: 4rem;
+  font-weight: 600;
   color: #ffffff;
-  margin-bottom: 20px;
-  letter-spacing: -1.5px;
-  line-height: 1.15;
+  margin-bottom: 16px;
+  letter-spacing: -2px;
+  line-height: 1.05;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 
   @media (max-width: 768px) {
-    font-size: 2.2rem;
-    letter-spacing: -1px;
+    font-size: 2.5rem;
+    letter-spacing: -1.2px;
   }
 `;
 
 const CTASubtitle = styled(motion.p)`
-  font-size: 1.15rem;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
   margin-bottom: 32px;
-  line-height: 1.7;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 
   @media (max-width: 768px) {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
   }
 `;
 
@@ -252,46 +289,30 @@ const FormTextarea = styled.textarea`
 `;
 
 const SubmitButton = styled.button`
-  padding: 18px 40px;
-  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-  color: #000000;
+  padding: 14px 32px;
+  background: #0071e3;
+  color: #ffffff;
   border: none;
-  border-radius: 4px;
-  font-size: 1.1rem;
-  font-weight: 700;
-  font-family: 'Times New Roman', Times, serif;
+  border-radius: 980px;
+  font-size: 1.05rem;
+  font-weight: 400;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 10px 30px rgba(251, 191, 36, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 8px;
   position: relative;
   overflow: hidden;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: left 0.5s;
-  }
-
-  &:hover::before {
-    left: 100%;
-  }
-
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 15px 40px rgba(251, 191, 36, 0.6);
+    background: #0077ed;
+    transform: scale(1.02);
   }
 
   &:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
   }
 
