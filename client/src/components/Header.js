@@ -159,26 +159,6 @@ const NavLink = styled(Link)`
   }
 `;
 
-const Dropdown = styled.div`
-  position: relative;
-
-  @media (min-width: 969px) {
-    &:hover ${CompanyDropdown} {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-  }
-
-  @media (max-width: 968px) {
-    width: 100%;
-  }
-
-  ${NavLink} svg {
-    ${props => props.$open ? 'transform: rotate(180deg);' : ''}
-  }
-`;
-
 const CompanyDropdown = styled(motion.div)`
   position: absolute;
   top: calc(100% + 8px);
@@ -206,6 +186,26 @@ const CompanyDropdown = styled(motion.div)`
     transform: none;
     pointer-events: auto;
     display: ${props => props.$open ? 'block' : 'none'};
+  }
+`;
+
+const Dropdown = styled.div`
+  position: relative;
+
+  @media (min-width: 969px) {
+    &:hover ${CompanyDropdown} {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+  }
+
+  @media (max-width: 968px) {
+    width: 100%;
+  }
+
+  ${NavLink} svg {
+    ${props => props.$open ? 'transform: rotate(180deg);' : ''}
   }
 `;
 
@@ -276,25 +276,6 @@ const CompanyItem = styled(Link)`
   }
 `;
 
-const CompanyItemIcon = styled.div`
-  font-size: 1.2rem;
-  flex-shrink: 0;
-  width: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #64748b;
-  transition: all 0.15s ease;
-
-  ${CompanyItem}:hover & {
-    color: #3b82f6;
-  }
-
-  @media (max-width: 968px) {
-    display: none;
-  }
-`;
-
 const CompanyItemContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -320,199 +301,6 @@ const CompanyItemDesc = styled.div`
 
   @media (max-width: 968px) {
     display: none;
-  }
-`;
-
-const DropdownContent = styled(motion.div)`
-  position: fixed;
-  top: 80px;
-  left: 0;
-  right: 0;
-  background: ${props => props.$blue ? 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%)' : 'rgba(255, 255, 255, 0.98)'};
-  ${props => props.$blue 
-    ? css`
-        backdrop-filter: blur(30px) saturate(180%);
-        box-shadow: 0 20px 60px rgba(30, 64, 175, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-        &, * {
-          color: #ffffff !important;
-        }
-      `
-    : css`
-        backdrop-filter: blur(30px) saturate(180%);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05) inset;
-      `}
-  border-top: 1px solid ${props => props.$blue ? 'rgba(255, 255, 255, 0.2)' : 'rgba(30, 64, 175, 0.1)'};
-  border-radius: 0 0 24px 24px;
-  padding: 48px 0 60px;
-  min-width: 420px;
-  opacity: ${props => props.$open ? 1 : 0};
-  visibility: ${props => props.$open ? 'visible' : 'hidden'};
-  pointer-events: ${props => props.$open ? 'auto' : 'none'};
-  transform: translateY(${props => props.$open ? '0' : '-20px'}) scale(${props => props.$open ? '1' : '0.95'});
-  transform-origin: top center;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1001;
-
-  /* Ensure readable contrast in blue mode */
-  ${props => props.$blue && css`
-    color: #ffffff;
-    a { color: #ffffff !important; }
-    h1, h2, h3, h4, h5, h6 { color: #ffffff !important; }
-    svg { color: #ffffff !important; }
-  `}
-
-  /* Modern overlay effect */
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: ${props => props.$blue 
-      ? 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent)' 
-      : 'linear-gradient(90deg, transparent, rgba(30, 64, 175, 0.5), transparent)'};
-    opacity: ${props => props.$open ? 1 : 0};
-    transition: opacity 0.6s ease;
-  }
-
-  @media (max-width: 968px) {
-    position: static;
-    background: transparent;
-    backdrop-filter: none;
-    border: none;
-    padding: 0;
-    padding-left: 20px;
-    margin: 0;
-    min-width: auto;
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    pointer-events: auto;
-    box-shadow: none;
-    display: ${props => props.$open ? 'block' : 'none'};
-  }
-`;
-
-const MegaContainer = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-`;
-
-const MegaHeader = styled.div`
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 24px;
-  margin-bottom: 24px;
-
-  @media (max-width: 968px) {
-    display: none;
-  }
-`;
-
-const MegaTitle = styled.h3`
-  margin: 0 0 12px 0;
-  color: var(--text-primary);
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  line-height: 1.2;
-  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.9) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-`;
-
-const MegaSubtitle = styled.p`
-  margin: 0;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 15px;
-  line-height: 1.6;
-  font-weight: 400;
-`;
-
-const MegaGrid = styled(motion.div)`
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 20px;
-
-  @media (max-width: 968px) {
-    display: none;
-  }
-`;
-
-const MegaCard = styled(motion(Link))`
-  position: relative;
-  display: block;
-  overflow: hidden;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.95);
-  border: 2px solid rgba(255,255,255,0.2);
-  min-height: 200px;
-  text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-
-  &:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
-    border-color: rgba(255, 255, 255, 0.4);
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, transparent 0%, rgba(30, 64, 175, 0.1) 100%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-
-  &:hover::after {
-    opacity: 1;
-  }
-
-  @media (max-width: 968px) {
-    min-height: 150px;
-  }
-`;
-
-const MegaImage = styled.div`
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  filter: saturate(1.1) contrast(1.05) brightness(0.95);
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-
-  ${MegaCard}:hover & {
-    transform: scale(1.1);
-    filter: saturate(1.3) contrast(1.1) brightness(1);
-  }
-`;
-
-const MegaLabel = styled.div`
-  position: absolute;
-  left: 16px;
-  bottom: 16px;
-  right: 16px;
-  padding: 14px 18px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px) saturate(180%);
-  color: #1e3a8a;
-  font-weight: 700;
-  font-size: 15px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-
-  ${MegaCard}:hover & {
-    transform: translateY(-4px);
-    background: rgba(255, 255, 255, 1);
-    color: #1e40af;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
   }
 `;
 
