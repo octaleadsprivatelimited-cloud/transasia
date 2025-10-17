@@ -69,13 +69,16 @@ const GeographyGrid = styled.div`
 
 const GeographyCard = styled(motion.div)`
   background: #ffffff;
-  border-radius: 8px;
-  padding: 30px 20px;
+  border-radius: 12px;
+  padding: 25px;
   border: 1px solid #e5e7eb;
   transition: all 0.3s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   text-align: center;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   &:hover {
     transform: translateY(-5px);
@@ -84,39 +87,41 @@ const GeographyCard = styled(motion.div)`
   }
 
   @media (max-width: 768px) {
-    padding: 25px 15px;
+    padding: 20px;
   }
 `;
 
 const FlagContainer = styled.div`
-  width: 80px;
+  width: 120px;
   height: 80px;
-  margin: 0 auto 20px;
-  border-radius: 8px;
+  margin: 0 auto 15px;
+  border-radius: 6px;
   overflow: hidden;
-  border: 3px solid #f1f5f9;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: #f8f9fa;
 
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    display: block;
   }
 
   @media (max-width: 768px) {
-    width: 70px;
-    height: 70px;
+    width: 100px;
+    height: 67px;
   }
 `;
 
 const CountryName = styled.h3`
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #0f172a;
   margin: 0;
 
   @media (max-width: 768px) {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 `;
 
