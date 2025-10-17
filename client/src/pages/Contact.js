@@ -80,44 +80,7 @@ const SectionTitle = styled.h2`
 const SectionDescription = styled.p`
   font-size: 1rem;
   color: #64748b;
-  margin-bottom: 35px;
-  line-height: 1.6;
-`;
-
-const OptionsGrid = styled.div`
-  display: grid;
-  gap: 20px;
-  margin-bottom: 50px;
-`;
-
-const OptionCard = styled.button`
-  padding: 30px;
-  background: ${props => props.selected ? '#f0f9ff' : '#f8fafc'};
-  border: 2px solid ${props => props.selected ? '#3b82f6' : '#e2e8f0'};
-  border-radius: 16px;
-  text-align: left;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: #f0f9ff;
-    border-color: #3b82f6;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.1);
-  }
-`;
-
-const OptionTitle = styled.h3`
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #0f172a;
-  margin-bottom: 8px;
-`;
-
-const OptionDescription = styled.p`
-  font-size: 0.95rem;
-  color: #64748b;
-  margin: 0;
+  margin-bottom: 40px;
   line-height: 1.6;
 `;
 
@@ -296,7 +259,6 @@ const MapSection = styled.div`
 `;
 
 const Contact = () => {
-  const [selectedOption, setSelectedOption] = useState('services');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
