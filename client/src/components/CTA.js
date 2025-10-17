@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaArrowRight, FaCheckCircle, FaPhone, FaEnvelope } from 'react-icons/fa';
-
-const shimmer = keyframes`
-  0% { background-position: -1000px 0; }
-  100% { background-position: 1000px 0; }
-`;
 
 const CTAContainer = styled.section`
   padding: 100px 0;
