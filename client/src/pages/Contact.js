@@ -175,27 +175,27 @@ const InfoSection = styled.div``;
 
 const InfoCard = styled.div`
   background: #f8fafc;
-  border-radius: 20px;
-  padding: 40px;
-  margin-bottom: 30px;
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 20px;
 
   @media (max-width: 768px) {
-    padding: 30px;
+    padding: 24px;
   }
 `;
 
 const InfoTitle = styled.h3`
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: #0f172a;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 `;
 
 const InfoItem = styled.div`
   display: flex;
   align-items: flex-start;
-  gap: 20px;
-  margin-bottom: 30px;
+  gap: 14px;
+  margin-bottom: 18px;
 
   &:last-child {
     margin-bottom: 0;
@@ -203,15 +203,15 @@ const InfoItem = styled.div`
 `;
 
 const InfoIcon = styled.div`
-  width: 50px;
-  height: 50px;
+  width: 38px;
+  height: 38px;
   background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  border-radius: 12px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   flex-shrink: 0;
 `;
 
@@ -220,18 +220,18 @@ const InfoDetails = styled.div`
 `;
 
 const InfoLabel = styled.div`
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: #64748b;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 `;
 
 const InfoText = styled.div`
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   color: #0f172a;
-  line-height: 1.6;
+  line-height: 1.5;
   font-weight: 500;
 
   a {
