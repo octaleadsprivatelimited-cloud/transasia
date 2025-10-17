@@ -67,21 +67,21 @@ const MainContent = styled.div`
 const FormSection = styled.div``;
 
 const SectionTitle = styled.h2`
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 600;
   color: #0f172a;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 
   @media (max-width: 768px) {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 `;
 
 const SectionDescription = styled.p`
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #64748b;
-  margin-bottom: 50px;
-  line-height: 1.7;
+  margin-bottom: 35px;
+  line-height: 1.6;
 `;
 
 const OptionsGrid = styled.div`
@@ -123,7 +123,8 @@ const OptionDescription = styled.p`
 
 const Form = styled.form`
   display: grid;
-  gap: 24px;
+  gap: 20px;
+  max-width: 600px;
 `;
 
 const FormGroup = styled.div`
@@ -299,8 +300,6 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    company: '',
-    phone: '',
     message: ''
   });
 
