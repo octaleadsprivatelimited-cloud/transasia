@@ -43,7 +43,7 @@ const HeroSection = styled.section`
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(10, 17, 40, 0.8) 0%, rgba(30, 58, 138, 0.7) 50%, rgba(30, 64, 175, 0.8) 100%);
+    background: linear-gradient(135deg, rgba(10, 17, 40, 0.4) 0%, rgba(30, 58, 138, 0.3) 50%, rgba(30, 64, 175, 0.4) 100%);
     z-index: 1;
   }
 

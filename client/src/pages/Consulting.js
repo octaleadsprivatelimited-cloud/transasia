@@ -23,15 +23,35 @@ const PageContainer = styled.div`
   overflow-x: hidden;
 `;
 
+const VideoBackground = styled.video`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+`;
+
 const HeroSection = styled.section`
   position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #0a1128 0%, #1e3a8a 50%, #1e40af 100%);
   overflow: hidden;
 
   &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(10, 17, 40, 0.4) 0%, rgba(30, 58, 138, 0.3) 50%, rgba(30, 64, 175, 0.4) 100%);
+    z-index: 1;
+  }
+
+  &::after {
     content: '';
     position: absolute;
     width: 200%;
@@ -42,6 +62,8 @@ const HeroSection = styled.section`
       radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
       radial-gradient(circle at 80% 50%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
     animation: ${rotate} 30s linear infinite;
+    z-index: 2;
+    pointer-events: none;
   }
 `;
 
@@ -53,6 +75,7 @@ const HeroBlob = styled.div`
   background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
   backdrop-filter: blur(30px);
   animation: ${float} 6s ease-in-out infinite;
+  z-index: 2;
   
   &:nth-child(1) {
     top: 10%;
@@ -72,7 +95,7 @@ const HeroContent = styled.div`
   margin: 0 auto;
   padding: 0 40px;
   position: relative;
-  z-index: 2;
+  z-index: 3;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 80px;
@@ -805,6 +828,14 @@ const Consulting = () => {
       </Helmet>
 
       <HeroSection>
+        <VideoBackground 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+        >
+          <source src="/insurtech/consulting.mp4" type="video/mp4" />
+        </VideoBackground>
         <HeroBlob />
         <HeroBlob />
         <HeroContent>
