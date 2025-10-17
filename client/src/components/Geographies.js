@@ -20,7 +20,7 @@ const GeographiesContainer = styled.section`
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.08;
+    opacity: 0.18;
     z-index: 0;
   }
 
