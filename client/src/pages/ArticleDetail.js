@@ -1,19 +1,9 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { FaCalendar, FaClock, FaUser, FaLinkedin, FaTwitter, FaFacebook, FaArrowRight, FaCheckCircle } from 'react-icons/fa';
-
-const float = keyframes`
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
-`;
-
-const shimmer = keyframes`
-  0% { background-position: -1000px 0; }
-  100% { background-position: 1000px 0; }
-`;
 
 const PageContainer = styled.div`
   min-height: 100vh;
@@ -23,8 +13,8 @@ const PageContainer = styled.div`
 
 const HeroSection = styled.section`
   position: relative;
-  padding: 200px 0 100px;
-  background: linear-gradient(135deg, #0a0e27 0%, #1e3a8a 50%, #2563eb 100%);
+  padding: 180px 0 80px;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
   overflow: hidden;
 
   &::before {
@@ -35,25 +25,12 @@ const HeroSection = styled.section`
     right: 0;
     bottom: 0;
     background: 
-      radial-gradient(circle at 20% 30%, rgba(251, 191, 36, 0.15) 0%, transparent 40%),
-      radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.2) 0%, transparent 50%);
-    animation: ${float} 8s ease-in-out infinite;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><circle cx="1" cy="1" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
-    background-size: 60px 60px;
-    opacity: 0.3;
+      radial-gradient(circle at 20% 30%, rgba(96, 165, 250, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
   }
 
   @media (max-width: 768px) {
-    padding: 140px 0 70px;
+    padding: 140px 0 60px;
   }
 `;
 
@@ -91,45 +68,39 @@ const Breadcrumb = styled(motion.div)`
 const CategoryBadge = styled(motion.div)`
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 24px;
-  background: rgba(251, 191, 36, 0.2);
+  gap: 8px;
+  padding: 8px 20px;
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(251, 191, 36, 0.4);
-  color: #fbbf24;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
   border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  margin-bottom: 28px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 24px;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  box-shadow: 0 8px 24px rgba(251, 191, 36, 0.2);
+  letter-spacing: 1.2px;
 `;
 
 const Title = styled(motion.h1)`
-  font-size: 4.5rem;
-  font-weight: 900;
+  font-size: 3.2rem;
+  font-weight: 700;
   color: #ffffff;
-  margin-bottom: 32px;
-  line-height: 1.1;
-  letter-spacing: -2px;
-  font-family: 'Times New Roman', Times, serif;
-  background: linear-gradient(135deg, #ffffff 0%, #fbbf24 100%);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: ${shimmer} 4s ease-in-out infinite;
-  max-width: 1000px;
+  margin-bottom: 24px;
+  line-height: 1.2;
+  letter-spacing: -1.2px;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  max-width: 900px;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
 
   @media (max-width: 968px) {
-    font-size: 3.2rem;
-    letter-spacing: -1.5px;
+    font-size: 2.6rem;
+    letter-spacing: -1px;
   }
 
   @media (max-width: 768px) {
-    font-size: 2.4rem;
-    letter-spacing: -1px;
+    font-size: 2rem;
+    letter-spacing: -0.5px;
   }
 `;
 
@@ -143,51 +114,18 @@ const MetaBar = styled(motion.div)`
 const MetaItem = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 50px;
-  color: rgba(255, 255, 255, 0.95);
-  font-size: 0.95rem;
-  font-weight: 500;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
+  font-weight: 400;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 
   svg {
-    color: #fbbf24;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
   }
 `;
 
-const FloatingShape = styled.div`
-  position: absolute;
-  border-radius: 50%;
-  background: ${props => props.color || 'rgba(251, 191, 36, 0.1)'};
-  filter: blur(60px);
-  pointer-events: none;
-  animation: ${float} ${props => props.duration || '8s'} ease-in-out infinite;
-  animation-delay: ${props => props.delay || '0s'};
-
-  &:nth-child(1) {
-    width: 400px;
-    height: 400px;
-    top: -100px;
-    right: -100px;
-  }
-
-  &:nth-child(2) {
-    width: 300px;
-    height: 300px;
-    bottom: -80px;
-    left: -80px;
-  }
-
-  &:nth-child(3) {
-    width: 250px;
-    height: 250px;
-    top: 40%;
-    left: 50%;
-  }
-`;
 
 const Container = styled.div`
   max-width: 1400px;
@@ -819,10 +757,6 @@ const ArticleDetail = () => {
       </Helmet>
 
       <HeroSection>
-        <FloatingShape color="rgba(251, 191, 36, 0.12)" duration="10s" delay="0s" />
-        <FloatingShape color="rgba(59, 130, 246, 0.15)" duration="12s" delay="2s" />
-        <FloatingShape color="rgba(96, 165, 250, 0.1)" duration="14s" delay="4s" />
-        
         <HeroContainer>
           <Breadcrumb
             initial={{ opacity: 0, y: 20 }}

@@ -127,12 +127,12 @@ const SlideLabel = styled(motion.div)`
 `;
 
 const SlideTitle = styled(motion.h1)`
-  font-size: 5.5rem;
-  font-weight: 900;
-  line-height: 1.1;
-  margin-bottom: 30px;
-  max-width: 1000px;
-  letter-spacing: -3px;
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 24px;
+  max-width: 900px;
+  letter-spacing: -1.5px;
   background: linear-gradient(135deg, #ffffff 0%, #60a5fa 50%, #3b82f6 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
@@ -140,26 +140,16 @@ const SlideTitle = styled(motion.h1)`
   background-clip: text;
   position: relative;
   animation: ${shimmer} 3s ease-in-out infinite;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 0;
-    width: 150px;
-    height: 6px;
-    background: linear-gradient(90deg, #3b82f6 0%, transparent 100%);
-    border-radius: 3px;
-  }
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 
   @media (max-width: 1024px) {
-    font-size: 4rem;
+    font-size: 3rem;
   }
 
   @media (max-width: 768px) {
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin-bottom: 20px;
-    letter-spacing: -1.5px;
+    letter-spacing: -1px;
   }
 `;
 
@@ -457,7 +447,7 @@ const Hero = () => {
       bgImage: '/insurtech/hero.png'
     },
     {
-      label: 'AI-Powered Security',
+      label: '',
       icon: FaBrain,
       title: 'Next-Gen Threat Detection & Response',
       description: 'Real-time protection with machine learning algorithms that identify and respond to threats instantly, protecting your digital assets 24/7',
