@@ -174,6 +174,7 @@ const FeatureItem = styled.li`
   color: #4b5563;
   margin-bottom: 8px;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  white-space: nowrap;
 
   svg {
     color: #10b981;
