@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FaArrowRight, FaCheckCircle, FaPhone, FaEnvelope } from 'react-icons/fa';
+import { FaArrowRight, FaCheckCircle } from 'react-icons/fa';
 
 const matrix = keyframes`
   0% {
@@ -107,30 +107,30 @@ const LeftSection = styled.div`
 `;
 
 const CTATitle = styled(motion.h2)`
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 600;
   color: #ffffff;
-  margin-bottom: 16px;
-  letter-spacing: -2px;
-  line-height: 1.05;
+  margin-bottom: 12px;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 
   @media (max-width: 768px) {
-    font-size: 2.5rem;
-    letter-spacing: -1.2px;
+    font-size: 2rem;
+    letter-spacing: -1px;
   }
 `;
 
 const CTASubtitle = styled(motion.p)`
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.7);
   line-height: 1.5;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 
   @media (max-width: 768px) {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 `;
 
@@ -158,32 +158,6 @@ const FeatureItem = styled.li`
   }
 `;
 
-const ContactInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-`;
-
-const ContactItem = styled.a`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: rgba(255, 255, 255, 0.85);
-  text-decoration: none;
-  font-size: 0.95rem;
-  transition: all 0.3s ease;
-
-  svg {
-    color: #fbbf24;
-  }
-
-  &:hover {
-    color: #ffffff;
-    transform: translateX(3px);
-  }
-`;
 
 const RightSection = styled.div`
   background: #ffffff;
@@ -433,17 +407,6 @@ const CTA = () => {
                   </FeatureItem>
                 ))}
               </FeatureList>
-
-              <ContactInfo>
-                <ContactItem href="tel:+1234567890">
-                  <FaPhone size={15} />
-                  +1 (234) 567-890
-                </ContactItem>
-                <ContactItem href="mailto:info@transasia.com">
-                  <FaEnvelope size={15} />
-                  info@transasia.com
-                </ContactItem>
-              </ContactInfo>
             </LeftSection>
 
             <RightSection>
