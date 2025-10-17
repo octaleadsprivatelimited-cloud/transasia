@@ -138,16 +138,22 @@ const LogoItem = styled.div`
 `;
 
 const IndustryLeaders = () => {
-  // Using placeholder logos - replace with actual client logos
   const leaders = [
-    { name: 'Company 1', logo: 'https://via.placeholder.com/120x40/1e3a8a/ffffff?text=Company+1' },
-    { name: 'Company 2', logo: 'https://via.placeholder.com/120x40/3b82f6/ffffff?text=Company+2' },
-    { name: 'Company 3', logo: 'https://via.placeholder.com/120x40/60a5fa/ffffff?text=Company+3' },
-    { name: 'Company 4', logo: 'https://via.placeholder.com/120x40/1e3a8a/ffffff?text=Company+4' },
-    { name: 'Company 5', logo: 'https://via.placeholder.com/120x40/3b82f6/ffffff?text=Company+5' },
-    { name: 'Company 6', logo: 'https://via.placeholder.com/120x40/60a5fa/ffffff?text=Company+6' },
-    { name: 'Company 7', logo: 'https://via.placeholder.com/120x40/1e3a8a/ffffff?text=Company+7' },
-    { name: 'Company 8', logo: 'https://via.placeholder.com/120x40/3b82f6/ffffff?text=Company+8' },
+    { name: 'HDFC Bank', logo: '/insurtech/leaders/hdfcbank.png' },
+    { name: 'TVS', logo: '/insurtech/leaders/tvs.png' },
+    { name: 'HP', logo: '/insurtech/leaders/hp.png' },
+    { name: 'GVK', logo: '/insurtech/leaders/gvk.png' },
+    { name: 'Redington', logo: '/insurtech/leaders/redington.png' },
+    { name: 'Sona Comstar', logo: '/insurtech/leaders/sona_comstar.png' },
+    { name: 'Sri Lanka Telecom', logo: '/insurtech/leaders/srilanka_telecom.png' },
+    { name: 'Persistent', logo: '/insurtech/leaders/presistent.png' },
+    { name: 'Mediassist', logo: '/insurtech/leaders/mediassist.png' },
+    { name: 'Latent View', logo: '/insurtech/leaders/latent view.png' },
+    { name: 'IndoSpace', logo: '/insurtech/leaders/indospace.png' },
+    { name: 'Fyndna', logo: '/insurtech/leaders/fyndna.png' },
+    { name: 'Games 24x7', logo: '/insurtech/leaders/games_24_seven.png' },
+    { name: 'Pro Connect', logo: '/insurtech/leaders/pro_connect.png' },
+    { name: 'Writer', logo: '/insurtech/leaders/writer.png' },
   ];
 
   return (
