@@ -50,12 +50,6 @@ const Title = styled(motion.h2)`
   }
 `;
 
-const Subtitle = styled(motion.p)`
-  font-size: 0.95rem;
-  color: #64748b;
-  font-weight: 400;
-`;
-
 const CarouselWrapper = styled.div`
   position: relative;
   overflow: hidden;
@@ -306,23 +300,18 @@ const Testimonials = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => {
-        if (prev >= testimonials.length - 1) {
-          return 0;
-        }
-        return prev + 1;
-      });
-    }, 5000);
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    }, 3000);
 
     return () => clearInterval(timer);
   }, [testimonials.length]);
 
   const nextTestimonial = () => {
-    setCurrentIndex((prev) => Math.min(prev + 1, testimonials.length - 1));
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
   };
 
   const prevTestimonial = () => {
-    setCurrentIndex((prev) => Math.max(prev - 1, 0));
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
   const cardWidth = typeof window !== 'undefined' && window.innerWidth <= 768 ? 100 : 33.333;
@@ -336,19 +325,12 @@ const Testimonials = () => {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            Trusted by Industry Leaders
+            What Our Clients Say About Us
           </Title>
-          <Subtitle
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            What our clients say about us
-          </Subtitle>
         </SectionHeader>
 
         <CarouselWrapper>
-          <NavButton className="prev" onClick={prevTestimonial} disabled={currentIndex === 0}>
+          <NavButton className="prev" onClick={prevTestimonial}>
             <FaChevronLeft />
           </NavButton>
 
@@ -389,7 +371,7 @@ const Testimonials = () => {
             ))}
           </CarouselTrack>
 
-          <NavButton className="next" onClick={nextTestimonial} disabled={currentIndex >= testimonials.length - 1}>
+          <NavButton className="next" onClick={nextTestimonial}>
             <FaChevronRight />
           </NavButton>
         </CarouselWrapper>
