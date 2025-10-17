@@ -1,0 +1,183 @@
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
+
+const scroll = keyframes`
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+`;
+
+const LeadersContainer = styled.section`
+  padding: 60px 0;
+  background: #ffffff;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+
+  @media (max-width: 768px) {
+    padding: 40px 0;
+  }
+`;
+
+const Container = styled.div`
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+
+  @media (max-width: 768px) {
+    padding: 0 20px;
+  }
+`;
+
+const Title = styled.h2`
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b;
+  text-align: center;
+  margin-bottom: 40px;
+  letter-spacing: -0.5px;
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+`;
+
+const ScrollWrapper = styled.div`
+  overflow: hidden;
+  position: relative;
+  
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  &::before {
+    left: 0;
+    background: linear-gradient(to right, #ffffff 0%, transparent 100%);
+  }
+
+  &::after {
+    right: 0;
+    background: linear-gradient(to left, #ffffff 0%, transparent 100%);
+  }
+
+  @media (max-width: 768px) {
+    &::before,
+    &::after {
+      width: 50px;
+    }
+  }
+`;
+
+const ScrollTrack = styled.div`
+  display: flex;
+  animation: ${scroll} 30s linear infinite;
+  width: fit-content;
+  
+  &:hover {
+    animation-play-state: paused;
+  }
+`;
+
+const LogoGroup = styled.div`
+  display: flex;
+  gap: 60px;
+  padding-right: 60px;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    gap: 40px;
+    padding-right: 40px;
+  }
+`;
+
+const LogoItem = styled.div`
+  min-width: 140px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 20px;
+  background: #fafafa;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+  filter: grayscale(100%);
+  opacity: 0.6;
+
+  &:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    min-width: 120px;
+    height: 50px;
+    padding: 12px 15px;
+  }
+`;
+
+const IndustryLeaders = () => {
+  // Using placeholder logos - replace with actual client logos
+  const leaders = [
+    { name: 'Company 1', logo: 'https://via.placeholder.com/120x40/1e3a8a/ffffff?text=Company+1' },
+    { name: 'Company 2', logo: 'https://via.placeholder.com/120x40/3b82f6/ffffff?text=Company+2' },
+    { name: 'Company 3', logo: 'https://via.placeholder.com/120x40/60a5fa/ffffff?text=Company+3' },
+    { name: 'Company 4', logo: 'https://via.placeholder.com/120x40/1e3a8a/ffffff?text=Company+4' },
+    { name: 'Company 5', logo: 'https://via.placeholder.com/120x40/3b82f6/ffffff?text=Company+5' },
+    { name: 'Company 6', logo: 'https://via.placeholder.com/120x40/60a5fa/ffffff?text=Company+6' },
+    { name: 'Company 7', logo: 'https://via.placeholder.com/120x40/1e3a8a/ffffff?text=Company+7' },
+    { name: 'Company 8', logo: 'https://via.placeholder.com/120x40/3b82f6/ffffff?text=Company+8' },
+  ];
+
+  return (
+    <LeadersContainer>
+      <Container>
+        <Title>Trusted by Industry Leaders</Title>
+      </Container>
+      
+      <ScrollWrapper>
+        <ScrollTrack>
+          <LogoGroup>
+            {leaders.map((leader, index) => (
+              <LogoItem key={index}>
+                <img src={leader.logo} alt={leader.name} />
+              </LogoItem>
+            ))}
+          </LogoGroup>
+          {/* Duplicate for seamless loop */}
+          <LogoGroup>
+            {leaders.map((leader, index) => (
+              <LogoItem key={`duplicate-${index}`}>
+                <img src={leader.logo} alt={leader.name} />
+              </LogoItem>
+            ))}
+          </LogoGroup>
+        </ScrollTrack>
+      </ScrollWrapper>
+    </LeadersContainer>
+  );
+};
+
+export default IndustryLeaders;
+
