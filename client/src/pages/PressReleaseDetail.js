@@ -1,20 +1,31 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { FaCalendar, FaDownload, FaLinkedin, FaTwitter, FaFacebook, FaArrowRight, FaCheckCircle, FaPhone, FaEnvelope } from 'react-icons/fa';
 
+const float = keyframes`
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+`;
+
+const shimmer = keyframes`
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+`;
+
 const PageContainer = styled.div`
   min-height: 100vh;
   padding-top: 0;
-  background: #ffffff;
+  background: #f8fafc;
 `;
 
 const HeroSection = styled.section`
-  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-  padding: 160px 0 80px;
   position: relative;
+  padding: 200px 0 100px;
+  background: linear-gradient(135deg, #0a0e27 0%, #1e3a8a 50%, #2563eb 100%);
+  overflow: hidden;
 
   &::before {
     content: '';
@@ -23,7 +34,26 @@ const HeroSection = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 50% 30%, rgba(96, 165, 250, 0.15) 0%, transparent 70%);
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(251, 191, 36, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.2) 0%, transparent 50%);
+    animation: ${float} 8s ease-in-out infinite;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><circle cx="1" cy="1" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+    background-size: 60px 60px;
+    opacity: 0.3;
+  }
+
+  @media (max-width: 768px) {
+    padding: 140px 0 70px;
   }
 `;
 
@@ -39,102 +69,164 @@ const HeroContainer = styled.div`
   }
 `;
 
-const Breadcrumb = styled.div`
+const Breadcrumb = styled(motion.div)`
   display: flex;
   align-items: center;
   gap: 10px;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 0.9rem;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 
   a {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
+    transition: color 0.3s ease;
 
     &:hover {
-      color: #ffffff;
+      color: #fbbf24;
     }
   }
 `;
 
-const Category = styled.span`
-  display: inline-block;
-  padding: 6px 16px;
-  background: rgba(251, 191, 36, 0.15);
-  border: 1px solid rgba(251, 191, 36, 0.3);
+const CategoryBadge = styled(motion.div)`
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 24px;
+  background: rgba(251, 191, 36, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(251, 191, 36, 0.4);
   color: #fbbf24;
-  border-radius: 20px;
+  border-radius: 50px;
   font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 20px;
+  font-weight: 700;
+  margin-bottom: 28px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1.5px;
+  box-shadow: 0 8px 24px rgba(251, 191, 36, 0.2);
 `;
 
-const Title = styled.h1`
-  font-size: 3.5rem;
-  font-weight: 800;
+const Title = styled(motion.h1)`
+  font-size: 4.5rem;
+  font-weight: 900;
   color: #ffffff;
-  margin-bottom: 28px;
-  line-height: 1.2;
-  letter-spacing: -1px;
+  margin-bottom: 32px;
+  line-height: 1.1;
+  letter-spacing: -2px;
   font-family: 'Times New Roman', Times, serif;
+  background: linear-gradient(135deg, #ffffff 0%, #fbbf24 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: ${shimmer} 4s ease-in-out infinite;
+  max-width: 1000px;
 
   @media (max-width: 968px) {
-    font-size: 2.8rem;
+    font-size: 3.2rem;
+    letter-spacing: -1.5px;
   }
 
   @media (max-width: 768px) {
-    font-size: 2rem;
+    font-size: 2.4rem;
+    letter-spacing: -1px;
   }
 `;
 
-const MetaBar = styled.div`
+const MetaBar = styled(motion.div)`
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 30px;
   flex-wrap: wrap;
 `;
 
 const MetaItem = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
-  color: rgba(255, 255, 255, 0.9);
+  gap: 10px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
+  color: rgba(255, 255, 255, 0.95);
   font-size: 0.95rem;
+  font-weight: 500;
 
   svg {
     color: #fbbf24;
   }
 `;
 
+const FloatingShape = styled.div`
+  position: absolute;
+  border-radius: 50%;
+  background: ${props => props.color || 'rgba(251, 191, 36, 0.1)'};
+  filter: blur(60px);
+  pointer-events: none;
+  animation: ${float} ${props => props.duration || '8s'} ease-in-out infinite;
+  animation-delay: ${props => props.delay || '0s'};
+
+  &:nth-child(1) {
+    width: 400px;
+    height: 400px;
+    top: -100px;
+    right: -100px;
+  }
+
+  &:nth-child(2) {
+    width: 300px;
+    height: 300px;
+    bottom: -80px;
+    left: -80px;
+  }
+
+  &:nth-child(3) {
+    width: 250px;
+    height: 250px;
+    top: 40%;
+    left: 50%;
+  }
+`;
+
 const Container = styled.div`
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 60px 40px;
-
-  @media (max-width: 768px) {
-    padding: 40px 20px;
-  }
+  padding: 60px 40px 100px;
 `;
 
-const MainGrid = styled.div`
+const ContentWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 360px;
+  grid-template-columns: 1fr 380px;
   gap: 50px;
+  align-items: start;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1100px) {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 50px;
   }
 `;
 
-const ArticleMain = styled.article``;
+const MainContent = styled.div`
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+`;
 
 const ArticleContent = styled.div`
+  padding: 50px 60px;
+
+  @media (max-width: 768px) {
+    padding: 35px 25px;
+  }
+`;
+
+const Content = styled.div`
   font-size: 1.125rem;
   line-height: 1.8;
   color: #334155;
+  font-weight: 400;
   font-family: 'Times New Roman', Times, serif;
 
   h2 {
@@ -160,20 +252,21 @@ const ArticleContent = styled.div`
 
   ul, ol {
     margin: 24px 0;
-    padding-left: 24px;
+    padding-left: 28px;
   }
 
   li {
     margin-bottom: 12px;
+    line-height: 1.7;
   }
 
   strong {
-    font-weight: 600;
+    font-weight: 700;
     color: #0f172a;
   }
 
   blockquote {
-    border-left: 3px solid #3b82f6;
+    border-left: 4px solid #3b82f6;
     padding: 20px 28px;
     margin: 32px 0;
     background: #f8fafc;
@@ -254,7 +347,7 @@ const DownloadBtn = styled.button`
 `;
 
 const Sidebar = styled.aside`
-  @media (max-width: 1024px) {
+  @media (max-width: 1100px) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
@@ -266,13 +359,14 @@ const Sidebar = styled.aside`
 `;
 
 const SidebarWidget = styled.div`
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
+  background: #ffffff;
   border-radius: 12px;
   padding: 28px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   margin-bottom: 24px;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1100px) {
     margin-bottom: 0;
   }
 `;
@@ -284,9 +378,9 @@ const ContactWidget = styled.div`
   margin-bottom: 24px;
   position: sticky;
   top: 100px;
-  box-shadow: 0 4px 20px rgba(30, 58, 138, 0.2);
+  box-shadow: 0 8px 30px rgba(30, 58, 138, 0.25);
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1100px) {
     position: static;
     margin-bottom: 0;
   }
@@ -425,6 +519,11 @@ const ContactItem = styled.div`
   }
 `;
 
+const SocialShareWidget = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
 const PressReleaseDetail = () => {
   const { id } = useParams();
   const [formData, setFormData] = useState({
@@ -554,13 +653,40 @@ const PressReleaseDetail = () => {
       </Helmet>
 
       <HeroSection>
+        <FloatingShape color="rgba(251, 191, 36, 0.12)" duration="10s" delay="0s" />
+        <FloatingShape color="rgba(59, 130, 246, 0.15)" duration="12s" delay="2s" />
+        <FloatingShape color="rgba(96, 165, 250, 0.1)" duration="14s" delay="4s" />
+        
         <HeroContainer>
-          <Breadcrumb>
+          <Breadcrumb
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <Link to="/">Home</Link> / <Link to="/press">Press</Link> / Release
           </Breadcrumb>
-          <Category>{release.category}</Category>
-          <Title>{release.title}</Title>
-          <MetaBar>
+          
+          <CategoryBadge
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            {release.category}
+          </CategoryBadge>
+          
+          <Title
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
+            {release.title}
+          </Title>
+          
+          <MetaBar
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
             <MetaItem>
               <FaCalendar />
               {release.date}
@@ -570,31 +696,33 @@ const PressReleaseDetail = () => {
       </HeroSection>
 
       <Container>
-        <MainGrid>
-          <ArticleMain>
-            <ArticleContent dangerouslySetInnerHTML={{ __html: release.content }} />
+        <ContentWrapper>
+          <MainContent>
+            <ArticleContent>
+              <Content dangerouslySetInnerHTML={{ __html: release.content }} />
 
-            <ActionBar>
-              <ShareSection>
-                <ShareLabel>Share:</ShareLabel>
-                <ShareButtonGroup>
-                  <SocialButton color="#0077b5">
-                    <FaLinkedin />
-                  </SocialButton>
-                  <SocialButton color="#1da1f2">
-                    <FaTwitter />
-                  </SocialButton>
-                  <SocialButton color="#1877f2">
-                    <FaFacebook />
-                  </SocialButton>
-                </ShareButtonGroup>
-              </ShareSection>
-              <DownloadBtn>
-                <FaDownload />
-                Download PDF
-              </DownloadBtn>
-            </ActionBar>
-          </ArticleMain>
+              <ActionBar>
+                <ShareSection>
+                  <ShareLabel>Share:</ShareLabel>
+                  <ShareButtonGroup>
+                    <SocialButton color="#0077b5">
+                      <FaLinkedin />
+                    </SocialButton>
+                    <SocialButton color="#1da1f2">
+                      <FaTwitter />
+                    </SocialButton>
+                    <SocialButton color="#1877f2">
+                      <FaFacebook />
+                    </SocialButton>
+                  </ShareButtonGroup>
+                </ShareSection>
+                <DownloadBtn>
+                  <FaDownload />
+                  Download PDF
+                </DownloadBtn>
+              </ActionBar>
+            </ArticleContent>
+          </MainContent>
 
           <Sidebar>
             <ContactWidget>
@@ -637,7 +765,7 @@ const PressReleaseDetail = () => {
                     required
                   />
                   <SubmitBtn type="submit">
-                    Send Message <FaArrowRight />
+                    Send <FaArrowRight />
                   </SubmitBtn>
                 </ContactForm>
               ) : (
@@ -660,14 +788,14 @@ const PressReleaseDetail = () => {
                 </ContactItem>
                 <ContactItem>
                   <FaPhone />
-                  <strong>+1 (234) 567-890</strong>
+                  <strong>+91 123 456 7890</strong>
                 </ContactItem>
               </ContactInfo>
             </SidebarWidget>
 
             <SidebarWidget>
               <WidgetTitle>Share Release</WidgetTitle>
-              <ShareButtonGroup>
+              <SocialShareWidget>
                 <SocialButton color="#0077b5">
                   <FaLinkedin />
                 </SocialButton>
@@ -677,10 +805,10 @@ const PressReleaseDetail = () => {
                 <SocialButton color="#1877f2">
                   <FaFacebook />
                 </SocialButton>
-              </ShareButtonGroup>
+              </SocialShareWidget>
             </SidebarWidget>
           </Sidebar>
-        </MainGrid>
+        </ContentWrapper>
       </Container>
     </PageContainer>
   );
