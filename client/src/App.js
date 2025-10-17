@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import Solutions from './components/Solutions';
 import Testimonials from './components/Testimonials';
+import Geographies from './components/Geographies';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
 import BackgroundAnimation from './components/BackgroundAnimation';
@@ -59,6 +60,7 @@ const App = () => {
             <Hero />
             <Solutions />
             <Testimonials />
+            <Geographies />
             <CTA />
           </>
         } />
