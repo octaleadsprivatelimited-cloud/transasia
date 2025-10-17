@@ -386,12 +386,12 @@ const Contact = () => {
 
             <Form onSubmit={handleSubmit}>
               <FormGroup>
-                <Label htmlFor="name">Full Name *</Label>
+                <Label htmlFor="name">Name *</Label>
                 <Input
                   type="text"
                   id="name"
                   name="name"
-                  placeholder="Enter your full name"
+                  placeholder="Your name"
                   value={formData.name}
                   onChange={handleChange}
                   required
@@ -399,39 +399,15 @@ const Contact = () => {
               </FormGroup>
 
               <FormGroup>
-                <Label htmlFor="email">Email Address *</Label>
+                <Label htmlFor="email">Email *</Label>
                 <Input
                   type="email"
                   id="email"
                   name="email"
-                  placeholder="your.email@company.com"
+                  placeholder="your.email@example.com"
                   value={formData.email}
                   onChange={handleChange}
                   required
-                />
-              </FormGroup>
-
-              <FormGroup>
-                <Label htmlFor="company">Company Name</Label>
-                <Input
-                  type="text"
-                  id="company"
-                  name="company"
-                  placeholder="Your company name"
-                  value={formData.company}
-                  onChange={handleChange}
-                />
-              </FormGroup>
-
-              <FormGroup>
-                <Label htmlFor="phone">Phone Number</Label>
-                <Input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  placeholder="+91 XXXXX XXXXX"
-                  value={formData.phone}
-                  onChange={handleChange}
                 />
               </FormGroup>
 
@@ -440,7 +416,7 @@ const Contact = () => {
                 <TextArea
                   id="message"
                   name="message"
-                  placeholder="Tell us more about your requirements..."
+                  placeholder="Tell us how we can help..."
                   value={formData.message}
                   onChange={handleChange}
                   required
@@ -448,7 +424,7 @@ const Contact = () => {
               </FormGroup>
 
               <SubmitButton type="submit">
-                Submit <FaArrowRight />
+                Send Message <FaArrowRight />
               </SubmitButton>
             </Form>
           </FormSection>
