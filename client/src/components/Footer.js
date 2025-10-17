@@ -198,6 +198,22 @@ const SocialLink = styled.a`
   }
 `;
 
+const CertificationImage = styled.img`
+  width: 80px;
+  height: auto;
+  margin-top: 20px;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    width: 70px;
+  }
+`;
+
 const ColumnTitle = styled.h4`
   font-size: 0.8rem;
   font-weight: 700;
@@ -333,6 +349,11 @@ const Footer = () => {
                   <FaInstagram />
                 </SocialLink>
               </SocialLinks>
+              <CertificationImage 
+                src="/insurtech/iso.webp" 
+                alt="ISO Certification" 
+                loading="lazy"
+              />
             </CompanyInfo>
           </FooterColumn>
 
