@@ -11,13 +11,13 @@ import {
 
 
 const TestimonialsContainer = styled.section`
-  padding: 60px 0;
-  background: #ffffff;
+  padding: 80px 0;
+  background: #fafafa;
   position: relative;
   overflow: hidden;
 
   @media (max-width: 768px) {
-    padding: 40px 0;
+    padding: 50px 0;
   }
 `;
 
@@ -35,18 +35,25 @@ const Container = styled.div`
 
 const SectionHeader = styled.div`
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 `;
 
 const Title = styled(motion.h2)`
-  font-size: 2rem;
-  font-weight: 700;
-  color: #1e3a8a;
-  margin-bottom: 10px;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
 
   @media (max-width: 768px) {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
+`;
+
+const Subtitle = styled(motion.p)`
+  font-size: 0.95rem;
+  color: #64748b;
+  font-weight: 400;
 `;
 
 const CarouselWrapper = styled.div`
@@ -66,42 +73,43 @@ const CarouselTrack = styled(motion.div)`
 
 const TestimonialCard = styled(motion.div)`
   min-width: calc(33.333% - 14px);
-  background: #f8fafc;
-  border-radius: 12px;
-  padding: 30px;
-  border: 2px solid #e2e8f0;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 35px;
+  border: 1px solid #e5e7eb;
   transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(30, 58, 138, 0.15);
-    border-color: #3b82f6;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    border-color: #cbd5e1;
   }
 
   @media (max-width: 768px) {
     min-width: 100%;
-    padding: 25px;
+    padding: 30px;
   }
 `;
 
 const QuoteIcon = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background: #f1f5f9;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
-  color: white;
-  margin-bottom: 15px;
+  font-size: 0.9rem;
+  color: #3b82f6;
+  margin-bottom: 20px;
 `;
 
 const TestimonialText = styled.p`
   font-size: 0.95rem;
-  line-height: 1.6;
-  color: #475569;
-  margin-bottom: 20px;
+  line-height: 1.65;
+  color: #334155;
+  margin-bottom: 24px;
   font-weight: 400;
 
   @media (max-width: 768px) {
@@ -113,8 +121,8 @@ const AuthorSection = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
-  padding-top: 15px;
-  border-top: 1px solid #e2e8f0;
+  padding-top: 20px;
+  border-top: 1px solid #f1f5f9;
 `;
 
 const AuthorImage = styled.div`
@@ -136,25 +144,26 @@ const AuthorInfo = styled.div`
 `;
 
 const AuthorName = styled.div`
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  color: #1e293b;
-  margin-bottom: 3px;
+  color: #0f172a;
+  margin-bottom: 2px;
 `;
 
 const AuthorRole = styled.div`
   font-size: 0.8rem;
   color: #64748b;
+  line-height: 1.4;
 `;
 
 const RatingStars = styled.div`
   display: flex;
-  gap: 3px;
-  margin-top: 5px;
+  gap: 2px;
+  margin-top: 6px;
 
   svg {
     color: #fbbf24;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
   }
 `;
 
@@ -162,25 +171,26 @@ const NavButton = styled.button`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: #ffffff;
-  border: 2px solid #e2e8f0;
-  color: #1e3a8a;
-  font-size: 1.1rem;
+  border: 1px solid #e5e7eb;
+  color: #475569;
+  font-size: 1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   z-index: 10;
 
-  &:hover {
-    background: #3b82f6;
+  &:hover:not(:disabled) {
+    background: #0f172a;
     color: white;
-    border-color: #3b82f6;
+    border-color: #0f172a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
   &:disabled {
@@ -197,9 +207,9 @@ const NavButton = styled.button`
   }
 
   @media (max-width: 768px) {
-    width: 40px;
-    height: 40px;
-    font-size: 1rem;
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
   }
 `;
 
@@ -328,6 +338,13 @@ const Testimonials = () => {
           >
             Trusted by Industry Leaders
           </Title>
+          <Subtitle
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            What our clients say about us
+          </Subtitle>
         </SectionHeader>
 
         <CarouselWrapper>
