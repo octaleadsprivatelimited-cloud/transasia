@@ -338,7 +338,7 @@ const Testimonials = () => {
             animate={{ x: `-${currentIndex * (cardWidth + (20 / 3))}%` }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
-            {testimonials.map((testimonial, index) => (
+            {[...testimonials, ...testimonials].map((testimonial, index) => (
               <TestimonialCard key={index}>
                 <QuoteIcon>
                   <FaQuoteLeft />
